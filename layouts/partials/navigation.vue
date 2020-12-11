@@ -101,8 +101,9 @@
 
             </li>
           </ul>
+          <SearchForm></SearchForm>
 
-          <div class="header-search">
+          <!-- <div class="header-search">
             <form action method>
               <div class="form-group">
                 <input
@@ -117,14 +118,20 @@
                 </div>
               </div>
             </form>
-          </div>
+          </div> -->
 
           <div
-            class="upload-shot white-path font-14 fw-500 text-uppercase mr-auto"
+            class="upload-shot white-path font-14 fw-500 text-uppercase mr-auto d-flex"
           >
-            <a href="/upload" class="primary-bg-color text-white">
+            <!-- <a href="/upload" class="primary-bg-color text-white">
               <i class="fas fa-cloud-upload-alt"></i> Upload
+            </a> -->
+           <a href="http://127.0.0.1:8001/map/show" class="navbar-menu-icon">
+            <img src="map_marker.png" alt="" class="navbar-icon marker">
             </a>
+
+            <a href="/threads/create" class="navbar-menu-icon"><img src="pen_with.png" alt="" class="navbar-icon pen"></a>
+
           </div>
 
           <!-- Before Login -->
@@ -200,9 +207,13 @@
 </template>
 
 <script>
+import SearchForm from './SearchForm';
 export default {
   data() {
     return {};
+  },
+  components:{
+    SearchForm
   },
   computed: {
     channels() {
@@ -268,4 +279,7 @@ li.navigation-emoji-icon:hover {
     background-color: #6c757d;
 }
 
+.upload-shot.white-path.font-14.fw-500.text-uppercase.mr-auto.d-flex {
+    width: 75px;
+}
 </style>

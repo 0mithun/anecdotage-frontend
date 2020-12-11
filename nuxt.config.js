@@ -38,6 +38,8 @@ export default {
   plugins: [
     '~plugins/vform',
     '~components/_global',
+    '~/plugins/strPlural',
+    '~/plugins/formatCounts',
     { src: '~/plugins/gmaps', ssr: false }
   ],
 
