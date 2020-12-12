@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card card-m-5">
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
@@ -115,10 +115,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .card{
-    margin: 5px 0;
-    // padding:5px;
-  }
+
 
   .tag-name{
     color: #ff4301;

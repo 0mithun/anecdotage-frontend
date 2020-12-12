@@ -55,6 +55,7 @@
 <script>
 export default {
   middleware: ['guest'],
+  name: 'login',
   data() {
     return {
       form: this.$vform({
@@ -71,7 +72,7 @@ export default {
           data: this.form
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
         })
         .catch(e => {
           this.form.errors.set(e.response.data.errors);

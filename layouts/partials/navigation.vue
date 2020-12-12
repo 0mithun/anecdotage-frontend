@@ -21,12 +21,6 @@
 
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="navbar-nav font-14 fw-300">
-            <!-- <li class="nav-item">
-                <a href="/designs" class="nav-link">Designs</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" title="Designers">Designers</a>
-              </li> -->
 
             <li class="nav-item dropdown">
               <a
@@ -68,19 +62,18 @@
                   :to="{ name: 'tags', params: { slug: channel.slug } }"
                   v-for="channel in channels"
                   :key="channel.id"
-                  >{{ channel.name }}</nuxt-link
-                >
+                  >{{ channel.name }}</nuxt-link>
               </div>
             </li>
 
-            <li class="nav-item dropdown emoji-dropdown">
+            <li class="nav-item dropdown ">
               <a
                 href="#"
                 data-toggle="dropdown"
                 role="button"
                 aria-haspopup="true"
                 aria-expanded="true"
-                class="dropdown-toggle "
+                class="dropdown-toggle emoji-dropdown"
                 style="width: 24px;height: 24px;display: block;background-size: contain;background-repeat: no-repeat;"
                 :style="{'background-image':  `url(${defaultEmojiUrl})`}"
                 >
@@ -88,38 +81,19 @@
               </a>
 
               <div class="dropdown-menu">
-                <li class="navigation-emoji-icon" v-for="emoji in emojis" :key="emoji.id">
                   <nuxt-link
+                  v-for="emoji in emojis" :key="emoji.id"
                   :to="{name:'emojis', params:{emoji:emoji.name}}"
-                  class="navigation-emoji"
+                  class="navigation-emoji navigation-emoji-icon dropdown-item"
                     :style="backgroundEmoji(emoji.name)"
                   >{{emoji.name}}</nuxt-link>
 
-
-                </li>
               </div>
 
             </li>
+
           </ul>
           <SearchForm></SearchForm>
-
-          <!-- <div class="header-search">
-            <form action method>
-              <div class="form-group">
-                <input
-                  type="text"
-                  autocomplete="OFF"
-                  name="search"
-                  class="form-control text-white font-14 fw-300"
-                  placeholder="Search and hit enter..."
-                />
-                <div class="search-icon text-white">
-                  <i class="fas fa-search"></i>
-                </div>
-              </div>
-            </form>
-          </div> -->
-
           <div
             class="upload-shot white-path font-14 fw-500 text-uppercase mr-auto d-flex"
           >
@@ -146,7 +120,7 @@
               </li>
               <li>
                 <nuxt-link
-                  :to="{ name: 'login' }"
+                  :to="{ name: 'register' }"
                   class="btn btn-primary my-2 my-sm-0"
                   >Sign Up</nuxt-link
                 >
@@ -233,6 +207,20 @@ export default {
   methods: {
     logout() {
       this.$auth.logout();
+      this.$nuxt.$emit('logout');
+      // this.$router.push('/').catch(()=>{});
+      this.$router.push({name:'index'})
+      // this.$router.push(
+      //   // this.$store.state.auth.user.home,
+      //   '/redirect-to-home',
+      //   () => {
+      //     window.alert('success')
+      //   },
+      //   () => {
+      //     window.alert('fail')
+      //   }
+      // )
+
     },
     backgroundEmoji(emoji){
       return `background-image: url(${process.env.APP_URL}images/emojis/${emoji}.png)`
@@ -253,9 +241,6 @@ export default {
     height: auto;
   }
 
-  .emoji-dropdown{
-
-  }
   .emoji-caret{
         margin-left: 28px;
     margin-top: 5px;
@@ -263,14 +248,14 @@ export default {
 
   }
   .navigation-emoji {
-    border: none;
+    order: none;
     background: 0 0;
     background-size: 20px;
     background-repeat: no-repeat;
-    background-position: 0 0;
-    margin-left: 10px;
-    padding-left: 35px!important;
-    color: #212529
+    background-position: 10px 5px;
+    /* margin-left: 10px; */
+    /* padding-left: 35px !important; */
+    color: #212529;
 }
 li.navigation-emoji-icon {
     padding: 5px 0px;
@@ -279,7 +264,19 @@ li.navigation-emoji-icon:hover {
     background-color: #6c757d;
 }
 
+a.navigation-emoji.navigation-emoji-icon.dropdown-item {
+    padding: 0.25rem 2.5rem;
+}
+
+
+
 .upload-shot.white-path.font-14.fw-500.text-uppercase.mr-auto.d-flex {
     width: 75px;
 }
+
+  a.dropdown-toggle.emoji-dropdown {
+    margin-top: 5px;
+}
+
+
 </style>
