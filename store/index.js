@@ -2,12 +2,14 @@
 
 export const state = () => ({
   channels: [],
-  emojis: []
+  emojis: [],
+  trendings: []
 })
 
 export const getters = {
   chanels: state => state.channels,
-  emojis: state => state.emojis
+  emojis: state => state.emojis,
+  trendings: state => state.trendings,
 }
 
 export const mutations = {
@@ -16,6 +18,9 @@ export const mutations = {
   },
   setEmojis: (state, data)=>{
     state.emojis = data;
+  },
+  setTrendings: (state, data)=>{
+    state.trendings = data;
   }
 }
 
@@ -23,7 +28,10 @@ export const actions = {
   async nuxtServerInit ({ commit }, { req, $axios }) {
     const channelResponse = await $axios.$get('channels');
     const emojiResponse = await $axios.$get('emojis')
+    const trendingResponse = await $axios.$get('trending/threads')
+
     commit('setChannels', channelResponse);
     commit('setEmojis', emojiResponse.data);
+    commit('setTrendings', trendingResponse.data)
   }
 }

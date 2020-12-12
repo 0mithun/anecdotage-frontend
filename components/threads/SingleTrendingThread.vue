@@ -4,22 +4,17 @@
 
       <div class="row">
         <div class="col-md-12">
-          <a class="thread-title">
+          <nuxt-link :to="{name:'threads.show', params:{slug:thread.slug}}" class="thread-title">
           <strong v-html="thread.title"></strong>
-        </a>
+        </nuxt-link>
         </div>
       </div>
-
 
       <div class="row">
-        <div class="thread-thumbnail card-m-5 ">
-            <a href="">
-              <img  :src="thread.thread_image_path" :alt="thread.title" class="card-img-top thread-image thread_thumb_image">
-            </a>
+        <div class="thread-thumbnail card-m-5 " :style="threadThumbStyle"  @click="openThreadUrl">
+            <img  :src="thread.thread_image_path" :alt="thread.title" class="thread-image thread_thumb_image">
         </div>
       </div>
-
-
 
       <div class="row">
           <div class="col-md-12">
@@ -47,6 +42,16 @@
     components:{
       CommentCounts,
       PointCounts,
+    },
+    computed: {
+      threadThumbStyle() {
+        return `background: rgba(${this.thread.image_path_pixel_color});cursor:pointer;`;
+      },
+    },
+    methods:{
+      openThreadUrl(){
+        this.$router.push({name:'threads.show',params:{slug:this.thread.slug}})
+      }
     }
 
   }
@@ -88,4 +93,20 @@
         margin-left: -20px;
       }
   }
+
+
+.thread-thumbnail {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.thread-image {
+    display: inline-block;
+    max-width: 100%;
+    height: 120px;
+}
 </style>

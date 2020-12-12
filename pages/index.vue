@@ -5,8 +5,7 @@
         <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
       </div>
       <div class="col-md-4">
-        <SocialLink></SocialLink>
-        <SingleTrendingThread v-for="trending in trendings" :key="trending.id" :thread="trending"></SingleTrendingThread>
+        <Sidebar />
       </div>
     </div>
   </div>
@@ -14,21 +13,15 @@
 
 <script>
 import SingleThread from '@/components/threads/SingeThread'
-import SingleTrendingThread from '@/components/threads/SingleTrendingThread'
-import SocialLink from '~/components/social/SocialLink';
+import Sidebar from '@/layouts/partials/Sidebar'
 
 export default {
   name: 'index',
   components:{
     SingleThread,
-    SingleTrendingThread,
-    SocialLink
+    Sidebar
   },
-  created(){
-    this.$nuxt.$on('logout', res=>{
-      window.location = '/';
-    });
-  },
+
   async asyncData({ params, query, app, $axios }) {
 
     // const q = await Object.keys(query)
@@ -37,9 +30,7 @@ export default {
 
     try {
       const threadRresponse = await $axios.$get('threads');
-      const trendingResponse = await $axios.$get('trending/threads')
-
-      return { threads: threadRresponse.data, pageinateData: threadRresponse.meta, trendings: trendingResponse.data };
+      return { threads: threadRresponse.data, pageinateData: threadRresponse.meta};
     } catch (e) {
       console.log(e);
     }

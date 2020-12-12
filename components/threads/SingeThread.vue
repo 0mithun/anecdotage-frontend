@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-m-5">
+  <div class="card">
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
@@ -10,9 +10,9 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <a class="thread-title">
+          <nuxt-link :to="{name:'threads.show', params:{slug:thread.slug}}" class="thread-title">
           <strong v-html="thread.title"></strong>
-        </a>
+        </nuxt-link>
         </div>
       </div>
       <div class="row count-items-row">
@@ -32,10 +32,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="thread-thumbnail">
-            <a href="">
-              <img  :src="thread.thread_image_path" :alt="thread.title" class="card-img-top thread-image thread_thumb_image">
-            </a>
+        <div class="thread-thumbnail" :style="threadThumbStyle" @click="openThreadUrl">
+            <img  :src="thread.thread_image_path" :alt="thread.title" class=" thread-image thread_thumb_image">
         </div>
       </div>
       <div class="row thread-body-row">
@@ -94,6 +92,11 @@
         required: true
       }
     },
+    computed: {
+      threadThumbStyle() {
+        return `background: rgba(${this.thread.image_path_pixel_color});cursor:pointer;`;
+      },
+    },
     components:{
       ViewCounts,
       CommentCounts,
@@ -109,13 +112,21 @@
       DownVotes,
       FavoriteThread,
       GoToComment
+    },
+    methods:{
+      openThreadUrl(){
+        this.$router.push({name:'threads.show',params:{slug:this.thread.slug}})
+      }
     }
 
   }
 </script>
 
 <style lang="scss" scoped>
-
+  .card{
+    margin: 5px 0;
+    // padding:5px;
+  }
 
   .tag-name{
     color: #ff4301;
@@ -150,4 +161,20 @@
         margin-left: -20px;
       }
   }
+
+
+.thread-thumbnail {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.thread-image {
+    display: inline-block;
+    max-width: 100%;
+    height: 240px;
+}
 </style>

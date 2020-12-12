@@ -101,10 +101,10 @@
               <i class="fas fa-cloud-upload-alt"></i> Upload
             </a> -->
            <a href="http://127.0.0.1:8001/map/show" class="navbar-menu-icon">
-            <img src="map_marker.png" alt="" class="navbar-icon marker">
+            <img src="~assets/images/map_marker.png" alt="" class="navbar-icon marker">
             </a>
 
-            <a href="/threads/create" class="navbar-menu-icon"><img src="pen_with.png" alt="" class="navbar-icon pen"></a>
+            <a href="/threads/create" class="navbar-menu-icon"><img src="~assets/images/pen_with.png" alt="" class="navbar-icon pen"></a>
 
           </div>
 

@@ -32,6 +32,8 @@ const routes = [
   { path: '/tags/:slug', name: 'tags', component: page('tags/index.vue') },
   { path: '/anecdotes/emoji/:emoji', name: 'emojis', component: page('emojis/index.vue') },
 
+  { path: '/threads/:slug', name: 'threads.show', component: page('threads/show.vue') },
+
 
 
 ];
