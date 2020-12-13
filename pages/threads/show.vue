@@ -102,11 +102,13 @@
               </div>
             </div>
 
-            <div class="row thread-tag-list">
-              <div class="col-md-12"></div>
+            <div class="row thread-tag-list ">
+              <div class="col-md-12">
+                Tags: <nuxt-link v-for="tag in thread.tags" :key="tag.id" :to="{name:'tags', params:{slug:tag.slug}}" class="tag-name">#{{ tag.name }}</nuxt-link>
+              </div>
             </div>
 
-            <div class="row">
+            <div class="row card-m-5">
               <div class="col-md-12">
                 <div
                   class="thread-footer-menu d-flex justify-content-between align-items-center"
@@ -233,8 +235,10 @@ export default {
   text-transform: lowercase;
   text-decoration: none;
   display: inline-block;
-  padding-right: 5px;
+  // padding-right: 5px;
   padding-left: 5px;
+  font-size: 14px;
+  font-weight: normal;
 }
 .thread-title {
   color: #000;

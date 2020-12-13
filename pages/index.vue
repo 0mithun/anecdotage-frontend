@@ -4,7 +4,7 @@
       <div class="col-md-8">
         <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
 
-
+        <Pagination :pagination="pageinateData" routeName="index" :param="{key:'',value:''}" />
 
 
 
@@ -20,15 +20,26 @@
 <script>
 import SingleThread from '@/components/threads/SingeThread'
 import Sidebar from '@/layouts/partials/Sidebar'
+import Pagination from '@/components/Pagination'
 
 export default {
   name: 'index',
   components:{
     SingleThread,
-    Sidebar
+    Sidebar,
+    Pagination
   },
+  computed:{
+    threads(){
+      return this.$store.state.threads.threads;
+    },
+     pageinateData(){
+      return this.$store.state.threads.pageinateData;
+    }
+  },
+  watchQuery: true,
 
-  async asyncData({ params, query, app, $axios }) {
+  async fetch({ params, query, app, $axios, store }) {
 
     const q = await Object.keys(query)
       .map(k => `${k}=${query[k]}`)
@@ -36,7 +47,10 @@ export default {
 
     try {
       const threadRresponse = await $axios.$get(`threads?${q}`);
-      return { threads: threadRresponse.data, pageinateData: threadRresponse.meta};
+      store.commit('threads/setThreads', threadRresponse.data)
+      store.commit('threads/setPageinateData', threadRresponse.meta)
+      // return { threads: threadRresponse.data, pageinateData: threadRresponse.meta};
+
     } catch (e) {
       console.log(e);
     }
