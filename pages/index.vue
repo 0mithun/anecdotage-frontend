@@ -3,6 +3,12 @@
     <div class="row">
       <div class="col-md-8">
         <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
+
+
+
+
+
+
       </div>
       <div class="col-md-4">
         <Sidebar />
@@ -24,12 +30,12 @@ export default {
 
   async asyncData({ params, query, app, $axios }) {
 
-    // const q = await Object.keys(query)
-    //   .map(k => `${k}=${query[k]}`)
-    //   .join('&');
+    const q = await Object.keys(query)
+      .map(k => `${k}=${query[k]}`)
+      .join('&');
 
     try {
-      const threadRresponse = await $axios.$get('threads');
+      const threadRresponse = await $axios.$get(`threads?${q}`);
       return { threads: threadRresponse.data, pageinateData: threadRresponse.meta};
     } catch (e) {
       console.log(e);

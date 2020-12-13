@@ -3,7 +3,7 @@
 export const state = () => ({
   channels: [],
   emojis: [],
-  trendings: []
+  trendings: [],
 })
 
 export const getters = {
@@ -21,7 +21,7 @@ export const mutations = {
   },
   setTrendings: (state, data)=>{
     state.trendings = data;
-  }
+  },
 }
 
 export const actions = {

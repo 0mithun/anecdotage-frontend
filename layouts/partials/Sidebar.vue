@@ -13,6 +13,7 @@
   import SingleTrendingThread from '@/components/threads/SingleTrendingThread'
   import SocialLink from '~/components/social/SocialLink';
   export default {
+    name:'sidebar',
     components:{
       SocialLink,
       SingleTrendingThread
