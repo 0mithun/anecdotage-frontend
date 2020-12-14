@@ -2,13 +2,18 @@
 
 export const state = () => ({
   threads: [],
-  pageinateData: null
+  pageinateData: null,
+  thread: null,
 })
 
 export const getters = {
 }
 
 export const mutations = {
+  setCurrentThread: (state, data)=>{
+    state.thread = data
+  },
+
   setThreads: (state, data)=>{
     state.threads = data
   },

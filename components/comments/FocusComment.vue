@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     signedIn() {
-      return window.App.user ? true : false;
+      // return window.App.user ? true : false;
     },
     style() {
       return {
@@ -33,14 +33,14 @@ export default {
   },
   methods: {
     focusComment() {
-      if (!this.signedIn) {
-        this.redirectToLogin();
-      }
+      // if (!this.signedIn) {
+      //   this.redirectToLogin();
+      // }
       let comment = document.getElementById("body");
       comment.focus();
     },
     redirectToLogin() {
-      window.location = "/redirect-to?page=" + location.pathname;
+      // window.location = "/redirect-to?page=" + location.pathname;
     },
   },
 };

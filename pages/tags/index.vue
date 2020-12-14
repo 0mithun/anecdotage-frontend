@@ -207,7 +207,7 @@ export default {
   watchQuery: true,
 
 
-  async asyncData({ params, query, error, $axios, store }) {
+  async fetch({ params, query, error, $axios, store }) {
 
     const q = await Object.keys(query)
       .map(k => `${k}=${query[k]}`)

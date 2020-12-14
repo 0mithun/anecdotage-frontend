@@ -40,6 +40,8 @@ export default {
     '~components/_global',
     '~/plugins/strPlural',
     '~/plugins/formatCounts',
+    '~/plugins/toastNotification',
+    '~/plugins/swal',
     { src: '~/plugins/gmaps', ssr: false }
   ],
 
@@ -67,7 +69,8 @@ export default {
   },
 
   axios: {
-    baseURL: process.env.API_URL
+    baseURL: process.env.API_URL,
+    // debug: true
   },
 
   build: {
