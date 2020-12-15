@@ -104,7 +104,7 @@
             <img src="~assets/images/map_marker.png" alt="" class="navbar-icon marker">
             </a>
 
-            <a href="/threads/create" class="navbar-menu-icon"><img src="~assets/images/pen_with.png" alt="" class="navbar-icon pen"></a>
+            <nuxt-link :to="{name:'threads.create'}" class="navbar-menu-icon"><img src="~assets/images/pen_with.png" alt="" class="navbar-icon pen"></nuxt-link>
 
           </div>
 

@@ -1,6 +1,7 @@
 /* Google Web Fonts */
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,300,300i,400,600,600i,700&display=swap');
 @import 'imports/style';
+// @import 'imports/dropdown';
 
 /***** CUSTOM CSS **********/
 .list-group-item.router-link-active {
@@ -60,3 +61,27 @@ h1, h2, h3, h4, h5, h6{
 .card-m-5{
   margin-top: 5px;
 }
+
+
+ul.dropdown-menu{
+  // background:red;
+  color:black;
+  li{
+    padding: 3px 20px;
+    a{
+      color: black;
+
+    }
+  }
+  li.active{
+    background-color: #3097D1;
+  }
+
+  li:hover{
+    background-color: #3097D1;
+  }
+}
+
+
+
+

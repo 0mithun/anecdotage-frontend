@@ -1,9 +1,23 @@
 <template>
   <div class="add-new-reply" id="comments" name="comments">
 
+    <!-- <at :members="members"  name-key="sex" @at="handleAt" :hideOnBlur="false">
+        <template slot="item" slot-scope="s">
+          <img :src="s.item.avatar">
+          <span v-text="s.item.name"></span>
+        </template>
+        <base-htmltextarea class="form-control" v-model="message"></base-htmltextarea>
+    </at> -->
+
+
+
+
+
+
     <h3 class="comment-heading">What did you think?</h3>
       <form action @submit.prevent="addReply">
-        <div class="input-group">
+        <div class="input-group full-width">
+
         <input
             type="text"
             class="form-control"
@@ -13,6 +27,16 @@
             v-model="body"
             placeholder="Add a comment"
           />
+
+          <!-- <at :members="members"  name-key="sex" @at="handleAt" :hideOnBlur="false">
+        <template slot="item" slot-scope="s">
+          <img :src="s.item.avatar">
+          <span v-text="s.item.name"></span>
+        </template>
+        <base-htmltextarea class="form-control" v-model="message"></base-htmltextarea> -->
+    </at>
+
+
         <div class="input-group-append">
           <button class="btn btn-primary" type="submit">Post</button>
         </div>
@@ -28,14 +52,25 @@
 </template>
 
 <script>
-// import "jquery.caret";
-// import "at.js";
+//
 
 export default {
   data() {
     return {
       body: "",
       completed: false,
+      message: 'Hello World <a href="https://google.com">kemon aso</a> valo to',
+      html: 'ami html bolsi',
+      input: '@fritx @huangruichang ',
+      members: [{
+        avatar: 'https://randomuser.me/api/portraits/men/2.jpg',
+        name: 'Pinki rohman',
+        sex: 'Oi sama <a href="https://twitter.com">Twitter</a>'
+      }, {
+        avatar: 'https://randomuser.me/api/portraits/men/8.jpg',
+        name: 'Gobjob Ali',
+        sex:  ' Hi sexy <a href="https://facebook.com">Facebook</a> '
+      }]
     };
   },
   computed: {
@@ -64,6 +99,14 @@ export default {
   },
 
   methods: {
+    handleAt(chunk){
+      console.log([chunk])
+    },
+
+    // async handleAt (chunk) {
+    //   this.members = await fetchFromRemote(chunk)
+    // },
+
     scrollToComment(){
        if(window.location.hash){
           var hash = window.location.hash;
@@ -110,5 +153,34 @@ export default {
   margin-bottom: 20px;
   font-size: 24px;
   font-weight: 500;
+}
+
+.atwho-li {
+    box-sizing: border-box;
+    height: 27px;
+    padding: 0 2px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+li.atwho-li img {
+    width: 27px;
+    margin-right: 5px;
+}
+
+
+.input-group.full-width {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.atwho-wrap {
+    position: relative;
+    width: 91%;
 }
 </style>

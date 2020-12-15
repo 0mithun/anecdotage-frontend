@@ -88,6 +88,7 @@
   }
 
   .card-body {
+    padding: 5px 20px;
       .row {
         margin-right: -20px;
         margin-left: -20px;
@@ -109,4 +110,6 @@
     max-width: 100%;
     height: 120px;
 }
+
+
 </style>

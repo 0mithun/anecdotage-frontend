@@ -42,7 +42,10 @@ export default {
     '~/plugins/formatCounts',
     '~/plugins/toastNotification',
     '~/plugins/swal',
-    { src: '~/plugins/gmaps', ssr: false }
+    '~/plugins/vselect',
+    '~/plugins/uiv',
+    { src: '~/plugins/gmaps', ssr: false },
+    { src: '~/plugins/vueat', ssr: false }
   ],
 
   buildModules: ['@nuxtjs/router'],

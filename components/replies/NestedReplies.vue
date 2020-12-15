@@ -333,6 +333,7 @@ export default {
           this.replies_count = this.replies_count + 1;
           this.addNested = false;
           this.showLoadMore = true;
+          this.showNested = true;
 
           this.$nuxt.$emit('commentAdded-'+ this.reply.thread_id)
 
