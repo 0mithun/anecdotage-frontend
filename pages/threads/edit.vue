@@ -165,44 +165,91 @@
 
     export default {
         // components: {Editor,Typeahead, },
-          components: { VueCkeditor },
+        components: { VueCkeditor },
 
         computed:{
             allchannels(){
               return this.$store.state.channels
+            },
+            thread(){
+              return this.$store.state.threads.thread;
+            },
+            owns () {
+              if(this.signedIn){
+                  return this.$store.state.auth.user.id == this.thread.user_id;
+              }
+
+              return false;
+            },
+            isBan(){
+               if(this.signedIn){
+                  return this.$store.state.auth.user.is_banned;
+                }
+                return false;
+            },
+            signedIn(){
+              return this.$auth.loggedIn;
+            },
+            isAdmin () {
+              if(this.signedIn){
+                return this.$store.state.auth.user.is_admin;
+              }
+              return false;
             }
         },
         data(){
-            return {
-              content: '',
-              config: {
-                // toolbar: [
-                //   ['FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript','Styles','Format','Source','Table', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'Link', 'Unlink', 'CopyFormatting', 'RemoveFormat']
+          return {
+            content: '',
+            config: {
+              // toolbar: [
+              //   ['FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript','Styles','Format','Source','Table', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'Link', 'Unlink', 'CopyFormatting', 'RemoveFormat']
 
 
-                // ],
-                height: 300
+              // ],
+              height: 300
+            },
+            alltags: [],
+            errors: [],
+            show_more_fields: false,
+            form: this.$vform({
+              channel: '',
+              tags: '',
+              title: '',
+              body: '',
+              source: '',
+              location: '',
+              cno: {
+                  famous: false,
+                  celebrity: false
               },
-                alltags: [],
-                errors: [],
-                show_more_fields: false,
-                form: this.$vform({
-                    channel: '',
-                    tags: '',
-                    title: '',
-                    body: '',
-                    source: '',
-                    location: '',
-                    cno: {
-                        famous: false,
-                        celebrity: false
-                    },
-                    main_subject: '',
-                    age_restriction: 0,
-                    anonymous: 0
-                }),
+              main_subject: '',
+              age_restriction: 0,
+              anonymous: 0
+            }),
+          }
+        },
+        created(){
+          if(!this.isAdmin && !this.owns ){
+            this.$router.push({name:'index'})
+          };
+        },
+        async fetch({ params, query, error, $axios, store }) {
+          try {
+            const threadRresponse = await $axios.$get(`threads/${params.slug}`);
+            // return { thread: threadRresponse.data};
+            store.commit('threads/setCurrentThread', threadRresponse.data)
 
+          } catch (err) {
+            if(err.response.status === 404){
+              error({statusCode : 404, message:'Thread Not Found'})
+            }else if(err.response.status === 429){
+              error({statusCode : 429, message:'Too Many Attempt'})
+            }else if(err.response.status === 401){
+              redirect('/login');
+            }else{
+              error({statusCode : 500, message:'Server Error'})
             }
+          }
         },
         methods:{
             selecetdTag(){

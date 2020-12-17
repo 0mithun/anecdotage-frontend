@@ -33,7 +33,9 @@ const routes = [
   { path: '/anecdotes/emoji/:emoji', name: 'emojis', component: page('emojis/index.vue') },
 
   { path: '/threads/:slug', name: 'threads.show', component: page('threads/show.vue') },
+  { path: '/threads/:slug/edit', name: 'threads.edit', component: page('threads/edit.vue') },
   { path: '/thread/create', name: 'threads.create', component: page('threads/create.vue') },
+  { path: '/thread/:slug/thumbnail/', name: 'threads.thumbnail', component: page('threads/thumbnail.vue') },
 
 
 ];

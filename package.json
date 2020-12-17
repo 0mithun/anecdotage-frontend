@@ -28,6 +28,7 @@
     "sass-loader": "^8.0.2",
     "uiv": "^1.1.5",
     "vform": "^1.0.1",
+    "vue-ckeditor2": "^2.1.5",
     "vue-select": "^3.10.8",
     "vue-simple-alert": "^1.1.1",
     "vue-swal": "^1.0.0",

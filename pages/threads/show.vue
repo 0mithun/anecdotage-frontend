@@ -9,13 +9,19 @@
             <div class="card card-m-5">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-12">
-                    <nuxt-link
-                      class="tag-name"
-                      :to="{ name: 'tags', params: { slug: thread.channel.slug } }"
-                    >
-                      #{{ thread.channel.name }}
-                    </nuxt-link>
+                  <div class="col-md-12 actions">
+                    <div class="tag">
+                      <nuxt-link
+                        class="tag-name"
+                        :to="{ name: 'tags', params: { slug: thread.channel.slug } }"
+                      >
+                        #{{ thread.channel.name }}
+                      </nuxt-link>
+                    </div>
+                    <div class="action-menu" v-if="isAdmin || owns">
+                      <nuxt-link class="btn btn-primary" :to="{name:'threads.edit', params:{slug:thread.slug}}">Edit</nuxt-link>
+                      <button class="btn btn-danger" @click="deleteThread">Delete</button>
+                    </div>
                   </div>
                 </div>
 
@@ -229,6 +235,25 @@ export default {
     },
     thread(){
       return this.$store.state.threads.thread;
+    },
+    owns (thread) {
+        if(this.signedIn){
+            return this.$store.state.auth.user.id == this.thread.user_id;
+        }
+
+        return false;
+    },
+    isBan(){
+      return this.$store.state.auth.user.is_ban;
+    },
+    signedIn(){
+      return this.$auth.loggedIn;
+    },
+    isAdmin () {
+        if(this.signedIn){
+          return this.$store.state.auth.user.is_admin;
+        }
+        return false;
     }
   },
   async fetch({ params, query, error, $axios, store }) {
@@ -249,6 +274,38 @@ export default {
       }
     }
   },
+  methods:{
+     deleteThread() {
+      this.$swal({
+          title: "Are you sure?",
+          // text: "Are you sure delete this reply",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            this.$axios.$delete(`threads/${this.thread.slug}`)
+              .then(res=>{
+                this.$toast.open({
+                  type:'success',
+                  position: 'top-right',
+                  message: 'Thread Delete Successfully.'
+                });
+                setTimeout(()=>{
+                  this.$router.push({name:'index'})
+                }, 2000);
+
+              })
+              .catch(err=>{
+                console.log(err)
+              })
+          } else {
+            // console.log('no Delete')
+          }
+        });
+    },
+  }
 };
 </script>
 
@@ -306,6 +363,9 @@ export default {
     max-width: 100%;
     height: 240px;
 }
-
+.col-md-12.actions {
+    display: flex;
+    justify-content: space-between;
+}
 
 </style>

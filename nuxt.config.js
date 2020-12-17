@@ -28,7 +28,12 @@ export default {
       {
         src:
           'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js'
+      },
+      {
+        src:
+          'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js'
       }
+
     ]
   },
 

@@ -20,21 +20,10 @@
           <span v-text="ago" class="reply_created_at"></span>
         </div>
       </div>
-      <div class="col-md-4 reply-edit-delete-btn">
+      <div class="col-md-4 reply-edit-delete-btn" v-if="isAdmin || owns">
         <div class="form-g">
-          <button
-            class="btn btn-xs btn-danger"
-            @click="destroy"
-
-          >
-            Delete
-          </button>
-          <button
-            class="btn btn-xs btn-primary"
-             @click="editing = true"
-          >
-            Edit
-          </button>
+          <button class="btn btn-xs btn-primary" @click="editing = true">  Edit</button>
+          <button class="btn btn-xs btn-danger"  @click="destroy">Delete</button>
         </div>
       </div>
     </div>
@@ -187,22 +176,39 @@ export default {
   },
 
   computed: {
+    thread(){
+      return this.$store.state.threads.thread;
+    },
     ago() {
       return (
         moment(this.reply.created_at, "YYYY-MM-DD HH:mm:ss").fromNow() + "..."
         // '2018-11-20'
       );
     },
-    // signedIn() {
-    //   return window.App.user ? true : false;
-    // },
-    redirectToLogin() {
-      // return "/redirect-to?page=" + location.pathname;
+     owns () {
+      if(this.signedIn){
+          return this.$store.state.auth.user.id == this.reply.owner.id;
+      }
+
+      return false;
     },
-    thread(){
-      return this.$store.state.threads.thread;
+    isBan(){
+      if(this.signedIn){
+        return this.$store.state.auth.user.is_banned;
+      }
+      return false;
+    },
+    signedIn(){
+      return this.$auth.loggedIn;
+    },
+    isAdmin () {
+        if(this.signedIn){
+          return this.$store.state.auth.user.is_admin;
+        }
+        return false;
     }
   },
+
 
   methods: {
     toggleNestedReplies() {

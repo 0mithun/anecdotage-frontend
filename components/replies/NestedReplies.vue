@@ -20,24 +20,11 @@
           <span v-text="ago" class="reply_created_at"></span>
         </div>
 
-      <div class="reply-edit-delete-btn">
-          <div class="form-g">
-
-            <button
-              class="btn btn-xs btn-danger"
-              @click="destroy"
-
-            >
-              Delete
-            </button>
-            <button
-              class="btn btn-xs btn-primary"
-              @click="editing = true"
-            >
-              Edit
-            </button>
-          </div>
-
+      <div class="col-md-4 reply-edit-delete-btn" v-if="isAdmin || owns">
+        <div class="form-g">
+          <button class="btn btn-xs btn-primary" @click="editing = true">  Edit</button>
+          <button class="btn btn-xs btn-danger"  @click="destroy">Delete</button>
+        </div>
       </div>
     </div>
 
@@ -206,6 +193,28 @@ export default {
     },
     thread(){
       return this.$store.state.threads.thread;
+    },
+     owns () {
+      if(this.signedIn){
+          return this.$store.state.auth.user.id == this.reply.owner.id;
+      }
+
+      return false;
+    },
+    isBan(){
+      if(this.signedIn){
+        return this.$store.state.auth.user.is_banned;
+      }
+      return false;
+    },
+    signedIn(){
+      return this.$auth.loggedIn;
+    },
+    isAdmin () {
+        if(this.signedIn){
+          return this.$store.state.auth.user.is_admin;
+        }
+        return false;
     }
   },
 
