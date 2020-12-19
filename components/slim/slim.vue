@@ -1,6 +1,6 @@
 <template>
-  <div class="slim">
-    <client-only>
+  <div class="slim"  :style="style">
+    <client-only >
       <slot></slot>
     </client-only>
   </div>
@@ -12,7 +12,7 @@ import Slim from './slim.module.js';
 var instance = null;
 
 export default {
-  props: ['options'],
+  props: ['options', 'src'],
   name: 'slim-cropper',
   mounted: function() {
     if (this.options.initialImage) {
@@ -25,6 +25,14 @@ export default {
   },
   beforeDestroy: function() {
     instance.destroy();
+  },
+  computed:{
+    backgroundImage(){
+      return this.src ? `url(${this.src});background-size: cover; background-repeat: no-repeat;` : ''
+    },
+    style(){
+      return `background:${this.backgroundImage}`;
+    }
   }
 };
 </script>

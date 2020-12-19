@@ -69,7 +69,14 @@
                   <div class="row">
                       <div class="col-md-12">
                           <div class="form-group">
-                              <button tton class="btn btn-default btn-sm" type="button" @click="show_more_fields = !show_more_fields">{{ show_more_fields ? 'Hide More Fields' : 'Show More Fields' }}</button>
+                              <button tton class="btn btn-default btn-sm" type="button" @click="show_more_fields = !show_more_fields">
+                                <span v-if="show_more_fields">
+                                  Hide More Fields <i class="fas fa-angle-up"></i>
+                                </span>
+                                <span v-else>
+                                  Show More Fields <i class="fas fa-angle-down"></i>
+                                </span>
+                              </button>
                           </div>
                       </div>
                   </div>
@@ -159,12 +166,8 @@
 </template>
 
 <script>
-    // import Editor from '@tinymce/tinymce-vue'
-    // import {Typeahead} from 'uiv'
     import VueCkeditor from 'vue-ckeditor2';
-
     export default {
-        // components: {Editor,Typeahead, },
           components: { VueCkeditor },
 
         computed:{
@@ -174,13 +177,7 @@
         },
         data(){
             return {
-              content: '',
               config: {
-                // toolbar: [
-                //   ['FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript','Styles','Format','Source','Table', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'Link', 'Unlink', 'CopyFormatting', 'RemoveFormat']
-
-
-                // ],
                 height: 300
               },
                 alltags: [],

@@ -31,15 +31,18 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Top Rated <span class="fas fa-caret-down"></span>
+
+                {{ routeName }}
+
+                <span class="fas fa-caret-down"></span>
               </a>
               <div class="dropdown-menu" aria-labelledby="menuLink">
-                <nuxt-link  class="dropdown-item" :to="{name:'filter.threads', params:{filter:'rated'}}">Top Rated</nuxt-link>
-                <nuxt-link  class="dropdown-item" :to="{name:'filter.threads', params:{filter:'trending'}}">Trending</nuxt-link>
-                <nuxt-link  class="dropdown-item" :to="{name:'filter.threads', params:{filter:'viewed'}}">Most Viewed</nuxt-link>
-                <nuxt-link  class="dropdown-item" :to="{name:'filter.threads', params:{filter:'recent'}}">Most Recent</nuxt-link>
-                <nuxt-link  class="dropdown-item" :to="{name:'filter.threads', params:{filter:'closest'}}">Closest</nuxt-link>
-                <nuxt-link  class="dropdown-item" :to="{name:'filter.threads', params:{filter:'video'}}">Video</nuxt-link>
+                <nuxt-link  class="dropdown-item" :to="{name:'threads.rated'}">Top Rated</nuxt-link>
+                <nuxt-link  class="dropdown-item" :to="{name:'threads.trending'}">Trending</nuxt-link>
+                <nuxt-link  class="dropdown-item" :to="{name:'threads.viewed'}">Most Viewed</nuxt-link>
+                <nuxt-link  class="dropdown-item" :to="{name:'threads.recent'}">Most Recent</nuxt-link>
+                <nuxt-link  class="dropdown-item" :to="{name:'threads.closest'}">Closest</nuxt-link>
+                <nuxt-link  class="dropdown-item" :to="{name:'threads.video'}">Video</nuxt-link>
               </div>
             </li>
 
@@ -201,6 +204,30 @@ export default {
     },
     logoUrl(){
        return process.env.APP_URL + 'images/logo.jpg';
+    },
+    routeName(){
+      if(this.$nuxt.$route.name == 'threads.rated'){
+        return 'Top Rated'
+      }
+      else if(this.$nuxt.$route.name == 'threads.trending'){
+        return 'Trending'
+      }
+      else if(this.$nuxt.$route.name == 'threads.viewed'){
+        return 'Most Viewed'
+      }
+      else if(this.$nuxt.$route.name == 'threads.recent'){
+        return 'Most Recent'
+      }
+      else if(this.$nuxt.$route.name == 'threads.closest'){
+        return 'Closest'
+      }
+      else if(this.$nuxt.$route.name == 'threads.video'){
+        return 'Video'
+      }
+      else{
+        return 'Top Rated'
+      }
+
     }
 
   },

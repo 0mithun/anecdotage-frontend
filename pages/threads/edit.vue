@@ -5,7 +5,7 @@
               Post an Anecdote
           </div>
           <div class="card-body">
-              <form class="" action="" method="post" enctype="multipart/form-data" @submit.prevent="addNewThread">
+              <form class="" action="" method="post" enctype="multipart/form-data" @submit.prevent="updateThread">
                   <div class="row">
 
                       <div class="col-md-6">
@@ -30,8 +30,8 @@
                       <div class="col-md-4">
                           <div class="form-group" id="category">
                               <label for="input">Category</label>
-                              <input id="input" class="form-control" type="text" placeholder="Enter channel name" autocomplete="false">
-                              <typeahead v-model="form.channel" match-start :append-to-body="true"  target="#input" :async-function="searchChannel"  item-key="name" />
+                              <input id="input" class="form-control" type="text" placeholder="Enter channel name" autocomplete="false" v-model="defaultChannel.name">
+                              <typeahead v-model="form.channel" match-start :append-to-body="true"  target="#input" :data="allchannels"  item-key="name" />
                           </div>
                       </div>
                       <div class="col-md-8">
@@ -69,7 +69,15 @@
                   <div class="row">
                       <div class="col-md-12">
                           <div class="form-group">
-                              <button tton class="btn btn-default btn-sm" type="button" @click="show_more_fields = !show_more_fields">{{ show_more_fields ? 'Hide More Fields' : 'Show More Fields' }}</button>
+                              <button tton class="btn btn-default btn-sm" type="button" @click="show_more_fields = !show_more_fields">
+                                <span v-if="show_more_fields">
+                                  Hide More Fields
+                                  <i class="fas fa-angle-up"></i>
+                                </span>
+                                <span v-else>
+                                  Show More Fields <i class="fas fa-angle-down"></i>
+                                </span>
+                              </button>
                           </div>
                       </div>
                   </div>
@@ -146,7 +154,7 @@
                               <div class="form-group">
                                   <!-- <button class="btn btn-primary" type="submit" :disabled="form.wiki_info_page_url !='' && form.wiki_image_copyright_free != true">Add Thread</button> -->
 
-                                  <base-button :loading="form.busy">Add Thread</base-button>
+                                  <base-button :loading="form.busy">Update Thread</base-button>
                               </div>
                           </div>
                       </div>
@@ -159,16 +167,14 @@
 </template>
 
 <script>
-    // import Editor from '@tinymce/tinymce-vue'
-    // import {Typeahead} from 'uiv'
     import VueCkeditor from 'vue-ckeditor2';
 
     export default {
-        // components: {Editor,Typeahead, },
         components: { VueCkeditor },
 
         computed:{
             allchannels(){
+              return this.$store.state.channels
               return this.$store.state.channels
             },
             thread(){
@@ -199,21 +205,22 @@
         },
         data(){
           return {
-            content: '',
+            defaultChannel: {
+              name: '',
+              id: '',
+              slug: ''
+            },
+
             config: {
-              // toolbar: [
-              //   ['FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript','Styles','Format','Source','Table', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'Link', 'Unlink', 'CopyFormatting', 'RemoveFormat']
-
-
-              // ],
               height: 300
             },
             alltags: [],
             errors: [],
             show_more_fields: false,
             form: this.$vform({
+
               channel: '',
-              tags: '',
+              tags: [],
               title: '',
               body: '',
               source: '',
@@ -224,7 +231,7 @@
               },
               main_subject: '',
               age_restriction: 0,
-              anonymous: 0
+              anonymous: 0,
             }),
           }
         },
@@ -233,10 +240,43 @@
             this.$router.push({name:'index'})
           };
         },
+        mounted(){
+          if(this.thread){
+              this.form.title = this.thread.title;
+              this.form.body = this.thread.body;
+              this.form.source = this.thread.source;
+              this.form.location = this.thread.location;
+              this.form.main_subject = this.thread.main_subject;
+              this.form.age_restriction = this.thread.age_restriction;
+              this.form.anonymous = this.thread.anonymous;
+              this.defaultChannel = this.thread.channel;
+              // this.form.channel = this.thread.channel;
+
+              this.form.tags = this.thread.tags.map(tag=>{
+                return tag.name;
+              })
+
+              if(this.thread.cno == 'C'){
+                this.form.cno = {
+                    famous: true,
+                    celebrity: true
+                }
+              }else if(this.thread.cno == 'N'){
+                this.form.cno = {
+                    famous: true,
+                    celebrity: false
+                }
+              }else{
+                this.form.cno = {
+                    famous: false,
+                    celebrity: false
+                }
+              }
+          }
+        },
         async fetch({ params, query, error, $axios, store }) {
           try {
             const threadRresponse = await $axios.$get(`threads/${params.slug}`);
-            // return { thread: threadRresponse.data};
             store.commit('threads/setCurrentThread', threadRresponse.data)
 
           } catch (err) {
@@ -275,9 +315,12 @@
                   // any error handler
                 })
             },
-            addNewThread(){
+            updateThread(){
                 this.errors = []
-                this.form.post('threads', this.form)
+                if(this.form.channel ==''){
+                  this.form.channel = this.defaultChannel;
+                }
+                this.form.put(`threads/${this.thread.slug}`, this.form)
                   .then(res=>{
                     this.$router.push({name:'threads.thumbnail', params:{slug:res.data.slug}});
                   }).catch(err=>{

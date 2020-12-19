@@ -18,7 +18,7 @@
                   <p>An error occurred during the upload process</p>
                   <p>{{ error }}</p>
                 </div>
-                <slim-cropper :options="slimOptions">
+                <slim-cropper :options="slimOptions" :src="src">
                   <input type="file" name="image" />
                 </slim-cropper>
                 <div class="text-success caption-sm mt-2" v-if="uploading" >
@@ -120,7 +120,8 @@ export default {
         defaultInputName:'image',
         minSize:'200,300',
         label:'Select image...',
-        maxFileSize:2
+        maxFileSize:2,
+
       },
       uploading:false,
       error:'',
@@ -136,6 +137,9 @@ export default {
   computed:{
     thread(){
       return this.$store.state.threads.thread;
+    },
+    src(){
+      return this.$store.state.threads.thread.thread_image_path;
     }
   },
   methods:{
@@ -180,7 +184,7 @@ export default {
        this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
     },
     skip(){
-      this.$axios.$post().then(res=>{
+      this.$axios.$put(`threads/${this.thread.slug}/skipThumbnailEdit`).then(res=>{
         this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
       })
     }

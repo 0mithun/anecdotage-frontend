@@ -28,9 +28,16 @@ const routes = [
     name: 'password.reset',
     component: page('auth/password/password-reset.vue')
   },
-  { path: '/anecdotes/:filter', name: 'filter.threads', component: page('index.vue') },
+
+  { path: '/anecdotes/emojis/:emoji', name: 'emojis', component: page('emojis/index.vue') },
+
   { path: '/tags/:slug', name: 'tags', component: page('tags/index.vue') },
-  { path: '/anecdotes/emoji/:emoji', name: 'emojis', component: page('emojis/index.vue') },
+  { path: '/anecdotes/rated', name: 'threads.rated', component: page('threads/filters/rated.vue') },
+  { path: '/anecdotes/trending', name: 'threads.trending', component: page('threads/filters/trending.vue') },
+  { path: '/anecdotes/viewed', name: 'threads.viewed', component: page('threads/filters/viewed.vue') },
+  { path: '/anecdotes/recent', name: 'threads.recent', component: page('threads/filters/recent.vue') },
+  { path: '/anecdotes/closest', name: 'threads.closest', component: page('threads/filters/closest.vue') },
+  { path: '/anecdotes/video', name: 'threads.video', component: page('threads/filters/video.vue') },
 
   { path: '/threads/:slug', name: 'threads.show', component: page('threads/show.vue') },
   { path: '/threads/:slug/edit', name: 'threads.edit', component: page('threads/edit.vue') },
