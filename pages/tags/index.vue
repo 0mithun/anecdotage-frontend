@@ -8,7 +8,7 @@
 
             <div class="row profile-header">
               <div class="profile-avatar">
-                <img :src="tag.profileAvatarPath" alt class="profile-img" />
+                <img :src="tag.photo_url" alt class="profile-img" />
                 <div style="text-align:center;overflow" @click="showDescription = !showDescription">
                     <i class="fa fa-question-circle tooltip-icon" ></i>
                 </div>

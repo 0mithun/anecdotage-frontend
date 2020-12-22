@@ -31,7 +31,17 @@ const routes = [
   {
     path: '/profile/:username',
     name: 'profile.show',
-    component: page('users/profile.vue')
+    redirect:{name: 'profile.show.about'},
+    component: page('users/profile.vue'),
+    children:[
+      { path: '', name: 'profile.show.about', component: page('users/about.vue') },
+      { path: 'friends', name: 'profile.show.friends', component: page('users/friends.vue') },
+      { path: 'followings', name: 'profile.show.followings', component: page('users/followings.vue') },
+      { path: 'posts', name: 'profile.show.posts', component: page('users/posts.vue') },
+      { path: 'favorites', name: 'profile.show.favorites', component: page('users/favorites.vue') },
+      { path: 'likes', name: 'profile.show.likes', component: page('users/likes.vue') },
+      { path: 'subscriptions', name: 'profile.show.subscriptions', component: page('users/subscriptions.vue') },
+    ]
   },
 
   { path: '/anecdotes/emojis/:emoji', name: 'emojis', component: page('emojis/index.vue') },

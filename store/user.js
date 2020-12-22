@@ -8,6 +8,9 @@ export const state = () => ({
   likes: [],
   is_friend: false,
   is_follow: false,
+
+
+
 })
 
 export const getters = {
@@ -41,6 +44,7 @@ export const getters = {
   likesCount(state){
     return state.likes.length;
   },
+
 }
 
 export const mutations = {
@@ -65,6 +69,7 @@ export const mutations = {
   SET_IS_FOLLOW: (state, is_follow)=>{
     state.is_follow = is_follow
   },
+
 
 }
 

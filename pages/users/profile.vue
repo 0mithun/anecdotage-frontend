@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="card-m-5 row">
+    <div class=" row">
       <div class="col-md-8">
-        <div class="card">
+        <div class="card card-m-5">
           <div class="card-body">
 
             <div class=" profile-header">
@@ -51,8 +51,8 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li>
-                        <a :href="editUrl">Edit my information</a>
-                        <a :href="settingsUrl">Settings</a>
+                        <!-- <a :href="editUrl">Edit my information</a> -->
+                        <!-- <a :href="settingsUrl">Settings</a> -->
                       </li>
                     </ul>
                   </div>
@@ -71,14 +71,41 @@
                 </div> -->
               </div>
             </div>
+            <ul class="nav profile-nav  justify-content-between">
+              <li class="nav-item">
+                <nuxt-link :to="{name:'profile.show.about', params:{username:profile_user.username}}" class="nav-link" href="#">About</nuxt-link>
+              </li>
+              <li class="nav-item">
+                <nuxt-link :to="{name:'profile.show.friends', params:{username:profile_user.username}}"  class="nav-link" href="#">Friends
+                   <!-- <span
+                        style="color:black; font-weight:bold"
+                      >{{ friendsCount | formatCount }}</span> -->
+                </nuxt-link>
+              </li>
+              <li class="nav-item">
+                <nuxt-link :to="{name:'profile.show.followings', params:{username:profile_user.username}}" class="nav-link" href="#">Following</nuxt-link>
+              </li>
+              <li class="nav-item">
+                <nuxt-link :to="{name:'profile.show.posts', params:{username:profile_user.username}}" class="nav-link " href="#">Posts</nuxt-link>
+              </li>
+              <li class="nav-item">
+                <nuxt-link :to="{name:'profile.show.favorites', params:{username:profile_user.username}}" class="nav-link " href="#">Favorites</nuxt-link>
+              </li>
+              <li class="nav-item">
+                <nuxt-link :to="{name:'profile.show.likes', params:{username:profile_user.username}}" class="nav-link " href="#">Likes</nuxt-link>
+              </li>
+              <li class="nav-item">
+                <nuxt-link :to="{name:'profile.show.subscriptions', params:{username:profile_user.username}}" class="nav-link " href="#">Subscriptions</nuxt-link>
+              </li>
+            </ul>
           </div>
         </div>
 
-
+        <NuxtChild  />
 
       </div>
       <div class="col-md-4 sidebar">
-        <!-- <trending-thread></trending-thread> -->
+         <Sidebar />
       </div>
     </div>
 
@@ -100,6 +127,8 @@
 import PostCounts from '@/components/counts/PostCounts';
 import LikeCounts from '@/components/counts/LikeCounts';
 import ProfileFavoriteCounts from '@/components/counts/ProfileFavoriteCounts';
+import Sidebar from '@/layouts/partials/Sidebar'
+
 
   import {mapGetters} from 'vuex';
 
@@ -113,7 +142,8 @@ export default {
     // SubscribeTab,
     PostCounts,
     LikeCounts,
-    ProfileFavoriteCounts
+    ProfileFavoriteCounts,
+    Sidebar
   },
   data() {
     return {
@@ -139,6 +169,8 @@ export default {
       profile_user_privacy: 'user/profileUserPrivacy',
     }),
 
+
+
     is_owner () {
       if(this.signedIn){
           return this.$store.state.auth.user.id == this.profile_user.id;
@@ -161,6 +193,9 @@ export default {
       }
       return false;
     },
+    isShowProfile(){
+      return true;
+    }
 
     // profileFavoritePosts(){
     //   return this.$store.getters.profileFavoritePosts;
@@ -256,7 +291,6 @@ export default {
     // this.getProfileComments()
   },
   methods: {
-
     getProfileComments(){
       axios.get(`/profiles/${this.profile_user.username}/comments`)
         .then((res) => {
@@ -377,7 +411,10 @@ export default {
 
       } catch (err) {
         if(err.response.status === 404){
-          error({statusCode : 404, message:'Thread Not Found'})
+          error({statusCode : 404, message:'user Not Found'})
+        }
+        else if(err.response.status === 403){
+         redirect('/');
         }else if(err.response.status === 429){
           error({statusCode : 429, message:'Too Many Attempt'})
         }else if(err.response.status === 401){
@@ -390,11 +427,12 @@ export default {
 };
 </script>
 
-<style  scoped>
+
+<style lang="scss" scoped>
 .profile-header {
-  margin: 30px auto;
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 .profile-name {
   padding: 0;
@@ -432,19 +470,19 @@ export default {
   color: white;
 }
 
-.nav-tabs > li > a {
+.nav-item > li > a {
   color: black;
   border: none;
   margin-right: 0;
 }
-.nav-tabs > li > a,
-.nav-tabs > li > a:hover,
-.nav-tabs > li > a:focus {
+.nav-item > li > a.nav-link,
+.nav-item > li > a.nav-link:hover,
+.nav-item > li > a.nav-link:focus {
   border: none;
 }
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
+.nav-item > li.active > a.nav-link,
+.nav-item > li.active > a.nav-link:hover,
+.nav-item > li.active > a.nav-link:focus {
   color: #555555;
   background-color: #f5f8fa;
   border-bottom: 3px solid rgb(255, 67, 1);
@@ -482,7 +520,6 @@ export default {
   margin-left: auto;
 }
 .sidebar {
-  margin: 30px auto;
 }
 .counts-item {
   margin: 0 5px;
@@ -495,4 +532,25 @@ export default {
     font-size: 30px;
     font-weight: 500;
 }
+ ul.profile-nav{
+
+   a.nav-link{
+     color: #000;
+     font-size: 14px;
+   }
+
+  a.nav-link.active, a.nav-link:hover, a.nav-link:focus {
+      color: #555555;
+      background-color: #f5f8fa;
+
+      cursor: pointer;
+  }
+  a.nav-link.router-link-exact-active{
+    border-bottom: 3px solid rgb(255, 67, 1);
+  }
+ }
+hr.profile-bottom {
+    margin: 0;
+}
+
 </style>
