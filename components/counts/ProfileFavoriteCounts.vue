@@ -7,13 +7,13 @@
 
 <script>
 export default {
-  props: ["thread"],
+  props: ["favoriteCounts"],
 
-  computed: {
-    favoriteCounts() {
-      return this.thread.length;
-    },
-  },
+  // computed: {
+  //   favoriteCounts() {
+  //     return this.thread.length;
+  //   },
+  // },
 
 };
 </script>

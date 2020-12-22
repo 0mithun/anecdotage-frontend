@@ -158,10 +158,10 @@
                   class="dropdown-menu user-dropdown font-14 fw-500"
                   aria-labelledby="userDropdown"
                 >
-                  <a class="dropdown-item" href="#" title="Profile">
+                  <nuxt-link :to="{name:'profile.show', params:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Profile">
                     <i class="fa fa-user"></i>
                     Profile
-                  </a>
+                  </nuxt-link>
                   <a class="dropdown-item" href="#" title="Setting">
                     <i class="fa fa-cogs"></i>
                     Setting

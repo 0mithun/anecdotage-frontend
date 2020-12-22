@@ -28,6 +28,11 @@ const routes = [
     name: 'password.reset',
     component: page('auth/password/password-reset.vue')
   },
+  {
+    path: '/profile/:username',
+    name: 'profile.show',
+    component: page('users/profile.vue')
+  },
 
   { path: '/anecdotes/emojis/:emoji', name: 'emojis', component: page('emojis/index.vue') },
 
