@@ -5,15 +5,19 @@ export const state = () => ({
   profileUserPrivacy: null,
 
   threads: [],
+  threadsCount: 0,
   threads_paginate: null,
 
   favorites: [],
+  favoritesCount: 0,
   favorites_paginate: null,
 
   likes: [],
+  likesCount: 0,
   likes_paginate: null,
 
   subscriptions: [],
+  subscriptionsCount: 0,
   subscriptions_paginate: null,
 
   is_friend: false,
@@ -41,7 +45,7 @@ export const getters = {
     return state.threads_paginate;
   },
   threadsCount(state){
-    return state.threads.length;
+    return state.threadsCount;
   },
   favorites(state){
     return state.favorites;
@@ -50,7 +54,7 @@ export const getters = {
     return state.favorites_paginate;
   },
   favoritesCount(state){
-    return state.favorites.length;
+    return state.favoritesCount;
   },
 
   likes(state){
@@ -59,15 +63,17 @@ export const getters = {
   likes_paginate(state){
     return state.likes_paginate;
   },
+  likesCount(state){
+    return state.likesCount;
+  },
   subscriptions(state){
     return state.subscriptions;
   },
   subscriptions_paginate(state){
     return state.subscriptions_paginate;
   },
-
-  likesCount(state){
-    return state.likes.length;
+  subscriptionsCount(state){
+    return state.subscriptionsCount;
   },
 
 }
@@ -85,17 +91,29 @@ export const mutations = {
   SET_THREADS_PAGINATE: (state, meta)=>{
     state.threads_paginate = meta
   },
+  SET_THREADS_COUNT: (state, count)=>{
+    state.threadsCount = count
+  },
+
+
   SET_FAVORITES: (state, favorites)=>{
     state.favorites = favorites
   },
   SET_FAVORITES_PAGINATE(state, meta){
     state.favorites_paginate = meta;
   },
+  SET_FAVORITES_COUNT: (state, count)=>{
+    state.favoritesCount = count
+  },
+
   SET_LIKES: (state, likes)=>{
     state.likes = likes
   },
   SET_LIKES_PAGINATE(state, meta){
     state.likes_paginate = meta;
+  },
+  SET_LIKES_COUNT: (state, count)=>{
+    state.likesCount = count
   },
 
   SET_SUBSCRIPTIONS: (state, likes)=>{
@@ -103,6 +121,9 @@ export const mutations = {
   },
   SET_SUBSCRIPTIONS_PAGINATE(state, meta){
     state.subscriptions_paginate = meta;
+  },
+  SET_SUBSCRIPTIONS_COUNT: (state, count)=>{
+    state.subscriptionsCount = count
   },
 
 

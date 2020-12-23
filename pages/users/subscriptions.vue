@@ -38,6 +38,7 @@
 
         store.commit('user/SET_SUBSCRIPTIONS', subscriptionsRresponse.data);
         store.commit('user/SET_SUBSCRIPTIONS_PAGINATE', subscriptionsRresponse.meta);
+        store.commit('user/SET_SUBSCRIPTIONS_COUNT', subscriptionsRresponse.meta.total);
 
       } catch (err) {
         if(err.response.status === 404){

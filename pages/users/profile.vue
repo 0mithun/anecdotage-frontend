@@ -332,7 +332,7 @@ export default {
         if(userRresponse.data.is_owner){
           const likeRresponse = await $axios.$get(`profile/${params.username}/likes`);
           store.commit('user/SET_LIKES', likeRresponse.data);
-          store.commit('user/SET_LIKES_PAGINATE', likeRresponse.meta);
+          store.commit('user/SET_LIKES_COUNT', likeRresponse.meta.total);
         }
 
 
@@ -341,8 +341,10 @@ export default {
         store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
 
         store.commit('user/SET_THREADS', threadRresponse.data);
+        store.commit('user/SET_THREADS_COUNT', threadRresponse.meta.total);
 
         store.commit('user/SET_FAVORITES', favoriteRresponse.data);
+        store.commit('user/SET_FAVORITES_COUNT', favoriteRresponse.meta.total);
 
         store.commit('user/SET_IS_FRIEND', userRresponse.data.is_friend);
         store.commit('user/SET_IS_FOLLOW', userRresponse.data.is_follow);
