@@ -22,12 +22,12 @@
                   <template v-if="!is_owner">
                     <button
                       class="btn btn-sm unfollow-btn"
-                      @click.prevent="toggleFollow"
+                      @click.prevent="unfollow(profile_user)"
                       v-if="isFollow"
                     >Unfllow</button>
-                    <button class="btn btn-sm follow-btn" @click.prevent="toggleFollow" v-else>Follow</button>
+                    <button class="btn btn-sm follow-btn" @click.prevent="follow(profile_user)" v-else>Follow</button>
                   </template>
-                  <!-- <add-friend :recipient="profile_user" :isFriend="is_friend" v-if="!is_owner"></add-friend> -->
+                  <AddFriend :recipient="profile_user" :isFriend="is_friend" v-if="!is_owner"></AddFriend>
 
                   <button
                     class="btn btn-default btn-sm"
@@ -117,32 +117,24 @@
 
 <script>
 // import About from "./ProfileAbout";
-// import Friends from "./ProfileFriends";
-// import PostTab from "./PostsTab";
-// import LikeTab from "./LikeTab";
-// import FavoriteTab from "./FavoriteTab";
-// import SubscribeTab from "./SubscribeTab";
 
 
 import PostCounts from '@/components/counts/PostCounts';
 import LikeCounts from '@/components/counts/LikeCounts';
 import ProfileFavoriteCounts from '@/components/counts/ProfileFavoriteCounts';
+import AddFriend from '@/components/AddFriend';
+
 import Sidebar from '@/layouts/partials/Sidebar'
 
 
-  import {mapGetters} from 'vuex';
+  import {mapGetters, mapActions} from 'vuex';
 
 export default {
   components: {
-    // About,
-    // Friends,
-    // PostTab,
-    // LikeTab,
-    // FavoriteTab,
-    // SubscribeTab,
     PostCounts,
     LikeCounts,
     ProfileFavoriteCounts,
+    AddFriend,
     Sidebar
   },
   data() {
@@ -291,6 +283,10 @@ export default {
     // this.getProfileComments()
   },
   methods: {
+    ...mapActions({
+      follow: 'user/follow',
+      unfollow: 'user/unfollow',
+    }),
     getProfileComments(){
       axios.get(`/profiles/${this.profile_user.username}/comments`)
         .then((res) => {
@@ -325,33 +321,6 @@ export default {
           this.$store.dispatch("profileFavoriteTotalRecords", res.data.total_records);
 
         });
-    },
-    toggleFollow() {
-      let url = `/user/${this.profile_user.username}/follow`;
-
-      axios.post(url).then((res) => {
-        if (this.isFollow) {
-          this.$store.dispatch("removeFollowers", window.App.user.id);
-        } else {
-          this.$store.dispatch("addFollowers", window.App.user);
-        }
-        this.isFollow = !this.isFollow;
-
-        flash(res.data.message);
-      });
-    },
-    unfollow(friend) {
-      let url = "";
-      if (friend.followType == "tag") {
-        url = `/tag/${friend.id}/follow`;
-      } else if (friend.followType == "user") {
-        url = `/user/${friend.username}/follow`;
-      }
-      axios.post(url).then((res) => {
-        this.$store.dispatch("removeFollowings", friend);
-
-        flash(res.data.message);
-      });
     },
     profilePath(item) {
       if (item.followType == "user") {
@@ -398,13 +367,18 @@ export default {
 
         const threadRresponse = await $axios.$get(`profile/${params.username}/threads`);
         const favoriteRresponse = await $axios.$get(`profile/${params.username}/favorites`);
-        const likeRresponse = await $axios.$get(`profile/${params.username}/likes`);
+        if(userRresponse.data.is_owner){
+          const likeRresponse = await $axios.$get(`profile/${params.username}/likes`);
+          store.commit('user/SET_LIKES', likeRresponse.data);
+        }
+
+
+
         store.commit('user/SET_USER', userRresponse.data);
         store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
 
         store.commit('user/SET_THREADS', threadRresponse.data);
         store.commit('user/SET_FAVORITES', favoriteRresponse.data);
-        store.commit('user/SET_LIKES', likeRresponse.data);
 
         store.commit('user/SET_IS_FRIEND', userRresponse.data.is_friend);
         store.commit('user/SET_IS_FOLLOW', userRresponse.data.is_follow);

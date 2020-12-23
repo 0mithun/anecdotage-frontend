@@ -69,10 +69,29 @@ export const mutations = {
   SET_IS_FOLLOW: (state, is_follow)=>{
     state.is_follow = is_follow
   },
+  FOLLOW_USER(state, user){
+    state.is_follow = true;
+  },
+  UNFOLLOW_USER(state, user){
+    state.is_follow = false;
+  }
 
 
 }
 
 export const actions = {
+  async follow({commit}, user){
+    const response = await this.$axios.$post(`users/${user.username}/follow`)
+    commit('FOLLOW_USER', user);
+    commit('friends/ADD_FOLLOWERS', this.$auth.user, {root:true});
+  },
+  async unfollow({commit}, user){
+    try{
+      const response = await this.$axios.$delete(`users/${user.username}/follow`)
+      commit('UNFOLLOW_USER', user);
+      commit('friends/REMOVE_FOLLOWERS', this.$auth.user, {root:true});
+    }catch(e){
 
+    }
+  }
 }

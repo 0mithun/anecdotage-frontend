@@ -29,7 +29,7 @@
       <div class="tab-content">
         <div class="tab-pane active" id="friend-friends">
           <div class="row">
-            <div class="col-md-4" v-for="(friend, index) in filterFriendLists" :key="index">
+            <div class="col-md-6" v-for="(friend, index) in filterFriendLists" :key="index">
               <div class="profile-single-item">
                 <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
                   <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
@@ -38,7 +38,8 @@
 
                 <button
                   class="btn btn-danger btn-sm unfriend-btn"
-                  @click.prevent="unFriend(friend.id)"
+                  @click.prevent="unfriend(friend)"
+                  v-if="friend.username !== $auth.user.username"
                 >
                   <i class="fa fa-user-times"></i>
                 </button>
@@ -48,14 +49,14 @@
         </div>
         <div class="tab-pane" id="friend-request" v-if="is_owner">
           <div class="row">
-            <div class="col-md-4" v-for="(friend, index) in filterFriendRequests" :key="index">
+            <div class="col-md-6" v-for="(friend, index) in filterFriendRequests" :key="index">
               <div class="profile-single-item">
                <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
                   <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
                 </nuxt-link>
                 <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
 
-                <button class="btn btn-primary btn-sm" @click.prevent="accept(friend.id)">
+                <button class="btn btn-primary btn-sm" @click.prevent="accept(friend)">
                   <i class="fa fa-user"></i>
                 </button>
               </div>
@@ -64,7 +65,7 @@
         </div>
         <div class="tab-pane" id="friend-blocking" v-if="is_owner">
           <div class="row">
-            <div class="col-md-4" v-for="(friend, index) in filterBlockLists" :key="index">
+            <div class="col-md-6" v-for="(friend, index) in filterBlockLists" :key="index">
               <div class="profile-single-item">
                 <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
                   <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
@@ -73,7 +74,7 @@
 
                 <button
                   class="btn btn-primary btn-sm unfriend-btn"
-                  @click.prevent="unblock(friend.id)"
+                  @click.prevent="unblock(friend)"
                 >
                   <i class="fa fa-user"></i>
                 </button>
@@ -83,14 +84,22 @@
         </div>
         <div class="tab-pane" id="friend-following">
           <div class="row">
-            <div class="col-md-4" v-for="(friend, index) in filterFollowings" :key="index">
+            <div class="col-md-6" v-for="(friend, index) in filterFollowings" :key="index">
               <div class="profile-single-item">
-                <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
-                  <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
-                </nuxt-link>
-                <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
+                <template v-if="friend.follow_type == 'user'">
+                  <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
+                    <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
+                  </nuxt-link>
+                  <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
+                </template>
+                <template v-else-if="friend.follow_type == 'tag'">
+                  <nuxt-link :to="{name:'tags', params:{slug: friend.slug}}">
+                    <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
+                  </nuxt-link>
+                  <nuxt-link  :to="{name:'tags', params:{slug: friend.slug}}" class="friends-name">{{ friend.name }}</nuxt-link>
+                </template>
                 <button
-                  class="btn btn-primary btn-sm unfriend-btn"
+                  class="btn btn-danger btn-sm unfriend-btn"
                   @click.prevent="unfollow(friend)"
                   v-if="is_owner"
                 >
@@ -102,7 +111,7 @@
         </div>
         <div class="tab-pane" id="friend-followers">
           <div class="row">
-            <div class="col-md-4" v-for="(friend, index) in filterFollowers" :key="index">
+            <div class="col-md-6" v-for="(friend, index) in filterFollowers" :key="index">
               <div class="profile-single-item">
                 <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
                   <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
@@ -127,7 +136,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 export default {
   // props: ["is_friend"],
   data() {
@@ -203,104 +212,14 @@ export default {
       });
     }
   },
-  created() {
-    // this.getAllFriends();
-    // this.getAllFollowers();
-    // this.getAllFollowings();
-
-    // if (this.is_owner == true) {
-    //   this.getAllFriendRequests();
-    //   this.getAllBlockList();
-    // }
-  },
   methods: {
-    unfollow(friend) {
-      let url = "";
-      if (friend.followType == "tag") {
-        url = `/tag/${friend.id}/follow`;
-      } else if (friend.followType == "user") {
-        url = `/user/${friend.username}/follow`;
-      }
-      // axios.post(url).then(res => {
-      //   this.$store.dispatch("removeFollowings", friend);
+    ...mapActions({
+      unfriend: 'friends/unfriend',
+      accept: 'friends/accept',
+      unblock: 'friends/unblock',
+      unfollow: 'friends/unfollow',
+    }),
 
-      //   flash(res.data.message);
-      // });
-    },
-    profilePath(item) {
-      // return `/profiles/${user.username}`;
-      if (item.followType == "user") {
-        return `/profiles/${item.username}`;
-      } else if (item.followType === "tag") {
-        return `/threads/${item.name.toLowerCase()}`;
-      }
-    },
-    getAllFollowers() {
-      // axios.get(`/user/${this.profile_user.username}/followers`).then(res => {
-      //   // this.followers = res.data.followers;
-      //   this.$store.dispatch("followers", res.data.followers);
-      // });
-    },
-    getAllFollowings() {
-      // axios.get(`/user/${this.profile_user.username}/followings`).then(res => {
-      //   // this.followings = res.data.followings;
-      //   this.$store.dispatch("followings", res.data.followings);
-      // });
-    },
-    unFriend(id) {
-      // axios
-      //   .post("/friend/unfriend", {
-      //     friend: id
-      //   })
-      //   .then(res => {
-      //     this.$store.dispatch("removeFriend", id);
-      //   });
-    },
-    accept(id) {
-      // axios
-      //   .post("/profiles/accept-friend", {
-      //     friend: id
-      //   })
-      //   .then(res => {
-      //     const newFriend = this.friendRequests.filter(friend => {
-      //       return friend.id === id;
-      //     });
-      //     this.$store.dispatch("removeFriendRequest", id);
-      //     this.$store.dispatch("addFriend", ...newFriend);
-      //   });
-    },
-    unblock(id) {
-      // axios
-      //   .post("/profiles/unblock-friends", {
-      //     friend: id
-      //   })
-      //   .then(res => {
-      //     this.$store.dispatch("unblock", id);
-
-      //     flash("Unblock successfully");
-      //   });
-    },
-    getAllFriends() {
-      // axios
-      //   .get(`/profiles/${this.profile_user.username}/friend-list`)
-      //   .then(res => {
-      //     this.$store.dispatch("friends", res.data.friends);
-      //   });
-    },
-    getAllFriendRequests() {
-      // axios
-      //   .get(`/profiles/${this.profile_user.username}/friend-request`)
-      //   .then(res => {
-      //     this.$store.dispatch("friendRequests", res.data.friendRequests);
-      //   });
-    },
-    getAllBlockList() {
-      // axios
-      //   .get(`/profiles/${this.profile_user.username}/block-friends`)
-      //   .then(res => {
-      //     this.$store.dispatch("blockLists", res.data.blockLists);
-      //   });
-    }
   },
   async fetch({ params, query, error, $axios, store,redirect }) {
     try {
@@ -309,11 +228,19 @@ export default {
         redirect('/');
       }
       const friendRresponse = await $axios.$get(`user/${params.username}/friends/friend-list`);
-      const blockRresponse = await $axios.$get(`user/${params.username}/friends/block-list`);
-      const friendRequestRresponse = await $axios.$get(`user/${params.username}/friends/friend-request-list`);
+
+      if(userRresponse.data.username ){
+          const blockRresponse = await $axios.$get(`user/${params.username}/friends/block-list`);
+          const friendRequestRresponse = await $axios.$get(`user/${params.username}/friends/friend-request-list`);
+          store.commit('friends/SET_BLOCK_LISTS', blockRresponse.data);
+          store.commit('friends/SET_FRIEND_REQUESTS', friendRequestRresponse.data);
+      }
+
+
+
       const followingsRresponse = await $axios.$get(`user/${params.username}/friends/followings`);
       const followersRresponse = await $axios.$get(`user/${params.username}/friends/followers`);
-      console.log(followingsRresponse)
+
 
       // //user/{user}/friends/friend-list
       store.commit('user/SET_USER', userRresponse.data);
@@ -322,8 +249,7 @@ export default {
       store.commit('user/SET_IS_FOLLOW', userRresponse.data.is_follow);
 
       store.commit('friends/SET_FRIENDS', friendRresponse.data);
-      store.commit('friends/SET_BLOCK_LISTS', blockRresponse.data);
-      store.commit('friends/SET_FRIEND_REQUESTS', friendRequestRresponse.data);
+
       store.commit('friends/SET_FOLLOWINGS', followingsRresponse.followings);
       store.commit('friends/SET_FOLLOWERS', followersRresponse.followers);
 
@@ -399,6 +325,7 @@ export default {
   color: black;
   font-weight: bold;
   padding: 0;
+  margin-right: 10px;
 }
 .unfriend-btn {
   margin-left: auto;
