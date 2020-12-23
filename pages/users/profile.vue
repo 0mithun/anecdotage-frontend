@@ -71,30 +71,27 @@
                 </div> -->
               </div>
             </div>
-            <ul class="nav profile-nav  justify-content-between">
+            <ul class="nav profile-nav ">
               <li class="nav-item">
                 <nuxt-link :to="{name:'profile.show.about', params:{username:profile_user.username}}" class="nav-link" href="#">About</nuxt-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="isShowFriends">
                 <nuxt-link :to="{name:'profile.show.friends', params:{username:profile_user.username}}"  class="nav-link" href="#">Friends
-                   <!-- <span
+                   <span
                         style="color:black; font-weight:bold"
-                      >{{ friendsCount | formatCount }}</span> -->
+                      >{{ friendsCount | formatCount }}</span>
                 </nuxt-link>
               </li>
-              <li class="nav-item">
-                <nuxt-link :to="{name:'profile.show.followings', params:{username:profile_user.username}}" class="nav-link" href="#">Following</nuxt-link>
-              </li>
-              <li class="nav-item">
+              <li class="nav-item"  v-if="isShowPosts">
                 <nuxt-link :to="{name:'profile.show.posts', params:{username:profile_user.username}}" class="nav-link " href="#">Posts</nuxt-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item"  v-if="isShowFavorites">
                 <nuxt-link :to="{name:'profile.show.favorites', params:{username:profile_user.username}}" class="nav-link " href="#">Favorites</nuxt-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item"  v-if="is_owner">
                 <nuxt-link :to="{name:'profile.show.likes', params:{username:profile_user.username}}" class="nav-link " href="#">Likes</nuxt-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item"  v-if="is_owner">
                 <nuxt-link :to="{name:'profile.show.subscriptions', params:{username:profile_user.username}}" class="nav-link " href="#">Subscriptions</nuxt-link>
               </li>
             </ul>
@@ -123,11 +120,10 @@ import PostCounts from '@/components/counts/PostCounts';
 import LikeCounts from '@/components/counts/LikeCounts';
 import ProfileFavoriteCounts from '@/components/counts/ProfileFavoriteCounts';
 import AddFriend from '@/components/AddFriend';
-
+import SingleThread from '@/components/threads/SingeThread'
 import Sidebar from '@/layouts/partials/Sidebar'
 
-
-  import {mapGetters, mapActions} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 
 export default {
   components: {
@@ -151,6 +147,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      friendsCount: 'friends/friendsCount',
       profilePostCount: 'user/threadsCount',
       profileLikeCount: 'user/likesCount',
       profileFavoriteCount: 'user/favoritesCount',
@@ -187,101 +184,66 @@ export default {
     },
     isShowProfile(){
       return true;
-    }
+    },
 
-    // profileFavoritePosts(){
-    //   return this.$store.getters.profileFavoritePosts;
-    //   // return [];
-    // },
-    // followings() {
-    //   return this.$store.getters.followings;
-    // },
-    // friendsCount() {
-    //   return this.$store.getters.friends.length;
-    // },
-    // isShowProfile() {
-    //   if (this.is_owner == true) {
-    //     return true;
-    //   } else if (this.profile_user.id == 1) {
-    //     return true;
-    //   } else if (this.profile_user_privacy.see_my_profiles == 3) {
-    //     return true;
-    //   } else if (
-    //     this.profile_user_privacy.see_my_profiles == 2 &&
-    //     this.is_friend == true
-    //   ) {
-    //     return true;
-    //   }
-    // },
-    // isShowFriends() {
-    //   if (this.is_owner == true) {
-    //     return true;
-    //   } else if (this.profile_user.id == 1) {
-    //     return true;
-    //   } else if (this.profile_user_privacy.see_my_friends == 3) {
-    //     return true;
-    //   } else if (
-    //     this.profile_user_privacy.see_my_friends == 2 &&
-    //     this.is_friend == true
-    //   ) {
-    //     return true;
-    //   }
-    // },
-    // isShowPosts() {
-    //   if (this.is_owner == true) {
-    //     return true;
-    //   } else if (this.profile_user.id == 1) {
-    //     return true;
-    //   } else if (this.profile_user_privacy.see_my_threads == 3) {
-    //     return true;
-    //   } else if (
-    //     this.profile_user_privacy.see_my_threads == 2 &&
-    //     this.is_friend == true
-    //   ) {
-    //     return true;
-    //   }
-    // },
-    // isShowFavorites() {
-    //   if (this.is_owner == true) {
-    //     return true;
-    //   } else if (this.profile_user.id == 1) {
-    //     return true;
-    //   } else if (this.profile_user_privacy.see_my_favorites == 3) {
-    //     return true;
-    //   } else if (
-    //     this.profile_user_privacy.see_my_favorites == 2 &&
-    //     this.is_friend == true
-    //   ) {
-    //     return true;
-    //   }
-    // },
-
-    // settingsUrl() {
-    //   return `/profiles/${this.profile_user.username}/settings`;
-    // },
-    // editUrl() {
-    //   return `/profiles/${this.profile_user.username}/edit`;
-    // },
+    isShowProfile() {
+      if (this.is_owner == true) {
+        return true;
+      } else if (this.isAdmin) {
+        return true;
+      } else if (this.profile_user_privacy.see_my_profiles == 3) {
+        return true;
+      } else if (
+        this.profile_user_privacy.see_my_profiles == 2 &&
+        this.is_friend == true
+      ) {
+        return true;
+      }
+    },
+    isShowFriends() {
+      if (this.is_owner == true) {
+        return true;
+      } else if (this.is_admin) {
+        return true;
+      } else if (this.profile_user_privacy.see_my_friends == 3) {
+        return true;
+      } else if (
+        this.profile_user_privacy.see_my_friends == 2 &&
+        this.is_friend == true
+      ) {
+        return true;
+      }
+    },
+    isShowPosts() {
+      if (this.is_owner == true) {
+        return true;
+      } else if (this.is_admin) {
+        return true;
+      } else if (this.profile_user_privacy.see_my_threads == 3) {
+        return true;
+      } else if (
+        this.profile_user_privacy.see_my_threads == 2 &&
+        this.is_friend == true
+      ) {
+        return true;
+      }
+    },
+    isShowFavorites() {
+      if (this.is_owner == true) {
+        return true;
+      } else if (this.is_admin) {
+        return true;
+      } else if (this.profile_user_privacy.see_my_favorites == 3) {
+        return true;
+      } else if (
+        this.profile_user_privacy.see_my_favorites == 2 &&
+        this.is_friend == true
+      ) {
+        return true;
+      }
+    },
   },
-  created() {
-    // this.checkPrivacy();
-    // if (this.isShowPosts) {
-    //   this.getAllPost();
-    // }
-    // if (this.isShowFavorites) {
-    //   this.getAllFavoritePost();
-    // }
-    // if (this.is_owner) {
-    //   this.getAllLikePost();
-    //   // this.getAllSubscriptionPost();
-    // }
 
-    // if (!this.is_owner) {
-    //   this.checkIsFollow();
-    // }
-
-    // this.getProfileComments()
-  },
   methods: {
     ...mapActions({
       follow: 'user/follow',
@@ -370,6 +332,7 @@ export default {
         if(userRresponse.data.is_owner){
           const likeRresponse = await $axios.$get(`profile/${params.username}/likes`);
           store.commit('user/SET_LIKES', likeRresponse.data);
+          store.commit('user/SET_LIKES_PAGINATE', likeRresponse.meta);
         }
 
 
@@ -378,6 +341,7 @@ export default {
         store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
 
         store.commit('user/SET_THREADS', threadRresponse.data);
+
         store.commit('user/SET_FAVORITES', favoriteRresponse.data);
 
         store.commit('user/SET_IS_FRIEND', userRresponse.data.is_friend);
@@ -464,7 +428,7 @@ export default {
 }
 .profile-nav-tabs {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
 }
 .profile-nav-tabs::before,
 .profile-nav-tabs::after {
@@ -526,5 +490,7 @@ export default {
 hr.profile-bottom {
     margin: 0;
 }
-
+.nav-item{
+  margin-right: 20px;
+}
 </style>

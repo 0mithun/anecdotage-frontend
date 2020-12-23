@@ -53,7 +53,19 @@
 
 
                 <div class="row author">
-                  <div class="col-md-12"></div>
+                  <div class="col-md-12">
+                    <nuxt-link :to="{name:'profile.show', params:{username:thread.creator.username}}" class="creator_name">
+                      <img
+                        :src="thread.creator.photo_url"
+                        :alt="thread.creator.name"
+                        width="40"
+                        height="40"
+                        class="avatar-photo"
+                      />
+                      <!-- <user-online :user="reply.owner"></user-online> -->
+                      <span>{{ thread.creator.name }}</span>
+                    </nuxt-link>
+                  </div>
                 </div>
 
                 <div class="row">
@@ -366,6 +378,20 @@ export default {
 .col-md-12.actions {
     display: flex;
     justify-content: space-between;
+}
+.creator_name{
+  display: flex;
+  align-items: center;
+  color: #ff4301;
+  font-size: 18px;
+  font-weight: normal;
+  font-family: Raleway, sans-serif;
+
+
+  img{
+    margin-right: 5px;
+    border-radius: 50%;
+  }
 }
 
 </style>

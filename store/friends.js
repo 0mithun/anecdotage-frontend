@@ -14,6 +14,9 @@ export const getters = {
   friends(state){
     return state.friends;
   },
+  friendsCount(state){
+    return state.friends.length;
+  },
 
   friendRequests(state){
     return state.friendRequests;

@@ -3,7 +3,7 @@
     <div class="row reply-heading">
       <div class="col-md-8">
         <div class="thread_creator">
-          <a :href="reply.ownerProfileUrl" class="creator_name">
+          <nuxt-link :to="{name:'profile.show', params:{username:reply.owner.username}}" class="creator_name">
             <img
               :src="reply.owner.photo_url"
               :alt="reply.owner.name"
@@ -16,7 +16,7 @@
 
               {{ reply.owner.name }}
             </span>
-          </a>
+          </nuxt-link>
           <span v-text="ago" class="reply_created_at"></span>
         </div>
       </div>

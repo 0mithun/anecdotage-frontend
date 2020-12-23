@@ -29,6 +29,9 @@
       <div class="tab-content">
         <div class="tab-pane active" id="friend-friends">
           <div class="row">
+            <div class="col-md-12" v-if="filterFriendLists.length < 1">
+              <alert class="alert-danger">No Records found</alert>
+            </div>
             <div class="col-md-6" v-for="(friend, index) in filterFriendLists" :key="index">
               <div class="profile-single-item">
                 <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
@@ -37,11 +40,11 @@
                 <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
 
                 <button
-                  class="btn btn-danger btn-sm unfriend-btn"
+                  class="btn btn-dark btn-sm unfriend-btn"
                   @click.prevent="unfriend(friend)"
                   v-if="friend.username !== $auth.user.username"
                 >
-                  <i class="fa fa-user-times"></i>
+                  <i class="fas fa-user-minus"></i>
                 </button>
               </div>
             </div>
@@ -49,6 +52,9 @@
         </div>
         <div class="tab-pane" id="friend-request" v-if="is_owner">
           <div class="row">
+            <div class="col-md-12" v-if="filterFriendRequests.length < 1">
+              <alert class="alert-danger">No Records found</alert>
+            </div>
             <div class="col-md-6" v-for="(friend, index) in filterFriendRequests" :key="index">
               <div class="profile-single-item">
                <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
@@ -65,6 +71,9 @@
         </div>
         <div class="tab-pane" id="friend-blocking" v-if="is_owner">
           <div class="row">
+            <div class="col-md-12" v-if="filterBlockLists.length < 1">
+              <alert class="alert-danger">No Records found</alert>
+            </div>
             <div class="col-md-6" v-for="(friend, index) in filterBlockLists" :key="index">
               <div class="profile-single-item">
                 <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
@@ -84,6 +93,9 @@
         </div>
         <div class="tab-pane" id="friend-following">
           <div class="row">
+            <div class="col-md-12" v-if="filterFollowings.length < 1">
+              <alert class="alert-danger">No Records found</alert>
+            </div>
             <div class="col-md-6" v-for="(friend, index) in filterFollowings" :key="index">
               <div class="profile-single-item">
                 <template v-if="friend.follow_type == 'user'">
@@ -111,19 +123,15 @@
         </div>
         <div class="tab-pane" id="friend-followers">
           <div class="row">
+            <div class="col-md-12" v-if="filterFollowers.length < 1">
+              <alert class="alert-danger">No Records found</alert>
+            </div>
             <div class="col-md-6" v-for="(friend, index) in filterFollowers" :key="index">
               <div class="profile-single-item">
                 <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
                   <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
                 </nuxt-link>
                 <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
-
-                <!-- <button
-                  class="btn btn-primary btn-sm unfriend-btn"
-                  @click.prevent="unblock(friend.id)"
-                >
-                  <i class="fa fa-user"></i>
-                </button>-->
               </div>
             </div>
           </div>
@@ -137,18 +145,16 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
+
+
 export default {
-  // props: ["is_friend"],
   data() {
     return {
-      // blockLists: [],
-      // followers: []
-      // followings: []
       searchItem: ""
     };
   },
-  computed: {
 
+  computed: {
     ...mapGetters({
       profile_user: 'user/profileUser',
       profile_user_privacy: 'user/profileUserPrivacy',
@@ -228,21 +234,15 @@ export default {
         redirect('/');
       }
       const friendRresponse = await $axios.$get(`user/${params.username}/friends/friend-list`);
-
-      if(userRresponse.data.username ){
+        if(userRresponse.data.is_owner){
           const blockRresponse = await $axios.$get(`user/${params.username}/friends/block-list`);
           const friendRequestRresponse = await $axios.$get(`user/${params.username}/friends/friend-request-list`);
           store.commit('friends/SET_BLOCK_LISTS', blockRresponse.data);
           store.commit('friends/SET_FRIEND_REQUESTS', friendRequestRresponse.data);
-      }
-
-
-
+        }
       const followingsRresponse = await $axios.$get(`user/${params.username}/friends/followings`);
       const followersRresponse = await $axios.$get(`user/${params.username}/friends/followers`);
 
-
-      // //user/{user}/friends/friend-list
       store.commit('user/SET_USER', userRresponse.data);
       store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
       store.commit('user/SET_IS_FRIEND', userRresponse.data.is_friend);
@@ -275,6 +275,7 @@ export default {
 .friends-header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5px;
 }
 .nav-tabs.friend-nav-tabs {
   width:100%;
@@ -291,6 +292,7 @@ export default {
 }
 .nav-tabs.friend-nav-tabs > li:last-child > a {
   padding-right: 5px;
+  margin-right: 5px;
 }
 .nav-tabs.friend-nav-tabs > li > a,
 .nav-tabs > li > a:hover,
@@ -332,11 +334,11 @@ export default {
 }
 
 .friends-search {
-    width: 25%;
+    width: 35%;
 }
 
 .friends-menu {
-    width: 75%;
+    width: 65%;
     display: flex;
     justify-content: space-between;
     align-items: center;
