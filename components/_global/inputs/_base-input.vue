@@ -1,13 +1,13 @@
 <template>
   <div>
     <input
-      class="form-control form-control-lg font-14 fw-300"
+      class="form-control font-14 fw-300"
       :type="inputType"
       :value="value"
       :readonly="readonly"
       :id="id"
       :placeholder="placeholder"
-      :class="{ 'is-invalid': form.errors.has(field) }"
+      :class="[{ 'is-invalid': form.errors.has(field) },  inputSize, classes]"
       @input="handleInput"
     />
     <has-error :form="form" :field="field"></has-error>
@@ -44,6 +44,19 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    classes: {
+      type:String,
+      default: ''
+    },
+    size: {
+      type: String,
+      default: ''
+    }
+  },
+  computed:{
+    inputSize(){
+     return this.size == '' ?  'form-control-lg': this.size
     }
   },
 
@@ -59,4 +72,3 @@ export default {
 };
 </script>
 
-<style></style>

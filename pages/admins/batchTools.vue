@@ -1,15 +1,24 @@
 <template>
-  <div>
-    Batch Tools
+  <div class="">
+      <SetAgeThirteen />
+      <SetAgeEighteen />
+
   </div>
 </template>
 
 <script>
-  export default {
-
+import SetAgeThirteen from '@/layouts/admins/batchtools/SetAgeThirteen'
+import SetAgeEighteen from '@/layouts/admins/batchtools/SetAgeEighteen'
+export default {
+  components:{
+    SetAgeThirteen,
+    SetAgeEighteen
   }
+};
 </script>
 
 <style lang="scss" scoped>
 
 </style>
+
+

@@ -218,7 +218,7 @@ export default {
   methods:{
     async updateInfo(){
       try{
-        const settings = await this.$axios.$put(`admin/settings`, this.form);
+        const settings = await this.form.put(`admin/settings`, this.form);
         this.$toast.open({
           type:'success',
           position: 'top-right',
