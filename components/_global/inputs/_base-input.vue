@@ -5,6 +5,7 @@
       :type="inputType"
       :value="value"
       :readonly="readonly"
+      :id="id"
       :placeholder="placeholder"
       :class="{ 'is-invalid': form.errors.has(field) }"
       @input="handleInput"
@@ -25,6 +26,10 @@ export default {
       required: true
     },
     value: {
+      type: String,
+      default: ''
+    },
+    id: {
       type: String,
       default: ''
     },

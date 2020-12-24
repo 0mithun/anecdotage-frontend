@@ -59,6 +59,22 @@ const routes = [
   { path: '/thread/create', name: 'threads.create', component: page('threads/create.vue') },
   { path: '/thread/:slug/thumbnail/', name: 'threads.thumbnail', component: page('threads/thumbnail.vue') },
 
+  {
+    path: '/admin',
+    name: 'admin.show',
+    redirect:{name: 'admin.show.settings'},
+    component: page('admins/index.vue'),
+    children:[
+      { path: '', name: 'admin.show.settings', component: page('admins/settings.vue') },
+      { path: 'logo', name: 'admin.show.settings.logo', component: page('admins/logo.vue') },
+      { path: 'batch-tools', name: 'admin.show.batch.tools', component: page('admins/batchTools.vue') },
+      { path: 'manage-users', name: 'admin.show.manage.users', component: page('admins/manageUsers.vue') },
+      { path: 'faq', name: 'admin.show.faq', component: page('admins/faq.vue') },
+      { path: 'terms', name: 'admin.show.terms', component: page('admins/terms.vue') },
+      { path: 'privacy', name: 'admin.show.privacy', component: page('admins/privacy.vue') },
+    ]
+  },
+
 
 ];
 

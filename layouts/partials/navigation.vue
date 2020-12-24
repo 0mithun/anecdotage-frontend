@@ -5,7 +5,7 @@
     >
       <div class="container">
         <nuxt-link :to="{ name: 'index' }" class="navbar-brand">
-          <img :src="logoUrl" height="32" alt="" />
+          <img :src="settings.logo_path" height="32" alt="" />
         </nuxt-link>
         <button
           class="navbar-toggler mr-auto"
@@ -166,6 +166,11 @@
                     <i class="fa fa-cogs"></i>
                     Setting
                   </a>
+                  <nuxt-link :to="{name:'admin.show'}" class="dropdown-item" href="#" title="Setting" v-if="$auth.user.is_admin">
+                    <i class="fa fa-cogs"></i>
+                    Admin
+                  </nuxt-link>
+
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#" @click.prevent="logout">
                     <i class="fa fa-lock"></i>
@@ -199,11 +204,11 @@ export default {
     emojis() {
       return this.$store.state.emojis;
     },
+    settings() {
+      return this.$store.getters.settings;
+    },
     defaultEmojiUrl(){
       return process.env.APP_URL + 'images/emojis/default.png';
-    },
-    logoUrl(){
-       return process.env.APP_URL + 'images/logo.jpg';
     },
     routeName(){
       if(this.$nuxt.$route.name == 'threads.rated'){
