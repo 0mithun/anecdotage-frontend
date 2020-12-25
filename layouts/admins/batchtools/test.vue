@@ -1,35 +1,13 @@
 <template>
   <div class="border-bottom mt-2">
-    <form @submit.prevent="threadsAssignToUsertag">
+    <form @submit.prevent="un_banned_all_users">
       <div class="form-group row">
-        <label for="assign_user_tag" class="col-sm-4 col-form-label"
-          >assign items to specific user every thread, if tag contains</label
+        <label class="col-sm-9 col-form-label"
+          >Un banned all users	</label
         >
         <div class="col-sm-3">
-          <base-input
-            :form="assign_tag"
-            size="form-control-sm"
-            field="assign_user_tag"
-            inputType="text"
-            v-model="assign_tag.assign_user_tag"
-            id="assign_user_tag"
-            placeholder="Enter tag text"
-          ></base-input>
-        </div>
-        <div class="col-sm-3">
-          <base-input
-            :form="assign_tag"
-            size="form-control-sm"
-            field="assign_user_tag_username"
-            inputType="text"
-            v-model="assign_tag.assign_user_tag_username"
-            id="assign_user_tag_username"
-            placeholder="Enter username"
-          ></base-input>
-        </div>
-        <div class="col-sm-2">
-          <base-button :loading="assign_tag.busy" size="sm" type="dark">
-            Assign User
+          <base-button :loading="un_banned_all_users.busy" size="sm" type="info">
+            Un Banned
           </base-button>
         </div>
       </div>
@@ -41,25 +19,23 @@
 export default {
   data() {
     return {
-      assign_tag: this.$vform({
-        assign_user_tag: '',
-        assign_user_tag_username: '',
+      un_banned_all_users: this.$vform({
       }),
     };
   },
+
   methods: {
-    async threadsAssignToUsertag(){
+    async unBanAllUsers(){
       try {
-        await this.assign_tag.post(`admin/batch-tool/threads/assign-to-user-threads-tag`, this.assign_tag);
-        this.assign_tag.assign_user_tag = '';
-        this.assign_tag.assign_user_tag_username = '';
+        const res = await this.un_banned_all_users.post(`admin/manage-users/threads/ban-users-title`);
         this.$toast.open({
           type: 'success',
           position: 'top-right',
-          message: 'Threads Assign Successfully',
+          message: 'Users unbanned Successfully',
         });
       } catch (e) {}
     },
+
 
   },
 };

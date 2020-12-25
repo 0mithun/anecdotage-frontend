@@ -9,6 +9,7 @@
       :placeholder="placeholder"
       :class="[{ 'is-invalid': form.errors.has(field) },  inputSize, classes]"
       @input="handleInput"
+      :disabled="disabled"
     />
     <has-error :form="form" :field="field"></has-error>
   </div>
@@ -52,6 +53,10 @@ export default {
     size: {
       type: String,
       default: ''
+    },
+    disabled:{
+      type: Boolean,
+      default: false
     }
   },
   computed:{
