@@ -1,5 +1,5 @@
 <template>
-  <div class="slim" >
+  <div class="slim"  :style="style">
     <client-only >
       <slot></slot>
     </client-only>
