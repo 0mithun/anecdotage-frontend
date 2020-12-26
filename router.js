@@ -41,6 +41,21 @@ const routes = [
       { path: 'favorites', name: 'profile.show.favorites', component: page('users/favorites.vue') },
       { path: 'likes', name: 'profile.show.likes', component: page('users/likes.vue') },
       { path: 'subscriptions', name: 'profile.show.subscriptions', component: page('users/subscriptions.vue') },
+
+
+    ],
+
+  },
+  {
+    path: '/profile/:username/settings',
+    name: 'profile.settings',
+    component: page('users/settings/index.vue'),
+    children:[
+      { path: '', name: 'profile.settings.info', component: page('users/settings/info.vue') },
+      { path: 'avatar', name: 'profile.settings.avatar', component: page('users/settings/avatar.vue') },
+      { path: 'password', name: 'profile.settings.password', component: page('users/settings/password.vue') },
+      { path: 'privacy', name: 'profile.settings.privacy', component: page('users/settings/privacy.vue') },
+      { path: 'notifications', name: 'profile.settings.notifications', component: page('users/settings/notifications.vue') },
     ]
   },
 

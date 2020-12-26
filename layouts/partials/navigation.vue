@@ -162,10 +162,10 @@
                     <i class="fa fa-user"></i>
                     Profile
                   </nuxt-link>
-                  <a class="dropdown-item" href="#" title="Setting">
+                  <nuxt-link :to="{name:'profile.settings', prams:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Setting">
                     <i class="fa fa-cogs"></i>
                     Setting
-                  </a>
+                  </nuxt-link>
                   <nuxt-link :to="{name:'admin.show'}" class="dropdown-item" href="#" title="Setting" v-if="$auth.user.is_admin">
                     <i class="fa fa-cogs"></i>
                     Admin

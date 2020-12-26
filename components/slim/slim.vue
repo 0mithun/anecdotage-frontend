@@ -1,5 +1,5 @@
 <template>
-  <div class="slim"  :style="style">
+  <div class="slim" >
     <client-only >
       <slot></slot>
     </client-only>
@@ -28,7 +28,7 @@ export default {
   },
   computed:{
     backgroundImage(){
-      return this.src ? `url(${this.src});background-size: cover; background-repeat: no-repeat;` : ''
+      return this.src ? `url(${this.src});background-size: contain; background-repeat: no-repeat;` : ''
     },
     style(){
       return `background:${this.backgroundImage}`;
@@ -38,4 +38,7 @@ export default {
 </script>
 <style lang="css">
 @import './slim.min.css';
+.slim[data-ratio='1:1'] > img, .slim[data-ratio='1:1'] > input[type='file'] {
+    margin-bottom: 0 !important;
+}
 </style>

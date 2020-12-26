@@ -3,6 +3,7 @@
 export const state = () => ({
   profileUser: null,
   profileUserPrivacy: null,
+  profileUserNotifications: null,
 
   threads: [],
   threadsCount: 0,
@@ -31,6 +32,9 @@ export const getters = {
   },
   profileUserPrivacy(state){
     return state.profileUserPrivacy;
+  },
+  profileUserNotifications(state){
+    return state.profileUserNotifications;
   },
   is_friend(state){
     return state.is_friend;
@@ -85,6 +89,10 @@ export const mutations = {
   SET_USER_PRIVACY: (state, privacy)=>{
     state.profileUserPrivacy = privacy
   },
+  SET_NOTIFICATIONS: (state, notification)=>{
+    state.profileUserNotifications = notification
+  },
+
   SET_THREADS: (state, threads)=>{
     state.threads = threads
   },
