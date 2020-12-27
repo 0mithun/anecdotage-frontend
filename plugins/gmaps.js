@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import * as VueGoogleMaps from 'vue2-google-maps-withscopedautocomp';
+import * as VueGoogleMaps from 'vue2-google-maps';
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyDHyF93Z-wGUDe0jwGCo49jZarkqAu6CUc',
+    key: 'AIzaSyCi8raV_JKtL4xUfmHIvHkxA07DBEr9WbA',
     libraries: 'places'
   }
 });

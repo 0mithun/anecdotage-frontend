@@ -1,22 +1,10 @@
 <template>
-  <!-- <div class="info-content" @click="openThread">
-        <div class="">
-            {{ this.infoContent.title }}
-        </div>
-        <div class="" style="margin-top:10px" v-if="infoContent.anonymous ==0">
-            <img :src="infoContent.creator.profileAvatarPath" alt="" width="25"> Posted By: {{ this.infoContent.creator.name }}   
-        </div>
-        <div class="" style="margin-top:10px" v-else>
-            <img src="/images/default.png" alt="" width="25"> Posted By: Anonymous
-        </div>
-  </div>-->
   <div class="info-content" @click="openThread">
     <h5 class="thread-title">{{ thread.title }}</h5>
     <div class="info-content-body">
       <div class="info-content-thread-thumb">
-        <img :src="thread.threadImagePath" class="thread-thumb" alt />
+        <img :src="thread.thread_image_path" class="thread-thumb" alt />
       </div>
-
       <div class="thread-counts">
         <view-counts :thread="thread"></view-counts>
         <point-counts :thread="thread"></point-counts>
@@ -27,6 +15,9 @@
 </template>
 
 <script>
+  import ViewCounts from '@/components/counts/ViewCounts'
+  import PointCounts from '@/components/counts/PointCounts'
+  import EmojiCounts from '@/components/counts/EmojiCounts'
 export default {
   props: ["thread"],
   data() {
@@ -35,19 +26,22 @@ export default {
       results: []
     };
   },
+  components:{
+    ViewCounts,
+    PointCounts,
+    EmojiCounts,
+  },
   methods: {
     focusMarker(index) {
-      eventBus.$emit("markers_result_clicked", index);
+      this.$nuxt.$emit("markers_result_clicked", index);
     },
     openThread() {
-      window.open(
-        this.thread.path,
-        "_blank" // <- This is what makes it open in a new window.
-      );
+      let routeData = this.$router.resolve({name: 'threads.show', params: {slug: this.thread.slug}});
+      window.open(routeData.href, '_blank');
     }
   },
   created() {
-    eventBus.$on("markers_fetched", data => {
+    this.$nuxt.$on("markers_fetched", data => {
       this.results = data.results;
     });
   }
@@ -58,7 +52,7 @@ export default {
 <style scoped>
 .info-content {
   cursor: pointer;
-  max-width: 10vw;
+  max-width: 15vw;
 }
 .info-content-body {
   display: flex;

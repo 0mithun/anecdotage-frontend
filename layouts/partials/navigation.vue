@@ -162,7 +162,7 @@
                     <i class="fa fa-user"></i>
                     Profile
                   </nuxt-link>
-                  <nuxt-link :to="{name:'profile.settings', prams:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Setting">
+                  <nuxt-link :to="{name:'profile.settings', params:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Setting">
                     <i class="fa fa-cogs"></i>
                     Setting
                   </nuxt-link>

@@ -1,6 +1,12 @@
 <template>
-  <div>
-    <ThreadMap />
+  <div class="row">
+    <div class="col-md-2">
+      <PlaceSearch />
+      <MapResults />
+    </div>
+    <div class="col-md-10">
+      <ThreadMap />
+    </div>
   </div>
 </template>
 

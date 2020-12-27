@@ -166,9 +166,7 @@ export default {
     justify-content: center;
     align-items: center;
     img{
-      max-height: fill-available;
-      max-height: -webkit-fill-available;
-      max-height: -moz-fill-available;
+      max-height: stretch;
     }
 }
 </style>

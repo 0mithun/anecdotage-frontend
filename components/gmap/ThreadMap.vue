@@ -2,7 +2,7 @@
 <div>
   <div class="loading" v-if="loading">
     <div class="image">
-    <img src="/images/loading.gif" alt="">
+    <img src="~assets/images/loading.gif" alt="">
       <h4 style="color:white;font-weignt:bold;">Loading....</h4>
     </div>
   </div>
@@ -48,10 +48,12 @@
 </template>
 
 <script>
-import InfoContent from "./InfoContent.vue";
+// import InfoContent from "./InfoContent.vue";
+
+import InfoContent from '@/components/gmap/InfoContent'
 
 export default {
-  props: ["userlat", "userlng", "nearest"],
+  // props: ["userlat", "userlng", "nearest"],
   components: {
     InfoContent,
   },
@@ -59,16 +61,19 @@ export default {
     return {
       loading:false,
       query: "",
-      center: { lat: parseFloat(this.userlat), lng: parseFloat(this.userlng) },
+      // center: { lat: parseFloat(this.userlat), lng: parseFloat(this.userlng) },
+      center: { lat: 0, lng: 0},
       mapCenter: {
-        lat: parseFloat(this.userlat),
-        lng: parseFloat(this.userlng),
+        // lat: parseFloat(this.userlat),
+        // lng: parseFloat(this.userlng),
+        lat: 0,
+        lng: 0,
       },
 
       fetchRunningCenter:null,
       markers: [],
       results: [],
-      zoom: 5,
+      zoom: 3,
       infoContent: null,
       infoWindowPos: {
         lat: 0,
@@ -85,6 +90,55 @@ export default {
     };
   },
   methods: {
+    getUserLocation(){
+      if(this.query ==''){
+        if(this.$auth.loggedIn){
+          const lat =  this.$auth.user.location.coordinates[0];
+          const lng =  this.$auth.user.location.coordinates[1];
+
+          if(lat == null || lng == null){
+            const location = this.getLocationFromBrowser();
+            this.center = location;
+            this.mapCenter = {
+              lat: location.lat,
+              lng: location.lng,
+            }
+
+            this.$axios.$put(`settings/location`, location)
+            .then(res=>{
+              this.$auth.fetchUser();
+            }).catch(err=>{
+
+            })
+
+          }else{
+            this.center = {lat: lat,lng: lng}
+            this.mapCenter = {lat: lat,lng: lng}
+          }
+        }else{
+          const location = this.getLocationFromBrowser();
+          this.center = location;
+          this.mapCenter = location
+        }
+      }
+    },
+    getLocationFromBrowser(){
+       if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(position=>{
+              const lat  = position.coords.latitude;
+              const long = position.coords.longitude;
+
+              return {
+                lat: lat,
+                lng: lng
+              }
+
+          });
+        }else{
+          alert("You must provide your location first");
+          return;
+        }
+    },
     centerChanged(event){
       const center = {
         lat:event.lat(),
@@ -95,7 +149,6 @@ export default {
         this.fetchLocations();
     },
     clicked(e){
-
       this.mapCenter.lat = e.latLng.lat();
       this.mapCenter.lng = e.latLng.lng();
 
@@ -105,38 +158,15 @@ export default {
       this.fetchLocations();
     },
     fetchLocations() {
+      const location = this.fetchRunningCenter != null ? this.fetchRunningCenter : this.center;
 
-      if(this.query ==''){
-        if (this.center.lat == NaN || this.center.lng == NaN) {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position=>{
-                 const lat  = position.coords.latitude;
-                 const long = position.coords.longitude;
-                 this.center.lat = lat;
-                 this.center.lng = long;
-
-                 this.mapCenter.lat = lat;
-                 this.mapCenter.lng = long;
-            });
-          }else{
-            alert("You must provide your location first");
-            return;
-          }
-        }
-      }
-
-      let url = "/map/all-threads";
-      axios
-        .post(url, {
-          center: this.fetchRunningCenter != null ? this.fetchRunningCenter : this.center,
-          query: this.query,
-        })
+      this.$axios
+        .$get(`maps?q=${this.query}&lat=${ location.lat}&lng=${ location.lng}`)
         .then((res) => {
-          let data = res.data;
-          if (res.data.status == "failed") {
+          if (res.status == "failed") {
             alert("You must provide your location first");
           } else {
-            eventBus.$emit("markers_fetched", data);
+            this.$nuxt.$emit("markers_fetched", res);
             if(this.fetchRunningCenter != null){
               // this.mapCenter = this.fetchRunningCenter;
               // this.center = this.fetchRunningCenter;
@@ -146,8 +176,8 @@ export default {
     },
     toggleInfoWindow(marker, idx) {
       const center = {
-        lat:  this.results[idx].lat,
-        lng: this.results[idx].lng
+        lat: Number.parseFloat(this.results[idx].lat),
+        lng: Number.parseFloat(this.results[idx].lng)
       }
       // this.center = center;
       this.mapCenter = center;
@@ -172,43 +202,45 @@ export default {
       this.fetchLocations();
     },
   },
+
   created() {
-    // this.query = location.search;
+    this.getUserLocation();
+    if(this.$route.query.q){
+      this.query = this.$route.query.q
+    }
 
-    // this.fetchLocations();
-    // eventBus.$on("markers_fetched", (data) => {
-    //   this.markers = data.markers;
-    //   this.results = data.results;
 
-    //   if (this.markers.length > 0) {
-    //     let center = Math.floor(
-    //       Math.random() * Math.floor(this.markers.length)
-    //     );
-    //     // this.mapCenter = data.markers[center].position;
-    //     this.loading = false;
-    //   }
-    // });
-    // eventBus.$on("markers_result_clicked", (index) => {
-    //   let targetMarkers = this.markers[index];
-    //   this.mapCenter = targetMarkers.position;
-    //   this.toggleInfoWindow(targetMarkers, index);
-    // });
+    this.fetchLocations();
 
-    // eventBus.$on("zoom_decreased", (zoom) => {
-    //   this.zoom = zoom;
-    // });
-    // eventBus.$on("change_center", (center) => {
-    //   this.mapCenter = center;
-    // });
+    this.$nuxt.$on("markers_fetched", (data) => {
+      this.markers = data.markers;
+      this.results = data.results;
 
-    // eventBus.$on("query_removed", () => {
-    //   this.query = '';
-    //   const uri = window.location.toString();
-    //   if (uri.indexOf("?") > 0) {
-    //       const clean_uri = uri.substring(0, uri.indexOf("?"));
-    //       window.history.replaceState({}, document.title, clean_uri);
-    //   }
-    // });
+      if (this.markers.length > 0) {
+        // let center = Math.floor(
+        //   Math.random() * Math.floor(this.markers.length)
+        // );
+        // this.mapCenter = data.markers[center].position;
+      }
+        this.loading = false;
+    });
+    this.$nuxt.$on("markers_result_clicked", (index) => {
+      let targetMarkers = this.markers[index];
+      this.mapCenter.lat  = Number.parseFloat(targetMarkers.position.lat);
+      this.mapCenter.lng  = Number.parseFloat(targetMarkers.position.lng);
+      this.toggleInfoWindow(targetMarkers, index);
+    });
+
+    this.$nuxt.$on("zoom_decreased", (zoom) => {
+      this.zoom = zoom;
+    });
+    this.$nuxt.$on("change_center", (center) => {
+      this.mapCenter = center;
+    });
+
+    this.$nuxt.$on("query_removed", () => {
+      this.query = '';
+    });
 
 
   },

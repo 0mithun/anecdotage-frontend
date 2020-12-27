@@ -9148,11 +9148,12 @@ vue-toast-notification@^0.6.0:
   resolved "https://registry.yarnpkg.com/vue-toast-notification/-/vue-toast-notification-0.6.0.tgz#71afe87b7daeb77df223ad56cc0b8be6045a88a5"
   integrity sha512-GSXLTemx/+YLDpeObuMcz+gQ6NxvBcJxGhj5PB8CZDDBUQWbeAp0ZUPZEixDun/GtbxBOA9jLxo4MFPHTbIBYw==
 
-vue2-google-maps-withscopedautocomp@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/vue2-google-maps-withscopedautocomp/-/vue2-google-maps-withscopedautocomp-0.12.1.tgz#30c895bbfd7dfb874474259607f7d38af69f14c6"
-  integrity sha512-oyHBKjC497L2C95MTc0rQVDcewRldsoWMiKGFUvL/VbYUFcy/a9c2gnaJ8RPxeIhqdTdw54thlLQX/RGetfduw==
+vue2-google-maps@^0.10.7:
+  version "0.10.7"
+  resolved "https://registry.yarnpkg.com/vue2-google-maps/-/vue2-google-maps-0.10.7.tgz#2e4c1239386001bd47777d8c6a0475e5320cc3a8"
+  integrity sha512-y5aBJTAsfGvpsbfgPaeWU7o7QbOeINZKsP6SB9qrBe8U8EYBFO/bTWo3rcMq/NOtgT/XssV3Nwg/2u3no6jWbw==
   dependencies:
+    babel-runtime "^6.26.0"
     marker-clusterer-plus "^2.1.4"
 
 vue@^2.6.12:

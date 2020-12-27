@@ -1,38 +1,23 @@
 <template>
 <div>
-
   <div class="map_thraed_list">
-    <!-- <div class="list-group">
-      <a
-        style="padding:10px 5px"
-        href="#"
-        class="list-group-item"
-        v-for="(item, i) in results"
-        :key="i"
-        @click="focusMarker(i)"
-        :class="isActive(i)"
-      >
-        <div class="col-md-10">{{ item.text }}</div>
-        <button class="btn-default btn btn-sm" @click="viewThread(item.thread_id)">View</button>
-      </a>
-    </div>-->
     <div
-      class="panel"
+      class="card"
       v-for="(thread, index) in results"
       :key="index"
       @click="focusMarker(index)"
       @mouseenter="focusMarker(index)"
       :class="isActive(index)"
-      
+
     >
-      
-      <div  class="panel">
-        <div  class="panel-body">
+
+      <div  class="card-body">
+        <div  class="">
           <div  class="trending_thread_title"><strong>{{ thread.title }}</strong>
           </div>
           <div class="card-header thread_thumb" :style="threadThumbStyle(thread)">
               <img
-                :src="thread.threadImagePath"
+                :src="thread.thread_image_path"
                 alt="Jason Ritter: Tan Wizard"
                 class="thread_thumb_image"
                 style="max-width: 100%;height:70px"
@@ -46,18 +31,22 @@
         </div>
       </div>
     </div>
-    <div class="panel" v-if="results.length == 0">
-     <div class="panel-body">
+    <div class="card" v-if="results.length == 0">
+     <div class="card-body">
         <div class="alert alert-danger text-center">
           <strong>  No Results </strong>
         </div>
-       </div> 
+       </div>
     </div>
   </div>
 </div>
 </template>
 
 <script>
+  import ViewCounts from '@/components/counts/ViewCounts'
+  import PointCounts from '@/components/counts/PointCounts'
+  import EmojiCounts from '@/components/counts/EmojiCounts'
+
 export default {
   data() {
     return {
@@ -66,39 +55,26 @@ export default {
       activeIndex: null,
     };
   },
-  computed: {
-    
+  components:{
+    ViewCounts,
+    PointCounts,
+    EmojiCounts,
   },
-
   methods: {
     threadThumbStyle(thread) {
       return `background: rgba(${thread.imageColor});cursor:pointer;`;
     },
     isActive(index) {
-      return this.activeIndex == index ? "panel-primary" : "";
+      return this.activeIndex == index ? " border-primary" : "";
     },
     focusMarker(index) {
       this.activeIndex = index;
-     
-
-      eventBus.$emit("markers_result_clicked", index);
-       eventBus.$emit("zoom_decreased", 6);
-    },
-    viewThread(thread_id) {
-      this.getThreadDetails(thread_id);
-    },
-    getThreadDetails(thread_id) {
-      axios
-        .post("/map/thread-details", {
-          thread_id,
-        })
-        .then((res) => {
-          window.open(res.data.path, "_blank");
-        });
+      this.$nuxt.$emit("markers_result_clicked", index);
+      this.$nuxt.$emit("zoom_decreased", 5);
     },
   },
   created() {
-    eventBus.$on("markers_fetched", (data) => {
+    this.$nuxt.$on("markers_fetched", (data) => {
       this.results = data.results;
     });
   },
@@ -150,8 +126,13 @@ export default {
 }
 .trending_footer{
   font-size: 12px;
+  display: flex;
+  justify-content: space-between;
 }
 .alert{
   margin-bottom: 0px;
+}
+.card-body {
+  padding:5px;
 }
 </style>
