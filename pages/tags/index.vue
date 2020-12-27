@@ -157,7 +157,7 @@ export default {
       if (file.size > 1024 *2048) {
           event.preventDefault();
           this.tagThumbError = true;
-          this.threadThumbErrorMessage = 'Thread image may not be greater than 2048 kilobytes';
+          this.threadThumbErrorMessage = 'Tag image may not be greater than 2048 kilobytes';
           return;
       }
       this.selectFile = event.target.files[0];

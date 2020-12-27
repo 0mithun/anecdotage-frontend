@@ -103,9 +103,9 @@
             <!-- <a href="/upload" class="primary-bg-color text-white">
               <i class="fas fa-cloud-upload-alt"></i> Upload
             </a> -->
-           <a href="http://127.0.0.1:8001/map/show" class="navbar-menu-icon">
+           <nuxt-link :to="{name:'maps'}"  href="#" class="navbar-menu-icon">
             <img src="~assets/images/map_marker.png" alt="" class="navbar-icon marker">
-            </a>
+           </nuxt-link>
 
             <nuxt-link :to="{name:'threads.create'}" class="navbar-menu-icon"><img src="~assets/images/pen_with.png" alt="" class="navbar-icon pen"></nuxt-link>
 

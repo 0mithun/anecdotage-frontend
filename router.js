@@ -60,6 +60,7 @@ const routes = [
   },
 
   { path: '/anecdotes/emojis/:emoji', name: 'emojis', component: page('emojis/index.vue') },
+  { path: '/anecdotes/maps', name: 'maps', component: page('maps/index.vue') },
 
   { path: '/tags/:slug', name: 'tags', component: page('tags/index.vue') },
   { path: '/anecdotes/rated', name: 'threads.rated', component: page('threads/filters/rated.vue') },

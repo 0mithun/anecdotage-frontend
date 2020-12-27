@@ -18,17 +18,17 @@
     />
 
     <!-- <gmap-cluster :zoomOnClick="true" :maxZoom="5">
-        
+
             <GmapMarker
                 :key="index"
                 v-for="(m, index) in markers"
                 :position="m.position"
                 :clickable="true"
-                :draggable="true"                
+                :draggable="true"
                 @click="toggleInfoWindow(m,index)"
             />
-            
-            
+
+
     </gmap-cluster>-->
 
     <!-- <GmapMarker :position="center" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,index)" /> -->
@@ -44,7 +44,7 @@
   </GmapMap>
   </div>
 </div>
- 
+
 </template>
 
 <script>
@@ -64,7 +64,7 @@ export default {
         lat: parseFloat(this.userlat),
         lng: parseFloat(this.userlng),
       },
-    
+
       fetchRunningCenter:null,
       markers: [],
       results: [],
@@ -105,18 +105,18 @@ export default {
       this.fetchLocations();
     },
     fetchLocations() {
-      
+
       if(this.query ==''){
         if (this.center.lat == NaN || this.center.lng == NaN) {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position=>{
                  const lat  = position.coords.latitude;
-                 const long = position.coords.longitude; 
+                 const long = position.coords.longitude;
                  this.center.lat = lat;
-                 this.center.lng = long;      
-                
+                 this.center.lng = long;
+
                  this.mapCenter.lat = lat;
-                 this.mapCenter.lng = long;   
+                 this.mapCenter.lng = long;
             });
           }else{
             alert("You must provide your location first");
@@ -173,44 +173,44 @@ export default {
     },
   },
   created() {
-    this.query = location.search;
+    // this.query = location.search;
 
-    this.fetchLocations();
-    eventBus.$on("markers_fetched", (data) => {
-      this.markers = data.markers;
-      this.results = data.results;
+    // this.fetchLocations();
+    // eventBus.$on("markers_fetched", (data) => {
+    //   this.markers = data.markers;
+    //   this.results = data.results;
 
-      if (this.markers.length > 0) {
-        let center = Math.floor(
-          Math.random() * Math.floor(this.markers.length)
-        );
-        // this.mapCenter = data.markers[center].position;
-        this.loading = false;
-      }
-    });
-    eventBus.$on("markers_result_clicked", (index) => {
-      let targetMarkers = this.markers[index];
-      this.mapCenter = targetMarkers.position;
-      this.toggleInfoWindow(targetMarkers, index);
-    });
+    //   if (this.markers.length > 0) {
+    //     let center = Math.floor(
+    //       Math.random() * Math.floor(this.markers.length)
+    //     );
+    //     // this.mapCenter = data.markers[center].position;
+    //     this.loading = false;
+    //   }
+    // });
+    // eventBus.$on("markers_result_clicked", (index) => {
+    //   let targetMarkers = this.markers[index];
+    //   this.mapCenter = targetMarkers.position;
+    //   this.toggleInfoWindow(targetMarkers, index);
+    // });
 
-    eventBus.$on("zoom_decreased", (zoom) => {
-      this.zoom = zoom;
-    });
-    eventBus.$on("change_center", (center) => {
-      this.mapCenter = center;
-    });
+    // eventBus.$on("zoom_decreased", (zoom) => {
+    //   this.zoom = zoom;
+    // });
+    // eventBus.$on("change_center", (center) => {
+    //   this.mapCenter = center;
+    // });
 
-    eventBus.$on("query_removed", () => {
-      this.query = '';
-      const uri = window.location.toString();
-      if (uri.indexOf("?") > 0) {
-          const clean_uri = uri.substring(0, uri.indexOf("?"));
-          window.history.replaceState({}, document.title, clean_uri);
-      }
-    });
-  
-      
+    // eventBus.$on("query_removed", () => {
+    //   this.query = '';
+    //   const uri = window.location.toString();
+    //   if (uri.indexOf("?") > 0) {
+    //       const clean_uri = uri.substring(0, uri.indexOf("?"));
+    //       window.history.replaceState({}, document.title, clean_uri);
+    //   }
+    // });
+
+
   },
 };
 </script>
