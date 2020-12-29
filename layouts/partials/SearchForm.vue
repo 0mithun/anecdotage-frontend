@@ -1,14 +1,14 @@
 <template>
 
   <div class="header-search">
-    <form  action="" method="">
+    <form @submit.prevent="search">
       <div class="form-group navbar-search  ">
         <input
           class="form-control font-14 fw-300 search-box"
           type="text"
           :class="activeSearch"
           name="query"
-          :value="query"
+          v-model="q"
           placeholder="Search"
         />
       </div>
@@ -21,7 +21,7 @@ export default {
   name: 'search-form',
   data() {
     return {
-      query: '',
+      q: '',
     };
   },
   computed: {
@@ -30,17 +30,15 @@ export default {
     },
   },
   created() {
-    this.getSearchQuery();
+    if(this.$route.query.q){
+      this.q = this.$route.query.q
+    }
   },
   methods: {
-    getSearchQuery() {
-      // const urlParams = new URLSearchParams(window.location.search);
-      // const query = urlParams.get('query');
-
-      // if (query && query != '') {
-      //   this.query = query;
-      // }
-    },
+    search(){
+      this.$nuxt.$emit('queryStringChange')
+      this.$router.push({name:'search', query:{q: this.q} });
+    }
   },
 };
 </script>
@@ -71,11 +69,11 @@ export default {
     // line-height: 1.6;
     // padding-right: 40px;
     // width: 40px;
+    border: none;
 }
 
 .header-search .form-control.active-search {
-    border: #494c62 1px solid;
-    background-color: #494c62;
+    // border: #494c62 1px solid;
     line-height: 1.6;
     padding-right: 40px;
     width: 40px;
@@ -90,11 +88,11 @@ export default {
 
 
 input.search-box {
-  &:not(:placeholder-shown){
-     width: 100%;
-    border: 2px solid #98cbe8;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  }
+  // &:not(:placeholder-shown){
+  //    width: 100%;
+  //   border: 2px solid #98cbe8;
+  //   border-radius: 4px;
+  //   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  // }
 }
 </style>

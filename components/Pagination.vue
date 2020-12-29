@@ -2,19 +2,19 @@
   <nav v-if="show" >
     <ul class="pagination">
       <li :class="{ disabled: ! prev }" class="page-item">
-        <nuxt-link :to="{name:routeName, params:{'param.key': 'param.value'}, query: {page: 1}}" class="page-link">
+        <nuxt-link :to="{name:routeName, params:{'param.key': 'param.value'}, query: {page: 1, ...q}}" class="page-link">
         <span>&laquo;</span>
         </nuxt-link>
         </li>
       <li v-for="(link, index) in links" :key="index"  :class="{ active: pagination.current_page == link, disabled: isNaN(link) }" class="page-item">
-        <nuxt-link :to="{name:routeName, params:{'param.key': 'param.value'}, query: {page: link}}" class="page-link">
+        <nuxt-link :to="{name:routeName, params:{'param.key': 'param.value'}, query: {page: link, ...q}}" class="page-link">
           <span>
             <span>{{ link }}</span>
           </span>
         </nuxt-link>
       </li>
       <li :class="{ disabled: ! next }"  class="page-item">
-        <nuxt-link  :to="{name:routeName, params:{'param.key': 'param.value'}, query: {page: next}}" class="page-link">
+        <nuxt-link  :to="{name:routeName, params:{'param.key': 'param.value'}, query: {page: next, ...q}}" class="page-link">
             <span aria-hidden="true">&raquo;</span>
         </nuxt-link>
       </li>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex';
   export default {
      props:{
         pagination:{
@@ -36,15 +37,18 @@
         param:{
           type: Object,
           required: true
-        }
+        },
     },
     data(){
       return {
-        limit: 4
+        limit: 4,
+        // q: {}
       }
     },
-
     computed: {
+        ...mapGetters({
+          q:'pagination/q'
+        }),
         pages() {
             let pages = [];
             for (let i = 1; i <= this.pagination.last_page; i++) {
@@ -93,8 +97,8 @@
             if (isNaN(page)) {
                 return;
             }
-        }
-    }
+        },
+    },
   }
 </script>
 
