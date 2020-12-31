@@ -3,7 +3,8 @@
 export const state = () => ({
   tags: [],
   threads: [],
-  pageinateData: null
+  pageinateData: null,
+  loading:true,
 })
 
 export const getters = {
@@ -18,6 +19,9 @@ export const getters = {
   },
   pageinateData(state){
     return state.pageinateData;
+  },
+  loading(state){
+    return state.loading;
   }
 }
 
@@ -30,6 +34,9 @@ export const mutations = {
   },
   SET_PAGINATE_DATA: (state, pageinateData)=>{
     state.pageinateData = pageinateData
+  },
+  SET_LOADING: (state, loading)=>{
+    state.loading = loading
   }
 }
 

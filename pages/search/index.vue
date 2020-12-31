@@ -3,9 +3,24 @@
     <div class="row">
       <div class="col-md-8">
         <FilterSearch />
-        <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
 
-        <Pagination :pagination="pageinateData" routeName="search" :param="{key:'',value:''} " />
+        <template v-if="loading">
+          <div class="loading-box">
+            <img src="~assets/images/loading.gif" alt="">
+          </div>
+        </template>
+        <template v-else>
+          <template v-if="threadsCount > 0">
+            <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
+            <Pagination :pagination="pageinateData" routeName="search" :param="{key:'',value:''} " />
+          </template>
+          <template v-else>
+            <div class="alert alert-danger">
+              No Results Found
+            </div>
+          </template>
+        </template>
+
 
       </div>
       <div class="col-md-4">
@@ -40,6 +55,8 @@ import {mapGetters} from 'vuex'
         threads: 'search/threads',
         tags: 'search/tags',
         pageinateData: 'search/pageinateData',
+        loading:'search/loading',
+        threadsCount: 'search/threadsCount'
       }),
     },
     created(){
@@ -59,11 +76,13 @@ import {mapGetters} from 'vuex'
         .join('&');
 
       try {
+         store.commit('search/SET_LOADING', true)
         const searchResponse = await $axios.$get(`search?${q}`);
 
         store.commit('search/SET_TAGS', searchResponse.tags.data)
         store.commit('search/SET_THREADS', searchResponse.threads.data)
         store.commit('search/SET_PAGINATE_DATA', searchResponse.threads.meta)
+
 
         let queryString = query
         if(queryString.hasOwnProperty('page')){
@@ -71,6 +90,7 @@ import {mapGetters} from 'vuex'
         }
         store.commit('pagination/SET_QUERY_STRING', queryString)
 
+        store.commit('search/SET_LOADING', false)
       } catch (e) {
         console.log(e);
       }
@@ -79,5 +99,14 @@ import {mapGetters} from 'vuex'
 </script>
 
 <style lang="scss" scoped>
-
+  .alert{
+    margin-top: 10px;
+  }
+  .loading-box{
+    // widows: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20vh;
+  }
 </style>

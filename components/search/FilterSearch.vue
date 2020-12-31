@@ -10,16 +10,16 @@
                   <!-- Extra small button group -->
                 <div class="btn-group">
                   <button class="btn btn-link btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <template v-if="sort_by == 'topRated'">
+                    <template v-if="sort_by == 'top'">
                        <strong class="dark">Top Rated</strong>
                     </template>
-                    <template v-if="sort_by == 'created_at'">
+                    <template v-if="sort_by == 'recent'">
                        <strong class="dark">Most Recent</strong>
                     </template>
-                    <template v-if="sort_by == 'like_count'">
+                    <template v-if="sort_by == 'like'">
                        <strong class="dark">Most Liked</strong>
                     </template>
-                    <template v-if="sort_by == 'favorite_count'">
+                    <template v-if="sort_by == 'favorite'">
                        <strong class="dark">Most Favorited</strong>
                     </template>
                     <template v-if="sort_by == 'visits'">
@@ -29,10 +29,10 @@
                   <span class="fas fa-caret-down"></span>
                   </button>
                   <ul class="dropdown-menu">
-                    <li><a href="#" @click.prevent="sortBy('topRated')">Top Rated</a></li>
-                    <li><a href="#" @click.prevent="sortBy('created_at')">Most Recent</a></li>
-                    <li><a href="#" @click.prevent="sortBy('like_count')">Most Liked</a></li>
-                    <li><a href="#" @click.prevent="sortBy('favorite_count')">Most Favorited</a></li>
+                    <li><a href="#" @click.prevent="sortBy('top')">Top Rated</a></li>
+                    <li><a href="#" @click.prevent="sortBy('recent')">Most Recent</a></li>
+                    <li><a href="#" @click.prevent="sortBy('like')">Most Liked</a></li>
+                    <li><a href="#" @click.prevent="sortBy('favorite')">Most Favorited</a></li>
                     <li><a href="#" @click.prevent="sortBy('visits')">Most Visits</a></li>
                   </ul>
                 </div>
@@ -57,7 +57,7 @@
                           type="checkbox"
                           name="rated"
                           id
-                          :value="tag.name.toLowerCase()"
+                          :value="tag.id"
                           v-model="filter_tags"
                         />
                         {{ tag.name.toLowerCase() }}
@@ -143,7 +143,7 @@
                           type="checkbox"
                           name="like"
                           id
-                          :value="emoji.name"
+                          :value="emoji.id"
                           class="filter-emoji-checkbox"
                           v-model="filter_emojis"
                         />
@@ -293,7 +293,7 @@
   export default {
     data(){
       return {
-        sort_by: "topRated",
+        sort_by: "top",
         filter_emojis: [],
         filter_rated: [],
         search: false,
@@ -302,7 +302,6 @@
         filter_tags: [],
         filter_length: [],
         queryString:{},
-        q: ''
       }
     },
     computed:{
@@ -310,15 +309,12 @@
         threads: 'search/threads',
         tags: 'search/tags',
         threadsCount: 'search/threadsCount',
-        emojis:'emojis'
+        emojis:'emojis',
+        q:'pagination/q'
       }),
 
     },
-    created(){
-      if(this.$route.query.q){
-        this.q = this.$route.query.q
-      }
-    },
+
     methods:{
       sortBy(sort) {
         this.sort_by = sort;
@@ -353,16 +349,16 @@
                this.queryString.length = this.filter_length.join(',');
         }
 
-        if(this.q != ''){
-          this.queryString.q = this.q;
+        if(this.q.hasOwnProperty('q')){
+          this.queryString.q = this.q.q;
+        }else{
+          this.$router.push('/')
         }
 
-        // if(this.queryString.hasOwnProperty('page')){
-        //   delete this.queryString.page
-        // }
+        this.queryString.sort_by=this.sort_by;
 
         this.$store.commit('pagination/SET_QUERY_STRING', this.queryString)
-        this.$router.push({name:'search', query:{q: this.q, ...this.queryString} });
+        this.$router.push({name:'search', query:{...this.queryString} });
       },
     },
     watch: {
