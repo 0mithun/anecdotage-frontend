@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
+        <FilterSearch />
         <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
 
         <Pagination :pagination="pageinateData" routeName="search" :param="{key:'',value:''} " />
@@ -19,6 +20,7 @@ import SingleThread from '@/components/threads/SingeThread'
 import Sidebar from '@/layouts/partials/Sidebar'
 import Pagination from '@/components/Pagination'
 
+import FilterSearch from '@/components/search/FilterSearch'
 import {mapGetters} from 'vuex'
 
   export default {
@@ -30,12 +32,13 @@ import {mapGetters} from 'vuex'
     components:{
       SingleThread,
       Sidebar,
-      Pagination
+      Pagination,
+      FilterSearch
     },
     computed:{
       ...mapGetters({
         threads: 'search/threads',
-        emoji: 'search/tags',
+        tags: 'search/tags',
         pageinateData: 'search/pageinateData',
       }),
     },

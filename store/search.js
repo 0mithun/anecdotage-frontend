@@ -13,6 +13,9 @@ export const getters = {
   threads(state){
     return state.threads;
   },
+  threadsCount(state){
+    return state.pageinateData.total;
+  },
   pageinateData(state){
     return state.pageinateData;
   }
