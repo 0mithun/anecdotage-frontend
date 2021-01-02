@@ -27,6 +27,6 @@ export default {
     settings() {
       return this.$store.getters.settings;
     },
-  }
+  },
 }
 </script>

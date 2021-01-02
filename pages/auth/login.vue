@@ -73,6 +73,7 @@ export default {
         })
         .then(res => {
           // console.log(res);
+
         })
         .catch(e => {
           this.form.errors.set(e.response.data.errors);

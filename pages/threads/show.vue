@@ -63,6 +63,7 @@
                         class="avatar-photo"
                       />
                       <!-- <user-online :user="reply.owner"></user-online> -->
+                      <UserOnline :user="thread.creator" />
                       <span>{{ thread.creator.name }}</span>
                     </nuxt-link>
                   </div>
@@ -217,6 +218,7 @@ import Sidebar from '@/layouts/partials/Sidebar'
 
 
 import Replies from '@/components/replies/Replies';
+import UserOnline from '@/components/chat/UserOnline'
 
 //image_path_pixel_color
 export default {
@@ -238,7 +240,8 @@ export default {
     focusComment,
     ShowSource,
     ReportThread,
-    Replies
+    Replies,
+    UserOnline
 
   },
    computed: {

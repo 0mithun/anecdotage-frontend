@@ -37,6 +37,7 @@ export default {
     ]
   },
 
+
   loading: { color: '#fff' },
   css: ['@/assets/scss/main.scss'],
 
@@ -49,17 +50,42 @@ export default {
     '~/plugins/swal',
     '~/plugins/vselect',
     '~/plugins/uiv',
+    '~/plugins/echo',
     { src: '~/plugins/gmaps', ssr: false },
-    { src: '~/plugins/vueat', ssr: false }
+    { src: '~/plugins/vueat', ssr: false },
+    { src: '~/plugins/chat', ssr: false }
   ],
 
-  buildModules: ['@nuxtjs/router'],
+  buildModules: ['@nuxtjs/router',
+    [
+      '@nuxtjs/laravel-echo',
+      {
+        broadcaster: 'pusher',
+        key: process.env.PUSHER_APP_KEY,
+        cluster: process.env.PUSHER_APP_CLUSTER,
+        encrypted: false,
+        wsHost: process.env.WEBSOCKET_BASE_URL,
+        authEndpoint: process.env.API_URL + '/broadcasting/auth',
+        wsPort: 6001,
+        wssPort: 6001,
+        disableStats: true,
+        forceTLS: false,
+        enabledTransports: ["ws", "wss"],
+      }
+    ]
+  ],
+  echo: {
+    authModule: true,
+    connectOnLogin: true,
+    disconnectOnLogout: true
+  },
 
   modules: [
     'bootstrap-vue/nuxt',
     '@nuxtjs/auth',
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+
   ],
 
   auth: {
@@ -86,6 +112,7 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) { },
+
 
     html: {
       minify: {
