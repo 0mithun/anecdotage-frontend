@@ -20,7 +20,7 @@ export default {
       required: true,
     },
     status:{
-      default:'sort'
+      default:'full'
     }
   },
 

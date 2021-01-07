@@ -63,7 +63,8 @@ const routes = [
   { path: '/anecdotes/maps', name: 'maps', component: page('maps/index.vue') },
   { path: '/anecdotes/search', name: 'search', component: page('search/index.vue') },
   // { path: '/anecdotes/messanger', name: 'chat', component: page('chat/index.vue') },
-  { path: '/anecdotes/messanger', name: 'chat', component: page('chat/messenger.vue') },
+  // { path: '/anecdotes/messanger', name: 'chat', component: page('chat/messenger.vue') },
+  // { path: '/anecdotes/messanger', name: 'chat', component: page('chat/test.vue') },
 
   { path: '/tags/:slug', name: 'tags', component: page('tags/index.vue') },
   { path: '/anecdotes/rated', name: 'threads.rated', component: page('threads/filters/rated.vue') },

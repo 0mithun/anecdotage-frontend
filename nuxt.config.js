@@ -53,7 +53,8 @@ export default {
     '~/plugins/echo',
     { src: '~/plugins/gmaps', ssr: false },
     { src: '~/plugins/vueat', ssr: false },
-    { src: '~/plugins/chat', ssr: false }
+    // { src: '~/plugins/chat', ssr: false }
+    { src: '~/plugins/chatwindow', ssr: false }
   ],
 
   buildModules: ['@nuxtjs/router',
@@ -94,7 +95,8 @@ export default {
         endpoints: {
           login: { url: '/login', method: 'post', propertyName: 'token' },
           logout: { url: '/logout', method: 'post' },
-          user: { url: '/me', method: 'get', propertyName: 'data' }
+          // user: { url: '/me', method: 'get', propertyName: 'data' },
+          user: { url: '/me', method: 'get', propertyName: false }
         }
         // tokenRequired: true,
         // tokenType: 'bearer'
