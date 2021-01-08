@@ -2,8 +2,8 @@
 
 export const state = () => ({
   profileUser: null,
-  profileUserPrivacy: null,
-  profileUserNotifications: null,
+  profileUserPrivacy: {},
+  profileUserNotifications: {},
 
   threads: [],
   threadsCount: 0,

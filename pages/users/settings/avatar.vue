@@ -98,11 +98,6 @@ export default {
   mounted(){
 
   },
-  async fetch({$axios, store, params }){
-    const userRresponse = await $axios.$get(`user/${params.username}/notification`);
-    store.commit('user/SET_USER', userRresponse.data);
-    store.commit('user/SET_NOTIFICATIONS', userRresponse.data.notification);
-  }
 };
 </script>
 

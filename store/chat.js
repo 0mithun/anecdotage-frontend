@@ -46,6 +46,9 @@ export const mutations = {
   },
   SET_SELECTED_USER: (state, user)=>{
     state.selectedUser = user;
+  },
+  ADD_NEW_MESSAGE: (state, message)=>{
+    state.friendMessages.push(message)
   }
 }
 
@@ -62,6 +65,19 @@ export const actions = {
     try{
       const messages = await this.$axios.get(`chat/user/${friend.username}/messages`);
       commit('SET_FRIEND_MESSAGES', messages.data)
+    }catch(e){
+
+    }
+  },
+  async sendMessage({commit}, {selectedUser, chatForm}){
+    try{
+      const message = await this.$axios.$post(`chat/user/${selectedUser.username}/messages`,{
+        message: chatForm.message,
+        reply_id: chatForm.replyId,
+        reply_message: chatForm.replyMessage,
+      });
+      commit('ADD_NEW_MESSAGE', message)
+      this.$nuxt.$emit('MESSAGE_SEND_COMPLETE');
     }catch(e){
 
     }

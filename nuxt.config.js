@@ -53,7 +53,7 @@ export default {
     '~/plugins/echo',
     '~/plugins/chatscroll',
     { src: '~/plugins/gmaps', ssr: false },
-    { src: '~/plugins/vueat', ssr: false },
+    // { src: '~/plugins/vueat', ssr: false },
     // { src: '~/plugins/chat', ssr: false }
     { src: '~/plugins/chatwindow', ssr: false }
   ],

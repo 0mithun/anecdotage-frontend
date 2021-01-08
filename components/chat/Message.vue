@@ -52,10 +52,12 @@
             </li>
           </ul>
         </div>
+
+
         <div class="message other-message float-right">
           <blockquote
             class="reply-to-message"
-            v-if="friendMessage.reply_message != null"
+            v-if="friendMessage.parent != null"
           >
             <span class="reply-message-user">
               <i class="fa fa-share"></i>
@@ -64,19 +66,23 @@
             </span>
 
             <span class="text-muted">
-              {{ friendMessage.reply_message }}
+              {{ friendMessage.parent.message }}
             </span>
           </blockquote>
           {{ friendMessage.message }}
         </div>
+
       </div>
+
+
+
       <div v-else>
         <li>
           <div class="message-data">
             <img
               :src="selectedUser.photo_url"
               alt=""
-              style="width: 40px; border-radius: 50%; height: 40px"
+              style="width: 40px; border-radius: 50%; height: 40px; margin-right:5px"
             />
             <span class="message-data-name">
               <!-- <i class="fa fa-circle online"></i> -->
@@ -91,11 +97,14 @@
               formateMessageTime(friendMessage.created_at)
             }}</span>
           </div>
+
+
+
           <div class="message my-message" @click="seenMessage(friendMessage)">
             <!--  v-if="friendMessage.reply_message != null" -->
             <blockquote
               class="reply-to-message"
-              v-if="friendMessage.reply_message != null"
+              v-if="friendMessage.parent !=null"
             >
               <span class="reply-message-user">
                 <i class="fa fa-share"></i>
@@ -104,11 +113,14 @@
               </span>
 
               <span class="text-muted">
-                {{ friendMessage.reply_message }}
+                {{ friendMessage.parent.message }}
               </span>
             </blockquote>
             {{ friendMessage.message }}
           </div>
+
+
+
           <div class="btn-group">
             <button
               class="btn btn-default btn-sm dropdown-toggle reply-btn"
@@ -124,7 +136,7 @@
                 <a
                   href="#"
                   @click.prevent="
-                    replyToMessage(friendMessage.id, friendMessage.message)
+                    replyToMessage(friendMessage.id)
                   "
                   >Reply</a
                 >
@@ -154,12 +166,8 @@ export default {
       //return moment(timestamp).calendar();
     },
 
-    replyToMessage(messageId, replyMessage) {
-      this.replyMessage = replyMessage;
-      this.replyId = messageId;
-      this.showReplyBox = true;
-      let messageBox = document.getElementById('message-to-send');
-      messageBox.focus();
+    replyToMessage(messageId) {
+     this.$nuxt.$emit('REPLY_TO_MESSAGE',messageId);
     },
 
     seenMessage(message) {
@@ -417,5 +425,20 @@ span.close-reply {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+.reply-to-message{
+    border-left: 2px solid grey;
+    /* margin-right: 5px; */
+    padding: 0px;
+    margin: 0px;
+    padding-right: 0;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+.message-data {
+    display: flex;
+    align-items: center;
 }
 </style>

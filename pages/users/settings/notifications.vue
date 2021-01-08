@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   data() {
     return {
@@ -97,12 +98,12 @@ export default {
     };
   },
   computed:{
+    ...mapGetters({
+      profileUserNotifications: 'user/profileUserNotifications'
+    }),
     user(){
       return this.$auth.user;
     },
-     profileUserNotifications(){
-        return this.$store.getters['user/profileUserNotifications']
-     }
   },
   methods:{
     async updateInfo(){
@@ -127,9 +128,13 @@ export default {
     });
   },
   async fetch({$axios, store, params }){
-    const userRresponse = await $axios.$get(`user/${params.username}/notification`);
-    store.commit('user/SET_USER', userRresponse.data);
-    store.commit('user/SET_NOTIFICATIONS', userRresponse.data.notification);
+    try {
+      const userRresponse = await $axios.$get(`user/${params.username}/notification`);
+      store.commit('user/SET_USER', userRresponse.data);
+      store.commit('user/SET_NOTIFICATIONS', userRresponse.data.notification);
+    } catch (error) {
+
+    }
   }
 };
 </script>

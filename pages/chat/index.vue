@@ -19,7 +19,7 @@
               v-for="(friend, index) in friendLists"
               :key="index"
               @click.prevent="selectUser(friend)"
-              :class="friend.id == selectFriend ? 'active-friend' : ''"
+              :class="selectedUser && (friend.id == selectedUser.id) ? 'active-friend' : ''"
             >
               <img
                 :src="friend.photo_url"
@@ -91,30 +91,30 @@
               {{ typing.user.name }}
               <img src="/images/png/pen.png" alt="" /> .........
             </div>
-            <div class="reply-to" v-if="selectFriend && showReplyBox">
+            <div class="reply-to" v-if="selectedUser && showReplyBox">
               Reply to
-              <strong v-if="friendMessages.friend">{{
-                friendMessages.friend.name
+              <strong v-if="selectedUser">{{
+                selectedUser.name
               }}</strong>
               <span class="close-reply" @click="cancelReplyMessage">X</span>
               <br />
 
               <p class="text-muted reply-message">
-                <small>{{ replyMessage }}</small>
+                <small>{{ chatForm.replyMessage }}</small>
               </p>
             </div>
 
             <textarea
               :class="showReplyBox ? 'remove-top-border' : ''"
-              @keydown.enter="sendMessage"
-              @keyup="typingMessage(friendMessages.friend.id)"
+              @keydown.enter.prevent="sendMessage()"
+              @keyup="typingMessage"
               name="message-to-send"
               id="message-to-send"
               placeholder="Type your message"
               rows="2"
               class="form-control"
-              v-model="message"
-              :disabled="!selectFriend"
+              v-model="chatForm.message"
+              :disabled="!selectedUser"
             ></textarea>
             <!--
                                 <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
@@ -144,13 +144,16 @@ export default {
   },
   data() {
     return {
-      message: '',
-      selectFriend: null,
+      chatForm:{
+        message: '',
+        replyId: null,
+        replyMessage: '',
+      },
+
       typing: '',
       last_seen: '',
       typingClock: null,
-      replyId: '',
-      replyMessage: '',
+
       showReplyBox: false,
     };
   },
@@ -158,13 +161,9 @@ export default {
     ...mapGetters({
       friendLists: 'chat/friendLists',
       friendMessages: 'chat/friendMessages',
+      selectedUser: 'chat/selectedUser',
     }),
-    // friendLists() {
-    //   return this.$store.getters.friendLists;
-    // },
-    // friendMessages() {
-    //   return this.$store.getters.friendMessage;
-    // },
+
     // lastSeen() {
     //   if (this.$store.getters.friendMessage.last_seen != null) {
     //     if (this.$store.getters.friendMessage.last_seen.seen_at != null) {
@@ -175,8 +174,6 @@ export default {
     // },
   },
   mounted() {
-    // this.$store.dispatch('friendList', this.authuser.id);
-    // //this.$store.dispatch('otherMessageUserList');
 
     // Echo.private(`chat.${this.authuser.id}`).listen('MessegeSentEvent', (e) => {
     //   if (e.message.friend_message == 0) {
@@ -194,6 +191,9 @@ export default {
     // });
   },
   created() {
+
+
+
     this.getChatUserLists();
     // Echo.private('typingevent').listenForWhisper('typing', (e) => {
     //   if (this.selectFriend) {
@@ -213,21 +213,39 @@ export default {
     //     }
     //   }
     // });
+
+    this.$nuxt.$on('REPLY_TO_MESSAGE',(messageId)=>{
+      this.replyToMessage(messageId);
+    })
   },
   methods: {
     ...mapActions({
       getChatUserLists: 'chat/getChatUserLists',
       getUserMessages: 'chat/getUserMessages',
     }),
+    async sendMessage(){
+      try{
+        const message = await this.$axios.$post(`chat/user/${this.selectedUser.username}/messages`,{
+          message: this.chatForm.message,
+          reply_id: this.chatForm.replyId,
+        });
+        this.$store.commit('chat/ADD_NEW_MESSAGE', message)
+        this.chatForm = {
+          message: '',
+          replyId: null,
+        }
+        this.showReplyBox = false;
+      }catch(e){
+
+      }
+    },
     cancelReplyMessage() {
-      this.replyMessage = '';
       this.replyId = '';
       this.showReplyBox = false;
     },
 
-    replyToMessage(messageId, replyMessage) {
-      this.replyMessage = replyMessage;
-      this.replyId = messageId;
+    replyToMessage(messageId) {
+      this.chatForm.replyId = messageId;
       this.showReplyBox = true;
       let messageBox = document.getElementById('message-to-send');
       messageBox.focus();
@@ -255,18 +273,17 @@ export default {
           });
       }
     },
-    typingMessage(userId) {
-      Echo.private('typingevent').whisper('typing', {
-        user: this.authuser,
-        typing: this.message,
-        userId: userId,
-      });
+    typingMessage() {
+      // Echo.private('typingevent').whisper('typing', {
+      //   user: this.authuser,
+      //   typing: this.message,
+      //   userId: userId,
+      // });
+      // console.log(this.selectedUser)
     },
     selectUser(friend, change = true) {
       if (change) {
-        this.selectFriend = friend;
         this.$store.commit('chat/SET_SELECTED_USER', friend)
-        // this.$store.dispatch('getUserMessages', { friend });
         this.getUserMessages(friend)
         this.messageStatus(friend.id, false);
       } else {
@@ -295,27 +312,11 @@ export default {
       //    return moment(timestamp).fromNow();
       //return moment(timestamp).calendar();
     },
-    sendMessage(e) {
-      e.preventDefault();
 
-      if (this.message != '') {
-        axios
-          .post('/chat-send-message', {
-            message: this.message,
-            friend: this.selectFriend,
-            replyMessage: this.replyMessage,
-            replyId: this.replyId,
-          })
-          .then((res) => {
-            this.showReplyBox = false;
-            this.selectUser(this.selectFriend);
-          });
-      }
-    },
     selected(index) {
-      if (this.selectFriend == index) {
-        return 'active-friend';
-      }
+      // if (this.selectFriend == index) {
+      //   return 'active-friend';
+      // }
     },
     onlineUser(userId) {
       return _.find(this.onlineUsers, { id: userId });
@@ -506,6 +507,40 @@ export default {
   content: ' ';
   clear: both;
   height: 0;
+}
+
+.chat-message-reply.clearfix {
+    position: absolute;
+    width: 98%;
+    bottom: 0;
+    left: 0;
+    background: white;
+    padding: 0px!important;
+}
+
+.reply-to{
+    border: 1px solid #38a9ff;
+    min-height: 50px;
+    padding: 8px;
+    border: 1px solid #38a9ff;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border-color: #38a9ff;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(152, 203, 232, 0.6);
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: none;
+}
+.remove-top-border {
+    border-top: none;
+    box-shadow: none;
+    border-radius: 0px 0px 4px 4px;
+}
+span.close-reply {
+    float: right;
+    padding: 0px 5px;
+    cursor: pointer;
 }
 
 </style>

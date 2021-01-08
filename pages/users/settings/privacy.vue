@@ -149,6 +149,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   data() {
     return {
@@ -168,12 +169,12 @@ export default {
     };
   },
   computed:{
+    ...mapGetters({
+      profileUserPrivacy: 'user/profileUserPrivacy'
+    }),
     user(){
       return this.$auth.user;
     },
-     profileUserPrivacy(){
-        return this.$store.getters['user/profileUserPrivacy']
-     }
   },
   methods:{
     async updateInfo(){
@@ -198,9 +199,13 @@ export default {
     });
   },
   async fetch({$axios, store, params }){
-    const userRresponse = await $axios.$get(`user/${params.username}/privacy`);
-    store.commit('user/SET_USER', userRresponse.data);
-    store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
+   try {
+      const userRresponse = await $axios.$get(`user/${params.username}/privacy`);
+      store.commit('user/SET_USER', userRresponse.data);
+      store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
+   } catch (error) {
+
+   }
   }
 };
 </script>
