@@ -18,11 +18,11 @@
               class="clearfix"
               v-for="(friend, index) in friendLists"
               :key="index"
-              @click.prevent="selectUser(friend.id)"
+              @click.prevent="selectUser(friend)"
               :class="friend.id == selectFriend ? 'active-friend' : ''"
             >
               <img
-                :src="friend.profileAvatarPath"
+                :src="friend.photo_url"
                 alt="avatar"
                 style="width: 50px; border-radius: 50%; height: 50px"
               />
@@ -80,152 +80,7 @@
           <!-- end chat-header -->
 
           <div id="chat-history" class="chat-history" v-chat-scroll>
-            <ul style="margin: 0px; padding: 0px">
-              <!-- <li  v-if="friendMessages.messages">
-                                        <div class="alert alert-danger" role="alert" >No Message...</div>
-                                    </li> -->
-
-              <li
-                class="clearfix message-list"
-                v-for="(friendMessage, index) in friendMessages.messages"
-                :key="index"
-              >
-                <div
-                  v-if="
-                    friendMessages.friend.id ==
-                    (friendMessage.to || friendMessages.from)
-                  "
-                >
-                  <div class="message-data align-right">
-                    <span class="message-data-time">{{
-                      formateMessageTime(friendMessage.created_at)
-                    }}</span>
-                    &nbsp; &nbsp;
-                    <span class="message-data-name">{{ authuser.name }}</span>
-
-                    <!-- <i class="fa fa-circle me"></i> -->
-
-                    <img
-                      :src="authuser.profileAvatarPath"
-                      alt=""
-                      style="width: 40px; border-radius: 50%; height: 40px"
-                    />
-                  </div>
-
-                  <div class="btn-group reply-to-me">
-                    <button
-                      class="btn btn-default btn-sm dropdown-toggle reply-btn"
-                      type="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a
-                          href="#"
-                          @click.prevent="
-                            replyToMessage(
-                              friendMessage.id,
-                              friendMessage.message
-                            )
-                          "
-                          >Reply</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="message other-message float-right">
-                    <blockquote
-                      class="reply-to-message"
-                      v-if="friendMessage.reply_message != null"
-                    >
-                      <span class="reply-message-user">
-                        <i class="fa fa-share"></i>
-                        You replied to
-                        <strong>{{ friendMessages.friend.name }}</strong> <br />
-                      </span>
-
-                      <span class="text-muted">
-                        {{ friendMessage.reply_message }}
-                      </span>
-                    </blockquote>
-                    {{ friendMessage.message }}
-                  </div>
-                </div>
-                <div v-else>
-                  <li>
-                    <div class="message-data">
-                      <img
-                        :src="friendMessages.friend.profileAvatarPath"
-                        alt=""
-                        style="width: 40px; border-radius: 50%; height: 40px"
-                      />
-                      <span class="message-data-name">
-                        <!-- <i class="fa fa-circle online"></i> -->
-                        <user-online
-                          :user="friendMessages.friend"
-                          type="message"
-                        ></user-online>
-
-                        {{ friendMessages.friend.name }}</span
-                      >
-                      <span class="message-data-time">{{
-                        formateMessageTime(friendMessage.created_at)
-                      }}</span>
-                    </div>
-                    <div
-                      class="message my-message"
-                      @click="seenMessage(friendMessage)"
-                    >
-                      <!--  v-if="friendMessage.reply_message != null" -->
-                      <blockquote
-                        class="reply-to-message"
-                        v-if="friendMessage.reply_message != null"
-                      >
-                        <span class="reply-message-user">
-                          <i class="fa fa-share"></i>
-                          <strong>{{ friendMessages.friend.name }}</strong>
-                          replied to you <br />
-                        </span>
-
-                        <span class="text-muted">
-                          {{ friendMessage.reply_message }}
-                        </span>
-                      </blockquote>
-                      {{ friendMessage.message }}
-                    </div>
-                    <div class="btn-group">
-                      <button
-                        class="btn btn-default btn-sm dropdown-toggle reply-btn"
-                        type="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <span class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <a
-                            href="#"
-                            @click.prevent="
-                              replyToMessage(
-                                friendMessage.id,
-                                friendMessage.message
-                              )
-                            "
-                            >Reply</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                </div>
-              </li>
-            </ul>
+            <Message />
           </div>
           <!-- end chat-history -->
 
@@ -281,10 +136,11 @@
 
 import {mapGetters, mapActions} from 'vuex'
 import UserOnline from '@/components/chat/UserOnline'
+import Message from '@/components/chat/Message'
 export default {
-  props: ['authuser'],
   components:{
-    UserOnline
+    UserOnline,
+    Message
   },
   data() {
     return {
@@ -360,7 +216,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getChatUserLists: 'chat/getChatUserLists'
+      getChatUserLists: 'chat/getChatUserLists',
+      getUserMessages: 'chat/getUserMessages',
     }),
     cancelReplyMessage() {
       this.replyMessage = '';
@@ -408,10 +265,12 @@ export default {
     selectUser(friend, change = true) {
       if (change) {
         this.selectFriend = friend;
-        this.$store.dispatch('userMessage', { friend });
-        this.messageStatus(friend, false);
+        this.$store.commit('chat/SET_SELECTED_USER', friend)
+        // this.$store.dispatch('getUserMessages', { friend });
+        this.getUserMessages(friend)
+        this.messageStatus(friend.id, false);
       } else {
-        this.messageStatus(friend, true);
+        this.messageStatus(friend.id, true);
       }
 
       this.message = '';
@@ -509,7 +368,6 @@ export default {
   color: #92959e;
 }
 .chat {
-  float: left;
   background: #f2f5f8;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -650,159 +508,4 @@ export default {
   height: 0;
 }
 
-.people-list ul li {
-  padding-bottom: 20px;
-  list-style: none;
-}
-.chat-history li {
-  list-style: none;
-}
-.chat {
-  width: 100%;
-}
-
-/**
-            Change Chat Color
-         */
-.chat .chat-history .other-message[data-v-61f93f4f] {
-  background: #34a4ef;
-}
-
-.chat .chat-history .other-message {
-  background: #34a4ef;
-}
-.chat .chat-history .other-message:after {
-  border-bottom-color: #34a4ef;
-  left: 93%;
-}
-
-.chat .chat-message button:hover {
-  color: #34a4ef;
-}
-
-.me {
-  color: #34a4ef;
-}
-
-#people-list ul {
-  overflow-x: scroll;
-}
-.active-friend {
-  background: white;
-}
-.people-list ul[data-v-61f93f4f] {
-  padding: 0;
-}
-.people-list ul li[data-v-61f93f4f] {
-  cursor: pointer;
-  padding: 10px 20px;
-}
-.chat .chat-history[data-v-61f93f4f] {
-  padding: 10px 15px;
-}
-
-.people-list ul[data-v-61f93f4f] {
-  height: 670px;
-}
-.chat .chat-message[data-v-61f93f4f] {
-  padding: 15px;
-}
-.badge-danger {
-  background: red;
-}
-.messageStatus {
-  color: #d84660;
-  float: right;
-  margin-top: 10px;
-  font-size: 20px;
-}
-.chat-page {
-  margin-top: 70px;
-}
-
-.chat .chat-history .message {
-  color: white;
-  padding: 18px 20px;
-  line-height: 26px;
-  font-size: 16px;
-  border-radius: 7px;
-  margin-bottom: 30px;
-  width: 75%;
-  position: relative;
-  display: inline-block;
-}
-.reply-btn {
-  background: none;
-  border: none;
-}
-.dropdown-toggle.reply-btn:active {
-  background: none;
-}
-.reply-to {
-  border: 1px solid #ccd0d2;
-  min-height: 50px;
-  padding: 8px;
-  border: 1px solid #ccd0d2;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  border-color: #98cbe8;
-  outline: 0;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(152, 203, 232, 0.6);
-  border-radius: 4px 4px 0px 0px;
-  border-bottom: none;
-}
-.reply-message {
-  padding: 0px;
-  margin: 0px;
-}
-.remove-top-border {
-  border-top: none;
-  box-shadow: none;
-  border-radius: 0px 0px 4px 4px;
-}
-
-span.close-reply {
-  float: right;
-  padding: 0px 5px;
-  cursor: pointer;
-}
-.chat-message-reply.clearfix {
-  position: absolute;
-  width: 98%;
-  bottom: 0;
-  left: 0;
-  background: white;
-  padding: 0px !important;
-}
-/* .chat .chat-message-reply {
-            padding: 0px!important;
-        } */
-.message-list:last-child {
-  margin-bottom: 50px;
-}
-.chat .chat-history .message {
-  margin-bottom: 20px;
-}
-.reply-to-message {
-  border-left: 2px solid grey;
-  /* margin-right: 5px; */
-  padding: 0px;
-  margin: 0px;
-  padding-right: 0;
-  padding-left: 10px;
-  margin-bottom: 5px;
-  font-size: 13px;
-}
-.reply-message-user {
-  color: #777777;
-}
-.reply-to-me {
-  margin-left: 20%;
-  margin-top: 20px;
-}
-.chat .chat-history .message {
-  padding: 15px 10px;
-}
 </style>

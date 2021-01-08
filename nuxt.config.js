@@ -51,6 +51,7 @@ export default {
     '~/plugins/vselect',
     '~/plugins/uiv',
     '~/plugins/echo',
+    '~/plugins/chatscroll',
     { src: '~/plugins/gmaps', ssr: false },
     { src: '~/plugins/vueat', ssr: false },
     // { src: '~/plugins/chat', ssr: false }

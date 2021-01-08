@@ -61,8 +61,18 @@
 							</div>
 
 							<div class="vac-reply-content">
-								{{ message.replyMessage.content }}
+								<!-- {{ message.replyMessage.content }} -->
+								<format-message
+								:content="this.message.content"
+								:text-formatting="textFormatting"
+								>
+								<template v-slot:deleted-icon="data">
+									<slot name="deleted-icon" v-bind="data"></slot>
+								</template>
+								</format-message>
 							</div>
+
+
 						</div>
 
 						<div v-if="message.deleted">
@@ -72,15 +82,38 @@
 							<span>{{ textMessages.MESSAGE_DELETED }}</span>
 						</div>
 
+						<div
+							v-if="!message.deleted && message.replyMessage"
+						>
+							<div class="vac-reply-username">{{ replyUsername }}</div>
+
+							<div class="vac-image-reply-container" v-if="isImageReply">
+								<div
+									class="vac-message-image vac-message-image-reply"
+									:style="{
+										'background-image': `url('${message.replyMessage.file.url}')`
+									}"
+								></div>
+							</div>
+
+							<div class="vac-reply-content">
+								{{ message.replyMessage.content }}
+							</div>
+						</div>
+
+
+
 						<div v-else-if="!message.file">
-							<format-message
+
+							<!-- <format-message
 								:content="this.message.content"
 								:text-formatting="textFormatting"
 							>
 								<template v-slot:deleted-icon="data">
 									<slot name="deleted-icon" v-bind="data"></slot>
 								</template>
-							</format-message>
+							</format-message> -->
+
 						</div>
 
 						<div class="vac-image-container" v-else-if="isImage">
@@ -146,7 +179,11 @@
 									<svg-icon name="document" />
 								</slot>
 							</div>
-							<span>{{ message.content }}</span>
+							<span>
+
+                {{ message.content }}
+
+                </span>
 						</div>
 
 						<div class="vac-text-timestamp">
@@ -552,7 +589,6 @@ export default {
 	display: block;
 	overflow-wrap: break-word;
 	position: relative;
-	white-space: normal;
 	box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1),
 		0 1px 1px -1px rgba(0, 0, 0, 0.11), 0 1px 2px -1px rgba(0, 0, 0, 0.11);
 }
@@ -626,7 +662,6 @@ export default {
 	border-radius: 8px;
 	font-size: 14px;
 	padding: 6px 9px 3px;
-	white-space: pre-wrap;
 	max-width: 100%;
 	-webkit-transition-property: box-shadow, opacity;
 	transition-property: box-shadow, opacity;

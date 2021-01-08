@@ -51,6 +51,9 @@
 								</div>
 								<div v-else class="vac-room-info vac-text-ellipsis">
 									{{ userStatus }}
+                  <template v-if="room.users">
+                    <UserOnline :user="room.users[0]" />
+                  </template>
 								</div>
 							</div>
 						</slot>
@@ -338,6 +341,7 @@ import EmojiPicker from './EmojiPicker'
 const { messagesValid } = require('../utils/roomValidation')
 const { detectMobile } = require('../utils/mobileDetection')
 import typingText from '../utils/typingText'
+import UserOnline from '@/components/chat/UserOnline'
 
 export default {
 	name: 'room',
@@ -346,7 +350,8 @@ export default {
 		Loader,
 		Message,
 		SvgIcon,
-		EmojiPicker
+    EmojiPicker,
+    UserOnline
 	},
 
 	directives: {

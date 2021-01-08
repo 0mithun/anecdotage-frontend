@@ -31,6 +31,7 @@
     "uiv": "^1.1.5",
     "vform": "^1.0.1",
     "vue-advanced-chat": "^0.6.2",
+    "vue-chat-scroll": "^1.4.0",
     "vue-ckeditor2": "^2.1.5",
     "vue-select": "^3.10.8",
     "vue-simple-alert": "^1.1.1",

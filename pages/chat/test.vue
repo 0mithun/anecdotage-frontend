@@ -103,7 +103,7 @@ export default {
 			// this.resetRooms()
 
 			const rooms = await this.$axios.$get('/chat/rooms')
-			this.rooms = rooms;
+      this.rooms = rooms;
 			this.loadingRooms = false;
 		},
 
@@ -139,7 +139,8 @@ export default {
 		async fetchMessages({ room, options = {} }) {
 			try{
 				const messages = await this.$axios.$get(`chat/rooms/${room.roomId}`)
-				this.messages = messages;
+        this.messages = messages;
+        console.log(messages)
 			}catch(e){
 
 			} finally{
