@@ -91,6 +91,7 @@ export default {
   .notification-status{
     display: flex;
     background: none;
+    border: none;
     align-items: center;
     img{
       width: 30px;
@@ -98,6 +99,7 @@ export default {
     }
     &:focus, &:hover, &:active{
        background: none;
+       border: none;
     }
   }
 
@@ -157,5 +159,14 @@ export default {
 
 button.btn.btn-secondary.dropdown-toggle.notification-status {
     padding: 0px;
+}
+
+button.btn.btn-secondary.dropdown-toggle.notification-status {
+    background: none;
+
+    &:active{
+      background: none;
+      border:none;
+    }
 }
 </style>

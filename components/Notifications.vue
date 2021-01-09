@@ -8,9 +8,15 @@
     </button>
     <div class="dropdown-menu">
       <!-- Dropdown menu links -->
-      <div class="dropdown-item" href="#" v-for="notification in notifications" :key="notification.data.message.id" @click.prevent="markAsRead(notification.id)">
+      <div class="dropdown-item" href="#" v-for="notification in notifications" :key="notification.id" @click.prevent="markAsRead(notification.id)">
         <div class="top">
-
+          <template v-if="notification.type == 'App\\Notifications\\ThreadReportAdminNotifications'">
+            <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">This</nuxt-link> item has been flagged as <strong>{{notification.data.type}}</strong>  & is under revivew.
+          </template>
+          <template v-else-if="notification.type == 'App\\Notifications\\ThreadRestrictionReported'">
+            <!-- "Your item <a href=".$thread->path().">here</a> has been flagged as ".$report_type.". It is under review & may be hidden from other people."; -->
+           Your item <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">here</nuxt-link> has been flagged as <strong>{{notification.data.type}}</strong> It is under review & may be hidden from other people.
+          </template>
         </div>
       </div>
     </div>
@@ -32,7 +38,7 @@ export default {
   mounted(){
     this.$echo.private(`App.Models.User.${this.$auth.user.id}`)
     .notification((notification) => {
-      if(notification.type == "App\\Notifications\\NewMessageNotification"){
+      if(notification.type !== "App\\Notifications\\NewMessageNotification"){
           this.fetchNotifications();
           this.playNotification()
         }
@@ -51,7 +57,7 @@ export default {
   methods: {
      async markAsRead(notification) {
       try {
-        const res = await this.$axios.$put(`chat/user/notifications/${notification}`)
+        const res = await this.$axios.$put(`user/${this.$auth.user.username}/markAsRead/${notification}`)
        this.fetchNotifications();
       } catch (error) {
 
@@ -59,7 +65,10 @@ export default {
     },
     async fetchNotifications() {
       try {
-        const res = await this.$axios.$get('chat/user/notifications')
+        if(!this.$auth.loggedIn){
+          return ;
+        }
+        const res = await this.$axios.$get(`user/${this.$auth.user.username}/notifications`)
         let notifications = _.uniqBy(res.notifications, 'data.friend.id');
 
         this.notifications = notifications;
@@ -83,12 +92,14 @@ export default {
     display: flex;
     background: none;
     align-items: center;
+    border: none;
     img{
       width: 30px;
       margin-right: 5px;
     }
     &:focus, &:hover, &:active{
        background: none;
+       border: none;
     }
   }
 
@@ -98,12 +109,10 @@ export default {
 }
 
 .top{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     font-size: 12px;
     text-transform: capitalize;
     margin-bottom: 5px;
+     white-space: initial;
 }
 .dropdown-menu.show {
     width: 400px;
@@ -126,21 +135,6 @@ export default {
     padding: 5px;
 }
 
-.bottom {
-    font-size: 12px;
-    text-transform: none;
-    display: flex;
-    justify-content: space-between;
-}
-.message-body {
-  white-space: initial;
-      overflow: hidden;
-    max-height: 40px;
-}
-.time {
-    width: fit-content;
-    margin-left: 5px;
-}
 
 .dropleft .dropdown-menu {
     right: 0%;
@@ -148,5 +142,17 @@ export default {
 
 button.btn.btn-secondary.dropdown-toggle.notification-status {
     padding: 0px;
+}
+strong {
+    font-weight: 700;
+}
+
+button.btn.btn-secondary.dropdown-toggle.notification-status {
+    background: none;
+
+    &:active{
+      background: none;
+      border:none;
+    }
 }
 </style>
