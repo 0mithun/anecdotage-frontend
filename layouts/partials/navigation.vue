@@ -98,16 +98,21 @@
           </ul>
           <SearchForm></SearchForm>
           <div
-            class="upload-shot white-path font-14 fw-500 text-uppercase mr-auto d-flex"
+            class="upload-shot white-path font-14 fw-500 text-uppercase  d-flex"
           >
-            <!-- <a href="/upload" class="primary-bg-color text-white">
-              <i class="fas fa-cloud-upload-alt"></i> Upload
-            </a> -->
            <nuxt-link :to="{name:'maps'}"  href="#" class="navbar-menu-icon">
             <img src="~assets/images/map_marker.png" alt="" class="navbar-icon marker">
            </nuxt-link>
+            <nuxt-link :to="{name:'threads.create'}" class="navbar-menu-icon">
+              <img src="~assets/images/pen_with.png" alt="" class="navbar-icon pen">
+            </nuxt-link>
 
-            <nuxt-link :to="{name:'threads.create'}" class="navbar-menu-icon"><img src="~assets/images/pen_with.png" alt="" class="navbar-icon pen"></nuxt-link>
+          </div>
+          <div
+            class="notification white-path font-14 fw-500 text-uppercase mr-auto d-flex"
+          >
+           <MessageNotification />
+           <Notifications />
 
           </div>
 
@@ -190,12 +195,17 @@
 
 <script>
 import SearchForm from './SearchForm';
+
+import MessageNotification from '@/components/chat/MessageNotification'
+import Notifications from '@/components/Notifications'
 export default {
   data() {
     return {};
   },
   components:{
-    SearchForm
+    SearchForm,
+    MessageNotification,
+    Notifications
   },
   computed: {
     channels() {
@@ -302,12 +312,18 @@ a.navigation-emoji.navigation-emoji-icon.dropdown-item {
 
 
 
-.upload-shot.white-path.font-14.fw-500.text-uppercase.mr-auto.d-flex {
-    width: 75px;
-}
-
   a.dropdown-toggle.emoji-dropdown {
     margin-top: 5px;
+}
+.upload-shot.white-path.font-14.fw-500.text-uppercase.d-flex {
+    display: flex;
+    align-items: center;
+    width: 65px;
+    justify-content: space-between;
+}
+
+.notification.white-path.font-14.fw-500.text-uppercase.mr-auto.d-flex {
+    margin-left: 10px;
 }
 
 

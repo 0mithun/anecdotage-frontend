@@ -136,6 +136,7 @@ export default {
     UserOnline,
     Message
   },
+    middleware: ['auth'],
   data() {
     return {
       chatForm:{
@@ -172,7 +173,7 @@ export default {
 
         //this.$store.dispatch('otherMessageUserList', this.authuser.id);
       }
-      if (this.selectedUser.id == e.message.from) {
+      if (this.selectedUser && this.selectedUser.id == e.message.from) {
         this.$store.commit('chat/ADD_NEW_MESSAGE', e.message);
         // this.selectUser(e.message.from, true);
       } else {
@@ -182,7 +183,6 @@ export default {
     });
 
     this.$echo.private(`typingevent`).listenForWhisper('typing', (e) => {
-      console.log(e)
       if (this.selectedUser) {
         if (
           e.from_user.id == this.selectedUser.id &&

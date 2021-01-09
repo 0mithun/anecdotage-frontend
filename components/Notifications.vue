@@ -1,7 +1,7 @@
 <template>
   <div class="btn-group dropleft">
     <button type="button" class="btn btn-secondary dropdown-toggle notification-status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <img class="navbar-icon pen" src="~assets/images/mail.png" alt="" />
+      <img class="navbar-icon pen" src="~assets/images/bell.png" alt="" />
         <span style="color: red; font-weight: bold; font-size: 14px">{{
           unreadNotifications.length
         }}</span>
@@ -10,16 +10,7 @@
       <!-- Dropdown menu links -->
       <div class="dropdown-item" href="#" v-for="notification in notifications" :key="notification.data.message.id" @click.prevent="markAsRead(notification.id)">
         <div class="top">
-           <img :src="notification.data.friend.photo_url" alt="" class="profile-image">
-            <b class="pull-left" v-text="notification.data.friend.name"></b>
-        </div>
-        <div class="bottom">
-          <div class="message-body">
-            {{ notification.data.message.message }}
-          </div>
-          <div class="time">
-            {{ notification.data.message.created_at | fromNow }}
-          </div>
+
         </div>
       </div>
     </div>
