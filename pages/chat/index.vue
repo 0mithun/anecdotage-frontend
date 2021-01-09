@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container card-m-5">
     <div class="row chat-page">
       <div class="col-md-4">
         <div class="people-list" id="people-list">
@@ -47,32 +47,27 @@
         <div class="chat">
           <div class="chat-header clearfix">
             <img
-              :src="friendMessages.friend.profileAvatarPath"
+              :src="selectedUser.photo_url"
               alt="avatar"
-              v-if="friendMessages.friend"
+              v-if="selectedUser"
               style="width: 50px; border-radius: 50%; height: 50px"
             />
 
-            <div class="chat-about" v-if="friendMessages.friend">
+            <div class="chat-about" v-if="selectedUser">
               <div class="chat-with">
-                <a :href="'/profiles/' + friendMessages.friend.username">{{
-                  friendMessages.friend.name
-                }}</a>
+                <nuxt-link :to="{name: 'profile.show.about', params:{username: selectedUser.username}}">
+                  {{ selectedUser.name  }}
+                </nuxt-link>
               </div>
               <div
                 class="chat-num-messages"
-                v-if="friendMessages.messages.length == 0"
+                v-if="friendMessages.length == 0"
               >
                 No Message
               </div>
 
-              <div class="chat-num-messages" v-if="last_seen">
-                Last seen <span>{{ last_seen }}</span>
-              </div>
-              <div class="chat-num-messages" v-else>
-                <div class="" v-if="lastSeen">
-                  Last seen <span>{{ lastSeen }}</span>
-                </div>
+              <div class="chat-num-messages" v-if="lastSeen">
+                Last seen <span>{{ lastSeen | fromNow }}</span>
               </div>
             </div>
             <i class="fa fa-star"></i>
@@ -84,12 +79,10 @@
           </div>
           <!-- end chat-history -->
 
-          <!-- <div class="chat-message clearfix" v-if="selectFriend"> -->
-
           <div class="chat-message clearfix chat-message-reply">
-            <div v-if="typing">
-              {{ typing.user.name }}
-              <img src="/images/png/pen.png" alt="" /> .........
+            <div v-if="typing" class="typing-status">
+              {{ typing.from_user.name }}
+              <img src="~assets/images/pen.png" alt="" /> .........
             </div>
             <div class="reply-to" v-if="selectedUser && showReplyBox">
               Reply to
@@ -137,6 +130,7 @@
 import {mapGetters, mapActions} from 'vuex'
 import UserOnline from '@/components/chat/UserOnline'
 import Message from '@/components/chat/Message'
+
 export default {
   components:{
     UserOnline,
@@ -149,11 +143,8 @@ export default {
         replyId: null,
         replyMessage: '',
       },
-
       typing: '',
-      last_seen: '',
       typingClock: null,
-
       showReplyBox: false,
     };
   },
@@ -162,6 +153,7 @@ export default {
       friendLists: 'chat/friendLists',
       friendMessages: 'chat/friendMessages',
       selectedUser: 'chat/selectedUser',
+      lastSeen: 'chat/lastSeen',
     }),
 
     // lastSeen() {
@@ -174,46 +166,42 @@ export default {
     // },
   },
   mounted() {
+    this.$echo.private(`chat.${this.$auth.user.id}`).listen('MessegeSentEvent', (e) => {
+      if (e.message.friend_message == 0) {
+        // this.$store.dispatch('friendList', this.authuser.id);
 
-    // Echo.private(`chat.${this.authuser.id}`).listen('MessegeSentEvent', (e) => {
-    //   if (e.message.friend_message == 0) {
-    //     this.$store.dispatch('friendList', this.authuser.id);
+        //this.$store.dispatch('otherMessageUserList', this.authuser.id);
+      }
+      if (this.selectedUser.id == e.message.from) {
+        this.$store.commit('chat/ADD_NEW_MESSAGE', e.message);
+        // this.selectUser(e.message.from, true);
+      } else {
+        // this.selectUser(e.message.from, false);
+      }
+      //this.messageSound();
+    });
 
-    //     //this.$store.dispatch('otherMessageUserList', this.authuser.id);
-    //   }
+    this.$echo.private(`typingevent`).listenForWhisper('typing', (e) => {
+      console.log(e)
+      if (this.selectedUser) {
+        if (
+          e.from_user.id == this.selectedUser.id &&
+          e.to_user.id == this.$auth.user.id
+        ) {
+          this.typing = e;
 
-    //   if (this.selectFriend == e.message.from) {
-    //     this.selectUser(e.message.from, true);
-    //   } else {
-    //     this.selectUser(e.message.from, false);
-    //   }
-    //   //this.messageSound();
-    // });
+          if (this.typingClock) {
+            clearTimeout(this.typingClock);
+          }
+          this.typingClock = setTimeout(() => {
+            this.typing = '';
+          }, 2000);
+        }
+      }
+    });
   },
   created() {
-
-
-
     this.getChatUserLists();
-    // Echo.private('typingevent').listenForWhisper('typing', (e) => {
-    //   if (this.selectFriend) {
-    //     if (
-    //       e.user.id == this.friendMessages.friend.id &&
-    //       e.userId == this.authuser.id
-    //     ) {
-    //       this.typing = e;
-
-    //       if (this.typingClock) {
-    //         clearTimeout(this.typingClock);
-    //       }
-
-    //       this.typingClock = setTimeout(() => {
-    //         this.typing = '';
-    //       }, 2000);
-    //     }
-    //   }
-    // });
-
     this.$nuxt.$on('REPLY_TO_MESSAGE',(messageId)=>{
       this.replyToMessage(messageId);
     })
@@ -223,6 +211,13 @@ export default {
       getChatUserLists: 'chat/getChatUserLists',
       getUserMessages: 'chat/getUserMessages',
     }),
+     typingMessage() {
+      this.$echo.private(`typingevent`).whisper('typing', {
+        from_user: this.$auth.user,
+        to_user: this.selectedUser,
+        typing: this.message,
+      });
+    },
     async sendMessage(){
       try{
         const message = await this.$axios.$post(`chat/user/${this.selectedUser.username}/messages`,{
@@ -243,43 +238,17 @@ export default {
       this.replyId = '';
       this.showReplyBox = false;
     },
-
     replyToMessage(messageId) {
       this.chatForm.replyId = messageId;
       this.showReplyBox = true;
       let messageBox = document.getElementById('message-to-send');
       messageBox.focus();
     },
-
     messageSound() {
       let sound = new Audio(
         'https://notificationsounds.com/soundfiles/acc3e0404646c57502b480dc052c4fe1/file-sounds-1140-just-saying.mp3'
       );
       sound.play();
-    },
-
-    seenMessage(message) {
-      this.last_seen = '';
-      if (message.seen_at == null) {
-        axios
-          .post('/chat-seen-message', {
-            message: message.id,
-          })
-          .then((res) => {
-            this.last_seen = moment(
-              res.data.seen_at,
-              'YYYY-MM-DD HH:mm:ss'
-            ).fromNow();
-          });
-      }
-    },
-    typingMessage() {
-      // Echo.private('typingevent').whisper('typing', {
-      //   user: this.authuser,
-      //   typing: this.message,
-      //   userId: userId,
-      // });
-      // console.log(this.selectedUser)
     },
     selectUser(friend, change = true) {
       if (change) {
@@ -289,7 +258,6 @@ export default {
       } else {
         this.messageStatus(friend.id, true);
       }
-
       this.message = '';
     },
     messageStatus(friend, show = false) {
@@ -307,19 +275,10 @@ export default {
       let height = container.scrollHeight;
       container.scrollTop = height;
     },
-    formateMessageTime(timestamp) {
-      return moment(timestamp).format('MMM Do YYYY, h:mm:ss A');
-      //    return moment(timestamp).fromNow();
-      //return moment(timestamp).calendar();
-    },
-
     selected(index) {
       // if (this.selectFriend == index) {
       //   return 'active-friend';
       // }
-    },
-    onlineUser(userId) {
-      return _.find(this.onlineUsers, { id: userId });
     },
   },
 };
@@ -347,13 +306,14 @@ export default {
   left: -25px;
 }
 .people-list ul {
-  padding: 20px;
   height: 770px;
   background: #6a6c75;
 }
 .people-list ul li {
   padding-bottom: 20px;
   cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid grey;
 }
 .people-list img {
   float: left;
@@ -543,4 +503,13 @@ span.close-reply {
     cursor: pointer;
 }
 
+.typing-status{
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+li.clearfix.active-friend {
+    background:gray;
+}
 </style>

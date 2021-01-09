@@ -4,7 +4,8 @@ export const state = () => ({
   onlineUsers: [],
   friendLists: [],
   friendMessages: [],
-  selectedUser:null
+  selectedUser:null,
+  lastSeen: null,
 })
 
 export const getters = {
@@ -19,6 +20,9 @@ export const getters = {
   },
   selectedUser(state){
     return state.selectedUser;
+  },
+  lastSeen(state){
+    return state.lastSeen;
   }
 }
 
@@ -44,6 +48,9 @@ export const mutations = {
   SET_FRIEND_MESSAGES: (state, messages)=>{
     state.friendMessages = messages;
   },
+  SET_LAST_SEEN: (state, time)=>{
+    state.lastSeen = time;
+  },
   SET_SELECTED_USER: (state, user)=>{
     state.selectedUser = user;
   },
@@ -56,7 +63,7 @@ export const actions = {
   async getChatUserLists({commit}){
     try{
       const chatLists = await this.$axios.get('chat/chat-users-list');
-      commit('SET_CHAT_LISTS', chatLists.data)
+      commit('SET_CHAT_LISTS', chatLists.data.data)
     }catch(e){
 
     }
@@ -64,7 +71,9 @@ export const actions = {
   async getUserMessages({commit}, friend){
     try{
       const messages = await this.$axios.get(`chat/user/${friend.username}/messages`);
+      const seen = await this.$axios.get(`chat/user/${friend.username}/last-seen`);
       commit('SET_FRIEND_MESSAGES', messages.data)
+      commit('SET_LAST_SEEN', seen.data.last_seeen)
     }catch(e){
 
     }
@@ -78,6 +87,14 @@ export const actions = {
       });
       commit('ADD_NEW_MESSAGE', message)
       this.$nuxt.$emit('MESSAGE_SEND_COMPLETE');
+    }catch(e){
+
+    }
+  },
+  async messageSeeen({commit}, message){
+    try{
+      const res = await this.$axios.$post(`chat/user/message-seen`,{id:message.id});
+      commit('SET_LAST_SEEN', res.last_seeen)
     }catch(e){
 
     }

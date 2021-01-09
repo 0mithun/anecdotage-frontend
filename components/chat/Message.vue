@@ -15,9 +15,7 @@
         "
       >
         <div class="message-data align-right">
-          <span class="message-data-time">{{
-            formateMessageTime(friendMessage.created_at)
-          }}</span>
+          <span class="message-data-time">{{ friendMessage.created_at  | fromNow}}</span>
           &nbsp; &nbsp;
           <span class="message-data-name">{{ $auth.user.name }}</span>
 
@@ -94,13 +92,13 @@
               {{ selectedUser.name }}</span
             >
             <span class="message-data-time">{{
-              formateMessageTime(friendMessage.created_at)
+              friendMessage.created_at | fromNow
             }}</span>
           </div>
 
 
 
-          <div class="message my-message" @click="seenMessage(friendMessage)">
+          <div class="message my-message" @click.prevent="messageSeeen(friendMessage)">
             <!--  v-if="friendMessage.reply_message != null" -->
             <blockquote
               class="reply-to-message"
@@ -150,8 +148,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
-import moment from 'moment'
+import {mapGetters, mapActions} from 'vuex';
 export default {
   computed:{
     ...mapGetters({
@@ -160,32 +157,12 @@ export default {
     }),
   },
   methods:{
-     formateMessageTime(timestamp) {
-      return moment(timestamp).format('MMM Do YYYY, h:mm:ss A');
-      //    return moment(timestamp).fromNow();
-      //return moment(timestamp).calendar();
-    },
-
+    ...mapActions({
+      messageSeeen: 'chat/messageSeeen'
+    }),
     replyToMessage(messageId) {
      this.$nuxt.$emit('REPLY_TO_MESSAGE',messageId);
     },
-
-    seenMessage(message) {
-      this.last_seen = '';
-      if (message.seen_at == null) {
-        axios
-          .post('/chat-seen-message', {
-            message: message.id,
-          })
-          .then((res) => {
-            this.last_seen = moment(
-              res.data.seen_at,
-              'YYYY-MM-DD HH:mm:ss'
-            ).fromNow();
-          });
-      }
-    },
-
   }
 };
 </script>
