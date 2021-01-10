@@ -8,7 +8,7 @@ export const state = () => ({
 })
 
 export const getters = {
-  chanels: state => state.channels,
+  channels: state => state.channels,
   emojis: state => state.emojis,
   trendings: state => state.trendings,
   settings: state => state.settings,

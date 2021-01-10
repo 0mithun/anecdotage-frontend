@@ -4,6 +4,7 @@
     <div class="wrapper">
       <nuxt />
     </div>
+    <SiteFooter />
 
   </div>
 </template>
@@ -14,7 +15,8 @@ import SiteFooter from './partials/footer'
 
 export default {
   components:{
-    SiteNavigation
+    SiteNavigation,
+    SiteFooter
   },
   head() {
     return {

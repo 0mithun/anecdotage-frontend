@@ -26,7 +26,7 @@
 
               <emoji-counts :thread="thread"></emoji-counts>
               <div class="thread-map-icon">
-                <map-location :location="thread.location"></map-location>
+                <map-location :location="thread.location" :address="thread.formatted_address"></map-location>
               </div>
           </div>
         </div>

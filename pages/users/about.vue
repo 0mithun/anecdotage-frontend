@@ -14,6 +14,7 @@
         </button>
       </div>
       <div v-html="profile_user.about"></div>
+      <ProfileMap :profile_user="profile_user" />
       <!-- <profile-map :profile_user="profile_user"></profile-map> -->
 
       <div
@@ -55,12 +56,17 @@
 
 <script>
 import {mapGetters} from 'vuex';
+
+import ProfileMap from '@/components/gmap/ProfileMap'
 export default {
   data() {
     return {
       aboutBody: '',
       showModal: false,
     };
+  },
+  components:{
+    ProfileMap
   },
   computed:{
       ...mapGetters({

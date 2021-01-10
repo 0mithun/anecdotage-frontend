@@ -168,13 +168,12 @@ export default {
       })
     },
     shareThread(){
-      axios.post('/thread/share', {
-          thread: this.thread.id,
+      this.$axios.post(`threads/${this.thread.slug}/share`, {
           share_on_facebook:this.share_on_facebook,
           share_on_twitter:this.share_on_twitter,
       }).then(res=>{
           $('#shareThreadModal').modal('hide');
-          window.location = this.thread.path
+          this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
       }).catch(err=>{
 
       })
@@ -185,7 +184,8 @@ export default {
     },
     skip(){
       this.$axios.$put(`threads/${this.thread.slug}/skipThumbnailEdit`).then(res=>{
-        this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
+        // this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
+         $('#shareThreadModal').modal('show');
       })
     }
   },

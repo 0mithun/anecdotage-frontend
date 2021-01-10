@@ -52,6 +52,7 @@ export default {
 
   .status {
       display: inline-block;
+      margin-right: 5px;
   }
   .offline{
       color:#92959e;

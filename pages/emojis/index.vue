@@ -3,12 +3,7 @@
     <div class="row">
       <div class="col-md-8">
         <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
-
         <Pagination :pagination="pageinateData" routeName="emojis" :param="{key:'emoji',value:emoji.name}" />
-
-
-
-
       </div>
       <div class="col-md-4">
         <Sidebar />
@@ -47,7 +42,6 @@ export default {
 
     try {
       const emojiRresponse = await $axios.$get(`emojis/${params.emoji}?${q}`);
-      console.log(emojiRresponse.emoji.data)
       store.commit('emoji/SET_EMOJI', emojiRresponse.emoji.data)
       store.commit('emoji/SET_THREADS', emojiRresponse.threads.data)
       store.commit('emoji/SET_PAGINATE_DATA', emojiRresponse.threads.meta)

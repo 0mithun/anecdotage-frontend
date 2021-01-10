@@ -33,8 +33,8 @@
                     class="btn btn-default btn-sm"
                     data-toggle="modal"
                     data-target="#messageModal"
-                    v-if="showMessageButton"
-                    @click="showModal=true"
+                    v-if="isSendMessage"
+                    @click.prevent="showMessageModal"
                   >
                     <i class="fa fa-envelope"></i>
                   </button>
@@ -51,6 +51,13 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li>
+                        <nuxt-link :to="{name:'profile.settings.info', params:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Setting">
+                          Edit my information
+                        </nuxt-link>
+
+                        <nuxt-link :to="{name:'profile.settings.privacy', params:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Setting">
+                          Settings
+                        </nuxt-link>
                         <!-- <a :href="editUrl">Edit my information</a> -->
                         <!-- <a :href="settingsUrl">Settings</a> -->
                       </li>
@@ -105,7 +112,25 @@
          <Sidebar />
       </div>
     </div>
-
+          <!-- Modal -->
+      <div class="modal fade " id="messageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title" id="myModalLabel">Send message</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                          <textarea name="newMessage" id="newMessage" cols="30" rows="3" v-model="newMessage" class="form-control"></textarea>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-primary btn-sm" type="button" @click.prevent="sendMessage">Send</button>
+                  </div>
+              </div>
+          </div>
+      </div>
 
 
 
@@ -131,12 +156,11 @@ export default {
     LikeCounts,
     ProfileFavoriteCounts,
     AddFriend,
-    Sidebar
+    Sidebar,
   },
   data() {
     return {
       showModal: false,
-      showMessageButton: true,
       newMessage: "",
 
       favorites: [],
@@ -182,8 +206,21 @@ export default {
       }
       return false;
     },
-    isShowProfile(){
-      return true;
+
+    isSendMessage() {
+      if (this.is_owner == true) {
+        return false;
+      } else if (this.isAdmin) {
+        return true;
+      } else if (this.profile_user_privacy.send_me_message == 2) {
+        return true;
+      } else if (
+        this.profile_user_privacy.send_me_message == 1 &&
+        this.is_friend == true
+      ) {
+        return true;
+      }
+      return false;
     },
 
     isShowProfile() {
@@ -199,6 +236,7 @@ export default {
       ) {
         return true;
       }
+      return false;
     },
     isShowFriends() {
       if (this.is_owner == true) {
@@ -213,6 +251,7 @@ export default {
       ) {
         return true;
       }
+      return false;
     },
     isShowPosts() {
       if (this.is_owner == true) {
@@ -227,6 +266,7 @@ export default {
       ) {
         return true;
       }
+      return false;
     },
     isShowFavorites() {
       if (this.is_owner == true) {
@@ -241,6 +281,7 @@ export default {
       ) {
         return true;
       }
+      return false;
     },
   },
 
@@ -306,19 +347,28 @@ export default {
       }
     },
 
-    sendMessage() {
-      axios
-        .post("/chat-send-message", {
+    async sendMessage(){
+      try{
+        const message = await this.$axios.$post(`chat/user/${this.profile_user.username}/messages`,{
           message: this.newMessage,
-          friend: this.profile_user.id,
-          friend_message: this.is_friend,
-        })
-        .then((res) => {
-          this.newMessage = "";
-          this.showModal = false;
-          $("#messageModal").modal("hide");
         });
+        this.$store.commit('chat/ADD_NEW_MESSAGE', message)
+        this.newMessage = '';
+
+        this.$toast.open({
+          type: 'success',
+          position: 'top-right',
+          message: 'Message sent successfully',
+        });
+        $("#messageModal").modal("hide");
+
+      }catch(e){
+
+      }
     },
+    showMessageModal(){
+      $("#messageModal").modal("show");
+    }
   },
    async fetch({ params, query, error, $axios, store,redirect }) {
       try {
@@ -494,5 +544,9 @@ hr.profile-bottom {
 }
 .nav-item{
   margin-right: 20px;
+}
+.modal-title{
+  font-size: 16px;
+  font-weight: bold;
 }
 </style>

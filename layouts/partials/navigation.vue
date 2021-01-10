@@ -59,7 +59,6 @@
                 Categories <span class="fas fa-caret-down"></span>
               </a>
               <div class="dropdown-menu" aria-labelledby="channelLink">
-                <a class="dropdown-item" href="#">Action</a>
                 <nuxt-link
                   class="dropdown-item"
                   :to="{ name: 'tags', params: { slug: channel.slug } }"
@@ -167,7 +166,7 @@
                     <i class="fa fa-user"></i>
                     Profile
                   </nuxt-link>
-                  <nuxt-link :to="{name:'profile.settings', params:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Setting">
+                  <nuxt-link :to="{name:'profile.settings.info', params:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Setting">
                     <i class="fa fa-cogs"></i>
                     Setting
                   </nuxt-link>
@@ -198,6 +197,7 @@ import SearchForm from './SearchForm';
 
 import MessageNotification from '@/components/chat/MessageNotification'
 import Notifications from '@/components/Notifications'
+import {mapGetters} from 'vuex';
 export default {
   data() {
     return {};
@@ -208,15 +208,12 @@ export default {
     Notifications
   },
   computed: {
-    channels() {
-      return this.$store.state.channels;
-    },
-    emojis() {
-      return this.$store.state.emojis;
-    },
-    settings() {
-      return this.$store.getters.settings;
-    },
+    ...mapGetters({
+      channels:'channels',
+      emojis:'emojis',
+      settings:'settings',
+    }),
+
     defaultEmojiUrl(){
       return process.env.APP_URL + 'images/emojis/default.png';
     },

@@ -45,7 +45,7 @@
 
                       <emoji-counts :thread="thread"></emoji-counts>
                       <div class="thread-map-icon">
-                        <map-location :location="thread.location"></map-location>
+                        <map-location :location="thread.location" :address="thread.formatted_address"></map-location>
                       </div>
                     </div>
                   </div>
@@ -172,11 +172,18 @@
           </div>
 
         </div>
+        <div class="row card-m-5" v-if="thread.location !=null">
+          <div class="col-md-12">
+            <SimpleMap :thread="thread" />
+          </div>
+        </div>
         <div class="row card-m-5">
           <div class="col-md-12">
             <Replies />
           </div>
         </div>
+
+
 
 
       </div>
@@ -219,6 +226,7 @@ import Sidebar from '@/layouts/partials/Sidebar'
 
 import Replies from '@/components/replies/Replies';
 import UserOnline from '@/components/chat/UserOnline'
+import SimpleMap from '@/components/gmap/SimpleMap'
 
 //image_path_pixel_color
 export default {
@@ -241,8 +249,8 @@ export default {
     ShowSource,
     ReportThread,
     Replies,
-    UserOnline
-
+    UserOnline,
+    SimpleMap
   },
    computed: {
     threadThumbStyle() {

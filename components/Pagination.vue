@@ -1,6 +1,6 @@
 <template>
-  <nav v-if="show" >
-    <ul class="pagination">
+  <nav  >
+    <ul class="pagination" v-if="show">
       <li :class="{ disabled: ! prev }" class="page-item">
         <nuxt-link :to="{name:routeName, params:{'param.key': 'param.value'}, query: {page: 1, ...q}}" class="page-link">
         <span>&laquo;</span>
@@ -19,6 +19,9 @@
         </nuxt-link>
       </li>
     </ul>
+     <div class="alert alert-danger card-m-5" v-else>
+        No Results Found
+      </div>
   </nav>
 </template>
 

@@ -1,13 +1,13 @@
 <template>
   <div>
     <img :src="mapIcon" alt />
-    <span class="map-location" v-if="location !=null && location != 'null' && location !=''">{{location}}</span>
+    <span class="map-location" v-if="location !=null && location != 'null' && location !=''">{{address}}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["location"],
+  props: ["location",'address'],
   computed: {
     mapIcon() {
       if (this.location == null || this.location == '' || this.location == 'null') {
