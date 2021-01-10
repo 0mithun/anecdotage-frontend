@@ -17,6 +17,24 @@
             <!-- "Your item <a href=".$thread->path().">here</a> has been flagged as ".$report_type.". It is under review & may be hidden from other people."; -->
            Your item <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">here</nuxt-link> has been flagged as <strong>{{notification.data.type}}</strong> It is under review & may be hidden from other people.
           </template>
+          <template v-else-if="notification.type == 'App\\Notifications\\ThreadReportUpdated'">
+            After review, your <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">post</nuxt-link> changed to <strong>{{notification.data.type}}</strong>
+          </template>
+          <template v-else-if="notification.type == 'App\\Notifications\\ThreadWasUpdated'">
+            {{notification.data.reply_owner.name}} replied to <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">{{ notification.data.thread.title }}</nuxt-link>
+          </template>
+          <template v-else-if="notification.type == 'App\\Notifications\\YouWereMentioned'">
+            {{notification.data.reply_owner.name}} mentioned you in  <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">{{ notification.data.thread.title }}</nuxt-link>
+          </template>
+          <template v-else-if="notification.type == 'App\\Notifications\\DownloadYourImage'">
+            Your image is downloading and may take a while to update
+          </template>
+          <template v-else-if="notification.type == 'App\\Notifications\\ImageDownloadComplete'">
+            Your <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">Thread</nuxt-link> image download complete you can check now.
+          </template>
+          <template v-else-if="notification.type == 'App\\Notifications\\InvalidImageUrlNotification'">
+            The Image url isn't a valid image url. Please <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}"> check</nuxt-link> & add new image.
+          </template>
         </div>
       </div>
     </div>
