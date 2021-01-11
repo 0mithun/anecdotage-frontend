@@ -3,9 +3,16 @@
     <div class="auth-body">
       <h1 class="text-uppercase fw-500 mb-4 text-center font-22">Register</h1>
       <form class="auth-form" @submit.prevent="submit">
-        <alert-success :form="form">We have sent you an email to activate your account.</alert-success>
+        <alert-success :form="form"
+          >We have sent you an email to activate your account.</alert-success
+        >
         <div class="form-group">
-          <base-input :form="form" field="name" v-model.trim="form.name" placeholder="Full Name"></base-input>
+          <base-input
+            :form="form"
+            field="name"
+            v-model.trim="form.name"
+            placeholder="Full Name"
+          ></base-input>
         </div>
         <div class="form-group">
           <base-input
@@ -47,9 +54,15 @@
         <div class="text-right">
           <base-button :loading="form.busy">Register</base-button>
         </div>
+        <div class="mt-4 mb-4 clearfix">
+          <p class="font-16 fw-500 mt-2 mb-2">Register with</p>
+          <SocialLogin />
+        </div>
         <p class="font-14 fw-400 text-center mt-4">
           Already have an account?
-          <nuxt-link :to="{ name: 'login' }" class="color-blue">Login</nuxt-link>
+          <nuxt-link :to="{ name: 'login' }" class="color-blue"
+            >Login</nuxt-link
+          >
         </p>
       </form>
     </div>
@@ -57,9 +70,11 @@
 </template>
 
 <script>
+import SocialLogin from '@/components/SocialLogin';
 export default {
   middleware: ['guest'],
-  name: "register",
+  name: 'register',
+  components: { SocialLogin },
   data() {
     return {
       form: this.$vform({
@@ -67,8 +82,8 @@ export default {
         name: '',
         email: '',
         password: '',
-        password_confirmation: ''
-      })
+        password_confirmation: '',
+      }),
     };
   },
 
@@ -76,14 +91,14 @@ export default {
     submit() {
       this.form
         .post(`/register`)
-        .then(res => {
+        .then((res) => {
           this.form.reset();
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

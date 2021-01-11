@@ -1,9 +1,7 @@
 <template>
   <section class="authentication">
     <div class="auth-body">
-      <h1 class="text-uppercase fw-500 mb-4 text-center font-22">
-        Login
-      </h1>
+      <h1 class="text-uppercase fw-500 mb-4 text-center font-22">Login</h1>
       <form class="auth-form" @submit.prevent="submit">
         <alert-error v-if="form.errors.has('message')" :form="form">
           {{ form.errors.get('message') }}
@@ -37,9 +35,11 @@
           </nuxt-link>
         </div>
         <div class="text-right">
-          <base-button :loading="form.busy">
-            Login
-          </base-button>
+          <base-button :loading="form.busy"> Login </base-button>
+        </div>
+        <div class="mt-4 mb-4 clearfix">
+          <p class="font-16 fw-500 mt-2 mb-2">Login with</p>
+          <SocialLogin />
         </div>
         <p class="font-14 fw-400 text-center mt-4">
           Don't have an account yet?
@@ -53,15 +53,17 @@
 </template>
 
 <script>
+import SocialLogin from '@/components/SocialLogin';
 export default {
   middleware: ['guest'],
   name: 'login',
+  components: { SocialLogin },
   data() {
     return {
       form: this.$vform({
         email: '',
-        password: ''
-      })
+        password: '',
+      }),
     };
   },
 
@@ -69,17 +71,17 @@ export default {
     submit() {
       this.$auth
         .loginWith('local', {
-          data: this.form
+          data: this.form,
         })
-        .then(res => {
+        .then((res) => {
           // this.form.reset();
           // console.log(res)
         })
-        .catch(e => {
+        .catch((e) => {
           this.form.errors.set(e.response.data.errors);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

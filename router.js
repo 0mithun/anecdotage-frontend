@@ -13,6 +13,11 @@ const routes = [
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },
   {
+    path: '/auth/social-callback',
+    name: 'verify',
+    component: page('auth/socialCallback.vue')
+  },
+  {
     path: '/verification/verify/:id',
     name: 'verify',
     component: page('auth/verification/verify.vue')
