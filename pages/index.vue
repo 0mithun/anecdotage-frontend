@@ -36,6 +36,18 @@ export default {
   head() {
     return {
       title: this.settings.site_title,
+      meta: [
+        //Meta Information
+        {
+          content: this.settings.seo_meta_title,
+          name: 'title',
+        },
+        //Meta Information
+        {
+          content: this.settings.seo_meta_description,
+          name: 'description',
+        },
+      ],
     };
   },
   computed: {

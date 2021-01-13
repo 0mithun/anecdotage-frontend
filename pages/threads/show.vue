@@ -327,6 +327,17 @@ export default {
           content: this.thread.thread_image_path,
           name: 'twitter:image',
         },
+
+        //Meta Information
+        {
+          content: this.thread.title,
+          name: 'title',
+        },
+        //Meta Information
+        {
+          content: this.thread.excerpt,
+          name: 'description',
+        },
       ],
 
       //       <meta property="og:image" content="{{ $thread->threadImagePath }}"/>
