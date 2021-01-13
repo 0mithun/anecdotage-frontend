@@ -2,8 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
-        <Pagination :pagination="pageinateData" routeName="threads.recent" :param="{key:'',value:''}" />
+        <SingleThread
+          v-for="thread in threads"
+          :key="thread.id"
+          :thread="thread"
+        ></SingleThread>
+        <Pagination
+          :pagination="pageinateData"
+          routeName="threads.recent"
+          :param="{ key: '', value: '' }"
+        />
       </div>
       <div class="col-md-4">
         <Sidebar />
@@ -13,37 +21,44 @@
 </template>
 
 <script>
-import SingleThread from '@/components/threads/SingeThread'
-import Sidebar from '@/layouts/partials/Sidebar'
-import Pagination from '@/components/Pagination'
-
+import SingleThread from '@/components/threads/SingeThread';
+import Sidebar from '@/layouts/partials/Sidebar';
+import Pagination from '@/components/Pagination';
+import { mapGetters } from 'vuex';
 export default {
   name: 'thread-recent',
-  components:{
+  components: {
     SingleThread,
     Sidebar,
-    Pagination
+    Pagination,
   },
-  computed:{
-    threads(){
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
+    threads() {
       return this.$store.state.threads.threads;
     },
-     pageinateData(){
+    pageinateData() {
       return this.$store.state.threads.pageinateData;
-    }
+    },
   },
   watchQuery: true,
 
   async fetch({ params, query, app, $axios, store }) {
     const q = await Object.keys(query)
-      .map(k => `${k}=${query[k]}`)
+      .map((k) => `${k}=${query[k]}`)
       .join('&');
 
     try {
       const threadRresponse = await $axios.$get(`threads/filter/recent?${q}`);
-      store.commit('threads/setThreads', threadRresponse.data)
-      store.commit('threads/setPageinateData', threadRresponse.meta)
-
+      store.commit('threads/setThreads', threadRresponse.data);
+      store.commit('threads/setPageinateData', threadRresponse.meta);
     } catch (e) {
       console.log(e);
     }

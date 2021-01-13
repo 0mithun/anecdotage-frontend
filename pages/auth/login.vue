@@ -54,6 +54,7 @@
 
 <script>
 import SocialLogin from '@/components/SocialLogin';
+import { mapGetters } from 'vuex';
 export default {
   middleware: ['guest'],
   name: 'login',
@@ -66,7 +67,16 @@ export default {
       }),
     };
   },
-
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
+  },
   methods: {
     submit() {
       this.$auth

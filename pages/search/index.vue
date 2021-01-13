@@ -6,22 +6,26 @@
 
         <template v-if="loading">
           <div class="loading-box">
-            <img src="~assets/images/loading.gif" alt="">
+            <img src="~assets/images/loading.gif" alt="" />
           </div>
         </template>
         <template v-else>
           <template v-if="threadsCount > 0">
-            <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
-            <Pagination :pagination="pageinateData" routeName="search" :param="{key:'',value:''} " />
+            <SingleThread
+              v-for="thread in threads"
+              :key="thread.id"
+              :thread="thread"
+            ></SingleThread>
+            <Pagination
+              :pagination="pageinateData"
+              routeName="search"
+              :param="{ key: '', value: '' }"
+            />
           </template>
           <template v-else>
-            <div class="alert alert-danger">
-              No Results Found
-            </div>
+            <div class="alert alert-danger">No Results Found</div>
           </template>
         </template>
-
-
       </div>
       <div class="col-md-4">
         <Sidebar />
@@ -31,82 +35,87 @@
 </template>
 
 <script>
-import SingleThread from '@/components/threads/SingeThread'
-import Sidebar from '@/layouts/partials/Sidebar'
-import Pagination from '@/components/Pagination'
+import SingleThread from '@/components/threads/SingeThread';
+import Sidebar from '@/layouts/partials/Sidebar';
+import Pagination from '@/components/Pagination';
 
-import FilterSearch from '@/components/search/FilterSearch'
-import {mapGetters} from 'vuex'
+import FilterSearch from '@/components/search/FilterSearch';
+import { mapGetters } from 'vuex';
 
-  export default {
-    data(){
-      return {
-        q: '',
+export default {
+  data() {
+    return {
+      q: '',
+    };
+  },
+  components: {
+    SingleThread,
+    Sidebar,
+    Pagination,
+    FilterSearch,
+  },
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+      threads: 'search/threads',
+      tags: 'search/tags',
+      pageinateData: 'search/pageinateData',
+      loading: 'search/loading',
+      threadsCount: 'search/threadsCount',
+    }),
+  },
+  created() {
+    if (this.$route.query.q) {
+      this.q = this.$route.query.q;
+    }
+  },
+  watchQuery: true,
+
+  async fetch({ params, query, app, $axios, store, redirect }) {
+    if (!query.q && (query.q != '' || query.q != null)) {
+      redirect('/');
+    }
+
+    const q = await Object.keys(query)
+      .map((k) => `${k}=${query[k]}`)
+      .join('&');
+
+    try {
+      store.commit('search/SET_LOADING', true);
+      const searchResponse = await $axios.$get(`search?${q}`);
+
+      store.commit('search/SET_TAGS', searchResponse.tags.data);
+      store.commit('search/SET_THREADS', searchResponse.threads.data);
+      store.commit('search/SET_PAGINATE_DATA', searchResponse.threads.meta);
+
+      let queryString = query;
+      if (queryString.hasOwnProperty('page')) {
+        delete queryString.page;
       }
-    },
-    components:{
-      SingleThread,
-      Sidebar,
-      Pagination,
-      FilterSearch
-    },
-    computed:{
-      ...mapGetters({
-        threads: 'search/threads',
-        tags: 'search/tags',
-        pageinateData: 'search/pageinateData',
-        loading:'search/loading',
-        threadsCount: 'search/threadsCount'
-      }),
-    },
-    created(){
-      if(this.$route.query.q){
-        this.q = this.$route.query.q
-      }
-    },
-    watchQuery: true,
+      store.commit('pagination/SET_QUERY_STRING', queryString);
 
-    async fetch({ params, query, app, $axios, store, redirect }) {
-      if(!query.q && (query.q != "" || query.q != null)){
-        redirect('/')
-      }
-
-      const q = await Object.keys(query)
-        .map(k => `${k}=${query[k]}`)
-        .join('&');
-
-      try {
-         store.commit('search/SET_LOADING', true)
-        const searchResponse = await $axios.$get(`search?${q}`);
-
-        store.commit('search/SET_TAGS', searchResponse.tags.data)
-        store.commit('search/SET_THREADS', searchResponse.threads.data)
-        store.commit('search/SET_PAGINATE_DATA', searchResponse.threads.meta)
-
-
-        let queryString = query
-        if(queryString.hasOwnProperty('page')){
-          delete queryString.page
-        }
-        store.commit('pagination/SET_QUERY_STRING', queryString)
-
-        store.commit('search/SET_LOADING', false)
-      } catch (e) {
-        console.log(e);
-      }
-    },
-  }
+      store.commit('search/SET_LOADING', false);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .alert{
-    margin-top: 10px;
-  }
-  .loading-box{
-    // widows: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20vh;
-  }
+.alert {
+  margin-top: 10px;
+}
+.loading-box {
+  // widows: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20vh;
+}
 </style>

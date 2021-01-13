@@ -1,11 +1,9 @@
 <template>
   <div class="container">
-
     <div class="row">
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-12">
-
             <div class="card card-m-5">
               <div class="card-body">
                 <div class="row">
@@ -13,14 +11,26 @@
                     <div class="tag">
                       <nuxt-link
                         class="tag-name"
-                        :to="{ name: 'tags', params: { slug: thread.channel.slug } }"
+                        :to="{
+                          name: 'tags',
+                          params: { slug: thread.channel.slug },
+                        }"
                       >
                         #{{ thread.channel.name }}
                       </nuxt-link>
                     </div>
                     <div class="action-menu" v-if="isAdmin || owns">
-                      <nuxt-link class="btn btn-primary" :to="{name:'threads.edit', params:{slug:thread.slug}}">Edit</nuxt-link>
-                      <button class="btn btn-danger" @click="deleteThread">Delete</button>
+                      <nuxt-link
+                        class="btn btn-primary"
+                        :to="{
+                          name: 'threads.edit',
+                          params: { slug: thread.slug },
+                        }"
+                        >Edit</nuxt-link
+                      >
+                      <button class="btn btn-danger" @click="deleteThread">
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -45,16 +55,24 @@
 
                       <emoji-counts :thread="thread"></emoji-counts>
                       <div class="thread-map-icon">
-                        <map-location :location="thread.location" :address="thread.formatted_address"></map-location>
+                        <map-location
+                          :location="thread.location"
+                          :address="thread.formatted_address"
+                        ></map-location>
                       </div>
                     </div>
                   </div>
                 </div>
 
-
                 <div class="row author">
                   <div class="col-md-12">
-                    <nuxt-link :to="{name:'profile.show', params:{username:thread.creator.username}}" class="creator_name">
+                    <nuxt-link
+                      :to="{
+                        name: 'profile.show',
+                        params: { username: thread.creator.username },
+                      }"
+                      class="creator_name"
+                    >
                       <img
                         :src="thread.creator.photo_url"
                         :alt="thread.creator.name"
@@ -86,7 +104,7 @@
                       <div
                         class="thread-show-tools d-flex justify-content-between align-items-center"
                       >
-                      <focusComment></focusComment>
+                        <focusComment></focusComment>
                         <vote-emojis
                           :thread="thread"
                           size="small"
@@ -99,9 +117,8 @@
                         <up-votes :thread="thread" size="small"></up-votes>
                         <down-votes :thread="thread" size="small"></down-votes>
 
-                        <ReportThread :thread="thread"  />
-                        <ShowSource  :source="thread.source" />
-
+                        <ReportThread :thread="thread" />
+                        <ShowSource :source="thread.source" />
                       </div>
                     </div>
                   </div>
@@ -109,15 +126,13 @@
 
                 <div class="row card-m-5">
                   <div class="thread-thumbnail" :style="threadThumbStyle">
-                      <img
-                        :src="thread.thread_image_path"
-                        :alt="thread.title"
-                        class=" thread-image thread_thumb_image"
-                      />
-
+                    <img
+                      :src="thread.thread_image_path"
+                      :alt="thread.title"
+                      class="thread-image thread_thumb_image"
+                    />
                   </div>
                 </div>
-
 
                 <div class="row thread-body-row">
                   <div class="col-md-12">
@@ -125,9 +140,16 @@
                   </div>
                 </div>
 
-                <div class="row thread-tag-list ">
+                <div class="row thread-tag-list">
                   <div class="col-md-12">
-                    Tags: <nuxt-link v-for="tag in thread.tags" :key="tag.id" :to="{name:'tags', params:{slug:tag.slug}}" class="tag-name">#{{ tag.name }}</nuxt-link>
+                    Tags:
+                    <nuxt-link
+                      v-for="tag in thread.tags"
+                      :key="tag.id"
+                      :to="{ name: 'tags', params: { slug: tag.slug } }"
+                      class="tag-name"
+                      >#{{ tag.name }}</nuxt-link
+                    >
                   </div>
                 </div>
 
@@ -148,7 +170,7 @@
                       <div
                         class="thread-show-tools d-flex justify-content-between align-items-center"
                       >
-                      <focusComment></focusComment>
+                        <focusComment></focusComment>
                         <vote-emojis
                           :thread="thread"
                           size="small"
@@ -160,9 +182,8 @@
                         ></favorite-thread>
                         <up-votes :thread="thread" size="small"></up-votes>
                         <down-votes :thread="thread" size="small"></down-votes>
-                        <ReportThread :thread="thread"  />
-                        <ShowSource  :source="thread.source" />
-
+                        <ReportThread :thread="thread" />
+                        <ShowSource :source="thread.source" />
                       </div>
                     </div>
                   </div>
@@ -170,9 +191,8 @@
               </div>
             </div>
           </div>
-
         </div>
-        <div class="row card-m-5" v-if="thread.location !=null">
+        <div class="row card-m-5" v-if="thread.location != null">
           <div class="col-md-12">
             <SimpleMap :thread="thread" />
           </div>
@@ -182,18 +202,11 @@
             <Replies />
           </div>
         </div>
-
-
-
-
       </div>
       <div class="col-md-4">
-          <Sidebar />
+        <Sidebar />
       </div>
     </div>
-
-
-
   </div>
 </template>
 
@@ -216,17 +229,16 @@ import VoteEmojis from '@/components/emojis/VoteEmojis';
 import FavoriteThread from '@/components/votes/FavoriteThread';
 import UpVotes from '@/components/votes/UpVotes';
 import DownVotes from '@/components/votes/DownVotes';
-import focusComment from '@/components/comments/FocusComment'
+import focusComment from '@/components/comments/FocusComment';
 
-import ReportThread from '@/components/threads/ReportThread'
-import ShowSource from '@/components/threads/ShowSource'
+import ReportThread from '@/components/threads/ReportThread';
+import ShowSource from '@/components/threads/ShowSource';
 
-import Sidebar from '@/layouts/partials/Sidebar'
-
+import Sidebar from '@/layouts/partials/Sidebar';
 
 import Replies from '@/components/replies/Replies';
-import UserOnline from '@/components/chat/UserOnline'
-import SimpleMap from '@/components/gmap/SimpleMap'
+import UserOnline from '@/components/chat/UserOnline';
+import SimpleMap from '@/components/gmap/SimpleMap';
 
 //image_path_pixel_color
 export default {
@@ -250,85 +262,167 @@ export default {
     ReportThread,
     Replies,
     UserOnline,
-    SimpleMap
+    SimpleMap,
   },
-   computed: {
+  head() {
+    return {
+      title: this.settings.site_title,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          content: this.thread.thread_image_path,
+          property: 'og:image',
+        },
+        {
+          content: this.settings.site_name,
+          property: 'og:site_name',
+        },
+        {
+          content: this.thread.title,
+          property: 'og:title',
+        },
+        {
+          content: this.$router.resolve({
+            name: 'threads.show',
+            params: { slug: this.thread.slug },
+          }).href,
+          property: 'og:url',
+        },
+        {
+          content: 'article',
+          property: 'og:type',
+        },
+        {
+          content: this.thread.excerpt,
+          property: 'og:description',
+        },
+        {
+          content: 'summary_large_image',
+          name: 'twitter:card',
+        },
+        {
+          content: '@anecdotage',
+          name: 'twitter:site',
+        },
+        {
+          content: '@anecdotage',
+          name: 'twitter:creator',
+        },
+        {
+          content: this.$router.resolve({
+            name: 'threads.show',
+            params: { slug: this.thread.slug },
+          }).href,
+          name: 'twitter:url',
+        },
+        {
+          content: this.thread.title,
+          name: 'twitter:title',
+        },
+        {
+          content: this.thread.excerpt,
+          name: 'twitter:description',
+        },
+        {
+          content: this.thread.thread_image_path,
+          name: 'twitter:image',
+        },
+      ],
+
+      //       <meta property="og:image" content="{{ $thread->threadImagePath }}"/>
+      // <meta property="og:site_name" content="{{ config('app.name') }}">
+      // <meta property="og:title" content="{{ $thread->title }}">
+      // <meta property="og:url" content="{{ url($thread->path) }}">
+      // <meta property="og:type" content="article">
+      // <meta property="og:description" content="{{ $thread->excerpt }}">
+
+      // <meta name=twitter:card content=summary_large_image />
+      // <meta name=twitter:site content="@anecdotage" />
+      // <meta name=twitter:creator content="@anecdotage" />
+      // <meta name=twitter:url content="{{ url($thread->path) }}" />
+      // <meta name=twitter:title content="{{ $thread->title }}" />
+      // <meta name=twitter:description content="{{ $thread->excerpt }}" />
+      // <meta name=twitter:image content="{{ $thread->threadImagePath }}" />
+    };
+  },
+  computed: {
     threadThumbStyle() {
       return `background: rgba(${this.thread.image_path_pixel_color});`;
     },
-    thread(){
+    thread() {
       return this.$store.state.threads.thread;
     },
-    owns (thread) {
-        if(this.signedIn){
-            return this.$store.state.auth.user.id == this.thread.user_id;
-        }
-
-        return false;
+    settings() {
+      return this.$store.state.settings;
     },
-    isBan(){
+    owns(thread) {
+      if (this.signedIn) {
+        return this.$store.state.auth.user.id == this.thread.user_id;
+      }
+
+      return false;
+    },
+    isBan() {
       return this.$store.state.auth.user.is_ban;
     },
-    signedIn(){
+    signedIn() {
       return this.$auth.loggedIn;
     },
-    isAdmin () {
-        if(this.signedIn){
-          return this.$store.state.auth.user.is_admin;
-        }
-        return false;
-    }
+    isAdmin() {
+      if (this.signedIn) {
+        return this.$store.state.auth.user.is_admin;
+      }
+      return false;
+    },
   },
   async fetch({ params, query, error, $axios, store }) {
     try {
       const threadRresponse = await $axios.$get(`threads/${params.slug}`);
       // return { thread: threadRresponse.data};
-      store.commit('threads/setCurrentThread', threadRresponse.data)
-
+      store.commit('threads/setCurrentThread', threadRresponse.data);
     } catch (err) {
-      if(err.response.status === 404){
-        error({statusCode : 404, message:'Thread Not Found'})
-      }else if(err.response.status === 429){
-        error({statusCode : 429, message:'Too Many Attempt'})
-      }else if(err.response.status === 401){
+      if (err.response.status === 404) {
+        error({ statusCode: 404, message: 'Thread Not Found' });
+      } else if (err.response.status === 429) {
+        error({ statusCode: 429, message: 'Too Many Attempt' });
+      } else if (err.response.status === 401) {
         redirect('/login');
-      }else{
-        error({statusCode : 500, message:'Server Error'})
+      } else {
+        error({ statusCode: 500, message: 'Server Error' });
       }
     }
   },
-  methods:{
-     deleteThread() {
+  methods: {
+    deleteThread() {
       this.$swal({
-          title: "Are you sure?",
-          // text: "Are you sure delete this reply",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            this.$axios.$delete(`threads/${this.thread.slug}`)
-              .then(res=>{
-                this.$toast.open({
-                  type:'success',
-                  position: 'top-right',
-                  message: 'Thread Delete Successfully.'
-                });
-                setTimeout(()=>{
-                  this.$router.push({name:'index'})
-                }, 2000);
-
-              })
-              .catch(err=>{
-                console.log(err)
-              })
-          } else {
-            // console.log('no Delete')
-          }
-        });
+        title: 'Are you sure?',
+        // text: "Are you sure delete this reply",
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          this.$axios
+            .$delete(`threads/${this.thread.slug}`)
+            .then((res) => {
+              this.$toast.open({
+                type: 'success',
+                position: 'top-right',
+                message: 'Thread Delete Successfully.',
+              });
+              setTimeout(() => {
+                this.$router.push({ name: 'index' });
+              }, 2000);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          // console.log('no Delete')
+        }
+      });
     },
-  }
+  },
 };
 </script>
 
@@ -371,26 +465,25 @@ export default {
   }
 }
 
-
 .thread-thumbnail {
-    display: flex;
-    width: 100%;
-    text-align: center;
-    overflow: hidden;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
 }
 
 .thread-image {
-    display: inline-block;
-    max-width: 100%;
-    height: 240px;
+  display: inline-block;
+  max-width: 100%;
+  height: 240px;
 }
 .col-md-12.actions {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
-.creator_name{
+.creator_name {
   display: flex;
   align-items: center;
   color: #ff4301;
@@ -398,11 +491,9 @@ export default {
   font-weight: normal;
   font-family: Raleway, sans-serif;
 
-
-  img{
+  img {
     margin-right: 5px;
     border-radius: 50%;
   }
 }
-
 </style>

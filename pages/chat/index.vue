@@ -19,7 +19,11 @@
               v-for="(friend, index) in friendLists"
               :key="index"
               @click.prevent="selectUser(friend)"
-              :class="selectedUser && (friend.id == selectedUser.id) ? 'active-friend' : ''"
+              :class="
+                selectedUser && friend.id == selectedUser.id
+                  ? 'active-friend'
+                  : ''
+              "
             >
               <img
                 :src="friend.photo_url"
@@ -55,14 +59,16 @@
 
             <div class="chat-about" v-if="selectedUser">
               <div class="chat-with">
-                <nuxt-link :to="{name: 'profile.show.about', params:{username: selectedUser.username}}">
-                  {{ selectedUser.name  }}
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show.about',
+                    params: { username: selectedUser.username },
+                  }"
+                >
+                  {{ selectedUser.name }}
                 </nuxt-link>
               </div>
-              <div
-                class="chat-num-messages"
-                v-if="friendMessages.length == 0"
-              >
+              <div class="chat-num-messages" v-if="friendMessages.length == 0">
                 No Message
               </div>
 
@@ -86,9 +92,7 @@
             </div>
             <div class="reply-to" v-if="selectedUser && showReplyBox">
               Reply to
-              <strong v-if="selectedUser">{{
-                selectedUser.name
-              }}</strong>
+              <strong v-if="selectedUser">{{ selectedUser.name }}</strong>
               <span class="close-reply" @click="cancelReplyMessage">X</span>
               <br />
 
@@ -127,19 +131,19 @@
 // import moment from 'moment-timezone';
 // moment.tz.setDefault('America/New_York');
 
-import {mapGetters, mapActions} from 'vuex'
-import UserOnline from '@/components/chat/UserOnline'
-import Message from '@/components/chat/Message'
+import { mapGetters, mapActions } from 'vuex';
+import UserOnline from '@/components/chat/UserOnline';
+import Message from '@/components/chat/Message';
 
 export default {
-  components:{
+  components: {
     UserOnline,
-    Message
+    Message,
   },
-    middleware: ['auth'],
+  middleware: ['auth'],
   data() {
     return {
-      chatForm:{
+      chatForm: {
         message: '',
         replyId: null,
         replyMessage: '',
@@ -149,8 +153,14 @@ export default {
       showReplyBox: false,
     };
   },
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
   computed: {
     ...mapGetters({
+      settings: 'settings',
       friendLists: 'chat/friendLists',
       friendMessages: 'chat/friendMessages',
       selectedUser: 'chat/selectedUser',
@@ -167,20 +177,21 @@ export default {
     // },
   },
   mounted() {
-    this.$echo.private(`chat.${this.$auth.user.id}`).listen('MessegeSentEvent', (e) => {
-      if (e.message.friend_message == 0) {
-        // this.$store.dispatch('friendList', this.authuser.id);
-
-        //this.$store.dispatch('otherMessageUserList', this.authuser.id);
-      }
-      if (this.selectedUser && this.selectedUser.id == e.message.from) {
-        this.$store.commit('chat/ADD_NEW_MESSAGE', e.message);
-        // this.selectUser(e.message.from, true);
-      } else {
-        // this.selectUser(e.message.from, false);
-      }
-      //this.messageSound();
-    });
+    this.$echo
+      .private(`chat.${this.$auth.user.id}`)
+      .listen('MessegeSentEvent', (e) => {
+        if (e.message.friend_message == 0) {
+          // this.$store.dispatch('friendList', this.authuser.id);
+          //this.$store.dispatch('otherMessageUserList', this.authuser.id);
+        }
+        if (this.selectedUser && this.selectedUser.id == e.message.from) {
+          this.$store.commit('chat/ADD_NEW_MESSAGE', e.message);
+          // this.selectUser(e.message.from, true);
+        } else {
+          // this.selectUser(e.message.from, false);
+        }
+        //this.messageSound();
+      });
 
     this.$echo.private(`typingevent`).listenForWhisper('typing', (e) => {
       if (this.selectedUser) {
@@ -202,37 +213,38 @@ export default {
   },
   created() {
     this.getChatUserLists();
-    this.$nuxt.$on('REPLY_TO_MESSAGE',(messageId)=>{
+    this.$nuxt.$on('REPLY_TO_MESSAGE', (messageId) => {
       this.replyToMessage(messageId);
-    })
+    });
   },
   methods: {
     ...mapActions({
       getChatUserLists: 'chat/getChatUserLists',
       getUserMessages: 'chat/getUserMessages',
     }),
-     typingMessage() {
+    typingMessage() {
       this.$echo.private(`typingevent`).whisper('typing', {
         from_user: this.$auth.user,
         to_user: this.selectedUser,
         typing: this.message,
       });
     },
-    async sendMessage(){
-      try{
-        const message = await this.$axios.$post(`chat/user/${this.selectedUser.username}/messages`,{
-          message: this.chatForm.message,
-          reply_id: this.chatForm.replyId,
-        });
-        this.$store.commit('chat/ADD_NEW_MESSAGE', message)
+    async sendMessage() {
+      try {
+        const message = await this.$axios.$post(
+          `chat/user/${this.selectedUser.username}/messages`,
+          {
+            message: this.chatForm.message,
+            reply_id: this.chatForm.replyId,
+          }
+        );
+        this.$store.commit('chat/ADD_NEW_MESSAGE', message);
         this.chatForm = {
           message: '',
           replyId: null,
-        }
+        };
         this.showReplyBox = false;
-      }catch(e){
-
-      }
+      } catch (e) {}
     },
     cancelReplyMessage() {
       this.replyId = '';
@@ -252,8 +264,8 @@ export default {
     },
     selectUser(friend, change = true) {
       if (change) {
-        this.$store.commit('chat/SET_SELECTED_USER', friend)
-        this.getUserMessages(friend)
+        this.$store.commit('chat/SET_SELECTED_USER', friend);
+        this.getUserMessages(friend);
         this.messageStatus(friend.id, false);
       } else {
         this.messageStatus(friend.id, true);
@@ -470,46 +482,47 @@ export default {
 }
 
 .chat-message-reply.clearfix {
-    position: absolute;
-    width: 98%;
-    bottom: 0;
-    left: 0;
-    background: white;
-    padding: 0px!important;
+  position: absolute;
+  width: 98%;
+  bottom: 0;
+  left: 0;
+  background: white;
+  padding: 0px !important;
 }
 
-.reply-to{
-    border: 1px solid #38a9ff;
-    min-height: 50px;
-    padding: 8px;
-    border: 1px solid #38a9ff;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    border-color: #38a9ff;
-    outline: 0;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(152, 203, 232, 0.6);
-    border-radius: 4px 4px 0px 0px;
-    border-bottom: none;
+.reply-to {
+  border: 1px solid #38a9ff;
+  min-height: 50px;
+  padding: 8px;
+  border: 1px solid #38a9ff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  border-color: #38a9ff;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(152, 203, 232, 0.6);
+  border-radius: 4px 4px 0px 0px;
+  border-bottom: none;
 }
 .remove-top-border {
-    border-top: none;
-    box-shadow: none;
-    border-radius: 0px 0px 4px 4px;
+  border-top: none;
+  box-shadow: none;
+  border-radius: 0px 0px 4px 4px;
 }
 span.close-reply {
-    float: right;
-    padding: 0px 5px;
-    cursor: pointer;
+  float: right;
+  padding: 0px 5px;
+  cursor: pointer;
 }
 
-.typing-status{
+.typing-status {
   display: flex;
   align-items: center;
   padding: 5px;
 }
 
 li.clearfix.active-friend {
-    background:gray;
+  background: gray;
 }
 </style>

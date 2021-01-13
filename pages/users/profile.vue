@@ -1,22 +1,23 @@
 <template>
   <div class="container">
-    <div class=" row">
+    <div class="row">
       <div class="col-md-8">
         <div class="card card-m-5">
           <div class="card-body">
-
-            <div class=" profile-header">
+            <div class="profile-header">
               <div class="profile-avatar">
                 <img :src="profile_user.photo_url" alt class="profile-img" />
               </div>
               <div class="profile-details">
-                <h2 class="profile-name">{{ profile_user.name}}</h2>
+                <h2 class="profile-name">{{ profile_user.name }}</h2>
                 <div class="profile-count">
                   <post-counts :post_count="profilePostCount"></post-counts>
                   <like-counts :like_counts="profileLikeCount"></like-counts>
                   <!-- <replies-counts :replies_count="replies_count"></replies-counts> -->
                   <!-- <favorite-counts :thread="profileFavoritePosts"></favorite-counts> -->
-                  <profile-favorite-counts :favoriteCounts="profileFavoriteCount"></profile-favorite-counts>
+                  <profile-favorite-counts
+                    :favoriteCounts="profileFavoriteCount"
+                  ></profile-favorite-counts>
                 </div>
                 <div class="profile-buttons">
                   <template v-if="!is_owner">
@@ -24,10 +25,22 @@
                       class="btn btn-sm unfollow-btn"
                       @click.prevent="unfollow(profile_user)"
                       v-if="isFollow"
-                    >Unfllow</button>
-                    <button class="btn btn-sm follow-btn" @click.prevent="follow(profile_user)" v-else>Follow</button>
+                    >
+                      Unfllow
+                    </button>
+                    <button
+                      class="btn btn-sm follow-btn"
+                      @click.prevent="follow(profile_user)"
+                      v-else
+                    >
+                      Follow
+                    </button>
                   </template>
-                  <AddFriend :recipient="profile_user" :isFriend="is_friend" v-if="!is_owner"></AddFriend>
+                  <AddFriend
+                    :recipient="profile_user"
+                    :isFriend="is_friend"
+                    v-if="!is_owner"
+                  ></AddFriend>
 
                   <button
                     class="btn btn-default btn-sm"
@@ -51,11 +64,27 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li>
-                        <nuxt-link :to="{name:'profile.settings.info', params:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Setting">
+                        <nuxt-link
+                          :to="{
+                            name: 'profile.settings.info',
+                            params: { username: $auth.user.username },
+                          }"
+                          class="dropdown-item"
+                          href="#"
+                          title="Setting"
+                        >
                           Edit my information
                         </nuxt-link>
 
-                        <nuxt-link :to="{name:'profile.settings.privacy', params:{username: $auth.user.username}}" class="dropdown-item" href="#" title="Setting">
+                        <nuxt-link
+                          :to="{
+                            name: 'profile.settings.privacy',
+                            params: { username: $auth.user.username },
+                          }"
+                          class="dropdown-item"
+                          href="#"
+                          title="Setting"
+                        >
                           Settings
                         </nuxt-link>
                         <!-- <a :href="editUrl">Edit my information</a> -->
@@ -78,77 +107,145 @@
                 </div> -->
               </div>
             </div>
-            <ul class="nav profile-nav ">
+            <ul class="nav profile-nav">
               <li class="nav-item">
-                <nuxt-link :to="{name:'profile.show.about', params:{username:profile_user.username}}" class="nav-link" href="#">About</nuxt-link>
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show.about',
+                    params: { username: profile_user.username },
+                  }"
+                  class="nav-link"
+                  href="#"
+                  >About</nuxt-link
+                >
               </li>
               <li class="nav-item" v-if="isShowFriends">
-                <nuxt-link :to="{name:'profile.show.friends', params:{username:profile_user.username}}"  class="nav-link" href="#">Friends
-                   <span
-                        style="color:black; font-weight:bold"
-                      >{{ friendsCount | formatCount }}</span>
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show.friends',
+                    params: { username: profile_user.username },
+                  }"
+                  class="nav-link"
+                  href="#"
+                  >Friends
+                  <span style="color: black; font-weight: bold">{{
+                    friendsCount | formatCount
+                  }}</span>
                 </nuxt-link>
               </li>
-              <li class="nav-item"  v-if="isShowPosts">
-                <nuxt-link :to="{name:'profile.show.posts', params:{username:profile_user.username}}" class="nav-link " href="#">Posts</nuxt-link>
+              <li class="nav-item" v-if="isShowPosts">
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show.posts',
+                    params: { username: profile_user.username },
+                  }"
+                  class="nav-link"
+                  href="#"
+                  >Posts</nuxt-link
+                >
               </li>
-              <li class="nav-item"  v-if="isShowFavorites">
-                <nuxt-link :to="{name:'profile.show.favorites', params:{username:profile_user.username}}" class="nav-link " href="#">Favorites</nuxt-link>
+              <li class="nav-item" v-if="isShowFavorites">
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show.favorites',
+                    params: { username: profile_user.username },
+                  }"
+                  class="nav-link"
+                  href="#"
+                  >Favorites</nuxt-link
+                >
               </li>
-              <li class="nav-item"  v-if="is_owner">
-                <nuxt-link :to="{name:'profile.show.likes', params:{username:profile_user.username}}" class="nav-link " href="#">Likes</nuxt-link>
+              <li class="nav-item" v-if="is_owner">
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show.likes',
+                    params: { username: profile_user.username },
+                  }"
+                  class="nav-link"
+                  href="#"
+                  >Likes</nuxt-link
+                >
               </li>
-              <li class="nav-item"  v-if="is_owner">
-                <nuxt-link :to="{name:'profile.show.subscriptions', params:{username:profile_user.username}}" class="nav-link " href="#">Subscriptions</nuxt-link>
+              <li class="nav-item" v-if="is_owner">
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show.subscriptions',
+                    params: { username: profile_user.username },
+                  }"
+                  class="nav-link"
+                  href="#"
+                  >Subscriptions</nuxt-link
+                >
               </li>
             </ul>
           </div>
         </div>
 
-        <NuxtChild  />
-
+        <NuxtChild />
       </div>
       <div class="col-md-4 sidebar">
-         <Sidebar />
+        <Sidebar />
       </div>
     </div>
-          <!-- Modal -->
-      <div class="modal fade " id="messageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog modal-sm" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h4 class="modal-title" id="myModalLabel">Send message</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  </div>
-                  <div class="modal-body">
-                      <div class="form-group">
-                          <textarea name="newMessage" id="newMessage" cols="30" rows="3" v-model="newMessage" class="form-control"></textarea>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button class="btn btn-primary btn-sm" type="button" @click.prevent="sendMessage">Send</button>
-                  </div>
-              </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="messageModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+    >
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Send message</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <textarea
+                name="newMessage"
+                id="newMessage"
+                cols="30"
+                rows="3"
+                v-model="newMessage"
+                class="form-control"
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-primary btn-sm"
+              type="button"
+              @click.prevent="sendMessage"
+            >
+              Send
+            </button>
+          </div>
+        </div>
       </div>
-
-
-
+    </div>
   </div>
 </template>
 
 <script>
 // import About from "./ProfileAbout";
 
-
 import PostCounts from '@/components/counts/PostCounts';
 import LikeCounts from '@/components/counts/LikeCounts';
 import ProfileFavoriteCounts from '@/components/counts/ProfileFavoriteCounts';
 import AddFriend from '@/components/AddFriend';
-import SingleThread from '@/components/threads/SingeThread'
-import Sidebar from '@/layouts/partials/Sidebar'
+import SingleThread from '@/components/threads/SingeThread';
+import Sidebar from '@/layouts/partials/Sidebar';
 
-import {mapGetters, mapActions} from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   components: {
@@ -158,19 +255,25 @@ export default {
     AddFriend,
     Sidebar,
   },
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
   data() {
     return {
       showModal: false,
-      newMessage: "",
+      newMessage: '',
 
       favorites: [],
       likes: [],
-      replies_count:0,
+      replies_count: 0,
       // isFollow: false,
     };
   },
   computed: {
     ...mapGetters({
+      settings: 'settings',
       friendsCount: 'friends/friendsCount',
       profilePostCount: 'user/threadsCount',
       profileLikeCount: 'user/likesCount',
@@ -182,26 +285,24 @@ export default {
       profile_user_privacy: 'user/profileUserPrivacy',
     }),
 
-
-
-    is_owner () {
-      if(this.signedIn){
-          return this.$store.state.auth.user.id == this.profile_user.id;
+    is_owner() {
+      if (this.signedIn) {
+        return this.$store.state.auth.user.id == this.profile_user.id;
       }
 
       return false;
     },
-    isBan(){
-        if(this.signedIn){
-          return this.$store.state.auth.user.is_banned;
-        }
-        return false;
+    isBan() {
+      if (this.signedIn) {
+        return this.$store.state.auth.user.is_banned;
+      }
+      return false;
     },
-    signedIn(){
+    signedIn() {
       return this.$auth.loggedIn;
     },
-    isAdmin () {
-      if(this.signedIn){
+    isAdmin() {
+      if (this.signedIn) {
         return this.$store.state.auth.user.is_admin;
       }
       return false;
@@ -290,10 +391,11 @@ export default {
       follow: 'user/follow',
       unfollow: 'user/unfollow',
     }),
-    getProfileComments(){
-      axios.get(`/profiles/${this.profile_user.username}/comments`)
+    getProfileComments() {
+      axios
+        .get(`/profiles/${this.profile_user.username}/comments`)
         .then((res) => {
-          this.replies_count = res.data.replies_count
+          this.replies_count = res.data.replies_count;
           // this.$store.dispatch("profilePosts", res.data.threads);
         });
     },
@@ -302,16 +404,15 @@ export default {
         .get(`/profiles/${this.profile_user.username}/threads`)
         .then((res) => {
           // this.posts = res.data.threads;
-          this.$store.dispatch("profilePosts", res.data.threads);
-          this.$store.dispatch("profileTotalRecords", res.data.total_records);
+          this.$store.dispatch('profilePosts', res.data.threads);
+          this.$store.dispatch('profileTotalRecords', res.data.total_records);
         });
     },
     getAllLikePost() {
       axios.get(`/profiles/${this.profile_user.username}/likes`).then((res) => {
         // this.posts = res.data.threads;
-        this.$store.dispatch("profileLikePosts", res.data.threads);
-        this.$store.dispatch("profileLikeTotalRecords", res.data.total_records);
-
+        this.$store.dispatch('profileLikePosts', res.data.threads);
+        this.$store.dispatch('profileLikeTotalRecords', res.data.total_records);
       });
     },
     getAllFavoritePost() {
@@ -319,16 +420,18 @@ export default {
         .get(`/profiles/${this.profile_user.username}/favorites`)
         .then((res) => {
           // this.posts = res.data.threads;
-          this.$store.dispatch("profileFavoritePosts", res.data.threads);
+          this.$store.dispatch('profileFavoritePosts', res.data.threads);
 
-          this.$store.dispatch("profileFavoriteTotalRecords", res.data.total_records);
-
+          this.$store.dispatch(
+            'profileFavoriteTotalRecords',
+            res.data.total_records
+          );
         });
     },
     profilePath(item) {
-      if (item.followType == "user") {
+      if (item.followType == 'user') {
         return `/profiles/${item.username}`;
-      } else if (item.followType === "tag") {
+      } else if (item.followType === 'tag') {
         return `/threads/${item.name.toLowerCase()}`;
       }
     },
@@ -347,12 +450,15 @@ export default {
       }
     },
 
-    async sendMessage(){
-      try{
-        const message = await this.$axios.$post(`chat/user/${this.profile_user.username}/messages`,{
-          message: this.newMessage,
-        });
-        this.$store.commit('chat/ADD_NEW_MESSAGE', message)
+    async sendMessage() {
+      try {
+        const message = await this.$axios.$post(
+          `chat/user/${this.profile_user.username}/messages`,
+          {
+            message: this.newMessage,
+          }
+        );
+        this.$store.commit('chat/ADD_NEW_MESSAGE', message);
         this.newMessage = '';
 
         this.$toast.open({
@@ -360,60 +466,59 @@ export default {
           position: 'top-right',
           message: 'Message sent successfully',
         });
-        $("#messageModal").modal("hide");
-
-      }catch(e){
-
-      }
+        $('#messageModal').modal('hide');
+      } catch (e) {}
     },
-    showMessageModal(){
-      $("#messageModal").modal("show");
+    showMessageModal() {
+      $('#messageModal').modal('show');
+    },
+  },
+  async fetch({ params, query, error, $axios, store, redirect }) {
+    try {
+      const userRresponse = await $axios.$get(`profile/${params.username}`);
+      if (userRresponse.data.is_blocked) {
+        redirect('/');
+      }
+
+      const threadRresponse = await $axios.$get(
+        `profile/${params.username}/threads`
+      );
+      const favoriteRresponse = await $axios.$get(
+        `profile/${params.username}/favorites`
+      );
+      if (userRresponse.data.is_owner) {
+        const likeRresponse = await $axios.$get(
+          `profile/${params.username}/likes`
+        );
+        store.commit('user/SET_LIKES', likeRresponse.data);
+        store.commit('user/SET_LIKES_COUNT', likeRresponse.meta.total);
+      }
+
+      store.commit('user/SET_USER', userRresponse.data);
+      store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
+
+      store.commit('user/SET_THREADS', threadRresponse.data);
+      store.commit('user/SET_THREADS_COUNT', threadRresponse.meta.total);
+
+      store.commit('user/SET_FAVORITES', favoriteRresponse.data);
+      store.commit('user/SET_FAVORITES_COUNT', favoriteRresponse.meta.total);
+
+      store.commit('user/SET_IS_FRIEND', userRresponse.data.is_friend);
+      store.commit('user/SET_IS_FOLLOW', userRresponse.data.is_follow);
+    } catch (err) {
+      if (err.response.status === 404) {
+        error({ statusCode: 404, message: 'user Not Found' });
+      } else if (err.response.status === 403) {
+        redirect('/');
+      } else if (err.response.status === 429) {
+        error({ statusCode: 429, message: 'Too Many Attempt' });
+      } else if (err.response.status === 401) {
+        redirect('/login');
+      } else {
+        error({ statusCode: 500, message: 'Server Error' });
+      }
     }
   },
-   async fetch({ params, query, error, $axios, store,redirect }) {
-      try {
-        const userRresponse = await $axios.$get(`profile/${params.username}`);
-        if(userRresponse.data.is_blocked){
-          redirect('/');
-        }
-
-        const threadRresponse = await $axios.$get(`profile/${params.username}/threads`);
-        const favoriteRresponse = await $axios.$get(`profile/${params.username}/favorites`);
-        if(userRresponse.data.is_owner){
-          const likeRresponse = await $axios.$get(`profile/${params.username}/likes`);
-          store.commit('user/SET_LIKES', likeRresponse.data);
-          store.commit('user/SET_LIKES_COUNT', likeRresponse.meta.total);
-        }
-
-
-
-        store.commit('user/SET_USER', userRresponse.data);
-        store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
-
-        store.commit('user/SET_THREADS', threadRresponse.data);
-        store.commit('user/SET_THREADS_COUNT', threadRresponse.meta.total);
-
-        store.commit('user/SET_FAVORITES', favoriteRresponse.data);
-        store.commit('user/SET_FAVORITES_COUNT', favoriteRresponse.meta.total);
-
-        store.commit('user/SET_IS_FRIEND', userRresponse.data.is_friend);
-        store.commit('user/SET_IS_FOLLOW', userRresponse.data.is_follow);
-
-      } catch (err) {
-        if(err.response.status === 404){
-          error({statusCode : 404, message:'user Not Found'})
-        }
-        else if(err.response.status === 403){
-         redirect('/');
-        }else if(err.response.status === 429){
-          error({statusCode : 429, message:'Too Many Attempt'})
-        }else if(err.response.status === 401){
-          redirect('/login');
-        }else{
-          error({statusCode : 500, message:'Server Error'})
-        }
-      }
-    },
 };
 </script>
 
@@ -515,37 +620,38 @@ export default {
   margin: 0 5px;
 }
 
-.profile-name{
-    padding: 0;
-    margin: 0;
-    color: black;
-    font-size: 30px;
-    font-weight: 500;
+.profile-name {
+  padding: 0;
+  margin: 0;
+  color: black;
+  font-size: 30px;
+  font-weight: 500;
 }
- ul.profile-nav{
-
-   a.nav-link{
-     color: #000;
-     font-size: 14px;
-   }
-
-  a.nav-link.active, a.nav-link:hover, a.nav-link:focus {
-      color: #555555;
-      background-color: #f5f8fa;
-
-      cursor: pointer;
+ul.profile-nav {
+  a.nav-link {
+    color: #000;
+    font-size: 14px;
   }
-  a.nav-link.router-link-exact-active{
+
+  a.nav-link.active,
+  a.nav-link:hover,
+  a.nav-link:focus {
+    color: #555555;
+    background-color: #f5f8fa;
+
+    cursor: pointer;
+  }
+  a.nav-link.router-link-exact-active {
     border-bottom: 3px solid rgb(255, 67, 1);
   }
- }
-hr.profile-bottom {
-    margin: 0;
 }
-.nav-item{
+hr.profile-bottom {
+  margin: 0;
+}
+.nav-item {
   margin-right: 20px;
 }
-.modal-title{
+.modal-title {
   font-size: 16px;
   font-weight: bold;
 }

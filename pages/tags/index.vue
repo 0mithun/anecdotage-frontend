@@ -1,16 +1,17 @@
 <template>
   <div class="container">
-    <div class="row ">
+    <div class="row">
       <div class="col-md-8">
         <div class="card card-m-5">
           <div class="card-body">
-
-
             <div class="row profile-header">
               <div class="profile-avatar">
                 <img :src="tag.photo_url" alt class="profile-img" />
-                <div style="text-align:center;overflow" @click="showDescription = !showDescription">
-                    <i class="fa fa-question-circle tooltip-icon" ></i>
+                <div
+                  style="text-align:center;overflow"
+                  @click="showDescription = !showDescription"
+                >
+                  <i class="fa fa-question-circle tooltip-icon"></i>
                 </div>
               </div>
               <div class="profile-details">
@@ -39,39 +40,47 @@
                     Follow
                   </button>
                   <button
-                    class="btn btn-sm  btn-primary"
+                    class="btn btn-sm btn-primary"
                     @click.prevent="editTag = true"
                     v-if="isAdmin"
                   >
                     Edit Tag
                   </button>
                 </div>
-
               </div>
             </div>
 
             <div class="row description" v-if="showDescription">
               <div class="col-md-12">
-                <div v-html="tag.description" style="overflow:hidden;overflow-wrap: anywhere;">
-
-                </div>
+                <div
+                  v-html="tag.description"
+                  style="overflow: hidden; overflow-wrap: anywhere"
+                ></div>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-12">
                 <div class="post-header">
-                  <div class="post-counts">{{ postCounts | formatCount }}   {{ postCounts | strPlural('post') }}  </div>
+                  <div class="post-counts">
+                    {{ postCounts | formatCount }}
+                    {{ postCounts | strPlural('post') }}
+                  </div>
                 </div>
-
               </div>
             </div>
-
           </div>
         </div>
-        <SingleThread v-for="thread in threads" :key="thread.id" :thread="thread"></SingleThread>
-        <Pagination :pagination="pageinateData" routeName="tags" :param="{key:'slug',value:this.tag.slug}" />
-
+        <SingleThread
+          v-for="thread in threads"
+          :key="thread.id"
+          :thread="thread"
+        ></SingleThread>
+        <Pagination
+          :pagination="pageinateData"
+          routeName="tags"
+          :param="{ key: 'slug', value: this.tag.slug }"
+        />
       </div>
       <div class="col-md-4">
         <Sidebar />
@@ -81,29 +90,27 @@
 </template>
 
 <script>
-import SingleThread from '@/components/threads/SingeThread'
-import Sidebar from '@/layouts/partials/Sidebar'
+import SingleThread from '@/components/threads/SingeThread';
+import Sidebar from '@/layouts/partials/Sidebar';
 
-import PostCounts from '@/components/counts/PostCounts'
-import FollowingCounts from '@/components/counts/FollowingCounts'
+import PostCounts from '@/components/counts/PostCounts';
+import FollowingCounts from '@/components/counts/FollowingCounts';
 
-import Pagination from '@/components/Pagination'
-
-
+import Pagination from '@/components/Pagination';
+import { mapGetters } from 'vuex';
 export default {
   name: 'index',
-  components:{
+  components: {
     SingleThread,
     Sidebar,
     PostCounts,
     FollowingCounts,
-    Pagination
+    Pagination,
   },
-    data() {
+  data() {
     return {
       isFollow: null,
-      showDescription:false,
-
+      showDescription: false,
 
       tagPhoto: null,
       // posts: this.threads,
@@ -112,117 +119,123 @@ export default {
       editTag: false,
       selectFile: null,
       // formData: new FormData,
-      form:{
+      form: {
         description: '',
-        license:'',
-        amazon:'',
+        license: '',
+        amazon: '',
         // tagThumb: this.tag.profileAvatarPath,
         tagThumbError: '',
-      }
+      },
     };
   },
-  computed:{
-    isAdmin(){
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
+    isAdmin() {
       return true;
     },
-    isUserFollow(){
-      return  this.isFollow ? this.isFollow : this.tag.is_follow;
+    isUserFollow() {
+      return this.isFollow ? this.isFollow : this.tag.is_follow;
     },
-     postCounts() {
+    postCounts() {
       // return abbreviate(this.pageinateData.total, 1);
-      return this.pageinateData.total
+      return this.pageinateData.total;
     },
-    tag(){
-      return this.$store.state.tags.tag
+    tag() {
+      return this.$store.state.tags.tag;
     },
-    threads(){
-        return this.$store.state.tags.threads
+    threads() {
+      return this.$store.state.tags.threads;
     },
-    pageinateData(){
-      return this.$store.state.tags.pageinateData
-    }
-
-
+    pageinateData() {
+      return this.$store.state.tags.pageinateData;
+    },
   },
 
   methods: {
-    onFileSelected(event){
-      console.log(event.target.files)
-      if (! event.target.files.length) return;
+    onFileSelected(event) {
+      console.log(event.target.files);
+      if (!event.target.files.length) return;
 
       this.form.tagThumbError = false;
       this.form.threadThumbErrorMessage = '';
-      let file =  event.target.files[0];
+      let file = event.target.files[0];
 
-      if (file.size > 1024 *2048) {
-          event.preventDefault();
-          this.tagThumbError = true;
-          this.threadThumbErrorMessage = 'Tag image may not be greater than 2048 kilobytes';
-          return;
+      if (file.size > 1024 * 2048) {
+        event.preventDefault();
+        this.tagThumbError = true;
+        this.threadThumbErrorMessage =
+          'Tag image may not be greater than 2048 kilobytes';
+        return;
       }
       this.selectFile = event.target.files[0];
       this.formData.append('photo', this.selectFile);
 
-
       let reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = e => {
-          let src = e.target.result;
-          this.form.tagThumb = src
+      reader.onload = (e) => {
+        let src = e.target.result;
+        this.form.tagThumb = src;
       };
-  },
-  OpenImgUpload(){
-    $('#image_path').trigger('click')
-  },
-  editTagInfo(){
-    this.formData.append('description', this.form.description);
-    this.formData.append('license', this.form.license);
-    this.formData.append('amazon', this.form.amazon);
+    },
+    OpenImgUpload() {
+      $('#image_path').trigger('click');
+    },
+    editTagInfo() {
+      this.formData.append('description', this.form.description);
+      this.formData.append('license', this.form.license);
+      this.formData.append('amazon', this.form.amazon);
 
-     axios.post(`/tag/${this.tag.id}/update`, this.formData).then(res=>{
+      axios
+        .post(`/tag/${this.tag.id}/update`, this.formData)
+        .then((res) => {
           this.tagPhoto = this.thumb;
           this.editTag = false;
-          flash('Tag Update Successfully')
-      }).catch(err=>{
-          console.log(err)
-      })
-  },
+          flash('Tag Update Successfully');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     toggleFollow() {
-      if(this.isUserFollow){
-        this.$axios.$delete(`tags/${this.tag.slug}/follow`).then(res=>{
+      if (this.isUserFollow) {
+        this.$axios.$delete(`tags/${this.tag.slug}/follow`).then((res) => {
           this.isFollow = false;
-        })
-      }else{
-        this.$axios.$post(`tags/${this.tag.slug}/follow`).then(res=>{
+        });
+      } else {
+        this.$axios.$post(`tags/${this.tag.slug}/follow`).then((res) => {
           this.isFollow = true;
-        })
+        });
       }
     },
-
   },
-    // watch: {
-    //   '$route.query': '$fetch'
-    // },
+  // watch: {
+  //   '$route.query': '$fetch'
+  // },
 
   watchQuery: true,
 
-
   async fetch({ params, query, error, $axios, store }) {
-
     const q = await Object.keys(query)
-      .map(k => `${k}=${query[k]}`)
+      .map((k) => `${k}=${query[k]}`)
       .join('&');
 
     try {
       const tagRresponse = await $axios.$get(`tags/${params.slug}?${q}`);
-       store.commit('tags/setTags', tagRresponse.tag.data)
-       store.commit('tags/setThreads', tagRresponse.threads.data)
-       store.commit('tags/setPageinateData', tagRresponse.threads.meta)
+      store.commit('tags/setTags', tagRresponse.tag.data);
+      store.commit('tags/setThreads', tagRresponse.threads.data);
+      store.commit('tags/setPageinateData', tagRresponse.threads.meta);
     } catch (err) {
-      if(err.response.status === 404){
-        error({statusCode : 404, message:'Tag Not Found'})
-      }else{
-        error({statusCode : 500, message:'Server Error'})
+      if (err.response.status === 404) {
+        error({ statusCode: 404, message: 'Tag Not Found' });
+      } else {
+        error({ statusCode: 500, message: 'Server Error' });
       }
     }
   },
@@ -237,7 +250,7 @@ export default {
   margin: 30px auto;
   display: flex;
   align-items: center;
-  margin-top:10px;
+  margin-top: 10px;
   margin-bottom: 0px;
 }
 .profile-name {
@@ -295,7 +308,7 @@ export default {
 }
 .post-counts {
   color: black;
-  padding:  0;
+  padding: 0;
   font-weight: bold;
   padding-bottom: 0px;
 }
@@ -307,39 +320,39 @@ export default {
   cursor: pointer;
 }
 
-.tools-row{
+.tools-row {
   margin-bottom: 20px;
 }
 
-.tooltip-icon{
-  font-size:14px;
-  cursor:pointer
+.tooltip-icon {
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.description{
-  transition: cubic-bezier(0.075, 0.82, 0.165, .3) ease-in;
+.description {
+  transition: cubic-bezier(0.075, 0.82, 0.165, 0.3) ease-in;
   overflow: hidden;
 }
 
- .thread-thumb-placeholder{
-        width: 100px;
-        height: 100px;
-        background-color: #eeeeee;
-    }
+.thread-thumb-placeholder {
+  width: 100px;
+  height: 100px;
+  background-color: #eeeeee;
+}
 
-     #tinymce iframe {
-            width: 100%!important;
-            height: 350px!important;
-        }
-    .tox-tinymce{
-        min-height:500px!important;
-    }
+#tinymce iframe {
+  width: 100% !important;
+  height: 350px !important;
+}
+.tox-tinymce {
+  min-height: 500px !important;
+}
 
-    .error{
-        color:red;
-    }
-    .help-block.error{
-        color:red;
-    }
+.error {
+  color: red;
+}
+.help-block.error {
+  color: red;
+}
 </style>
 

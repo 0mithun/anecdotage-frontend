@@ -16,9 +16,7 @@
         </div>
 
         <div class="text-right">
-          <base-button :loading="form.busy">
-            Send Reset Link
-          </base-button>
+          <base-button :loading="form.busy"> Send Reset Link </base-button>
         </div>
         <p class="font-14 fw-400 text-center mt-4">
           <nuxt-link :to="{ name: 'login' }" class="color-blue">
@@ -31,30 +29,41 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   middleware: ['guest'],
   data() {
     return {
       status: '',
       form: this.$vform({
-        email: ''
-      })
+        email: '',
+      }),
     };
+  },
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
   },
 
   methods: {
     submit() {
       this.form
         .post('/password/email')
-        .then(res => {
+        .then((res) => {
           this.status = res.data.status;
           this.form.reset();
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

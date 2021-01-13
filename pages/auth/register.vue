@@ -71,6 +71,7 @@
 
 <script>
 import SocialLogin from '@/components/SocialLogin';
+import { mapGetters } from 'vuex';
 export default {
   middleware: ['guest'],
   name: 'register',
@@ -85,6 +86,16 @@ export default {
         password_confirmation: '',
       }),
     };
+  },
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
   },
 
   methods: {

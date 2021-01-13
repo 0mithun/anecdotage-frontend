@@ -1,29 +1,35 @@
 <template>
   <div class="card card-m-5">
     <div class="card-body friends-card-body">
-
       <div class="friends-header">
         <div class="friends-menu">
           <ul class="nav nav-tabs friend-nav-tabs justify-content-between">
-            <li @click="searchItem=''">
-              <a data-toggle="tab" href="#friend-friends"  class="active" >Friends</a>
+            <li @click="searchItem = ''">
+              <a data-toggle="tab" href="#friend-friends" class="active"
+                >Friends</a
+              >
             </li>
-            <li class v-if="is_owner" @click="searchItem=''">
+            <li class v-if="is_owner" @click="searchItem = ''">
               <a data-toggle="tab" href="#friend-request">Friend Requests</a>
             </li>
-            <li v-if="is_owner" @click="searchItem=''">
+            <li v-if="is_owner" @click="searchItem = ''">
               <a data-toggle="tab" href="#friend-blocking">Blockng</a>
             </li>
-            <li @click="searchItem=''">
+            <li @click="searchItem = ''">
               <a data-toggle="tab" href="#friend-following">Following</a>
             </li>
-            <li @click="searchItem=''">
+            <li @click="searchItem = ''">
               <a data-toggle="tab" href="#friend-followers">Followers</a>
             </li>
           </ul>
         </div>
         <div class="friends-search">
-          <input type="text" class="form-control" placeholder="Search" v-model="searchItem" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search"
+            v-model="searchItem"
+          />
         </div>
       </div>
       <div class="tab-content">
@@ -32,12 +38,32 @@
             <div class="col-md-12" v-if="filterFriendLists.length < 1">
               <alert class="alert-danger">No Records found</alert>
             </div>
-            <div class="col-md-6" v-for="(friend, index) in filterFriendLists" :key="index">
+            <div
+              class="col-md-6"
+              v-for="(friend, index) in filterFriendLists"
+              :key="index"
+            >
               <div class="profile-single-item">
-                <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
-                  <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show',
+                    params: { username: friend.username },
+                  }"
+                >
+                  <img
+                    :src="friend.photo_url"
+                    :alt="friend.name"
+                    class="friends-avatar"
+                  />
                 </nuxt-link>
-                <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show',
+                    params: { username: friend.username },
+                  }"
+                  class="friends-name"
+                  >{{ friend.name }}</nuxt-link
+                >
 
                 <button
                   class="btn btn-dark btn-sm unfriend-btn"
@@ -55,14 +81,37 @@
             <div class="col-md-12" v-if="filterFriendRequests.length < 1">
               <alert class="alert-danger">No Records found</alert>
             </div>
-            <div class="col-md-6" v-for="(friend, index) in filterFriendRequests" :key="index">
+            <div
+              class="col-md-6"
+              v-for="(friend, index) in filterFriendRequests"
+              :key="index"
+            >
               <div class="profile-single-item">
-               <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
-                  <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show',
+                    params: { username: friend.username },
+                  }"
+                >
+                  <img
+                    :src="friend.photo_url"
+                    :alt="friend.name"
+                    class="friends-avatar"
+                  />
                 </nuxt-link>
-                <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show',
+                    params: { username: friend.username },
+                  }"
+                  class="friends-name"
+                  >{{ friend.name }}</nuxt-link
+                >
 
-                <button class="btn btn-primary btn-sm" @click.prevent="accept(friend)">
+                <button
+                  class="btn btn-primary btn-sm"
+                  @click.prevent="accept(friend)"
+                >
                   <i class="fa fa-user"></i>
                 </button>
               </div>
@@ -74,12 +123,32 @@
             <div class="col-md-12" v-if="filterBlockLists.length < 1">
               <alert class="alert-danger">No Records found</alert>
             </div>
-            <div class="col-md-6" v-for="(friend, index) in filterBlockLists" :key="index">
+            <div
+              class="col-md-6"
+              v-for="(friend, index) in filterBlockLists"
+              :key="index"
+            >
               <div class="profile-single-item">
-                <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
-                  <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show',
+                    params: { username: friend.username },
+                  }"
+                >
+                  <img
+                    :src="friend.photo_url"
+                    :alt="friend.name"
+                    class="friends-avatar"
+                  />
                 </nuxt-link>
-                <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show',
+                    params: { username: friend.username },
+                  }"
+                  class="friends-name"
+                  >{{ friend.name }}</nuxt-link
+                >
 
                 <button
                   class="btn btn-primary btn-sm unfriend-btn"
@@ -96,19 +165,49 @@
             <div class="col-md-12" v-if="filterFollowings.length < 1">
               <alert class="alert-danger">No Records found</alert>
             </div>
-            <div class="col-md-6" v-for="(friend, index) in filterFollowings" :key="index">
+            <div
+              class="col-md-6"
+              v-for="(friend, index) in filterFollowings"
+              :key="index"
+            >
               <div class="profile-single-item">
                 <template v-if="friend.follow_type == 'user'">
-                  <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
-                    <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
+                  <nuxt-link
+                    :to="{
+                      name: 'profile.show',
+                      params: { username: friend.username },
+                    }"
+                  >
+                    <img
+                      :src="friend.photo_url"
+                      :alt="friend.name"
+                      class="friends-avatar"
+                    />
                   </nuxt-link>
-                  <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
+                  <nuxt-link
+                    :to="{
+                      name: 'profile.show',
+                      params: { username: friend.username },
+                    }"
+                    class="friends-name"
+                    >{{ friend.name }}</nuxt-link
+                  >
                 </template>
                 <template v-else-if="friend.follow_type == 'tag'">
-                  <nuxt-link :to="{name:'tags', params:{slug: friend.slug}}">
-                    <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
+                  <nuxt-link
+                    :to="{ name: 'tags', params: { slug: friend.slug } }"
+                  >
+                    <img
+                      :src="friend.photo_url"
+                      :alt="friend.name"
+                      class="friends-avatar"
+                    />
                   </nuxt-link>
-                  <nuxt-link  :to="{name:'tags', params:{slug: friend.slug}}" class="friends-name">{{ friend.name }}</nuxt-link>
+                  <nuxt-link
+                    :to="{ name: 'tags', params: { slug: friend.slug } }"
+                    class="friends-name"
+                    >{{ friend.name }}</nuxt-link
+                  >
                 </template>
                 <button
                   class="btn btn-danger btn-sm unfriend-btn"
@@ -126,36 +225,59 @@
             <div class="col-md-12" v-if="filterFollowers.length < 1">
               <alert class="alert-danger">No Records found</alert>
             </div>
-            <div class="col-md-6" v-for="(friend, index) in filterFollowers" :key="index">
+            <div
+              class="col-md-6"
+              v-for="(friend, index) in filterFollowers"
+              :key="index"
+            >
               <div class="profile-single-item">
-                <nuxt-link :to="{name:'profile.show', params:{username: friend.username}}">
-                  <img :src="friend.photo_url" :alt="friend.name" class="friends-avatar" />
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show',
+                    params: { username: friend.username },
+                  }"
+                >
+                  <img
+                    :src="friend.photo_url"
+                    :alt="friend.name"
+                    class="friends-avatar"
+                  />
                 </nuxt-link>
-                <nuxt-link  :to="{name:'profile.show', params:{username: friend.username}}" class="friends-name">{{ friend.name }}</nuxt-link>
+                <nuxt-link
+                  :to="{
+                    name: 'profile.show',
+                    params: { username: friend.username },
+                  }"
+                  class="friends-name"
+                  >{{ friend.name }}</nuxt-link
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
-
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   data() {
     return {
-      searchItem: ""
+      searchItem: '',
+    };
+  },
+  head() {
+    return {
+      title: this.settings.site_title,
     };
   },
 
   computed: {
     ...mapGetters({
+      settings: 'settings',
       profile_user: 'user/profileUser',
       profile_user_privacy: 'user/profileUserPrivacy',
       is_friend: 'user/is_friend',
@@ -167,56 +289,56 @@ export default {
       followings: 'friends/followings',
     }),
 
-    is_owner () {
-      if(this.signedIn){
-          return this.$store.state.auth.user.id == this.profile_user.id;
+    is_owner() {
+      if (this.signedIn) {
+        return this.$store.state.auth.user.id == this.profile_user.id;
       }
 
       return false;
     },
-    isBan(){
-        if(this.signedIn){
-          return this.$store.state.auth.user.is_banned;
-        }
-        return false;
+    isBan() {
+      if (this.signedIn) {
+        return this.$store.state.auth.user.is_banned;
+      }
+      return false;
     },
-    signedIn(){
+    signedIn() {
       return this.$auth.loggedIn;
     },
-    isAdmin () {
-      if(this.signedIn){
+    isAdmin() {
+      if (this.signedIn) {
         return this.$store.state.auth.user.is_admin;
       }
       return false;
     },
-    isShowProfile(){
+    isShowProfile() {
       return true;
     },
     filterFriendLists() {
-      return this.friends.filter(item => {
+      return this.friends.filter((item) => {
         return item.name.toLowerCase().includes(this.searchItem.toLowerCase());
       });
     },
     filterFriendRequests() {
-      return this.friendRequests.filter(item => {
+      return this.friendRequests.filter((item) => {
         return item.name.toLowerCase().includes(this.searchItem.toLowerCase());
       });
     },
     filterBlockLists() {
-      return this.blockLists.filter(item => {
+      return this.blockLists.filter((item) => {
         return item.name.toLowerCase().includes(this.searchItem.toLowerCase());
       });
     },
     filterFollowings() {
-      return this.followings.filter(item => {
+      return this.followings.filter((item) => {
         return item.name.toLowerCase().includes(this.searchItem.toLowerCase());
       });
     },
     filterFollowers() {
-      return this.followers.filter(item => {
+      return this.followers.filter((item) => {
         return item.name.toLowerCase().includes(this.searchItem.toLowerCase());
       });
-    }
+    },
   },
   methods: {
     ...mapActions({
@@ -225,23 +347,35 @@ export default {
       unblock: 'friends/unblock',
       unfollow: 'friends/unfollow',
     }),
-
   },
-  async fetch({ params, query, error, $axios, store,redirect }) {
+  async fetch({ params, query, error, $axios, store, redirect }) {
     try {
       const userRresponse = await $axios.$get(`profile/${params.username}`);
-      if(userRresponse.data.is_blocked){
+      if (userRresponse.data.is_blocked) {
         redirect('/');
       }
-      const friendRresponse = await $axios.$get(`user/${params.username}/friends/friend-list`);
-        if(userRresponse.data.is_owner){
-          const blockRresponse = await $axios.$get(`user/${params.username}/friends/block-list`);
-          const friendRequestRresponse = await $axios.$get(`user/${params.username}/friends/friend-request-list`);
-          store.commit('friends/SET_BLOCK_LISTS', blockRresponse.data);
-          store.commit('friends/SET_FRIEND_REQUESTS', friendRequestRresponse.data);
-        }
-      const followingsRresponse = await $axios.$get(`user/${params.username}/friends/followings`);
-      const followersRresponse = await $axios.$get(`user/${params.username}/friends/followers`);
+      const friendRresponse = await $axios.$get(
+        `user/${params.username}/friends/friend-list`
+      );
+      if (userRresponse.data.is_owner) {
+        const blockRresponse = await $axios.$get(
+          `user/${params.username}/friends/block-list`
+        );
+        const friendRequestRresponse = await $axios.$get(
+          `user/${params.username}/friends/friend-request-list`
+        );
+        store.commit('friends/SET_BLOCK_LISTS', blockRresponse.data);
+        store.commit(
+          'friends/SET_FRIEND_REQUESTS',
+          friendRequestRresponse.data
+        );
+      }
+      const followingsRresponse = await $axios.$get(
+        `user/${params.username}/friends/followings`
+      );
+      const followersRresponse = await $axios.$get(
+        `user/${params.username}/friends/followers`
+      );
 
       store.commit('user/SET_USER', userRresponse.data);
       store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
@@ -252,19 +386,17 @@ export default {
 
       store.commit('friends/SET_FOLLOWINGS', followingsRresponse.followings);
       store.commit('friends/SET_FOLLOWERS', followersRresponse.followers);
-
-
     } catch (err) {
-      if(err.response.status === 404){
-        error({statusCode : 404, message:'Thread Not Found'})
-      }else if(err.response.status === 403){
-         redirect('/');
-      }else if(err.response.status === 429){
-        error({statusCode : 429, message:'Too Many Attempt'})
-      }else if(err.response.status === 401){
+      if (err.response.status === 404) {
+        error({ statusCode: 404, message: 'Thread Not Found' });
+      } else if (err.response.status === 403) {
+        redirect('/');
+      } else if (err.response.status === 429) {
+        error({ statusCode: 429, message: 'Too Many Attempt' });
+      } else if (err.response.status === 401) {
         redirect('/login');
-      }else{
-        error({statusCode : 500, message:'Server Error'})
+      } else {
+        error({ statusCode: 500, message: 'Server Error' });
       }
     }
   },
@@ -278,7 +410,7 @@ export default {
   margin-bottom: 5px;
 }
 .nav-tabs.friend-nav-tabs {
-  width:100%;
+  width: 100%;
 }
 
 .nav-tabs.friend-nav-tabs > li > a {
@@ -334,20 +466,20 @@ export default {
 }
 
 .friends-search {
-    width: 35%;
+  width: 35%;
 }
 
 .friends-menu {
-    width: 65%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 65%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.friends-card-body{
+.friends-card-body {
   padding: 5px;
 }
 .profile-single-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 </style>

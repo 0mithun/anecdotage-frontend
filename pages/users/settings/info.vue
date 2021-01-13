@@ -1,125 +1,118 @@
 <template>
-    <div class="row">
-      <div class="col-md-12">
-         <form @submit.prevent="updateInfo">
-          <div class="form-group row">
-            <label for="name" class="col-sm-4 col-form-label"
-              >Full name</label
-            >
-            <div class="col-sm-8">
-              <base-input
-                :form="form"
-                field="name"
-                inputType="text"
-                v-model="form.name"
-                id="name"
-                placeholder="Enter Full Name"
-              ></base-input>
-
-            </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form @submit.prevent="updateInfo">
+        <div class="form-group row">
+          <label for="name" class="col-sm-4 col-form-label">Full name</label>
+          <div class="col-sm-8">
+            <base-input
+              :form="form"
+              field="name"
+              inputType="text"
+              v-model="form.name"
+              id="name"
+              placeholder="Enter Full Name"
+            ></base-input>
           </div>
-          <div class="form-group row">
-            <label for="date_of_birth" class="col-sm-4 col-form-label"
-              >Date of Birth</label
-            >
-            <div class="col-sm-8">
-
-               <base-input
-                :form="form"
-                field="date_of_birth"
-                inputType="date"
-                v-model="form.date_of_birth"
-                id="date_of_birth"
-                placeholder="Date of Birth"
-              ></base-input>
-
-            </div>
+        </div>
+        <div class="form-group row">
+          <label for="date_of_birth" class="col-sm-4 col-form-label"
+            >Date of Birth</label
+          >
+          <div class="col-sm-8">
+            <base-input
+              :form="form"
+              field="date_of_birth"
+              inputType="date"
+              v-model="form.date_of_birth"
+              id="date_of_birth"
+              placeholder="Date of Birth"
+            ></base-input>
           </div>
-          <div class="form-group row">
-            <label for="formatted_address" class="col-sm-4 col-form-label"
-              >Address</label
-            >
-            <div class="col-sm-8">
-               <base-input
-                :form="form"
-                field="formatted_address"
-                inputType="text"
-                v-model="form.formatted_address"
-                id="formatted_address"
-                placeholder="Enter your address"
-              ></base-input>
-
-            </div>
+        </div>
+        <div class="form-group row">
+          <label for="formatted_address" class="col-sm-4 col-form-label"
+            >Address</label
+          >
+          <div class="col-sm-8">
+            <base-input
+              :form="form"
+              field="formatted_address"
+              inputType="text"
+              v-model="form.formatted_address"
+              id="formatted_address"
+              placeholder="Enter your address"
+            ></base-input>
           </div>
-          <div class="form-group row">
-            <label for="name" class="col-sm-4 col-form-label"
-              >About</label
-            >
-            <div class="col-sm-8">
-               <base-textarea
-                :form="form"
-                field="about"
-                v-model="form.about"
-                id="about"
-              ></base-textarea>
-
-            </div>
+        </div>
+        <div class="form-group row">
+          <label for="name" class="col-sm-4 col-form-label">About</label>
+          <div class="col-sm-8">
+            <base-textarea
+              :form="form"
+              field="about"
+              v-model="form.about"
+              id="about"
+            ></base-textarea>
           </div>
+        </div>
 
-          <div class="form-group row">
-            <div class="col-sm-8 offset-sm-4">
-              <base-button :loading="form.busy">
-                Update
-              </base-button>
-            </div>
+        <div class="form-group row">
+          <div class="col-sm-8 offset-sm-4">
+            <base-button :loading="form.busy"> Update </base-button>
           </div>
-        </form>
-
-      </div>
-
-
+        </div>
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      form:this.$vform({
+      form: this.$vform({
         name: '',
-        date_of_birth:'',
-        formatted_address:'',
-        about:'',
-      })
+        date_of_birth: '',
+        formatted_address: '',
+        about: '',
+      }),
     };
   },
-  computed:{
-    user(){
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
+    user() {
       return this.$auth.user;
-    }
+    },
   },
-  methods:{
-    async updateInfo(){
-      try{
+  methods: {
+    async updateInfo() {
+      try {
         const user = await this.form.put(`settings/profile`, this.form);
-        await this.$auth.fetchUser()
+        await this.$auth.fetchUser();
         this.$toast.open({
-          type:'success',
+          type: 'success',
           position: 'top-right',
-          message: 'Profile Update Successfully'
+          message: 'Profile Update Successfully',
         });
-      }catch(e){
-
-      }
-    }
+      } catch (e) {}
+    },
   },
-  mounted(){
-     Object.keys(this.form).forEach(k => {
+  mounted() {
+    Object.keys(this.form).forEach((k) => {
       if (this.user.hasOwnProperty(k)) {
         this.form[k] = this.user[k];
       }
     });
-  }
+  },
 };
 </script>
 

@@ -42,9 +42,7 @@
         </div>
 
         <div class="text-right">
-          <base-button :loading="form.busy">
-            Reset Password
-          </base-button>
+          <base-button :loading="form.busy"> Reset Password </base-button>
         </div>
       </form>
     </div>
@@ -52,6 +50,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   middleware: ['guest'],
   data() {
@@ -61,29 +60,38 @@ export default {
         email: '',
         password: '',
         password_confirmation: '',
-        token: ''
-      })
+        token: '',
+      }),
     };
   },
-
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
+  },
   methods: {
     submit() {
       this.form
         .post('/password/reset')
-        .then(res => {
+        .then((res) => {
           this.status = res.data.status;
           this.form.reset();
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
-    }
+    },
   },
 
   created() {
     this.form.email = this.$route.query.email;
     this.form.token = this.$route.params.token;
-  }
+  },
 };
 </script>
 

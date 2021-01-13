@@ -6,36 +6,48 @@
           <div class="card-body">
             <form @submit.prevent="submit">
               <div class="form-group row">
-                  <label for="name" class="col-sm-3 col-form-label">Name <span class="required">*</span> </label>
-                  <div class="col-sm-9">
-                     <base-input
-                      :form="form"
-                      field="name"
-                      inputType="text"
-                      v-model="form.name"
-                      id="name"
-                      placeholder="Enter Your Name"
-                    ></base-input>
-                  </div>
-              </div>
-              <div class="form-group row">
-                <label for="subject" class="col-sm-3 col-form-label">Subject <span class="required">*</span> </label>
+                <label for="name" class="col-sm-3 col-form-label"
+                  >Name <span class="required">*</span>
+                </label>
                 <div class="col-sm-9">
                   <base-input
-                  :form="form"
-                  field="subject"
-                  inputType="text"
-                  v-model="form.subject"
-                  id="subject"
-                  placeholder="Enter Your Subject"
-                ></base-input>
+                    :form="form"
+                    field="name"
+                    inputType="text"
+                    v-model="form.name"
+                    id="name"
+                    placeholder="Enter Your Name"
+                  ></base-input>
                 </div>
               </div>
               <div class="form-group row">
-                 <label for="body" class="col-sm-3 col-form-label">Body <span class="required">*</span> </label>
+                <label for="subject" class="col-sm-3 col-form-label"
+                  >Subject <span class="required">*</span>
+                </label>
                 <div class="col-sm-9">
-                  <vue-ckeditor v-model="form.body" :config="config" placeholder="Enter your body" />
-                  <p class="text-danger" v-if="form.errors.errors.body">{{ form.errors.errors.body[0] }}</p>
+                  <base-input
+                    :form="form"
+                    field="subject"
+                    inputType="text"
+                    v-model="form.subject"
+                    id="subject"
+                    placeholder="Enter Your Subject"
+                  ></base-input>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="body" class="col-sm-3 col-form-label"
+                  >Body <span class="required">*</span>
+                </label>
+                <div class="col-sm-9">
+                  <vue-ckeditor
+                    v-model="form.body"
+                    :config="config"
+                    placeholder="Enter your body"
+                  />
+                  <p class="text-danger" v-if="form.errors.errors.body">
+                    {{ form.errors.errors.body[0] }}
+                  </p>
                 </div>
               </div>
               <div class="form-group row">
@@ -57,7 +69,7 @@
 <script>
 import Sidebar from '@/layouts/partials/Sidebar';
 import VueCkeditor from 'vue-ckeditor2';
-
+import { mapGetters } from 'vuex';
 export default {
   name: 'contact',
   data() {
@@ -72,33 +84,41 @@ export default {
       }),
     };
   },
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
+  },
   components: {
     Sidebar,
     VueCkeditor,
   },
-  methods:{
-    async submit(){
+  methods: {
+    async submit() {
       try {
         const res = await this.form.post('contact');
-         this.$toast.open({
+        this.$toast.open({
           type: 'success',
           position: 'top-right',
           message: 'Your message sent to admin successfully',
         });
-      } catch (error) {
-
-      }
-    }
-  }
+      } catch (error) {}
+    },
+  },
 };
 </script>
 
 
 <style lang="scss" scoped>
 span.required {
-    color: red;
-    /* padding-top: 2px; */
-    /* line-height: unset; */
+  color: red;
+  /* padding-top: 2px; */
+  /* line-height: unset; */
 }
 </style>
 

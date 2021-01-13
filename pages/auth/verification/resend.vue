@@ -21,9 +21,7 @@
         </div>
 
         <div class="text-right">
-          <base-button :loading="form.busy">
-            Resend
-          </base-button>
+          <base-button :loading="form.busy"> Resend </base-button>
         </div>
       </form>
     </div>
@@ -31,24 +29,35 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   middleware: ['guest'],
   data() {
     return {
       form: this.$vform({
-        email: ''
-      })
+        email: '',
+      }),
     };
+  },
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
   },
 
   methods: {
     submit() {
       this.form
         .post(`/verification/resend`)
-        .then(res => this.form.reset())
-        .catch(e => console.log(e));
-    }
-  }
+        .then((res) => this.form.reset())
+        .catch((e) => console.log(e));
+    },
+  },
 };
 </script>
 

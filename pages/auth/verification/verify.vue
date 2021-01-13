@@ -22,11 +22,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   middleware: ['guest'],
+  head() {
+    return {
+      title: this.settings.site_title,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      settings: 'settings',
+    }),
+  },
   async asyncData({ params, query, app }) {
     const q = await Object.keys(query)
-      .map(k => `${k}=${query[k]}`)
+      .map((k) => `${k}=${query[k]}`)
       .join('&');
 
     try {
@@ -37,7 +48,7 @@ export default {
     } catch (e) {
       return { success: false, status: e.response.data.errors.message };
     }
-  }
+  },
 };
 </script>
 
