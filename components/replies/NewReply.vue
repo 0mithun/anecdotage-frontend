@@ -57,29 +57,32 @@
 export default {
   data() {
     return {
-      body: "",
+      body: '',
       completed: false,
       message: 'Hello World <a href="https://google.com">kemon aso</a> valo to',
       html: 'ami html bolsi',
       input: '@fritx @huangruichang ',
-      members: [{
-        avatar: 'https://randomuser.me/api/portraits/men/2.jpg',
-        name: 'Pinki rohman',
-        sex: 'Oi sama <a href="https://twitter.com">Twitter</a>'
-      }, {
-        avatar: 'https://randomuser.me/api/portraits/men/8.jpg',
-        name: 'Gobjob Ali',
-        sex:  ' Hi sexy <a href="https://facebook.com">Facebook</a> '
-      }]
+      members: [
+        {
+          avatar: 'https://randomuser.me/api/portraits/men/2.jpg',
+          name: 'Pinki rohman',
+          sex: 'Oi sama <a href="https://twitter.com">Twitter</a>',
+        },
+        {
+          avatar: 'https://randomuser.me/api/portraits/men/8.jpg',
+          name: 'Gobjob Ali',
+          sex: ' Hi sexy <a href="https://facebook.com">Facebook</a> ',
+        },
+      ],
     };
   },
   computed: {
     redirectToLogin() {
-      return "/redirect-to?page=" + location.pathname;
+      return '/redirect-to?page=' + location.pathname;
     },
-    thread(){
+    thread() {
       return this.$store.state.threads.thread;
-    }
+    },
   },
   mounted() {
     // $("#body").atwho({
@@ -94,29 +97,26 @@ export default {
     //   },
     // });
 
-   this.scrollToComment();
-
+    this.scrollToComment();
   },
 
   methods: {
-    handleAt(chunk){
-      console.log([chunk])
+    handleAt(chunk) {
+      console.log([chunk]);
     },
 
     // async handleAt (chunk) {
     //   this.members = await fetchFromRemote(chunk)
     // },
 
-    scrollToComment(){
-       if(window.location.hash){
-          var hash = window.location.hash;
-          window.location.hash = "";
-          window.location.hash = hash;
-
-          const el = document.querySelector(hash)
-          el && el.scrollIntoView()
-       }
-
+    scrollToComment() {
+      if (window.location.hash && window.location.hash != null) {
+        var hash = window.location.hash;
+        window.location.hash = '';
+        window.location.hash = hash;
+        const el = document.querySelector(hash);
+        el && el.scrollIntoView();
+      }
     },
     addReply() {
       this.$axios
@@ -125,14 +125,14 @@ export default {
           // flash(error.response.data, "danger");
         })
         .then((res) => {
-          this.body = "";
-          this.$nuxt.$emit('commentAdded-'+ this.thread.id)
-          this.$store.commit('replies/replyAdd', res)
+          this.body = '';
+          this.$nuxt.$emit('commentAdded-' + this.thread.id);
+          this.$store.commit('replies/replyAdd', res);
 
           this.$toast.open({
-            type:'success',
+            type: 'success',
             position: 'top-right',
-            message: 'Reply Add Successfully'
+            message: 'Reply Add Successfully',
           });
         });
     },
@@ -156,31 +156,30 @@ export default {
 }
 
 .atwho-li {
-    box-sizing: border-box;
-    height: 27px;
-    padding: 0 2px;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
+  box-sizing: border-box;
+  height: 27px;
+  padding: 0 2px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 li.atwho-li img {
-    width: 27px;
-    margin-right: 5px;
+  width: 27px;
+  margin-right: 5px;
 }
 
-
 .input-group.full-width {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    width: 100%;
-    justify-content: space-between;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .atwho-wrap {
-    position: relative;
-    width: 91%;
+  position: relative;
+  width: 91%;
 }
 </style>
