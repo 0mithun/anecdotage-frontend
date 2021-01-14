@@ -14,7 +14,7 @@ const routes = [
   { path: '/register', name: 'register', component: page('auth/register.vue') },
   {
     path: '/auth/social-callback',
-    name: 'verify',
+    name: 'social.callback',
     component: page('auth/socialCallback.vue')
   },
   {
