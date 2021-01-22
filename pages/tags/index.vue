@@ -138,7 +138,10 @@ export default {
       settings: 'settings',
     }),
     isAdmin() {
-      return true;
+      if (this.$auth.loggedIn) {
+        return this.$store.state.auth.user.is_admin;
+      }
+      return false;
     },
     isUserFollow() {
       return this.isFollow ? this.isFollow : this.tag.is_follow;
