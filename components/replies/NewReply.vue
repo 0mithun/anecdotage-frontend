@@ -1,6 +1,5 @@
 <template>
   <div class="add-new-reply" id="comments" name="comments">
-
     <!-- <at :members="members"  name-key="sex" @at="handleAt" :hideOnBlur="false">
         <template slot="item" slot-scope="s">
           <img :src="s.item.avatar">
@@ -8,17 +7,11 @@
         </template>
         <base-htmltextarea class="form-control" v-model="message"></base-htmltextarea>
     </at> -->
-
-
-
-
-
-
-    <h3 class="comment-heading">What did you think?</h3>
+    <template v-if="$auth.loggedIn">
+      <h3 class="comment-heading">What did you think?</h3>
       <form action @submit.prevent="addReply">
         <div class="input-group full-width">
-
-        <input
+          <input
             type="text"
             class="form-control"
             aria-label="..."
@@ -29,25 +22,26 @@
           />
 
           <!-- <at :members="members"  name-key="sex" @at="handleAt" :hideOnBlur="false">
-        <template slot="item" slot-scope="s">
-          <img :src="s.item.avatar">
-          <span v-text="s.item.name"></span>
-        </template>
-        <base-htmltextarea class="form-control" v-model="message"></base-htmltextarea> -->
-    </at>
+          <template slot="item" slot-scope="s">
+            <img :src="s.item.avatar">
+            <span v-text="s.item.name"></span>
+          </template>
+          <base-htmltextarea class="form-control" v-model="message"></base-htmltextarea> -->
+          <!-- </at> -->
 
-
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="submit">Post</button>
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Post</button>
+          </div>
         </div>
-      </div>
       </form>
-
-
-    <!-- <p class="text-center" v-else>
-      Please
-      <a :href="redirectToLogin">sign in</a> to participate in this discussion.
-    </p> -->
+    </template>
+    <template v-else>
+      <p class="text-center">
+        Please
+        <nuxt-link :to="{ name: 'login' }">sign in</nuxt-link> to participate in
+        this discussion.
+      </p>
+    </template>
   </div>
 </template>
 
