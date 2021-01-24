@@ -487,8 +487,7 @@ export default {
 
 .thread-image {
   display: inline-block;
-  max-width: 100%;
-  height: 240px;
+  max-height: 240px;
 }
 .col-md-12.actions {
   display: flex;

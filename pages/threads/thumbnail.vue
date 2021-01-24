@@ -159,7 +159,7 @@
               type="button"
               @click.prevent="closeShareModal"
             >
-              close
+              Skip
             </button>
             <button
               class="btn btn-primary btn-sm"
