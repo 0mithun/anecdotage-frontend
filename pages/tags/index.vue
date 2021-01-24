@@ -71,6 +71,7 @@
             </div>
           </div>
         </div>
+
         <SingleThread
           v-for="thread in threads"
           :key="thread.id"

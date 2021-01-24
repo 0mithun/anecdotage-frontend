@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      settings: settings,
+      settings: 'settings',
       profile_user: 'user/profileUser',
       likes: 'user/likes',
       likes_paginate: 'user/likes_paginate',
@@ -38,6 +38,8 @@ export default {
   watchQuery: true,
   async fetch({ params, query, error, $axios, store, redirect }) {
     try {
+      // this.$nuxt.$loading.start()
+
       const userRresponse = await $axios.$get(`profile/${params.username}`);
       if (userRresponse.data.is_blocked) {
         redirect('/');

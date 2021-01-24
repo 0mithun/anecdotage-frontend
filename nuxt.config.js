@@ -38,7 +38,7 @@ export default {
   },
 
 
-  loading: { color: '#fff' },
+  loading: { color: '#fcfcfc', height:'10px' },
   css: ['@/assets/scss/main.scss'],
 
   plugins: [
@@ -53,6 +53,7 @@ export default {
     '~/plugins/uiv',
     '~/plugins/echo',
     '~/plugins/chatscroll',
+    // '~/plugins/loading',//not using
     { src: '~/plugins/gmaps', ssr: false },
     // { src: '~/plugins/vueat', ssr: false },
   ],

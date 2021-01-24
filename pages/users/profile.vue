@@ -87,24 +87,10 @@
                         >
                           Settings
                         </nuxt-link>
-                        <!-- <a :href="editUrl">Edit my information</a> -->
-                        <!-- <a :href="settingsUrl">Settings</a> -->
                       </li>
                     </ul>
                   </div>
                 </div>
-                <!-- <div class="profile-tags" v-if="followings.length> 0">
-                  <strong>Following:</strong>
-                  <a
-                    :href="profilePath(following)"
-                    class="single-tags-name"
-                    v-for="(following,index) in followings"
-                    :key="index"
-                  >
-                    #
-                    <span>{{ following.name.toLowerCase() }}</span>
-                  </a>
-                </div> -->
               </div>
             </div>
             <ul class="nav profile-nav">
@@ -236,13 +222,10 @@
 </template>
 
 <script>
-// import About from "./ProfileAbout";
-
 import PostCounts from '@/components/counts/PostCounts';
 import LikeCounts from '@/components/counts/LikeCounts';
 import ProfileFavoriteCounts from '@/components/counts/ProfileFavoriteCounts';
 import AddFriend from '@/components/AddFriend';
-import SingleThread from '@/components/threads/SingeThread';
 import Sidebar from '@/layouts/partials/Sidebar';
 
 import { mapGetters, mapActions } from 'vuex';
