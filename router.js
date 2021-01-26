@@ -103,7 +103,6 @@ const routes = [
       { path: 'faq', name: 'admin.show.faq', component: page('admins/faq.vue') },
       { path: 'terms', name: 'admin.show.terms', component: page('admins/terms.vue') },
       { path: 'privacy', name: 'admin.show.privacy', component: page('admins/privacy.vue') },
-      { path: 'privacy', name: 'admin.show.privacy', component: page('admins/privacy.vue') },
     ]
   },
 

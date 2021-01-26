@@ -30,6 +30,37 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="main_subject" class="control-label"
+                  >Main Subject:</label
+                >
+                <input
+                  type="text"
+                  name="main_subject"
+                  id="main_subject"
+                  class="form-control"
+                  v-model="form.main_subject"
+                />
+                <span class="help-block"
+                  >Who or what is this story about? This will be added as a tag.
+                </span>
+              </div>
+              <div class="form-group" v-if="isAdmin">
+                <div class="checkbox">
+                  <label
+                    ><input
+                      type="checkbox"
+                      value="1"
+                      v-model="form.scrape_image"
+                    />
+                    Scrape Image</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="row">
             <div class="col-md-4">
@@ -121,25 +152,7 @@
           </div>
           <div class="more-fields" v-if="show_more_fields">
             <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="main_subject" class="control-label"
-                    >Main Subject:</label
-                  >
-                  <input
-                    type="text"
-                    name="main_subject"
-                    id="main_subject"
-                    class="form-control"
-                    v-model="form.main_subject"
-                  />
-                  <span class="help-block"
-                    >Who or what is this story about? This will be added as a
-                    tag.
-                  </span>
-                </div>
-              </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="source" class="control-label">Source</label>
                   <input
@@ -156,7 +169,7 @@
                   >
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="location" class="control-label">Location</label>
                   <input
@@ -176,7 +189,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="age_restriction">Age Restriction</label>
                   <select
@@ -274,7 +287,6 @@ export default {
     }),
     allchannels() {
       return this.$store.state.channels;
-      return this.$store.state.channels;
     },
     thread() {
       return this.$store.state.threads.thread;
@@ -328,6 +340,7 @@ export default {
           celebrity: false,
         },
         main_subject: '',
+        scrape_image: false,
         age_restriction: 0,
         anonymous: 0,
       }),
@@ -420,10 +433,24 @@ export default {
       this.form
         .put(`threads/${this.thread.slug}`, this.form)
         .then((res) => {
-          this.$router.push({
-            name: 'threads.thumbnail',
-            params: { slug: res.data.slug },
-          });
+          if (this.form.scrape_image) {
+            this.$toast.open({
+              type: 'success',
+              position: 'top-right',
+              message: 'Thread Update Successfully',
+            });
+            setTimeout(() => {
+              this.$router.push({
+                name: 'threads.show',
+                params: { slug: res.data.slug },
+              });
+            }, 1500);
+          } else {
+            this.$router.push({
+              name: 'threads.thumbnail',
+              params: { slug: res.data.slug },
+            });
+          }
         })
         .catch((err) => {
           console.log(err);
