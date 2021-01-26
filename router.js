@@ -98,8 +98,11 @@ const routes = [
       { path: 'logo', name: 'admin.show.settings.logo', component: page('admins/logo.vue') },
       { path: 'batch-tools', name: 'admin.show.batch.tools', component: page('admins/batchTools.vue') },
       { path: 'manage-users', name: 'admin.show.manage.users', component: page('admins/manageUsers.vue') },
+      { path: 'reports', name: 'admin.show.reports', component: page('admins/reports.vue') },
+
       { path: 'faq', name: 'admin.show.faq', component: page('admins/faq.vue') },
       { path: 'terms', name: 'admin.show.terms', component: page('admins/terms.vue') },
+      { path: 'privacy', name: 'admin.show.privacy', component: page('admins/privacy.vue') },
       { path: 'privacy', name: 'admin.show.privacy', component: page('admins/privacy.vue') },
     ]
   },

@@ -49,6 +49,16 @@
                   </li>
                   <li class="nav-item">
                     <nuxt-link
+                      :to="{ name: 'admin.show.reports' }"
+                      class="nav-link"
+                      :class="{
+                        active: $nuxt.$route.name == 'admin.show.reports',
+                      }"
+                      >Reports</nuxt-link
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <nuxt-link
                       :to="{ name: 'admin.show.faq' }"
                       class="nav-link"
                       :class="{ active: $nuxt.$route.name == 'admin.show.faq' }"
