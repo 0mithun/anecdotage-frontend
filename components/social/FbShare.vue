@@ -17,23 +17,26 @@ export default {
     },
   },
   computed: {
+    appurl() {
+      return process.env.APP_URL;
+    },
     threadUrl() {
       // return 'https://www.facebook.com/sharer/sharer.php?u='+ this.thread.path + '&quote='+this.thread.title+'&title='+this.thread.title;
 
       let routeData = this.$router.resolve({
         name: 'threads.show',
         params: { slug: this.thread.slug },
-      });
+      }).href;
+
+      const routeURL = routeData.replace(/^\//g, '');
 
       return (
         'https://www.facebook.com/sharer/sharer.php?u=' +
-        routeData +
+        this.appurl +
+        routeURL +
         '&title=' +
         this.thread.title
       );
-    },
-    thread() {
-      return this.$store.state.threads.thread;
     },
     owns() {
       if (this.signedIn) {
