@@ -2,13 +2,22 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 tags">
           <nuxt-link
             class="tag-name"
             :to="{ name: 'tags', params: { slug: thread.channel.slug } }"
           >
             #{{ thread.channel.name }}
           </nuxt-link>
+
+          <button
+            class="btn btn-sm btn-primary"
+            data-toggle="modal"
+            :data-target="`#edit-title-${thread.id}`"
+            v-if="isAdmin"
+          >
+            Edit Title
+          </button>
         </div>
       </div>
       <div class="row">
@@ -90,6 +99,47 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      :id="`edit-title-${thread.id}`"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+      v-if="isAdmin"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="" class="control-label">Title</label>
+              <input type="text" class="form-control" v-model="form.title" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="submit"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -120,9 +170,29 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      form: this.$vform({
+        title: '',
+      }),
+    };
+  },
+  mounted() {
+    this.form.title = this.thread.title;
+  },
   computed: {
     threadThumbStyle() {
       return `background: rgba(${this.thread.image_path_pixel_color});cursor:pointer;`;
+    },
+
+    signedIn() {
+      return this.$auth.loggedIn;
+    },
+    isAdmin() {
+      if (this.signedIn) {
+        return this.$store.state.auth.user.is_admin;
+      }
+      return false;
     },
   },
   components: {
@@ -147,6 +217,17 @@ export default {
         name: 'threads.show',
         params: { slug: this.thread.slug },
       });
+    },
+
+    submit() {
+      this.form
+        .put(`admin/threads/${this.thread.slug}`, this.form)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
@@ -206,5 +287,15 @@ export default {
 .thread-image {
   display: inline-block;
   max-height: 240px;
+}
+
+.tags {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 700;
 }
 </style>

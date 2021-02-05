@@ -68,6 +68,7 @@ export default {
     share() {
       if (!this.signedIn) {
         this.$router.push({ name: 'login' });
+        return;
       }
 
       window.open(this.threadUrl, 'Share on Twitter', 'width=600, height=400');
