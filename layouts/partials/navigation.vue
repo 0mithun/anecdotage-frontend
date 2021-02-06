@@ -8,7 +8,7 @@
           <img :src="settings.logo_path" height="32" alt="" />
         </nuxt-link>
         <button
-          class="navbar-toggler mr-auto"
+          class="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbar"
@@ -316,6 +316,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~assets/scss/imports/mixins';
 .dropdown-item:hover,
 .dropdown-item:focus {
   color: #16181b;
@@ -365,5 +366,14 @@ a.dropdown-toggle.emoji-dropdown {
 
 .notification.white-path.font-14.fw-500.text-uppercase.mr-auto.d-flex {
   margin-left: 10px;
+
+  @include respond(tab-land) {
+    margin-left: 0px;
+  }
+
+  @include respond(tab-port) {
+  }
+  @include respond(phone) {
+  }
 }
 </style>
