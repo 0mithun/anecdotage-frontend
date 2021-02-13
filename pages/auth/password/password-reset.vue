@@ -11,7 +11,7 @@
             <nuxt-link to="/login">Proceed to login</nuxt-link>
           </p>
         </alert-success>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <base-input
             :form="form"
             :readonly="true"
@@ -19,14 +19,14 @@
             v-model="form.email"
             placeholder="Email"
           ></base-input>
-        </div>
+        </div> -->
 
         <div class="form-group">
           <base-input
             :form="form"
             inputType="password"
             field="password"
-            v-model="form.email"
+            v-model="form.password"
             placeholder="New Password"
           ></base-input>
         </div>
