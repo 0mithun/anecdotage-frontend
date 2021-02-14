@@ -76,6 +76,7 @@ const routes = [
   // { path: '/anecdotes/messanger', name: 'chat', component: page('chat/test.vue') },
 
   { path: '/tags/:slug', name: 'tags', component: page('tags/index.vue') },
+  { path: '/tags/:slug/edit', name: 'tag.edit', component: page('tags/edit.vue') },
   { path: '/anecdotes/rated', name: 'threads.rated', component: page('threads/filters/rated.vue') },
   { path: '/anecdotes/trending', name: 'threads.trending', component: page('threads/filters/trending.vue') },
   { path: '/anecdotes/viewed', name: 'threads.viewed', component: page('threads/filters/viewed.vue') },
@@ -83,10 +84,10 @@ const routes = [
   { path: '/anecdotes/closest', name: 'threads.closest', component: page('threads/filters/closest.vue') },
   { path: '/anecdotes/video', name: 'threads.video', component: page('threads/filters/video.vue') },
 
-  { path: '/threads/:slug', name: 'threads.show', component: page('threads/show.vue') },
-  { path: '/threads/:slug/edit', name: 'threads.edit', component: page('threads/edit.vue') },
-  { path: '/thread/create', name: 'threads.create', component: page('threads/create.vue') },
-  { path: '/thread/:slug/thumbnail/', name: 'threads.thumbnail', component: page('threads/thumbnail.vue') },
+  { path: '/anecdotes/:slug', name: 'threads.show', component: page('threads/show.vue') },
+  { path: '/anecdotes/:slug/edit', name: 'threads.edit', component: page('threads/edit.vue') },
+  { path: '/anecdotes/create', name: 'threads.create', component: page('threads/create.vue') },
+  { path: '/anecdotes/:slug/thumbnail/', name: 'threads.thumbnail', component: page('threads/thumbnail.vue') },
 
   {
     path: '/admin',

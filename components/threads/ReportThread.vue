@@ -9,26 +9,29 @@
     >
       Report
     </button>
-    <div class="modal d-block fade in" tabindex="-1" role="dialog" id="showReportModal" style="display:block" v-if="showModal">
+    <div
+      class="modal d-block fade in"
+      tabindex="-1"
+      role="dialog"
+      id="showReportModal"
+      style="display: block"
+      v-if="showModal"
+    >
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="gridSystemModalLabel">
-             Item Report
-            </h4>
+            <h4 class="modal-title" id="gridSystemModalLabel">Item Report</h4>
             <button
               type="button"
               class="close"
               data-dismiss="modal"
               aria-label="Close"
-               @click.prevent="showModal = false"
+              @click.prevent="showModal = false"
             >
               <span aria-hidden="true">&times;</span>
             </button>
-
           </div>
           <div class="modal-body">
-
             <div class="form-group">
               <label for="This item contains">Reason</label>
               <select class="form-control" v-model="report_type">
@@ -37,14 +40,15 @@
                 <option value="untrue_or_libelous">Untrue or libelous</option>
                 <option value="racist_or_hateful">Racist or hateful</option>
                 <option value="pornographic">Pornographic</option>
-                <option value="18">Adult content (should be R-rated/18+)</option>
+                <option value="18">
+                  Adult content (should be R-rated/18+)
+                </option>
                 <option value="13">Mature content (should be PG-13)</option>
                 <!-- <option value="0">PG-13</option> -->
                 <option value="miscategorized">Miscategorized</option>
                 <option value="not_a_story">Not a story</option>
                 <option value="Incorrect">Incorrect</option>
                 <option value="spam">Spam</option>
-
               </select>
             </div>
             <div class="form-group">
@@ -57,7 +61,7 @@
                 v-model="contact"
               ></textarea>
             </div>
-              <div class="form-group">
+            <div class="form-group">
               <label for="This item contains">Additional Notes</label>
               <textarea
                 name="reason"
@@ -78,10 +82,7 @@
             </div>
 
             <div class="form-group" v-if="isAdmin">
-              <button
-                class="btn btn-primary"
-                @click.prevent="review"
-              >
+              <button class="btn btn-primary" @click.prevent="review">
                 Review
               </button>
             </div>
@@ -102,10 +103,10 @@ export default {
 
   data() {
     return {
-      reason: "",
-      report_type: "spam",
+      reason: '',
+      report_type: 'spam',
       showModal: false,
-      contact: ''
+      contact: '',
     };
   },
   created() {},
@@ -114,52 +115,56 @@ export default {
     signedIn() {
       // return window.App.user ? true : false;
     },
-    isAdmin(){
+    isAdmin() {
       // return  window.App.user && window.App.user.id == 1;
     },
     isDiabled() {
-      if (this.reason == "" && this.report_type == "") {
+      if (this.reason == '' && this.report_type == '') {
         return true;
       }
     },
   },
 
   methods: {
-    closePopup(){
+    closePopup() {
       this.showModal = false;
-      setTimeout(()=>{
+      setTimeout(() => {
         // window.location = '/';
       }, 300);
-
-
     },
     report() {
       if (!this.signedIn) {
         // this.redirectToLogin();
       }
 
-        this.$axios.$post(`threads/${this.thread.slug}/report`,{
-          type:this.report_type,
-          reason:this.reason,
-          contact: this.contact
-        }).then(res=>{
+      this.$axios
+        .$post(`threads/${this.thread.slug}/report`, {
+          report_type: this.report_type,
+          reason: this.reason,
+          contact: this.contact,
+        })
+        .then((res) => {
+          this.report_type = 'spam';
+          this.reason = '';
+          this.contact = '';
           this.showModal = false;
-          $('#showReportModal').modal('hide')
+          $('#showReportModal').modal('hide');
 
           // this.$swal(res.message, "This item is under review. Thank you for reporting.", "success");
           this.$swal({
             title: res.message,
-            text: "This item is under review. Thank you for reporting.",
-            icon: "success",
-            button: "CLose",
-          });
-        }).catch(err=>{
-          this.$toast.open({
-            type:'warning',
-            position: 'top-right',
-            message: res.message
+            text: 'This item is under review. Thank you for reporting.',
+            icon: 'success',
+            button: 'CLose',
           });
         })
+        .catch((err) => {
+          this.$toast.open({
+            type: 'warning',
+            position: 'top-right',
+            message: res.message,
+          });
+        });
       // axios
       //   .post("/report/thread", {
       //     id: this.thread.id,
@@ -177,7 +182,7 @@ export default {
         this.redirectToLogin();
       }
       axios
-        .post("/report/thread/review", {
+        .post('/report/thread/review', {
           id: this.thread.id,
           reason: this.reason,
           contact: this.contact,
@@ -185,8 +190,7 @@ export default {
         })
         .then((res) => {
           this.showModal = false;
-          flash('This item review successfully.')
-
+          flash('This item review successfully.');
         });
     },
     redirectToLogin() {
@@ -211,34 +215,32 @@ export default {
 #reason {
   resize: vertical;
 }
-.alert{
+.alert {
   margin-bottom: 0px;
 }
 
-
-
 .thread-items-show-tools-btn {
-    border-radius: 50%;
-    color: #92959e;
-    font-weight: 900;
-    text-align: center;
-    line-height: 0;
+  border-radius: 50%;
+  color: #92959e;
+  font-weight: 900;
+  text-align: center;
+  line-height: 0;
 }
 
 .report-btn {
-    background-color: transparent;
-    border: none;
-    font-size: 14px;
-    padding: 0;
-    height: auto;
-    width: auto;
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  padding: 0;
+  height: auto;
+  width: auto;
 }
 
 .tools-single-item {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
-.modal-title{
+.modal-title {
   font-size: 20px;
   font-weight: bold;
 }

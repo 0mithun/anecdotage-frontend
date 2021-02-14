@@ -39,13 +39,18 @@
                   >
                     Follow
                   </button>
-                  <button
+                  <nuxt-link
+                    class="btn btn-sm btn-primary"
+                    :to="{ name: 'tag.edit', params: { slug: tag.slug } }"
+                    >Edit Tag</nuxt-link
+                  >
+                  <!-- <button
                     class="btn btn-sm btn-primary"
                     @click.prevent="editTag = true"
                     v-if="isAdmin"
                   >
                     Edit Tag
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -118,15 +123,6 @@ export default {
       // followings: [],
       // isFollow: null,
       editTag: false,
-      selectFile: null,
-      // formData: new FormData,
-      form: {
-        description: '',
-        license: '',
-        amazon: '',
-        // tagThumb: this.tag.profileAvatarPath,
-        tagThumbError: '',
-      },
     };
   },
   head() {
@@ -163,50 +159,6 @@ export default {
   },
 
   methods: {
-    onFileSelected(event) {
-      console.log(event.target.files);
-      if (!event.target.files.length) return;
-
-      this.form.tagThumbError = false;
-      this.form.threadThumbErrorMessage = '';
-      let file = event.target.files[0];
-
-      if (file.size > 1024 * 2048) {
-        event.preventDefault();
-        this.tagThumbError = true;
-        this.threadThumbErrorMessage =
-          'Tag image may not be greater than 2048 kilobytes';
-        return;
-      }
-      this.selectFile = event.target.files[0];
-      this.formData.append('photo', this.selectFile);
-
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (e) => {
-        let src = e.target.result;
-        this.form.tagThumb = src;
-      };
-    },
-    OpenImgUpload() {
-      $('#image_path').trigger('click');
-    },
-    editTagInfo() {
-      this.formData.append('description', this.form.description);
-      this.formData.append('license', this.form.license);
-      this.formData.append('amazon', this.form.amazon);
-
-      axios
-        .post(`/tag/${this.tag.id}/update`, this.formData)
-        .then((res) => {
-          this.tagPhoto = this.thumb;
-          this.editTag = false;
-          flash('Tag Update Successfully');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     toggleFollow() {
       if (this.isUserFollow) {
         this.$axios.$delete(`tags/${this.tag.slug}/follow`).then((res) => {
