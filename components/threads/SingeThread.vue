@@ -223,7 +223,16 @@ export default {
       this.form
         .put(`admin/threads/${this.thread.slug}`, this.form)
         .then((res) => {
-          console.log(res);
+          this.$toast.open({
+            type: 'success',
+            position: 'top-right',
+            message: 'Title Update Successfully',
+          });
+
+          // edit-title-${thread.id}
+
+          const thread = `edit-title-${this.thread.id}`;
+          $(`#edit-title-${this.thread.id}`).modal('hide');
         })
         .catch((error) => {
           console.log(error);
