@@ -231,8 +231,13 @@ export default {
 
           // edit-title-${thread.id}
 
-          const thread = `edit-title-${this.thread.id}`;
           $(`#edit-title-${this.thread.id}`).modal('hide');
+
+          this.$toast.open({
+            type: 'success',
+            position: 'top-right',
+            message: 'Thread Update Successfully',
+          });
         })
         .catch((error) => {
           console.log(error);
