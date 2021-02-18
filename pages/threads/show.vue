@@ -132,6 +132,10 @@
                       class="thread-image thread_thumb_image"
                     />
                   </div>
+                  <div
+                    class="image_description"
+                    v-html="thread.image_description"
+                  ></div>
                 </div>
 
                 <div class="row thread-body-row">
@@ -505,5 +509,10 @@ export default {
     margin-right: 5px;
     border-radius: 50%;
   }
+}
+
+.image_description {
+  margin: 5px 10px;
+  font-size: 12px;
 }
 </style>
