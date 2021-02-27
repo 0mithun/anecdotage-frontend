@@ -10,14 +10,27 @@
             #{{ thread.channel.name }}
           </nuxt-link>
 
-          <button
-            class="btn btn-sm btn-primary"
-            data-toggle="modal"
-            :data-target="`#edit-title-${thread.id}`"
-            v-if="isAdmin"
-          >
-            Edit Title
-          </button>
+          <div class="admin-buttons">
+            <button
+              class="btn btn-sm btn-secondary"
+              @click.prevent="duplicateItem"
+              v-if="isAdmin"
+            >
+              <span v-if="duplicateForm.busy">
+                <i class="fas fa-spinner fa-spin"></i>
+              </span>
+              Dup
+            </button>
+
+            <button
+              class="btn btn-sm btn-primary"
+              data-toggle="modal"
+              :data-target="`#edit-title-${thread.id}`"
+              v-if="isAdmin"
+            >
+              Edit Title
+            </button>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -56,11 +69,15 @@
           :style="threadThumbStyle"
           @click="openThreadUrl"
         >
-          <img
-            :src="thread.thread_image_path"
-            :alt="thread.title"
-            class="thread-image thread_thumb_image"
-          />
+          <nuxt-link
+            :to="{ name: 'threads.show', params: { slug: thread.slug } }"
+          >
+            <img
+              :src="thread.thread_image_path"
+              :alt="thread.title"
+              class="thread-image thread_thumb_image"
+            />
+          </nuxt-link>
         </div>
       </div>
       <div class="row thread-body-row">
@@ -175,6 +192,23 @@ export default {
       form: this.$vform({
         title: '',
       }),
+
+      duplicateForm: this.$vform({
+        channel: '',
+        tags: [],
+        title: '',
+        body: '',
+        source: '',
+        location: '',
+        cno: {
+          famous: false,
+          celebrity: false,
+        },
+        main_subject: '',
+        scrape_image: false,
+        age_restriction: 0,
+        anonymous: 0,
+      }),
     };
   },
   mounted() {
@@ -235,6 +269,64 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+        });
+    },
+
+    submitDuplicate() {
+      this.duplicateForm
+        .post('threads', this.duplicateForm)
+        .then((res) => {
+          console.log(res.data);
+          this.$router.push({
+            name: 'threads.edit',
+            params: { slug: res.data.slug },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    duplicateItem() {
+      console.log('clicked');
+      this.$axios
+        .$get(`threads/${this.thread.slug}`)
+        .then((res) => {
+          const thread = res.data;
+          this.form.channel = thread.channel;
+          this.duplicateForm.title = thread.title;
+          this.duplicateForm.body = thread.body;
+          this.duplicateForm.source = thread.source;
+          this.duplicateForm.location = thread.formatted_address;
+          this.duplicateForm.main_subject = thread.main_subject;
+          this.duplicateForm.age_restriction = thread.age_restriction;
+          this.duplicateForm.anonymous = thread.anonymous;
+
+          // this.form.channel = this.thread.channel;
+
+          this.duplicateForm.tags = thread.tags.map((tag) => {
+            return tag.name;
+          });
+
+          if (this.thread.cno == 'C') {
+            this.duplicateForm.cno = {
+              famous: true,
+              celebrity: true,
+            };
+          } else if (this.thread.cno == 'N') {
+            this.duplicateForm.cno = {
+              famous: true,
+              celebrity: false,
+            };
+          } else {
+            this.duplicateForm.cno = {
+              famous: false,
+              celebrity: false,
+            };
+          }
+        })
+        .then((res) => {
+          this.submitDuplicate();
         });
     },
   },

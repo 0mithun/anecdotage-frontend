@@ -32,9 +32,8 @@
             </div>
             <div class="upload-para mt-2">
               <p class="font-14 fw-400">
-                Your image dimensions must be at least 800px x 600px in size.
-                Also the image size should be a maximum of 2MB. Please resize
-                your file accordingly before you upload.
+                Your image siz must be maximum of 2MB. Please resize your file
+                accordingly before you upload.
               </p>
             </div>
           </div>
@@ -208,6 +207,10 @@ export default {
       share_on_facebook: false,
       share_on_twitter: false,
     };
+  },
+  mounted() {
+    this.form.temp_image_url = this.thread.temp_thread_image_path;
+    this.form.temp_image_description = this.thread.image_description;
   },
   computed: {
     ...mapGetters({

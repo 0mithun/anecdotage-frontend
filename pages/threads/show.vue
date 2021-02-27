@@ -4,7 +4,7 @@
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-12">
-            <div class="card card-m-5">
+            <div class="card card-m-5" id="thread-card">
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-12 actions">

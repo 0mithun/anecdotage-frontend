@@ -110,6 +110,11 @@ export default {
         window.location.hash = hash;
         const el = document.querySelector(hash);
         el && el.scrollIntoView();
+      } else {
+        const el = document.querySelector('#thread-card');
+
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
       }
     },
     addReply() {
