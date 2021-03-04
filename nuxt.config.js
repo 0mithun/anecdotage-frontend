@@ -38,7 +38,7 @@ export default {
   },
 
 
-  loading: { color: '#fcfcfc', height:'10px' },
+  loading: { color: '#007bff', height:'5px' },
   css: ['@/assets/scss/main.scss'],
 
   plugins: [

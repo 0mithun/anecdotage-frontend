@@ -469,6 +469,12 @@ export default {
   margin: 10px 0;
 }
 
+.thread-body {
+  p{
+    display: inline;
+  }
+}
+
 .count-items {
   width: 100%;
 }

@@ -265,6 +265,18 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <nuxt-link
+                  :to="{ name: 'threads.show', params: { slug: thread.slug } }"
+                  href="#"
+                  class="btn btn-danger"
+                  ><i class="fas fa-arrow-left"></i> Cancel</nuxt-link
+                >
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -356,7 +368,7 @@ export default {
       this.form.title = this.thread.title;
       this.form.body = this.thread.body;
       this.form.source = this.thread.source;
-      this.form.location = this.thread.location;
+      this.form.location = this.thread.formatted_address;
       this.form.main_subject = this.thread.main_subject;
       this.form.age_restriction = this.thread.age_restriction;
       this.form.anonymous = this.thread.anonymous;

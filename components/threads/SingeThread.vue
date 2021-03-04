@@ -385,7 +385,7 @@ export default {
 }
 
 .thread-image {
-  display: inline-block;
+  // display: inline-block;
   max-height: 240px;
 }
 
