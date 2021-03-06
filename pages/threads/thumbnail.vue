@@ -59,7 +59,7 @@
                     v-model="form.temp_image_url"
                   />
                 </div>
-                <div class="form-group" v-if="form.temp_image_url != ''">
+                <div class="form-group">
                   <label for="">
                     <input
                       type="checkbox"
@@ -201,7 +201,7 @@ export default {
       error: '',
       form: {
         temp_image_url: '',
-        image_copyright_free: '',
+        image_copyright_free: true,
         temp_image_description: '',
       },
       share_on_facebook: false,

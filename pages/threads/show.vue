@@ -21,14 +21,17 @@
                     </div>
                     <div class="action-menu" v-if="isAdmin || owns">
                       <nuxt-link
-                        class="btn btn-primary"
+                        class="btn btn-primary btn-sm"
                         :to="{
                           name: 'threads.edit',
                           params: { slug: thread.slug },
                         }"
                         >Edit</nuxt-link
                       >
-                      <button class="btn btn-danger" @click="deleteThread">
+                      <button
+                        class="btn btn-danger btn-sm"
+                        @click="deleteThread"
+                      >
                         Delete
                       </button>
                     </div>
@@ -438,6 +441,14 @@ export default {
       });
     },
   },
+  mounted() {
+    let p = document.querySelectorAll('p');
+
+    for (let i = 0; i < p.length; i++) {
+      // x[i].style.backgroundColor = "red";
+      p[i].style.marginBottom = '1rem';
+    }
+  },
 };
 </script>
 
@@ -470,7 +481,9 @@ export default {
 }
 
 .thread-body {
-  p{
+  display: inline;
+
+  p {
     display: inline;
   }
 }
@@ -520,5 +533,15 @@ export default {
 .image_description {
   margin: 5px 10px;
   font-size: 12px;
+}
+
+p {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 1rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 </style>

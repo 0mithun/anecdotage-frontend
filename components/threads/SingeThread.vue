@@ -213,7 +213,14 @@ export default {
   },
   mounted() {
     this.form.title = this.thread.title;
+    let p = document.querySelectorAll('p');
+
+    for (let i = 0; i < p.length; i++) {
+      // x[i].style.backgroundColor = "red";
+      p[i].style.marginBottom = '1rem';
+    }
   },
+
   computed: {
     threadThumbStyle() {
       return `background: rgba(${this.thread.image_path_pixel_color});cursor:pointer;`;
@@ -397,5 +404,9 @@ export default {
 .modal-title {
   font-size: 18px;
   font-weight: 700;
+}
+
+.thread-body p {
+  margin-top: 1rem;
 }
 </style>
