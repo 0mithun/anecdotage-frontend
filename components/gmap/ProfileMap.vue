@@ -40,8 +40,8 @@ export default {
     },
     center() {
       return {
-        lat: parseFloat(this.profile_user.location.coordinates[0]),
-        lng: parseFloat(this.profile_user.location.coordinates[1]),
+        lat: parseFloat(this.profile_user.location.coordinates[1]),
+        lng: parseFloat(this.profile_user.location.coordinates[0]),
       };
     },
   },

@@ -91,9 +91,7 @@
                 <div class="form-group">
                   <button
                     class="btn btn-primary btn-block"
-                    :disabled="
-                      form.temp_image_url && !form.image_copyright_free
-                    "
+                    :disabled="isDisabled"
                   >
                     Save
                   </button>
@@ -221,6 +219,13 @@ export default {
     },
     src() {
       return this.$store.state.threads.thread.thread_image_path;
+    },
+    isDisabled() {
+      // return form.temp_image_url && !form.image_copyright_free;
+      if (this.form.temp_image_url != '' && !this.form.image_copyright_free) {
+        return true;
+      }
+      return false;
     },
   },
   methods: {

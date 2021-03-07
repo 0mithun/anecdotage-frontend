@@ -48,7 +48,10 @@
         </nuxt-link>
       </li>
     </ul>
-    <div class="alert alert-danger card-m-5" v-if="pagination.total < 1">
+    <div
+      class="alert alert-danger card-m-5"
+      v-if="pagination.total < 1 || pagination.from == null"
+    >
       No Results Found
     </div>
   </nav>

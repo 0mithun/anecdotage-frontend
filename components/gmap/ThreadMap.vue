@@ -1,23 +1,31 @@
 <template>
-<div>
-  <div class="loading" v-if="loading">
-    <div class="image">
-    <img src="~assets/images/loading.gif" alt="">
-      <h4 style="color:white;font-weignt:bold;">Loading....</h4>
-    </div>
-  </div>
   <div>
-     <GmapMap @center_changed="centerChanged" @click="clicked" :center="mapCenter" :zoom="zoom" map-type-id="terrain" style="width: 100%; height: 85vh" :options="{   zoomControl: true,}">
-    <GmapMarker
-      :key="index"
-      v-for="(m, index) in markers"
-      :position="m.position"
-      :clickable="true"
-      :draggable="false"
-      @click="toggleInfoWindow(m,index)"
-    />
+    <div class="loading" v-if="loading">
+      <div class="image">
+        <img src="~assets/images/loading.gif" alt="" />
+        <h4 style="color: white; font-weignt: bold">Loading....</h4>
+      </div>
+    </div>
+    <div>
+      <GmapMap
+        @center_changed="centerChanged"
+        @click="clicked"
+        :center="mapCenter"
+        :zoom="zoom"
+        map-type-id="terrain"
+        style="width: 100%; height: 85vh"
+        :options="{ zoomControl: true }"
+      >
+        <GmapMarker
+          :key="index"
+          v-for="(m, index) in markers"
+          :position="m.position"
+          :clickable="true"
+          :draggable="false"
+          @click="toggleInfoWindow(m, index)"
+        />
 
-    <!-- <gmap-cluster :zoomOnClick="true" :maxZoom="5">
+        <!-- <gmap-cluster :zoomOnClick="true" :maxZoom="5">
 
             <GmapMarker
                 :key="index"
@@ -31,26 +39,28 @@
 
     </gmap-cluster>-->
 
-    <!-- <GmapMarker :position="center" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,index)" /> -->
+        <!-- <GmapMarker :position="center" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,index)" /> -->
 
-    <gmap-info-window
-      :options="infoOptions"
-      :position="infoWindowPos"
-      :opened="infoWinOpen"
-      @closeclick="infoWinOpen=false"
-    >
-      <info-content :thread="infoContent" v-if="this.infoContent !=null"></info-content>
-    </gmap-info-window>
-  </GmapMap>
+        <gmap-info-window
+          :options="infoOptions"
+          :position="infoWindowPos"
+          :opened="infoWinOpen"
+          @closeclick="infoWinOpen = false"
+        >
+          <info-content
+            :thread="infoContent"
+            v-if="this.infoContent != null"
+          ></info-content>
+        </gmap-info-window>
+      </GmapMap>
+    </div>
   </div>
-</div>
-
 </template>
 
 <script>
 // import InfoContent from "./InfoContent.vue";
 
-import InfoContent from '@/components/gmap/InfoContent'
+import InfoContent from '@/components/gmap/InfoContent';
 
 export default {
   // props: ["userlat", "userlng", "nearest"],
@@ -59,10 +69,10 @@ export default {
   },
   data() {
     return {
-      loading:false,
-      query: "",
+      loading: false,
+      query: '',
       // center: { lat: parseFloat(this.userlat), lng: parseFloat(this.userlng) },
-      center: { lat: 0, lng: 0},
+      center: { lat: 0, lng: 0 },
       mapCenter: {
         // lat: parseFloat(this.userlat),
         // lng: parseFloat(this.userlng),
@@ -70,7 +80,7 @@ export default {
         lng: 0,
       },
 
-      fetchRunningCenter:null,
+      fetchRunningCenter: null,
       markers: [],
       results: [],
       zoom: 3,
@@ -90,65 +100,63 @@ export default {
     };
   },
   methods: {
-    getUserLocation(){
-      if(this.query ==''){
-        if(this.$auth.loggedIn){
-          const lat =  this.$auth.user.location.coordinates[0];
-          const lng =  this.$auth.user.location.coordinates[1];
+    getUserLocation() {
+      if (this.query == '') {
+        if (this.$auth.loggedIn) {
+          const lat = this.$auth.user.location.coordinates[1];
+          const lng = this.$auth.user.location.coordinates[0];
 
-          if(lat == null || lng == null){
+          if (lat == null || lng == null) {
             const location = this.getLocationFromBrowser();
             this.center = location;
             this.mapCenter = {
               lat: location.lat,
               lng: location.lng,
-            }
+            };
 
-            this.$axios.$put(`settings/location`, location)
-            .then(res=>{
-              this.$auth.fetchUser();
-            }).catch(err=>{
-
-            })
-
-          }else{
-            this.center = {lat: lat,lng: lng}
-            this.mapCenter = {lat: lat,lng: lng}
+            this.$axios
+              .$put(`settings/location`, location)
+              .then((res) => {
+                this.$auth.fetchUser();
+              })
+              .catch((err) => {});
+          } else {
+            this.center = { lat: lat, lng: lng };
+            this.mapCenter = { lat: lat, lng: lng };
           }
-        }else{
+        } else {
           const location = this.getLocationFromBrowser();
           this.center = location;
-          this.mapCenter = location
+          this.mapCenter = location;
         }
       }
     },
-    getLocationFromBrowser(){
-       if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(position=>{
-              const lat  = position.coords.latitude;
-              const long = position.coords.longitude;
+    getLocationFromBrowser() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const lat = position.coords.latitude;
+          const long = position.coords.longitude;
 
-              return {
-                lat: lat,
-                lng: lng
-              }
-
-          });
-        }else{
-          alert("You must provide your location first");
-          return;
-        }
+          return {
+            lat: lat,
+            lng: lng,
+          };
+        });
+      } else {
+        alert('You must provide your location first');
+        return;
+      }
     },
-    centerChanged(event){
+    centerChanged(event) {
       const center = {
-        lat:event.lat(),
-        lng: event.lng()
-      }
+        lat: event.lat(),
+        lng: event.lng(),
+      };
 
-        this.fetchRunningCenter = center;
-        this.fetchLocations();
+      this.fetchRunningCenter = center;
+      this.fetchLocations();
     },
-    clicked(e){
+    clicked(e) {
       this.mapCenter.lat = e.latLng.lat();
       this.mapCenter.lng = e.latLng.lng();
 
@@ -158,16 +166,17 @@ export default {
       this.fetchLocations();
     },
     fetchLocations() {
-      const location = this.fetchRunningCenter != null ? this.fetchRunningCenter : this.center;
+      const location =
+        this.fetchRunningCenter != null ? this.fetchRunningCenter : this.center;
 
       this.$axios
-        .$get(`maps?q=${this.query}&lat=${ location.lat}&lng=${ location.lng}`)
+        .$get(`maps?q=${this.query}&lat=${location.lat}&lng=${location.lng}`)
         .then((res) => {
-          if (res.status == "failed") {
-            alert("You must provide your location first");
+          if (res.status == 'failed') {
+            alert('You must provide your location first');
           } else {
-            this.$nuxt.$emit("markers_fetched", res);
-            if(this.fetchRunningCenter != null){
+            this.$nuxt.$emit('markers_fetched', res);
+            if (this.fetchRunningCenter != null) {
               // this.mapCenter = this.fetchRunningCenter;
               // this.center = this.fetchRunningCenter;
             }
@@ -177,12 +186,12 @@ export default {
     toggleInfoWindow(marker, idx) {
       const center = {
         lat: Number.parseFloat(this.results[idx].lat),
-        lng: Number.parseFloat(this.results[idx].lng)
-      }
+        lng: Number.parseFloat(this.results[idx].lng),
+      };
       // this.center = center;
       this.mapCenter = center;
-      if(this.zoom < 10){
-        this.zoom = this.zoom + 1
+      if (this.zoom < 10) {
+        this.zoom = this.zoom + 1;
       }
 
       this.infoWindowPos = marker.position;
@@ -205,14 +214,13 @@ export default {
 
   created() {
     this.getUserLocation();
-    if(this.$route.query.q){
-      this.query = this.$route.query.q
+    if (this.$route.query.q) {
+      this.query = this.$route.query.q;
     }
-
 
     this.fetchLocations();
 
-    this.$nuxt.$on("markers_fetched", (data) => {
+    this.$nuxt.$on('markers_fetched', (data) => {
       this.markers = data.markers;
       this.results = data.results;
 
@@ -222,46 +230,44 @@ export default {
         // );
         // this.mapCenter = data.markers[center].position;
       }
-        this.loading = false;
+      this.loading = false;
     });
-    this.$nuxt.$on("markers_result_clicked", (index) => {
+    this.$nuxt.$on('markers_result_clicked', (index) => {
       let targetMarkers = this.markers[index];
-      this.mapCenter.lat  = Number.parseFloat(targetMarkers.position.lat);
-      this.mapCenter.lng  = Number.parseFloat(targetMarkers.position.lng);
+      this.mapCenter.lat = Number.parseFloat(targetMarkers.position.lat);
+      this.mapCenter.lng = Number.parseFloat(targetMarkers.position.lng);
       this.toggleInfoWindow(targetMarkers, index);
     });
 
-    this.$nuxt.$on("zoom_decreased", (zoom) => {
+    this.$nuxt.$on('zoom_decreased', (zoom) => {
       this.zoom = zoom;
     });
-    this.$nuxt.$on("change_center", (center) => {
+    this.$nuxt.$on('change_center', (center) => {
       this.mapCenter = center;
     });
 
-    this.$nuxt.$on("query_removed", () => {
+    this.$nuxt.$on('query_removed', () => {
       this.query = '';
     });
-
-
   },
 };
 </script>
 
 <style>
-.loading{
-    position: absolute;
-    left: 0;
-    /* right: 0; */
-    z-index: 99999;
-    top: 0;
-    background: rgba(0,0,0,0.4);
-    height: 100%;
-    width: 100%;
-}
-.loading .image{
+.loading {
   position: absolute;
-    left: 48%;
-    /* right: 0; */
-    top: 48%;
+  left: 0;
+  /* right: 0; */
+  z-index: 99999;
+  top: 0;
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+}
+.loading .image {
+  position: absolute;
+  left: 48%;
+  /* right: 0; */
+  top: 48%;
 }
 </style>
