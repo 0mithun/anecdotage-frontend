@@ -2,7 +2,7 @@
   <nav>
     <ul class="pagination" v-if="show">
       <li :class="{ disabled: !prev }" class="page-item">
-        <nuxt-link
+        <!-- <nuxt-link
           :to="{
             name: routeName,
             params: { 'param.key': 'param.value' },
@@ -11,7 +11,13 @@
           class="page-link"
         >
           <span>&laquo;</span>
-        </nuxt-link>
+        </nuxt-link> -->
+
+        <a @click.prevent="goToPage(1)" class="page-link" href="#">
+          <span>
+            <span>&laquo;</span>
+          </span>
+        </a>
       </li>
       <li
         v-for="(link, index) in links"
@@ -22,7 +28,7 @@
         }"
         class="page-item"
       >
-        <nuxt-link
+        <!-- <nuxt-link
           :to="{
             name: routeName,
             params: { 'param.key': 'param.value' },
@@ -33,10 +39,16 @@
           <span>
             <span>{{ link }}</span>
           </span>
-        </nuxt-link>
+        </nuxt-link> -->
+
+        <a @click.prevent="goToPage(link)" class="page-link" href="#">
+          <span>
+            <span>{{ link }}</span>
+          </span>
+        </a>
       </li>
       <li :class="{ disabled: !next }" class="page-item">
-        <nuxt-link
+        <!-- <nuxt-link
           :to="{
             name: routeName,
             params: { 'param.key': 'param.value' },
@@ -45,7 +57,17 @@
           class="page-link"
         >
           <span aria-hidden="true">&raquo;</span>
-        </nuxt-link>
+        </nuxt-link> -->
+
+        <a
+          @click.prevent="goToPage(pagination.last_page)"
+          class="page-link"
+          href="#"
+        >
+          <span>
+            <span>&raquo;</span>
+          </span>
+        </a>
       </li>
     </ul>
     <div
@@ -80,6 +102,7 @@ export default {
       // q: {}
     };
   },
+
   computed: {
     ...mapGetters({
       q: 'pagination/q',
@@ -147,6 +170,18 @@ export default {
       if (isNaN(page)) {
         return;
       }
+    },
+    goToPage(link) {
+      let params = {};
+      params[this.param.key] = this.param.value;
+      this.$router.push({
+        name: this.routeName,
+        params: params,
+        query: { page: link, ...this.q },
+      });
+
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     },
   },
 };

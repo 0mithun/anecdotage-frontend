@@ -61,6 +61,7 @@ export default {
       return this.$store.state.threads.pageinateData;
     },
   },
+
   watchQuery: true,
 
   async fetch({ params, query, app, $axios, store }) {
