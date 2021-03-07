@@ -273,7 +273,7 @@ export default {
   },
   head() {
     return {
-      title: `${this.settings.site_title}:  ${this.stripTagTitle}`,
+      title: `${this.settings.site_title}`,
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         {

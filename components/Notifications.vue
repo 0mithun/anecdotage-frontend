@@ -1,39 +1,142 @@
 <template>
   <div class="btn-group dropleft">
-    <button type="button" class="btn btn-secondary dropdown-toggle notification-status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button
+      type="button"
+      class="btn btn-secondary dropdown-toggle notification-status"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
       <img class="navbar-icon pen" src="~assets/images/bell.png" alt="" />
-        <span style="color: red; font-weight: bold; font-size: 14px">{{
-          unreadNotifications.length
-        }}</span>
+      <span style="color: red; font-weight: bold; font-size: 14px">{{
+        unreadNotifications.length
+      }}</span>
     </button>
     <div class="dropdown-menu">
       <!-- Dropdown menu links -->
-      <div class="dropdown-item" href="#" v-for="notification in notifications" :key="notification.id" @click.prevent="markAsRead(notification.id)">
+      <div
+        class="dropdown-item"
+        href="#"
+        v-for="notification in notifications"
+        :key="notification.id"
+        @click.prevent="markAsRead(notification.id)"
+      >
         <div class="top">
-          <template v-if="notification.type == 'App\\Notifications\\ThreadReportAdminNotifications'">
-            <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">This</nuxt-link> item has been flagged as <strong>{{notification.data.type}}</strong>  & is under revivew.
+          <template
+            v-if="
+              notification.type ==
+              'App\\Notifications\\ThreadReportAdminNotifications'
+            "
+          >
+            <nuxt-link
+              :to="{
+                name: 'threads.show',
+                params: { slug: notification.data.thread.slug },
+              }"
+              >This</nuxt-link
+            >
+            item has been flagged as
+            <strong>{{ notification.data.type }}</strong> & is under revivew.
           </template>
-          <template v-else-if="notification.type == 'App\\Notifications\\ThreadRestrictionReported'">
+          <template
+            v-else-if="
+              notification.type ==
+              'App\\Notifications\\ThreadRestrictionReported'
+            "
+          >
             <!-- "Your item <a href=".$thread->path().">here</a> has been flagged as ".$report_type.". It is under review & may be hidden from other people."; -->
-           Your item <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">here</nuxt-link> has been flagged as <strong>{{notification.data.type}}</strong> It is under review & may be hidden from other people.
+            Your item
+            <nuxt-link
+              :to="{
+                name: 'threads.show',
+                params: { slug: notification.data.thread.slug },
+              }"
+              >here</nuxt-link
+            >
+            has been flagged as <strong>{{ notification.data.type }}</strong> It
+            is under review & may be hidden from other people.
           </template>
-          <template v-else-if="notification.type == 'App\\Notifications\\ThreadReportUpdated'">
-            After review, your <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">post</nuxt-link> changed to <strong>{{notification.data.type}}</strong>
+          <template
+            v-else-if="
+              notification.type == 'App\\Notifications\\ThreadReportUpdated'
+            "
+          >
+            After review, your
+            <nuxt-link
+              :to="{
+                name: 'threads.show',
+                params: { slug: notification.data.thread.slug },
+              }"
+              >post</nuxt-link
+            >
+            changed to <strong>{{ notification.data.type }}</strong>
           </template>
-          <template v-else-if="notification.type == 'App\\Notifications\\ThreadWasUpdated'">
-            {{notification.data.reply_owner.name}} replied to <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">{{ notification.data.thread.title }}</nuxt-link>
+          <template
+            v-else-if="
+              notification.type == 'App\\Notifications\\ThreadWasUpdated'
+            "
+          >
+            {{ notification.data.reply_owner.name }} replied to
+            <nuxt-link
+              :to="{
+                name: 'threads.show',
+                params: { slug: notification.data.thread.slug },
+              }"
+              >{{ notification.data.thread.title }}</nuxt-link
+            >
           </template>
-          <template v-else-if="notification.type == 'App\\Notifications\\YouWereMentioned'">
-            {{notification.data.reply_owner.name}} mentioned you in  <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">{{ notification.data.thread.title }}</nuxt-link>
+          <template
+            v-else-if="
+              notification.type == 'App\\Notifications\\YouWereMentioned'
+            "
+          >
+            {{ notification.data.reply_owner.name }} mentioned you in
+            <nuxt-link
+              :to="{
+                name: 'threads.show',
+                params: { slug: notification.data.thread.slug },
+              }"
+              >{{ notification.data.thread.title }}</nuxt-link
+            >
           </template>
-          <template v-else-if="notification.type == 'App\\Notifications\\DownloadYourImage'">
+          <template
+            v-else-if="
+              notification.type == 'App\\Notifications\\DownloadYourImage'
+            "
+          >
             Your image is downloading and may take a while to update
           </template>
-          <template v-else-if="notification.type == 'App\\Notifications\\ImageDownloadComplete'">
-            Your <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}">Thread</nuxt-link> image download complete you can check now.
+          <template
+            v-else-if="
+              notification.type == 'App\\Notifications\\ImageDownloadComplete'
+            "
+          >
+            Your
+            <nuxt-link
+              :to="{
+                name: 'threads.show',
+                params: { slug: notification.data.thread.slug },
+              }"
+              >Thread</nuxt-link
+            >
+            image download complete you can check now.
           </template>
-          <template v-else-if="notification.type == 'App\\Notifications\\InvalidImageUrlNotification'">
-            The Image url isn't a valid image url. Please <nuxt-link :to="{name: 'threads.show', params:{slug:notification.data.thread.slug}}"> check</nuxt-link> & add new image.
+          <template
+            v-else-if="
+              notification.type ==
+              'App\\Notifications\\InvalidImageUrlNotification'
+            "
+          >
+            The Image url isn't a valid image url. Please
+            <nuxt-link
+              :to="{
+                name: 'threads.show',
+                params: { slug: notification.data.thread.slug },
+              }"
+            >
+              check</nuxt-link
+            >
+            & add new image.
           </template>
         </div>
       </div>
@@ -42,7 +145,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from 'lodash';
 export default {
   data() {
     return {
@@ -53,46 +156,47 @@ export default {
   created() {
     this.fetchNotifications();
   },
-  mounted(){
-    this.$echo.private(`App.Models.User.${this.$auth.user.id}`)
-    .notification((notification) => {
-      if(notification.type !== "App\\Notifications\\NewMessageNotification"){
+  mounted() {
+    this.$echo
+      .private(`App.Models.User.${this.$auth.user.id}`)
+      .notification((notification) => {
+        if (
+          notification.type !== 'App\\Notifications\\NewMessageNotification'
+        ) {
           this.fetchNotifications();
-          this.playNotification()
+          this.playNotification();
         }
-    });
+      });
   },
   computed: {
     unreadNotifications() {
       return this.notifications.filter((notification) => {
-        return (
-          notification.read_at == null
-        );
+        return notification.read_at == null;
       });
     },
   },
 
   methods: {
-     async markAsRead(notification) {
+    async markAsRead(notification) {
       try {
-        const res = await this.$axios.$put(`user/${this.$auth.user.username}/markAsRead/${notification}`)
-       this.fetchNotifications();
-      } catch (error) {
-
-      }
+        const res = await this.$axios.$put(
+          `user/${this.$auth.user.username}/markAsRead/${notification}`
+        );
+        this.fetchNotifications();
+      } catch (error) {}
     },
     async fetchNotifications() {
       try {
-        if(!this.$auth.loggedIn){
-          return ;
+        if (!this.$auth.loggedIn) {
+          return;
         }
-        const res = await this.$axios.$get(`user/${this.$auth.user.username}/notifications`)
+        const res = await this.$axios.$get(
+          `user/${this.$auth.user.username}/notifications`
+        );
         let notifications = _.uniqBy(res.notifications, 'data.friend.id');
 
         this.notifications = notifications;
-      } catch (error) {
-
-      }
+      } catch (error) {}
     },
     playNotification() {
       let sound = new Audio(
@@ -106,71 +210,72 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .notification-status{
-    display: flex;
-    background: none;
-    align-items: center;
-    border: none;
-    img{
-      width: 30px;
-      margin-right: 5px;
-    }
-    &:focus, &:hover, &:active{
-       background: none;
-       border: none;
-    }
+.notification-status {
+  display: flex;
+  background: none;
+  align-items: center;
+  border: none;
+  img {
+    width: 30px;
+    margin-right: 5px;
   }
-
-  img.profile-image {
-    width: 35px;
-    border-radius: 50%;
+  &:focus,
+  &:hover,
+  &:active {
+    background: none;
+    border: none;
+  }
 }
 
-.top{
-    font-size: 12px;
-    text-transform: capitalize;
-    margin-bottom: 5px;
-     white-space: initial;
+img.profile-image {
+  width: 35px;
+  border-radius: 50%;
+}
+
+.top {
+  font-size: 12px;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+  white-space: initial;
 }
 .dropdown-menu.show {
-    width: 400px;
-    margin: 0;
-    padding: 0;
-    overflow-y: scroll;
-    margin-top: 50px;
+  width: 400px;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+  margin-top: 50px;
 }
 .dropdown-item {
-    display: block;
-    width: 100%;
-    /* padding: 0.25rem 1.5rem; */
-    clear: both;
-    font-weight: 400;
-    color: #212529;
-    text-align: inherit;
-    white-space: nowrap;
-    background-color: transparent;
-    border: 0;
-    padding: 5px;
+  display: block;
+  width: 100%;
+  /* padding: 0.25rem 1.5rem; */
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  padding: 5px;
 }
-
 
 .dropleft .dropdown-menu {
-    right: 0%;
+  right: 0%;
 }
 
 button.btn.btn-secondary.dropdown-toggle.notification-status {
-    padding: 0px;
+  padding: 0px;
 }
 strong {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 button.btn.btn-secondary.dropdown-toggle.notification-status {
-    background: none;
+  background: none;
 
-    &:active{
-      background: none;
-      border:none;
-    }
+  &:active {
+    background: none;
+    border: none;
+  }
 }
 </style>

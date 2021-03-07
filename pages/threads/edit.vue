@@ -254,6 +254,94 @@
                 </div>
               </div>
             </div>
+            <template v-if="isAdmin">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="slide_body" class="control-label"
+                      >Slide Body</label
+                    >
+                    <textarea
+                      name="slide_body"
+                      id="slide_body"
+                      cols="30"
+                      rows="3"
+                      class="form-control"
+                      v-model="form.slide_body"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="slide_image_pos" class="control-label"
+                      >Slide Image Position</label
+                    >
+                    <input
+                      name="slide_image_pos"
+                      id="slide_image_pos"
+                      class="form-control"
+                      v-model="form.slide_image_pos"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="slide_color_bg" class="control-label"
+                      >Slide Color BG</label
+                    >
+                    <input
+                      name="slide_color_bg"
+                      id="slide_color_bg"
+                      class="form-control"
+                      v-model="form.slide_color_bg"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="slide_color_0" class="control-label"
+                      >Slide Color 0</label
+                    >
+                    <input
+                      name="slide_color_0"
+                      id="slide_color_0"
+                      class="form-control"
+                      v-model="form.slide_color_0"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="slide_color_1" class="control-label"
+                      >Slide Color 1</label
+                    >
+                    <input
+                      name="slide_color_1"
+                      id="slide_color_1"
+                      class="form-control"
+                      v-model="form.slide_color_1"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="slide_color_2" class="control-label"
+                      >Slide Color 2</label
+                    >
+                    <input
+                      name="slide_color_2"
+                      id="slide_color_2"
+                      class="form-control"
+                      v-model="form.slide_color_2"
+                    />
+                  </div>
+                </div>
+              </div>
+            </template>
           </div>
 
           <div class="row">
@@ -355,6 +443,12 @@ export default {
         scrape_image: false,
         age_restriction: 0,
         anonymous: 0,
+        slide_body: '',
+        slide_image_pos: '',
+        slide_color_bg: '',
+        slide_color_0: '',
+        slide_color_1: '',
+        slide_color_2: '',
       }),
     };
   },
@@ -374,6 +468,13 @@ export default {
       this.form.anonymous = this.thread.anonymous;
       this.defaultChannel = this.thread.channel;
       // this.form.channel = this.thread.channel;
+
+      this.form.slide_body = this.thread.slide_body;
+      this.form.slide_image_pos = this.thread.slide_image_pos;
+      this.form.slide_color_bg = this.thread.slide_color_bg;
+      this.form.slide_color_0 = this.thread.slide_color_0;
+      this.form.slide_color_1 = this.thread.slide_color_1;
+      this.form.slide_color_2 = this.thread.slide_color_2;
 
       this.form.tags = this.thread.tags.map((tag) => {
         return tag.name;
