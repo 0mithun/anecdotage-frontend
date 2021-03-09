@@ -207,8 +207,12 @@ export default {
     };
   },
   mounted() {
-    this.form.temp_image_url = this.thread.temp_thread_image_path;
+    this.form.temp_image_url = this.thread.remote_image_url;
     this.form.temp_image_description = this.thread.image_description;
+
+    if (this.form.temp_image_url == '' || this.form.temp_image_url == null) {
+      this.form.image_copyright_free = false;
+    }
   },
   computed: {
     ...mapGetters({
