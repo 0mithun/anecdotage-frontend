@@ -199,7 +199,7 @@ export default {
       error: '',
       form: {
         temp_image_url: '',
-        image_copyright_free: true,
+        image_copyright_free: false,
         temp_image_description: '',
       },
       share_on_facebook: false,
@@ -225,8 +225,13 @@ export default {
       return this.$store.state.threads.thread.thread_image_path;
     },
     isDisabled() {
+      // return false;
       // return form.temp_image_url && !form.image_copyright_free;
-      if (this.form.temp_image_url != '' && !this.form.image_copyright_free) {
+      if (
+        this.form.temp_image_url != null &&
+        this.form.temp_image_url != '' &&
+        !this.form.image_copyright_free
+      ) {
         return true;
       }
       return false;

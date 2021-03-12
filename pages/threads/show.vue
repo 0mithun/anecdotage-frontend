@@ -536,6 +536,8 @@ export default {
 .image_description {
   margin: 5px 10px;
   font-size: 12px;
+  text-align: center;
+  width: 100%;
 }
 
 p {
