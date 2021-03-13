@@ -59,20 +59,22 @@
                     v-model="form.temp_image_url"
                   />
                 </div>
-                <div class="form-group">
-                  <label for="">
+                <div class="form-group" v-if="showCopyrightFree">
+                  <label for="" :class="{ error: copyrightButtonError }">
                     <input
                       type="checkbox"
                       v-model="form.image_copyright_free"
                     />
-                    This image is copyright-free (or the description includes
-                    license information)
+                    I own this image, or credit & license info are included
+                    below.
                   </label>
-                  <span
+                  <!-- <span
                     class="help-block error"
                     v-if="form.temp_image_url && !form.image_copyright_free"
-                    >Please confirm your right to post this image.</span
+                    >I own this image, or credit & license info are included
+                    below.</span
                   >
+                  -->
                 </div>
 
                 <div class="form-group">
@@ -194,6 +196,7 @@ export default {
         minSize: '200,300',
         label: 'Select image...',
         maxFileSize: 2,
+        autoCrop: true,
       },
       uploading: false,
       error: '',
@@ -231,6 +234,38 @@ export default {
         this.form.temp_image_url != null &&
         this.form.temp_image_url != '' &&
         !this.form.image_copyright_free
+      ) {
+        return true;
+      }
+      return false;
+    },
+    showCopyrightFree() {
+      if (this.form.temp_image_url == null) {
+        return false;
+      } else if (this.form.temp_image_url == '') {
+        return false;
+      }
+      return true;
+    },
+    copyrightButtonError() {
+      if (
+        this.form.temp_image_url != null &&
+        this.form.image_copyright_free == false
+      ) {
+        return true;
+      } else if (
+        this.form.temp_image_url == '' &&
+        this.form.image_copyright_free == false
+      ) {
+        return true;
+      } else if (
+        this.form.temp_image_url == '' &&
+        this.form.image_copyright_free == ''
+      ) {
+        return true;
+      } else if (
+        this.form.temp_image_url == null &&
+        this.form.image_copyright_free == ''
       ) {
         return true;
       }
@@ -315,4 +350,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.error {
+  color: red;
+}
+</style>
