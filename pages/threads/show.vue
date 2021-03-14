@@ -446,10 +446,18 @@ export default {
   },
   mounted() {
     let p = document.querySelectorAll('p');
+    let iframe = document.querySelectorAll('iframe');
 
     for (let i = 0; i < p.length; i++) {
       // x[i].style.backgroundColor = "red";
       p[i].style.marginBottom = '1rem';
+    }
+
+    const threadBody = document.querySelector('.thread-body');
+    const position = threadBody.getBoundingClientRect();
+    for (let i = 0; i < iframe.length; i++) {
+      iframe[i].width = position.width;
+      iframe[i].height = position.height;
     }
   },
 };
@@ -548,5 +556,10 @@ p {
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.thread-body {
+  width: 100%;
+  height: 100%;
 }
 </style>

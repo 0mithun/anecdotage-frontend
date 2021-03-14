@@ -7,9 +7,10 @@
       :readonly="readonly"
       :id="id"
       :placeholder="placeholder"
-      :class="[{ 'is-invalid': form.errors.has(field) },  inputSize, classes]"
+      :class="[{ 'is-invalid': form.errors.has(field) }, inputSize, classes]"
       @input="handleInput"
       :disabled="disabled"
+      :autofocus="autofocus"
     />
     <has-error :form="form" :field="field"></has-error>
   </div>
@@ -20,60 +21,64 @@ export default {
   props: {
     form: {
       type: Object,
-      required: true
+      required: true,
     },
     field: {
       type: String,
-      required: true
+      required: true,
     },
     value: {
       type: String,
-      default: ''
+      default: '',
     },
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     placeholder: {
       type: String,
-      default: ''
+      default: '',
     },
     inputType: {
       type: String,
-      default: 'text'
+      default: 'text',
     },
     readonly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     classes: {
-      type:String,
-      default: ''
+      type: String,
+      default: '',
     },
     size: {
       type: String,
-      default: ''
+      default: '',
     },
-    disabled:{
+    disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    autofocus: {
+      type: Boolean,
+      default: false,
+    },
   },
-  computed:{
-    inputSize(){
-     return this.size == '' ?  'form-control-lg': this.size
-    }
+  computed: {
+    inputSize() {
+      return this.size == '' ? 'form-control-lg' : this.size;
+    },
   },
 
   methods: {
     handleInput(e) {
       this.$emit('input', e.target.value);
-    }
+    },
   },
 
   mounted() {
     //console.log(this.$attrs);
-  }
+  },
 };
 </script>
 

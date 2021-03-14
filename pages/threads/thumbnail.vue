@@ -210,6 +210,9 @@ export default {
     };
   },
   mounted() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
+
     this.form.temp_image_url = this.thread.remote_image_url;
     this.form.temp_image_description = this.thread.image_description;
 

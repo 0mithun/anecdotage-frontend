@@ -23,6 +23,7 @@
                   v-model="form.title"
                   placeholder="Enter Thread Title"
                   inputType="text"
+                  :autofocus="true"
                 ></base-input>
                 <!-- <input type="text" id="title" class="form-control" v-model="form.title"> -->
 
@@ -301,6 +302,8 @@ export default {
     return {
       config: {
         height: 300,
+        extraAllowedContent: 'iframe[*]',
+        contentsCss: ['body {font-size: 22px;}'],
       },
       alltags: [],
       errors: [],

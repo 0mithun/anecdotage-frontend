@@ -217,8 +217,10 @@ export default {
 
     for (let i = 0; i < p.length; i++) {
       // x[i].style.backgroundColor = "red";
-      p[i].style.marginBottom = '1rem';
+      p[i].style.marginTop = '.5rem';
     }
+
+    p[0].style.marginTop = '0';
   },
 
   computed: {

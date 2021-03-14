@@ -20,6 +20,7 @@
                 <base-input
                   :form="form"
                   field="title"
+                  id="title"
                   v-model="form.title"
                   placeholder="Enter Thread Title"
                   inputType="text"
@@ -112,7 +113,7 @@
           <div class="row">
             <div class="col-md-12">
               <div
-                class="form-group"
+                class="form-group thread-body"
                 :class="{ 'is-invalid': form.errors.errors.body }"
               >
                 <label for="body" class="control-label"
@@ -424,6 +425,8 @@ export default {
 
       config: {
         height: 300,
+        extraAllowedContent: 'iframe[*]',
+        contentsCss: ['body {font-size: 22px;}'],
       },
       alltags: [],
       errors: [],
@@ -497,6 +500,17 @@ export default {
         };
       }
     }
+    const iframe = document.querySelectorAll('iframe');
+    const threadBody = document.querySelector('.thread-body');
+    const position = threadBody.getBoundingClientRect();
+    for (let i = 0; i < iframe.length; i++) {
+      iframe[i].width = position.width;
+      iframe[i].height = position.height;
+    }
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
+
+    document.getElementById('title').focus;
   },
   async fetch({ params, query, error, $axios, store }) {
     try {
@@ -622,5 +636,14 @@ dropdown-menu {
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
+}
+
+.thread-body {
+  width: 100%;
+  height: 100%;
+}
+
+body.cke_editable.cke_editable_themed.cke_contents_ltr.cke_show_borders {
+  font-size: 20px !important;
 }
 </style>
