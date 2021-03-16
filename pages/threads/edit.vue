@@ -29,6 +29,17 @@
 
                 <!-- <span class="help-block error" v-if="errors.title">{{ errors.title[0] }}</span> -->
               </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="title_case"
+                  v-model="form.title_case"
+                />
+                <label class="form-check-label" for="title_case"
+                  >Apply Title Case</label
+                >
+              </div>
             </div>
           </div>
           <div class="row">
@@ -435,6 +446,7 @@ export default {
         channel: '',
         tags: [],
         title: '',
+        title_case: true,
         body: '',
         source: '',
         location: '',

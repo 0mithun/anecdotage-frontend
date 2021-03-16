@@ -57,6 +57,7 @@
                     id="wiki_info_page_url"
                     class="form-control"
                     v-model="form.temp_image_url"
+                    @click="clickOnCopyright = true"
                   />
                 </div>
                 <div class="form-group" v-if="showCopyrightFree">
@@ -205,6 +206,7 @@ export default {
         image_copyright_free: false,
         temp_image_description: '',
       },
+      clickOnCopyright: false,
       share_on_facebook: false,
       share_on_twitter: false,
     };
@@ -243,12 +245,17 @@ export default {
       return false;
     },
     showCopyrightFree() {
-      if (this.form.temp_image_url == null) {
-        return false;
-      } else if (this.form.temp_image_url == '') {
-        return false;
+      // if (this.form.temp_image_url == null) {
+      //   return false;
+      // } else if (this.form.temp_image_url == '') {
+      //   return false;
+      // }
+      // return true;
+
+      if (this.clickOnCopyright == true) {
+        return true;
       }
-      return true;
+      return false;
     },
     copyrightButtonError() {
       if (
