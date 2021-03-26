@@ -135,10 +135,42 @@
                       class="thread-image thread_thumb_image"
                     />
                   </div>
-                  <div
-                    class="image_description"
-                    v-html="thread.image_description"
-                  ></div>
+                  <template
+                    v-if="
+                      threadImageDescriptionLength > imageDescriptionLengthLimit
+                    "
+                  >
+                    <template v-if="showFullImageDescription">
+                      <div class="image_description">
+                        <p v-html="thread.image_description"></p>
+                        <span
+                          class="btn btn-sm btn-link"
+                          @click.prevent="showFullImageDescription = false"
+                          v-if="showFullImageDescription == true"
+                        >
+                          ...(close)
+                        </span>
+                      </div>
+                    </template>
+                    <template v-else>
+                      <div class="image_description">
+                        <p v-html="showThreadImageDescriptionLimit"></p>
+                        <span
+                          class="btn btn-sm btn-link"
+                          @click.prevent="showFullImageDescription = true"
+                          v-if="!showFullImageDescription"
+                        >
+                          ...(more)
+                        </span>
+                      </div>
+                    </template>
+                  </template>
+                  <template v-else>
+                    <div
+                      class="image_description"
+                      v-html="thread.image_description"
+                    ></div>
+                  </template>
                 </div>
 
                 <div class="row thread-body-row">
@@ -363,10 +395,36 @@ export default {
       // <meta name=twitter:image content="{{ $thread->threadImagePath }}" />
     };
   },
+  data() {
+    return {
+      imageDescriptionLengthLimit: 35,
+      showFullImageDescription: false,
+    };
+  },
   computed: {
     threadThumbStyle() {
       return `background: rgba(${this.thread.image_path_pixel_color});`;
     },
+    threadImageDescriptionLength() {
+      if (
+        this.thread.image_description == null ||
+        this.thread.image_description == ''
+      ) {
+        return 0;
+      }
+
+      const description = this.thread.image_description;
+      const splitDescription = description.split(/\s/);
+
+      return splitDescription.length;
+    },
+    showThreadImageDescriptionLimit() {
+      return this.thread.image_description
+        .split(/\s/)
+        .splice(0, this.imageDescriptionLengthLimit)
+        .join(' ');
+    },
+
     thread() {
       return this.$store.state.threads.thread;
     },
