@@ -104,8 +104,10 @@ const routes = [
       { path: 'faq', name: 'admin.show.faq', component: page('admins/faq.vue') },
       { path: 'terms', name: 'admin.show.terms', component: page('admins/terms.vue') },
       { path: 'privacy', name: 'admin.show.privacy', component: page('admins/privacy.vue') },
+
     ]
   },
+  { path: '/anecdotes/sort-by-title-length', name: 'admin.sortbytitle.length', component: page('admins/sortByTitleLength.vue') },
 
 
 ];

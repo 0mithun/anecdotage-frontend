@@ -61,6 +61,12 @@
                 <nuxt-link class="dropdown-item" :to="{ name: 'threads.video' }"
                   >Video</nuxt-link
                 >
+                <nuxt-link
+                  class="dropdown-item"
+                  :to="{ name: 'admin.sortbytitle.length' }"
+                  v-if="isAdmin"
+                  >Sort By Title Length</nuxt-link
+                >
               </div>
             </li>
 
@@ -269,6 +275,12 @@ export default {
       emojis: 'emojis',
       settings: 'settings',
     }),
+    isAdmin() {
+      if (this.$auth.loggedIn) {
+        return this.$store.state.auth.user.is_admin;
+      }
+      return false;
+    },
 
     defaultEmojiUrl() {
       return process.env.APP_URL + 'images/emojis/default.png';
