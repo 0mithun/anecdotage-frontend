@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <FilterSearch />
+        <FilterSearch routeName="search" />
 
         <template v-if="loading">
           <div class="loading-box">
