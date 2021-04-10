@@ -31,10 +31,10 @@
               </div>
             </div>
             <div class="upload-para mt-2">
-              <p class="font-14 fw-400">
+              <!-- <p class="font-14 fw-400">
                 Your image siz must be maximum of 2MB. Please resize your file
                 accordingly before you upload.
-              </p>
+              </p> -->
             </div>
           </div>
         </div>
@@ -196,7 +196,7 @@ export default {
         defaultInputName: 'image',
         minSize: '200,300',
         label: 'Select image...',
-        maxFileSize: 2,
+        // maxFileSize: 2,
         autoCrop: true,
       },
       uploading: false,
