@@ -28,17 +28,17 @@
                 <!-- <input type="text" id="title" class="form-control" v-model="form.title"> -->
 
                 <!-- <span class="help-block error" v-if="errors.title">{{ errors.title[0] }}</span> -->
-              </div>
-              <div class="form-check">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="title_case"
-                  v-model="form.title_case"
-                />
-                <label class="form-check-label" for="title_case"
-                  >Apply Title Case</label
-                >
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="title_case"
+                    v-model="form.title_case"
+                  />
+                  <label class="form-check-label" for="title_case"
+                    >Apply Title Case</label
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -82,7 +82,7 @@
                   id="input"
                   class="form-control"
                   type="text"
-                  placeholder="Enter channel name"
+                  placeholder="Choose a category"
                   autocomplete="false"
                   v-model="defaultChannel.name"
                 />

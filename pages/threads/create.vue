@@ -72,7 +72,7 @@
                   id="input"
                   class="form-control"
                   type="text"
-                  placeholder="Enter channel name"
+                  placeholder="Choose a category"
                   autocomplete="false"
                 />
                 <typeahead
