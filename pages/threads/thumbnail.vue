@@ -47,7 +47,18 @@
         <div class="row">
           <div class="col-md-12">
             <form action="" @submit.prevent="imageDescriptionSubmit">
-              <div class="col-md-6">
+              <div class="col-md-12">
+                <div class="form-group" v-if="isAdmin">
+                  <label for="amazon_product_url" class="control-label">
+                    Amazon Product URL</label
+                  >
+                  <input
+                    type="text"
+                    id="amazon_product_url"
+                    class="form-control"
+                    v-model="form.amazon_product_url"
+                  />
+                </div>
                 <div class="form-group">
                   <label for="wiki_info_page_url" class="control-label">
                     Enter Image link
@@ -91,6 +102,7 @@
                     v-model="form.temp_image_description"
                   ></textarea>
                 </div>
+
                 <div class="form-group">
                   <button
                     class="btn btn-primary btn-block"
@@ -205,6 +217,7 @@ export default {
         temp_image_url: '',
         image_copyright_free: false,
         temp_image_description: '',
+        amazon_product_url: '',
       },
       clickOnCopyright: false,
       share_on_facebook: false,
@@ -217,6 +230,7 @@ export default {
 
     this.form.temp_image_url = this.thread.remote_image_url;
     this.form.temp_image_description = this.thread.image_description;
+    this.form.amazon_product_url = this.thread.amazon_product_url;
 
     if (this.form.temp_image_url == '' || this.form.temp_image_url == null) {
       this.form.image_copyright_free = false;
@@ -278,6 +292,15 @@ export default {
         this.form.image_copyright_free == ''
       ) {
         return true;
+      }
+      return false;
+    },
+    signedIn() {
+      return this.$auth.loggedIn;
+    },
+    isAdmin() {
+      if (this.signedIn) {
+        return this.$store.state.auth.user.is_admin;
       }
       return false;
     },
