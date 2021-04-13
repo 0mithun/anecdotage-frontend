@@ -19,6 +19,15 @@
                         #{{ thread.channel.name }}
                       </nuxt-link>
                     </div>
+                    <div class="admin-buttons" v-if="isAdmin">
+                      <button
+                        class="btn btn-sm btn-primary"
+                        data-toggle="modal"
+                        :data-target="`#edit-title-${thread.id}`"
+                      >
+                        Edit Title
+                      </button>
+                    </div>
                     <div class="action-menu" v-if="isAdmin || owns">
                       <nuxt-link
                         class="btn btn-primary btn-sm"
@@ -245,6 +254,46 @@
       <div class="col-md-4">
         <Sidebar />
       </div>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        :id="`edit-title-${thread.id}`"
+        tabindex="-1"
+        role="dialog"
+        aria-hidden="true"
+        v-if="isAdmin"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit title</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="" class="control-label">Title</label>
+                <input type="text" class="form-control" v-model="form.title" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click.prevent="editTitleSubmit"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -397,8 +446,11 @@ export default {
   },
   data() {
     return {
-      imageDescriptionLengthLimit: 35,
+      imageDescriptionLengthLimit: 20,
       showFullImageDescription: false,
+      form: this.$vform({
+        title: '',
+      }),
     };
   },
   computed: {
@@ -501,8 +553,24 @@ export default {
         }
       });
     },
+    editTitleSubmit() {
+      this.form
+        .put(`admin/threads/${this.thread.slug}`, this.form)
+        .then((res) => {
+          this.$toast.open({
+            type: 'success',
+            position: 'top-right',
+            message: 'Title Update Successfully',
+          });
+          $(`#edit-title-${this.thread.id}`).modal('hide');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
+    this.form.title = this.thread.title;
     let p = document.querySelectorAll('p');
     let iframe = document.querySelectorAll('iframe');
 

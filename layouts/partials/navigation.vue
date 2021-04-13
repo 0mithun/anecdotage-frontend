@@ -299,7 +299,8 @@ export default {
       } else if (this.$nuxt.$route.name == 'threads.video') {
         return 'Video';
       } else {
-        return 'Top Rated';
+        // return 'Top Rated';
+        return 'Most Recent';
       }
     },
   },
