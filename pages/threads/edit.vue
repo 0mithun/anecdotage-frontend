@@ -142,6 +142,7 @@
             </div>
           </div>
 
+          <!-- Disable for now
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -161,7 +162,8 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
+
           <div class="more-fields" v-if="show_more_fields">
             <div class="row">
               <div class="col-md-6">
@@ -441,7 +443,8 @@ export default {
       },
       alltags: [],
       errors: [],
-      show_more_fields: false,
+      show_more_fields: true,
+      // show_more_fields: false,
       form: this.$vform({
         channel: '',
         tags: [],

@@ -177,7 +177,7 @@
                   <template v-else>
                     <div
                       class="image_description"
-                      v-html="thread.image_description"
+                      v-html="thread.full_image_description"
                     ></div>
                   </template>
                 </div>
