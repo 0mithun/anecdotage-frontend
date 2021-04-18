@@ -1,10 +1,15 @@
 <template>
-  <div class="location">
+  <div
+    class="location"
+    data-toggle="tooltip"
+    data-placement="bottom"
+    :title="address"
+  >
     <img :src="mapIcon" alt />
     <span
       class="map-location"
       v-if="location != null && location != 'null' && location != ''"
-      >{{ address }}</span
+      >{{ showAddress }}</span
     >
   </div>
 </template>
@@ -12,6 +17,11 @@
 <script>
 export default {
   props: ['location', 'address'],
+  data() {
+    return {
+      addressWordLimit: 5,
+    };
+  },
   computed: {
     mapIcon() {
       if (
@@ -23,6 +33,12 @@ export default {
       } else {
         return require(`assets/images/map-icon-red.png`);
       }
+    },
+    showAddress() {
+      return this.address
+        .split(/\s/)
+        .splice(0, this.addressWordLimit)
+        .join(' ');
     },
   },
 };

@@ -29,27 +29,12 @@ export default {
       return this.$store.getters.settings;
     },
   },
-  methods: {
-    async copyCut(e) {
-      if (window.getSelection) {
-        let text = window.getSelection().toString();
-        let url = window.location.href;
-        // text = `${text} Read More: ${url}/?utm_campaign=clip`;
-        text = `${text} Read More: ${url}`;
-        await navigator.clipboard.writeText(text);
-      }
-    },
-  },
+  methods: {},
   mounted() {
-    // document.addEventListener('copy', this.copyCut);
-    // document.addEventListener('cut', this.copyCut);
-
-    // console.log(this.$route.name);
-
-    if ('threads.show' == this.$route.name) {
-      document.addEventListener('copy', this.copyCut);
-      document.addEventListener('cut', this.copyCut);
-    }
+    console.log(this.$route.name);
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
   },
 };
 </script>

@@ -568,6 +568,15 @@ export default {
           console.log(error);
         });
     },
+    async copyCut(e) {
+      if (window.getSelection) {
+        let text = window.getSelection().toString();
+        let url = window.location.href;
+        // text = `${text} Read More: ${url}/?utm_campaign=clip`;
+        text = `${text} Read More: ${url}`;
+        await navigator.clipboard.writeText(text);
+      }
+    },
   },
   mounted() {
     this.form.title = this.thread.title;
@@ -582,8 +591,18 @@ export default {
     const threadBody = document.querySelector('.thread-body');
     const position = threadBody.getBoundingClientRect();
     for (let i = 0; i < iframe.length; i++) {
-      iframe[i].width = position.width;
-      iframe[i].height = position.height;
+      // iframe[i].width = position.width;
+      // iframe[i].height = position.height;
+      iframe[i].width = 560;
+      iframe[i].height = 315;
+    }
+
+    if (process.client) {
+      if ('threads.show' === this.$route.name) {
+        const threadCard = document.getElementById('thread-card');
+        threadCard.addEventListener('copy', this.copyCut);
+        threadCard.addEventListener('cut', this.copyCut);
+      }
     }
   },
 };
