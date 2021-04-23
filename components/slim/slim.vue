@@ -1,6 +1,6 @@
 <template>
-  <div class="slim"  :style="style">
-    <client-only >
+  <div class="slim" :style="style">
+    <client-only>
       <slot></slot>
     </client-only>
   </div>
@@ -14,7 +14,7 @@ var instance = null;
 export default {
   props: ['options', 'src'],
   name: 'slim-cropper',
-  mounted: function() {
+  mounted: function () {
     if (this.options.initialImage) {
       var img = document.createElement('img');
       img.setAttribute('alt', '');
@@ -23,22 +23,31 @@ export default {
     }
     instance = new Slim(this.$el, this.options);
   },
-  beforeDestroy: function() {
+  beforeDestroy: function () {
     instance.destroy();
   },
-  computed:{
-    backgroundImage(){
-      return this.src ? `url(${this.src});background-size: contain; background-repeat: no-repeat;` : ''
+  computed: {
+    backgroundImage() {
+      return this.src
+        ? `url(${this.src});background-size: contain; background-repeat: no-repeat;   background-position: center;`
+        : '';
     },
-    style(){
+    style() {
       return `background:${this.backgroundImage}`;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css">
 @import './slim.min.css';
-.slim[data-ratio='1:1'] > img, .slim[data-ratio='1:1'] > input[type='file'] {
-    margin-bottom: 0 !important;
+.slim[data-ratio='1:1'] > img,
+.slim[data-ratio='1:1'] > input[type='file'] {
+  margin-bottom: 0 !important;
+}
+.slim-status {
+  font-size: 30px !important;
+  color: white;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
 }
 </style>

@@ -310,5 +310,9 @@ export default {
 .help-block.error {
   color: red;
 }
+
+a.btn.cart-btn {
+  font-size: 12px;
+}
 </style>
 

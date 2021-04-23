@@ -208,6 +208,7 @@ export default {
         scrape_image: false,
         age_restriction: 0,
         anonymous: 0,
+        isDuplicate: true,
       }),
     };
   },
@@ -285,10 +286,21 @@ export default {
       this.duplicateForm
         .post('threads', this.duplicateForm)
         .then((res) => {
-          console.log(res.data);
+          this.submitDuplicateImage(res.data.slug);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    submitDuplicateImage(newThread) {
+      this.$axios
+        .$post(`threads/${newThread}/duplicateImage`, {
+          old_thread: this.thread.slug,
+        })
+        .then((res) => {
           this.$router.push({
             name: 'threads.edit',
-            params: { slug: res.data.slug },
+            params: { slug: res.slug },
           });
         })
         .catch((err) => {
@@ -297,7 +309,6 @@ export default {
     },
 
     duplicateItem() {
-      console.log('clicked');
       this.$axios
         .$get(`threads/${this.thread.slug}`)
         .then((res) => {

@@ -87,7 +87,7 @@ export default {
       store.commit('search/SET_LOADING', true);
 
       const emojiRresponse = await $axios.$get(`emojis/${params.emoji}?${q}`);
-      console.log(emojiRresponse);
+
       store.commit('emoji/SET_EMOJI', emojiRresponse.emoji.data);
       store.commit('emoji/SET_TAGS', emojiRresponse.tags.data);
       store.commit('emoji/SET_THREADS', emojiRresponse.threads.data);

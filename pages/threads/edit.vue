@@ -83,8 +83,8 @@
                   class="form-control"
                   type="text"
                   placeholder="Choose a category"
-                  autocomplete="false"
                   v-model="defaultChannel.name"
+                  autocomplete="off"
                 />
                 <typeahead
                   v-model="form.channel"
@@ -107,6 +107,7 @@
                   multiple
                   @search="searchTag"
                   @input="selecetdTag"
+                  :closeOnSelect="false"
                 >
                   <template v-slot:no-options="{ search, searching }">
                     <template v-if="searching">

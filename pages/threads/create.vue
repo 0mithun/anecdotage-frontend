@@ -96,6 +96,7 @@
                   multiple
                   @search="searchTag"
                   @input="selecetdTag"
+                  :closeOnSelect="false"
                 >
                   <template v-slot:no-options="{ search, searching }">
                     <template v-if="searching">

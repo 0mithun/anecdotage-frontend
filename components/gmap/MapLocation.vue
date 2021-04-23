@@ -19,7 +19,7 @@ export default {
   props: ['location', 'address'],
   data() {
     return {
-      addressWordLimit: 5,
+      addressWordLimit: 3,
     };
   },
   computed: {
@@ -35,10 +35,23 @@ export default {
       }
     },
     showAddress() {
-      return this.address
-        .split(/\s/)
-        .splice(0, this.addressWordLimit)
-        .join(' ');
+      // return this.address
+      //   .split(/\s/)
+      //   .splice(0, this.addressWordLimit)
+      //   .join(' ');
+
+      const splitAddress = this.address.split(/\s/);
+
+      if (splitAddress.length > this.addressWordLimit) {
+        return (
+          splitAddress
+            .splice(0, this.addressWordLimit)
+            .join(' ')
+            .replace(/,$/, '') + ' ...more'
+        );
+      } else {
+        return splitAddress.splice(0, this.addressWordLimit).join(' ');
+      }
     },
   },
 };

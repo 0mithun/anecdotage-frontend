@@ -214,10 +214,10 @@ export default {
       uploading: false,
       error: '',
       form: {
-        temp_image_url: '',
+        temp_image_url: null,
         image_copyright_free: false,
-        temp_image_description: '',
-        amazon_product_url: '',
+        temp_image_description: null,
+        amazon_product_url: null,
       },
       clickOnCopyright: false,
       share_on_facebook: false,
@@ -251,8 +251,8 @@ export default {
       // return form.temp_image_url && !form.image_copyright_free;
       if (
         this.form.temp_image_url != null &&
-        this.form.temp_image_url != '' &&
-        !this.form.image_copyright_free
+        !this.form.image_copyright_free &&
+        this.clickOnCopyright
       ) {
         return true;
       }

@@ -283,6 +283,9 @@ export default {
     },
 
     defaultEmojiUrl() {
+      if (this.$nuxt.$route.name == 'emojis') {
+        return `${process.env.APP_URL}images/emojis/${this.$route.params.emoji}.png`;
+      }
       return process.env.APP_URL + 'images/emojis/default.png';
     },
     routeName() {

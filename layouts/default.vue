@@ -31,7 +31,6 @@ export default {
   },
   methods: {},
   mounted() {
-    console.log(this.$route.name);
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
