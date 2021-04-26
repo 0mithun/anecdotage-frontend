@@ -2,15 +2,15 @@
   <div
     class="location"
     data-toggle="tooltip"
-    data-placement="bottom"
+    data-placement="left"
     :title="address"
   >
     <img :src="mapIcon" alt />
     <span
       class="map-location"
       v-if="location != null && location != 'null' && location != ''"
-      >{{ showAddress }}</span
-    >
+      v-html="showAddress"
+    ></span>
   </div>
 </template>
 
@@ -47,7 +47,8 @@ export default {
           splitAddress
             .splice(0, this.addressWordLimit)
             .join(' ')
-            .replace(/,$/, '') + ' ...more'
+            .replace(/,$/, '') +
+          ' <i class="fas fa-plus-square" style="font-size:16px"></i>'
         );
       } else {
         return splitAddress.splice(0, this.addressWordLimit).join(' ');
@@ -66,5 +67,9 @@ export default {
   font-weight: bold;
   font-size: 13px;
   margin-left: 5px;
+}
+
+.svg-inline--fa {
+  font-size: 18px !important;
 }
 </style>
