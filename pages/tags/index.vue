@@ -218,6 +218,7 @@ export default {
 }
 .profile-name span {
   color: rgb(255, 67, 1);
+  color: #ed7d30;
 }
 .profile-buttons {
   padding: 10px 0px;
