@@ -422,4 +422,7 @@ export default {
 .thread-body p {
   margin-top: 1rem;
 }
+.thread-body img {
+  max-width: 100%;
+}
 </style>

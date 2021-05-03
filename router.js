@@ -40,76 +40,210 @@ const routes = [
   {
     path: '/profile/:username',
     name: 'profile.show',
-    redirect:{name: 'profile.show.about'},
+    redirect: { name: 'profile.show.about' },
     component: page('users/profile.vue'),
-    children:[
-      { path: '', name: 'profile.show.about', component: page('users/about.vue') },
-      { path: 'friends', name: 'profile.show.friends', component: page('users/friends.vue') },
-      { path: 'followings', name: 'profile.show.followings', component: page('users/followings.vue') },
-      { path: 'posts', name: 'profile.show.posts', component: page('users/posts.vue') },
-      { path: 'favorites', name: 'profile.show.favorites', component: page('users/favorites.vue') },
-      { path: 'likes', name: 'profile.show.likes', component: page('users/likes.vue') },
-      { path: 'subscriptions', name: 'profile.show.subscriptions', component: page('users/subscriptions.vue') },
-
-
-    ],
-
+    children: [
+      {
+        path: '',
+        name: 'profile.show.about',
+        component: page('users/about.vue')
+      },
+      {
+        path: 'friends',
+        name: 'profile.show.friends',
+        component: page('users/friends.vue')
+      },
+      {
+        path: 'followings',
+        name: 'profile.show.followings',
+        component: page('users/followings.vue')
+      },
+      {
+        path: 'posts',
+        name: 'profile.show.posts',
+        component: page('users/posts.vue')
+      },
+      {
+        path: 'favorites',
+        name: 'profile.show.favorites',
+        component: page('users/favorites.vue')
+      },
+      {
+        path: 'likes',
+        name: 'profile.show.likes',
+        component: page('users/likes.vue')
+      },
+      {
+        path: 'subscriptions',
+        name: 'profile.show.subscriptions',
+        component: page('users/subscriptions.vue')
+      }
+    ]
   },
   {
     path: '/profile/:username/settings',
     name: 'profile.settings',
     component: page('users/settings/index.vue'),
-    children:[
-      { path: '', name: 'profile.settings.info', component: page('users/settings/info.vue') },
-      { path: 'avatar', name: 'profile.settings.avatar', component: page('users/settings/avatar.vue') },
-      { path: 'password', name: 'profile.settings.password', component: page('users/settings/password.vue') },
-      { path: 'privacy', name: 'profile.settings.privacy', component: page('users/settings/privacy.vue') },
-      { path: 'notifications', name: 'profile.settings.notifications', component: page('users/settings/notifications.vue') },
+    children: [
+      {
+        path: '',
+        name: 'profile.settings.info',
+        component: page('users/settings/info.vue')
+      },
+      {
+        path: 'avatar',
+        name: 'profile.settings.avatar',
+        component: page('users/settings/avatar.vue')
+      },
+      {
+        path: 'password',
+        name: 'profile.settings.password',
+        component: page('users/settings/password.vue')
+      },
+      {
+        path: 'privacy',
+        name: 'profile.settings.privacy',
+        component: page('users/settings/privacy.vue')
+      },
+      {
+        path: 'notifications',
+        name: 'profile.settings.notifications',
+        component: page('users/settings/notifications.vue')
+      }
     ]
   },
 
-  { path: '/anecdotes/emojis/:emoji', name: 'emojis', component: page('emojis/index.vue') },
+  {
+    path: '/anecdotes/emojis/:emoji',
+    name: 'emojis',
+    component: page('emojis/index.vue')
+  },
   { path: '/anecdotes/maps', name: 'maps', component: page('maps/index.vue') },
-  { path: '/anecdotes/search', name: 'search', component: page('search/index.vue') },
-  { path: '/anecdotes/messanger', name: 'chat', component: page('chat/index.vue') },
+  {
+    path: '/anecdotes/search',
+    name: 'search',
+    component: page('search/index.vue')
+  },
+  {
+    path: '/anecdotes/messanger',
+    name: 'chat',
+    component: page('chat/index.vue')
+  },
   // { path: '/anecdotes/messanger', name: 'chat', component: page('chat/messenger.vue') },
   // { path: '/anecdotes/messanger', name: 'chat', component: page('chat/test.vue') },
 
   { path: '/tags/:slug', name: 'tags', component: page('tags/index.vue') },
-  { path: '/tags/:slug/edit', name: 'tag.edit', component: page('tags/edit.vue') },
-  { path: '/anecdotes/rated', name: 'threads.rated', component: page('threads/filters/rated.vue') },
-  { path: '/anecdotes/trending', name: 'threads.trending', component: page('threads/filters/trending.vue') },
-  { path: '/anecdotes/viewed', name: 'threads.viewed', component: page('threads/filters/viewed.vue') },
-  { path: '/anecdotes/recent', name: 'threads.recent', component: page('threads/filters/recent.vue') },
-  { path: '/anecdotes/closest', name: 'threads.closest', component: page('threads/filters/closest.vue') },
-  { path: '/anecdotes/video', name: 'threads.video', component: page('threads/filters/video.vue') },
+  {
+    path: '/tags/:slug/edit',
+    name: 'tag.edit',
+    component: page('tags/edit.vue')
+  },
+  {
+    path: '/anecdotes/rated',
+    name: 'threads.rated',
+    component: page('threads/filters/rated.vue')
+  },
+  {
+    path: '/anecdotes/trending',
+    name: 'threads.trending',
+    component: page('threads/filters/trending.vue')
+  },
+  {
+    path: '/anecdotes/viewed',
+    name: 'threads.viewed',
+    component: page('threads/filters/viewed.vue')
+  },
+  {
+    path: '/anecdotes/recent',
+    name: 'threads.recent',
+    component: page('threads/filters/recent.vue')
+  },
+  {
+    path: '/anecdotes/closest',
+    name: 'threads.closest',
+    component: page('threads/filters/closest.vue')
+  },
+  {
+    path: '/anecdotes/video',
+    name: 'threads.video',
+    component: page('threads/filters/video.vue')
+  },
 
-  { path: '/anecdotes/:slug', name: 'threads.show', component: page('threads/show.vue') },
-  { path: '/anecdotes/:slug/edit', name: 'threads.edit', component: page('threads/edit.vue') },
-  { path: '/anecdotes/create', name: 'threads.create', component: page('threads/create.vue') },
-  { path: '/anecdotes/:slug/thumbnail/', name: 'threads.thumbnail', component: page('threads/thumbnail.vue') },
+  {
+    path: '/threads/create',
+    name: 'threads.create',
+    component: page('threads/create.vue')
+  },
+  {
+    path: '/anecdotes/:slug/edit',
+    name: 'threads.edit',
+    component: page('threads/edit.vue')
+  },
+  {
+    path: '/anecdotes/:slug',
+    name: 'threads.show',
+    component: page('threads/show.vue')
+  },
+  {
+    path: '/anecdotes/:slug/thumbnail/',
+    name: 'threads.thumbnail',
+    component: page('threads/thumbnail.vue')
+  },
 
   {
     path: '/admin',
     name: 'admin.show',
-    redirect:{name: 'admin.show.settings'},
+    redirect: { name: 'admin.show.settings' },
     component: page('admins/index.vue'),
-    children:[
-      { path: '', name: 'admin.show.settings', component: page('admins/settings.vue') },
-      { path: 'logo', name: 'admin.show.settings.logo', component: page('admins/logo.vue') },
-      { path: 'batch-tools', name: 'admin.show.batch.tools', component: page('admins/batchTools.vue') },
-      { path: 'manage-users', name: 'admin.show.manage.users', component: page('admins/manageUsers.vue') },
-      { path: 'reports', name: 'admin.show.reports', component: page('admins/reports.vue') },
+    children: [
+      {
+        path: '',
+        name: 'admin.show.settings',
+        component: page('admins/settings.vue')
+      },
+      {
+        path: 'logo',
+        name: 'admin.show.settings.logo',
+        component: page('admins/logo.vue')
+      },
+      {
+        path: 'batch-tools',
+        name: 'admin.show.batch.tools',
+        component: page('admins/batchTools.vue')
+      },
+      {
+        path: 'manage-users',
+        name: 'admin.show.manage.users',
+        component: page('admins/manageUsers.vue')
+      },
+      {
+        path: 'reports',
+        name: 'admin.show.reports',
+        component: page('admins/reports.vue')
+      },
 
-      { path: 'faq', name: 'admin.show.faq', component: page('admins/faq.vue') },
-      { path: 'terms', name: 'admin.show.terms', component: page('admins/terms.vue') },
-      { path: 'privacy', name: 'admin.show.privacy', component: page('admins/privacy.vue') },
-
+      {
+        path: 'faq',
+        name: 'admin.show.faq',
+        component: page('admins/faq.vue')
+      },
+      {
+        path: 'terms',
+        name: 'admin.show.terms',
+        component: page('admins/terms.vue')
+      },
+      {
+        path: 'privacy',
+        name: 'admin.show.privacy',
+        component: page('admins/privacy.vue')
+      }
     ]
   },
-  { path: '/anecdotes/sort-by-title-length', name: 'admin.sortbytitle.length', component: page('admins/sortByTitleLength.vue') },
-
-
+  {
+    path: '/anecdotes/sort-by-title-length',
+    name: 'admin.sortbytitle.length',
+    component: page('admins/sortByTitleLength.vue')
+  }
 ];
 
 export function createRouter() {

@@ -48,7 +48,7 @@ export default {
             .splice(0, this.addressWordLimit)
             .join(' ')
             .replace(/,$/, '') +
-          ' <i class="fas fa-plus-square" style="font-size:16px"></i>'
+          ' <i class="fas fa-plus-square" style="font-size:16px;color:#636f6f"></i>'
         );
       } else {
         return splitAddress.splice(0, this.addressWordLimit).join(' ');
