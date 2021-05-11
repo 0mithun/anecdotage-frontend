@@ -2,7 +2,7 @@
   <div
     class="location"
     data-toggle="tooltip"
-    data-placement="left"
+    data-placement="bottom"
     :title="address"
   >
     <img :src="mapIcon" alt />
