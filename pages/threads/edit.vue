@@ -270,7 +270,9 @@
               </div>
             </div>
             <template v-if="isAdmin">
+
               <div class="row">
+
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="slide_body" class="control-label"
@@ -284,6 +286,16 @@
                       class="form-control"
                       v-model="form.slide_body"
                     ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="slide_image_path" class="control-label"
+                      >Slide Image</label
+                    >
+                    <input type="file" name="slide_image_path" id="slide_image_path" @change="handleSlideImagePath">
                   </div>
                 </div>
               </div>
@@ -389,6 +401,8 @@
 <script>
 import VueCkeditor from 'vue-ckeditor2';
 import { mapGetters } from 'vuex';
+import {serialize} from 'object-to-formdata'
+
 export default {
   components: { VueCkeditor },
   head() {
@@ -463,6 +477,7 @@ export default {
         age_restriction: 0,
         anonymous: 0,
         slide_body: '',
+        slide_image_path: null,
         slide_image_pos: '',
         slide_color_bg: '',
         slide_color_0: '',
@@ -574,7 +589,12 @@ export default {
         this.form.channel = this.defaultChannel;
       }
       this.form
-        .put(`threads/${this.thread.slug}`, this.form)
+        .submit('post',`threads/${this.thread.slug}`, {
+              transformRequest: [ function (data, headers) {
+                return serialize(data)
+              }],
+
+        } )
         .then((res) => {
           if (this.form.scrape_image) {
             this.$toast.open({
@@ -594,10 +614,15 @@ export default {
               params: { slug: res.data.slug },
             });
           }
+
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    handleSlideImagePath (event) {
+      const file = event.target.files[0]
+      this.form.slide_image_path = file
     },
   },
 };

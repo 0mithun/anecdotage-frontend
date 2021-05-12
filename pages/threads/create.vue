@@ -25,9 +25,17 @@
                   inputType="text"
                   :autofocus="true"
                 ></base-input>
-                <!-- <input type="text" id="title" class="form-control" v-model="form.title"> -->
-
-                <!-- <span class="help-block error" v-if="errors.title">{{ errors.title[0] }}</span> -->
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="title_case"
+                    v-model="form.title_case"
+                  />
+                  <label class="form-check-label" for="title_case"
+                    >Apply Title Case</label
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -73,7 +81,7 @@
                   class="form-control"
                   type="text"
                   placeholder="Choose a category"
-                  autocomplete="false"
+                  autocomplete="off"
                 />
                 <typeahead
                   v-model="form.channel"
@@ -256,8 +264,10 @@
               </div>
             </div>
 
-            <template v-if="isAdmin">
+           <template v-if="isAdmin">
+
               <div class="row">
+
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="slide_body" class="control-label"
@@ -271,6 +281,16 @@
                       class="form-control"
                       v-model="form.slide_body"
                     ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="slide_image_path" class="control-label"
+                      >Slide Image</label
+                    >
+                    <input type="file" name="slide_image_path" id="slide_image_path" @change="handleSlideImagePath">
                   </div>
                 </div>
               </div>
@@ -364,6 +384,7 @@
 <script>
 import VueCkeditor from 'vue-ckeditor2';
 import { mapGetters } from 'vuex';
+import {serialize} from 'object-to-formdata'
 export default {
   components: { VueCkeditor },
   computed: {
@@ -402,6 +423,7 @@ export default {
         channel: '',
         tags: '',
         title: '',
+        title_case: true,
         body: '',
         source: '',
         location: '',
@@ -414,8 +436,8 @@ export default {
         age_restriction: 0,
         anonymous: 0,
 
-        //
         slide_body: '',
+        slide_image_path: null,
         slide_image_pos: '',
         slide_color_bg: '',
         slide_color_0: '',
@@ -450,9 +472,26 @@ export default {
     },
     addNewThread() {
       this.errors = [];
+      // this.form
+      //   .post('threads', this.form)
+      //   .then((res) => {
+      //     // this.$router.push({
+      //     //   name: 'threads.thumbnail',
+      //     //   params: { slug: res.data.slug },
+      //     // });
+      //     console.log(res)
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
       this.form
-        .post('threads', this.form)
-        .then((res) => {
+        .submit('post',`threads`, {
+              transformRequest: [ function (data, headers) {
+                return serialize(data)
+              }],
+
+        } )
+          .then((res) => {
           this.$router.push({
             name: 'threads.thumbnail',
             params: { slug: res.data.slug },
@@ -461,6 +500,10 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+     handleSlideImagePath (event) {
+      const file = event.target.files[0]
+      this.form.slide_image_path = file
     },
   },
 };

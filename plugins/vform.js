@@ -9,7 +9,6 @@ export default ({ app }, inject) => {
     this.startProcessing();
 
     const data = method === 'get' ? { params: this.data() } : this.data();
-
     return new Promise((resolve, reject) => {
       app.$axios
         .request({

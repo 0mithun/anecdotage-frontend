@@ -11,6 +11,13 @@
           </nuxt-link>
 
           <div class="admin-buttons">
+            <nuxt-link
+              class="btn btn-sm btn-primary"
+              v-if="isAdmin"
+              :to="{ name: 'threads.edit', params: { slug: thread.slug } }"
+            >
+              Edit
+            </nuxt-link>
             <button
               class="btn btn-sm btn-secondary"
               @click.prevent="duplicateItem"
@@ -404,9 +411,11 @@ export default {
   align-items: center;
 }
 
+
 .thread-image {
-  // display: inline-block;
+  display: inline-block;
   max-height: 240px;
+  min-height: 240px;
 }
 
 .tags {
