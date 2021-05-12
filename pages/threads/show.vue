@@ -542,6 +542,7 @@ export default {
                 message: 'Thread Delete Successfully.',
               });
               setTimeout(() => {
+                this.loadTrending();
                 this.$router.push({ name: 'index' });
               }, 2000);
             })
@@ -552,6 +553,10 @@ export default {
           // console.log('no Delete')
         }
       });
+    },
+    async loadTrending(){
+      const trendingResponse = await this.$axios.$get('trending/threads')
+      return this.$store.commit('setTrendings', trendingResponse.data)
     },
     editTitleSubmit() {
       this.form
