@@ -5,7 +5,7 @@
     data-placement="bottom"
     :title="address"
   >
-    <img :src="mapIcon" alt />
+    <img :src="mapIcon" alt style="height:16px" />
     <span
       class="map-location"
       v-if="location != null && location != 'null' && location != ''"
@@ -48,7 +48,7 @@ export default {
             .splice(0, this.addressWordLimit)
             .join(' ')
             .replace(/,$/, '') +
-          ' <i class="fas fa-plus-square" style="font-size:16px;color:#636f6f"></i>'
+          ' <i class="fas fa-plus-square" style="font-size:14px;color:#636f6f"></i>'
         );
       } else {
         return splitAddress.splice(0, this.addressWordLimit).join(' ');

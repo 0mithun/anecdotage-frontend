@@ -284,7 +284,9 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+
+<!-- Currently Unused -->
+              <!-- <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="slide_image_path" class="control-label"
@@ -293,7 +295,9 @@
                     <input type="file" name="slide_image_path" id="slide_image_path" @change="handleSlideImagePath">
                   </div>
                 </div>
-              </div>
+              </div> -->
+
+
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -437,7 +441,7 @@ export default {
         anonymous: 0,
 
         slide_body: '',
-        slide_image_path: null,
+        // slide_image_path: null,
         slide_image_pos: '',
         slide_color_bg: '',
         slide_color_0: '',
@@ -501,10 +505,11 @@ export default {
           console.log(err);
         });
     },
-     handleSlideImagePath (event) {
-      const file = event.target.files[0]
-      this.form.slide_image_path = file
-    },
+    //Currently unused
+    //  handleSlideImagePath (event) {
+    //   const file = event.target.files[0]
+    //   this.form.slide_image_path = file
+    // },
   },
 };
 </script>

@@ -697,6 +697,11 @@ export default {
   font-size: 12px;
   text-align: center;
   width: 100%;
+
+  img.buy-btn {
+    height: 22px;
+    display: unset;
+  }
 }
 
 p {
