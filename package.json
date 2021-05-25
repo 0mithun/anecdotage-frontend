@@ -17,6 +17,7 @@
     "@nuxtjs/laravel-echo": "^1.1.0",
     "@nuxtjs/router": "^1.5.0",
     "at.js": "^1.5.4",
+    "babel-preset-vue-app": "^2.0.0",
     "better-vue-input-tag": "^1.1.0",
     "bootstrap": "^4.1.3",
     "bootstrap-vue": "^2.0.0",
