@@ -47,6 +47,10 @@ export default {
           content: this.settings.seo_meta_description,
           name: 'description',
         },
+        {
+          content: this.settings.seo_meta_keyword,
+          name: 'keywords',
+        },
       ],
     };
   },

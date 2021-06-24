@@ -366,7 +366,7 @@ export default {
           property: 'og:site_name',
         },
         {
-          content: this.thread.title,
+          content: this.stripTagTitle,
           property: 'og:title',
         },
         {
@@ -404,11 +404,11 @@ export default {
           name: 'twitter:url',
         },
         {
-          content: this.thread.title,
+          content: this.stripTagTitle,
           name: 'twitter:title',
         },
         {
-          content: this.thread.excerpt,
+          content: this.thread.seo_meta_description,
           name: 'twitter:description',
         },
         {
@@ -418,13 +418,17 @@ export default {
 
         //Meta Information
         {
-          content: this.thread.title,
+          content: this.stripTagTitle,
           name: 'title',
         },
         //Meta Information
         {
-          content: this.thread.excerpt,
+          content: this.thread.seo_meta_description,
           name: 'description',
+        },
+        {
+          content: this.thread.seo_meta_keyword + this.settings.seo_meta_keyword,
+          name: 'keywords',
         },
       ],
 

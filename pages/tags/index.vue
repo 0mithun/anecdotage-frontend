@@ -127,7 +127,35 @@ export default {
   },
   head() {
     return {
-      title: this.settings.site_title,
+      // title: this.settings.site_title,
+      title: 'Funny facts, jokes, stories, and anecdotes about TAG',
+      meta: [
+
+        {
+          content: this.settings.site_name,
+          property: 'og:site_name',
+        },
+        {
+          content: 'Funny facts, jokes, stories, and anecdotes about TAG',
+          property: 'og:title',
+        },
+
+
+        //Meta Information
+        {
+          content: 'Funny facts, jokes, stories, and anecdotes about TAG',
+          name: 'title',
+        },
+        //Meta Information
+        {
+          content: 'Funny facts, jokes, stories, and anecdotes about TAG' + ' ' + this.tag.name,
+          name: 'description',
+        },
+        {
+          content: this.tag.name + ',' + this.settings.seo_meta_keyword,
+          name: 'keywords',
+        },
+      ],
     };
   },
   computed: {

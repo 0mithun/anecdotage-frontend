@@ -88,6 +88,21 @@
           </div>
         </div>
         <div class="form-group row">
+          <label for="seo_meta_keyword" class="col-sm-4 col-form-label"
+            >Seo Meta Keyword</label
+          >
+          <div class="col-sm-8">
+            <textarea
+              cols="30"
+              rows="2"
+              class="form-control"
+              id="seo_meta_keyword"
+              placeholder="Seo Meta Keyword"
+              v-model="form.seo_meta_keyword"
+            ></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="social_facebook" class="col-sm-4 col-form-label"
             >Social Facebook</label
           >
@@ -194,6 +209,7 @@ export default {
         footer_copyright_text: '',
         seo_meta_title: '',
         seo_meta_description: '',
+        seo_meta_keyword: '',
         social_facebook: '',
         social_twitter: '',
         social_instagram: '',

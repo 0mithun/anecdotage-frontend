@@ -1,8 +1,8 @@
 {
-  "name": "designhouse-client",
+  "name": "Anecdotage.com",
   "version": "1.0.0",
-  "description": "DesignHouse client application",
-  "author": "Neba Funwi-gabga",
+  "description": "http://anecdotage.com/",
+  "author": "Mithun Halder",
   "private": true,
   "scripts": {
     "dev": "nuxt",
