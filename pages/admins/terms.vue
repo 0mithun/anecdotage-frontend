@@ -45,6 +45,7 @@ export default {
     async updateInfo() {
       try {
         const settings = await this.form.put(`admin/settings`, this.form);
+        this.$store.commit('SET_SETTINGS', settings.data)
         this.$toast.open({
           type: 'success',
           position: 'top-right',
