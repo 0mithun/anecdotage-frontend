@@ -446,6 +446,14 @@ export default {
       // <meta name=twitter:title content="{{ $thread->title }}" />
       // <meta name=twitter:description content="{{ $thread->excerpt }}" />
       // <meta name=twitter:image content="{{ $thread->threadImagePath }}" />
+       script: [
+          {
+            src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+            ssr: false ,
+            'data-ad-client':"ca-pub-4366805194029390",
+            async: true
+           }
+      ]
     };
   },
   data() {
