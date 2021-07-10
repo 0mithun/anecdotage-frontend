@@ -17,12 +17,15 @@ export default {
     SiteNavigation,
     SiteFooter,
   },
-  head() {
+  head(){
     return {
-      link: [
-        { rel: 'icon', type: 'image/png', href: this.settings.favicon_path },
-      ],
-    };
+      link: [{
+          hid: 'icon',
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: this.settings.favicon_path
+      }]
+    }
   },
   computed: {
     settings() {

@@ -58,6 +58,111 @@
       </div>
     </form>
 
+    <form @submit.prevent="removeBodyTag">
+      <div class="form-group row">
+        <label for="old_tag_name" class="col-sm-4 col-form-label"
+          >Remove tag: If body has string</label
+        >
+        <div class="col-sm-3">
+          <base-input
+            :form="remove_tag_body"
+            size="form-control-sm"
+            field="body"
+            inputType="text"
+            v-model="remove_tag_body.body"
+            id="body"
+            placeholder="Enter body text"
+          ></base-input>
+        </div>
+        <div class="col-sm-3">
+          <base-input
+            :form="remove_tag_body"
+            size="form-control-sm"
+            field="tag"
+            inputType="text"
+            v-model="remove_tag_body.tag"
+            id="tag"
+            placeholder="Enter remove tag text"
+          ></base-input>
+        </div>
+        <div class="col-sm-2">
+          <base-button :loading="remove_tag_body.busy" size="sm" type="danger">
+            Remove Tag
+          </base-button>
+        </div>
+      </div>
+    </form>
+    <form @submit.prevent="removeTagTag">
+      <div class="form-group row">
+        <label for="find_tag" class="col-sm-4 col-form-label"
+          >Remove tag: If thread has tag</label
+        >
+        <div class="col-sm-3">
+          <base-input
+            :form="remove_tag_tag"
+            size="form-control-sm"
+            field="find_tag"
+            inputType="text"
+            v-model="remove_tag_tag.find_tag"
+            id="find_tag"
+            placeholder="Enter find tag text"
+          ></base-input>
+        </div>
+        <div class="col-sm-3">
+          <base-input
+            :form="remove_tag_tag"
+            size="form-control-sm"
+            field="remove_tag"
+            inputType="text"
+            v-model="remove_tag_tag.remove_tag"
+            id="remove_tag"
+            placeholder="Enter remove tag text"
+          ></base-input>
+        </div>
+        <div class="col-sm-2">
+          <base-button :loading="remove_tag_tag.busy" size="sm" type="danger">
+            Remove Tag
+          </base-button>
+        </div>
+      </div>
+    </form>
+
+
+    <form @submit.prevent="changeChannelName">
+      <div class="form-group row">
+        <label for="find_tag" class="col-sm-4 col-form-label"
+          >Change Channel ID</label
+        >
+        <div class="col-sm-3">
+          <base-input
+            :form="change_channel"
+            size="form-control-sm"
+            field="tag"
+            inputType="text"
+            v-model="change_channel.tag"
+            id="tag"
+            placeholder="Enter tag name"
+          ></base-input>
+        </div>
+        <div class="col-sm-3">
+          <base-input
+            :form="change_channel"
+            size="form-control-sm"
+            field="channel"
+            inputType="text"
+            v-model="change_channel.channel"
+            id="channel"
+            placeholder="Enter channel name"
+          ></base-input>
+        </div>
+        <div class="col-sm-2">
+          <base-button :loading="change_channel.busy" size="sm" type="dark">
+            Change Channel
+          </base-button>
+        </div>
+      </div>
+    </form>
+
   </div>
 </template>
 
@@ -71,6 +176,18 @@ export default {
       }),
        delete_tag: this.$vform({
         delete_tag_name: '',
+      }),
+       remove_tag_body: this.$vform({
+        body: '',
+        tag: '',
+      }),
+       remove_tag_tag: this.$vform({
+        find_tag: '',
+        remove_tag: '',
+      }),
+      change_channel: this.$vform({
+        tag: '',
+        channel: '',
       }),
 
     };
@@ -99,7 +216,45 @@ export default {
         });
       } catch (e) {}
     },
+    async removeBodyTag(){
+      try {
+       const res = await this.remove_tag_body.post(`admin/batch-tool/tag/remove-body-tag`,);
+       console.log(res)
+         this.remove_tag_body.body = '';
+         this.remove_tag_body.tag = '';
+        this.$toast.open({
+          type: 'success',
+          position: 'top-right',
+          message: 'Tag remove Successfully',
+        });
+      } catch (e) {}
+    },
 
+    async removeTagTag(){
+      try {
+       await this.remove_tag_tag.post(`admin/batch-tool/tag/remove-tag-tag`,);
+         this.delete_tag.find_tag = '';
+         this.delete_tag.remove_tag = '';
+        this.$toast.open({
+          type: 'success',
+          position: 'top-right',
+          message: 'Tag remove Successfully',
+        });
+      } catch (e) {}
+    },
+
+    async changeChannelName(){
+      try {
+       await this.change_channel.post(`admin/batch-tool/tag/change-channel`,);
+         this.change_channel.tag = '';
+         this.change_channel.channel = '';
+        this.$toast.open({
+          type: 'success',
+          position: 'top-right',
+          message: 'Chnnel Change Successfully',
+        });
+      } catch (e) {}
+    },
 
   },
 };

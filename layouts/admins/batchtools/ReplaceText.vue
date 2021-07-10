@@ -3,7 +3,7 @@
     <form @submit.prevent="threadSearchReplaceTitle">
       <div class="form-group row">
         <label for="replace_title_old" class="col-sm-4 col-form-label"
-          >Thread body search & replace: every thread, in body replace</label
+          >Thread title search & replace: every thread, in body replace</label
         >
         <div class="col-sm-3">
           <base-input
