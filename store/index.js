@@ -25,7 +25,7 @@ export const mutations = {
     state.trendings = data;
   },
   SET_SETTINGS: (state, data)=> {
-    state.settings = data;
+    state.settings = {...data};
   }
 }
 
