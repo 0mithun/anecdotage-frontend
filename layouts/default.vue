@@ -19,6 +19,9 @@ export default {
   },
   head(){
     return {
+      htmlAttrs: {
+      lang: 'en'
+    },
       link: [{
           hid: 'icon',
           rel: 'icon',

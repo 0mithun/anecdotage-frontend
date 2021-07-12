@@ -17,7 +17,7 @@
               title=""
               v-lazy-load
               :data-src="thread.thread_image_path"
-              :alt="thread.title"
+              :alt="stripTagTitle"
               class="thread-image thread_thumb_image"
               heigh="120"
               width="auto"
@@ -56,6 +56,10 @@
       threadThumbStyle() {
         return `background: rgba(${this.thread.image_path_pixel_color});cursor:pointer;`;
       },
+      stripTagTitle() {
+        return this.thread.title.replace(/(<([^>]+)>)/gi, '');
+      },
+
     },
     methods:{
       openThreadUrl(){

@@ -3,6 +3,7 @@
     :href="threadUrl"
     target="_blank"
     class="btn btn-xs twitter-share-btn"
+    rel="noreferrer"
     @click.prevent="share"
   >
     <i class="fab fa-twitter" aria-hidden="true" @click.prevent="share"></i>
@@ -83,6 +84,7 @@ export default {
   /* padding: 5px; */
   color: white;
   background-color: #12cad6;
+  background-color: #55acee;
   padding: 2px 5px;
   font-size: 12px;
   line-height: 18px;

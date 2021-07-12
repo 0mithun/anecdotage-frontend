@@ -5,7 +5,7 @@
     >
       <div class="container">
         <nuxt-link :to="{ name: 'index' }" class="navbar-brand">
-          <img :src="settings.logo_path" height="32" alt="" />
+          <img :src="settings.logo_path" height="32" alt="Logo" width="auto" />
         </nuxt-link>
         <button
           class="navbar-toggler"

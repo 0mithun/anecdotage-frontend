@@ -5,6 +5,7 @@
       @click="toggleDislike"
       :class="activeClass"
       :style="style"
+      aria-label="Make down vote"
     >
       <i class="fa fa-arrow-down"></i>
     </button>

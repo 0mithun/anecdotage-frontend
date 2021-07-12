@@ -22,19 +22,23 @@ export default {
     script: [
       {
         src:
-          'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js'
+          'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js',
+          defer: true
       },
       {
         src:
-          'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js'
+          'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js',
+          defer: true
       },
       {
         src:
-          'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js'
+          'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js',
+          defer: true
       },
       {
         src:
-          'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js'
+          'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
+          defer: true
       }
 
     ]

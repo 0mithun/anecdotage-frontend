@@ -5,7 +5,7 @@
     data-placement="bottom"
     :title="address"
   >
-    <img :src="mapIcon" alt style="height:16px" />
+    <img :src="mapIcon" alt style="height:16px" height="16" width="auto" />
     <span
       class="map-location"
       v-if="location != null && location != 'null' && location != ''"

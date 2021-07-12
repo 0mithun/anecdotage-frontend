@@ -10,20 +10,21 @@
           <img
             class="follow-item-icon"
             src="~assets/images/social/facebook.png"
-            alt=""
+            alt="Anecdotage.com facebook page"
           />
         </a>
         <a :href="settings.social_twitter" class="follow-item" target="_blank">
           <img
             class="follow-item-icon"
             src="~assets/images/social/twitter.png"
-            alt=""
+            alt="Anecdotage.com twitter page"
           />
         </a>
         <a
           :href="settings.social_instagram"
           class="follow-item"
           target="_blank"
+          alt="Anecdotage.com instagram page"
         >
           <img
             class="follow-item-icon"

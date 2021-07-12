@@ -4,6 +4,7 @@
       class="btn thread-items-show-tools-btn focus-comment-btn"
       @click.prevent="goToComment"
       :style="style"
+      aria-label="Go to comments"
     >
       <i class="fa fa-comment"></i>
     </a>

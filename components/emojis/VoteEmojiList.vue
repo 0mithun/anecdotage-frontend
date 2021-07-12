@@ -14,6 +14,7 @@
       v-for="(emoji, index) in emojis"
       :key="index"
       :class="btnClass"
+      aria-label="Vote emoji"
     ></button>
   </div>
 </template>

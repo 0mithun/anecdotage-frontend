@@ -5,6 +5,7 @@
       @click="toggleLike"
       :class="activeClass"
       :style="style"
+      aria-label="Make up vote"
     >
       <i class="fa fa-arrow-up"></i>
     </button>

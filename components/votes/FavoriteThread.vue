@@ -5,6 +5,7 @@
       @click.prevent="toggle"
       :class="classes"
       :style="style"
+      aria-label="Make Favorite"
     >
       <i class="fa fa-star"></i>
     </button>

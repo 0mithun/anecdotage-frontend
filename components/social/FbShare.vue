@@ -3,6 +3,7 @@
     :href="threadUrl"
     target="_blank"
     class="btn btn-xs facebook-share-btn"
+    rel="noreferrer"
     @click.prevent="share"
   >
     <i class="fab fa-facebook-square" aria-hidden="true"></i> Share

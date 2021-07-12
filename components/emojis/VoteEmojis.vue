@@ -5,6 +5,7 @@
       :style="emojiStyle"
       :class="activeClass"
       @mouseenter="showEmojiList"
+      aria-label="Vote emoji"
     ></button>
   </div>
 </template>

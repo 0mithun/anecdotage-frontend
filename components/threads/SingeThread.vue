@@ -87,7 +87,7 @@
 
             <img  title="" v-lazy-load
               :data-src="thread.thread_image_path"
-              :alt="thread.title"
+              :alt="stripTagTitle"
               class="thread-image thread_thumb_image"
               heigh="240"
               width="auto"
@@ -243,6 +243,10 @@ export default {
   computed: {
     threadThumbStyle() {
       return `background: rgba(${this.thread.image_path_pixel_color});cursor:pointer;`;
+    },
+
+    stripTagTitle() {
+      return this.thread.title.replace(/(<([^>]+)>)/gi, '');
     },
 
     signedIn() {
@@ -430,6 +434,7 @@ export default {
 .tags {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .modal-title {
