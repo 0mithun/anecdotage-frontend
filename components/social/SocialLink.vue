@@ -24,12 +24,23 @@
           :href="settings.social_instagram"
           class="follow-item"
           target="_blank"
-          alt="Anecdotage.com instagram page"
+
         >
           <img
             class="follow-item-icon"
             src="~assets/images/social/instagram.png"
-            alt=""
+            alt="Anecdotage.com instagram page"
+          />
+        </a>
+        <a
+          :href="settings.social_patreon"
+          class="follow-item"
+          target="_blank"
+        >
+          <img
+            class="follow-item-icon"
+            src="~assets/images/social/patreon.png"
+            alt="Anecdotage.com patreon page"
           />
         </a>
       </div>

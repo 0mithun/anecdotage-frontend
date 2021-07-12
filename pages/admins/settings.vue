@@ -159,6 +159,20 @@
           </div>
         </div>
         <div class="form-group row">
+          <label for="social_patreon" class="col-sm-4 col-form-label"
+            >Social Patreon</label
+          >
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control"
+              id="social_patreon"
+              placeholder="Social Patreon"
+              v-model="form.social_patreon"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="google_analytics" class="col-sm-4 col-form-label"
             >Google Analytics</label
           >
@@ -214,6 +228,7 @@ export default {
         social_twitter: '',
         social_instagram: '',
         social_linkedin: '',
+        social_patreon: '',
         google_analytics: '',
         facebook_pixels: '',
       }),
