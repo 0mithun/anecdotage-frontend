@@ -90,7 +90,11 @@ export default {
     '@nuxtjs/auth',
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/sitemap'
+    ['nuxt-lazy-load', {
+      // Your options
+      defaultImage: '/lazy.gif'
+    }],
+    '@nuxtjs/sitemap',
   ],
 
   sitemap: {

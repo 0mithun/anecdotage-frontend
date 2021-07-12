@@ -6,7 +6,16 @@
           <div class="card-body">
             <div class="row profile-header">
               <div class="profile-avatar">
-                <img :src="tag.photo_url" alt class="profile-img" />
+                <!-- <img :src="tag.photo_url" alt class="profile-img" /> -->
+                <img
+                  title=""
+                  v-lazy-load
+                  :data-src="tag.photo_url"
+                  :alt="tag.name"
+                  class="profile-img"
+                  heigh="120"
+                  width="120"
+                >
                 <div
                   style="text-align:center;overflow"
                   @click="showDescription = !showDescription"

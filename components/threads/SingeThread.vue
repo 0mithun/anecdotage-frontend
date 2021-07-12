@@ -79,11 +79,20 @@
           <nuxt-link
             :to="{ name: 'threads.show', params: { slug: thread.slug } }"
           >
-            <img
+            <!-- <img
               :src="thread.thread_image_path"
               :alt="thread.title"
               class="thread-image thread_thumb_image"
-            />
+            /> -->
+
+            <img  title="" v-lazy-load
+              :data-src="thread.thread_image_path"
+              :alt="thread.title"
+              class="thread-image thread_thumb_image"
+              heigh="240"
+              width="auto"
+            >
+
           </nuxt-link>
         </div>
       </div>
@@ -413,7 +422,7 @@ export default {
 
 
 .thread-image {
-  display: inline-block;
+  // display: inline-block;
   max-height: 240px;
   min-height: 240px;
 }

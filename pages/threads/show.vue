@@ -138,11 +138,19 @@
 
                 <div class="row card-m-5">
                   <div class="thread-thumbnail" :style="threadThumbStyle">
-                    <img
+                    <!-- <img
                       :src="thread.thread_image_path"
                       :alt="thread.title"
                       class="thread-image thread_thumb_image"
-                    />
+                    /> -->
+                      <img  title="" v-lazy-load
+                        :data-src="thread.thread_image_path"
+                        :alt="thread.title"
+                        class="thread-image thread_thumb_image"
+                        heigh="240"
+                        width="auto"
+                      >
+
                   </div>
                   <template
                     v-if="
