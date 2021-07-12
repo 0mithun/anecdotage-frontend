@@ -59,7 +59,8 @@ export default {
             'data-ad-client':"ca-pub-4366805194029390",
             async: true
            }
-      ]
+      ],
+      link: this.generateLink
     };
   },
   computed: {
@@ -72,6 +73,23 @@ export default {
     pageinateData() {
       return this.$store.state.threads.pageinateData;
     },
+    generateLink(){
+      const links = [];
+      if(this.pageinateData.last_page > this.pageinateData.current_page){
+        links.push({
+          rel:'next',
+          href: `?page=${this.pageinateData.current_page + 1}`
+        })
+      }
+      if(this.pageinateData.current_page > 1){
+        links.push({
+          rel:'prev',
+          href: `?page=${this.pageinateData.current_page - 1}`
+        })
+      }
+
+      return links;
+    }
   },
 
   watchQuery: true,

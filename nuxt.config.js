@@ -1,4 +1,7 @@
 require('dotenv').config();
+
+const axios =  require('axios')
+
 export default {
   mode: 'universal',
   /*
@@ -87,8 +90,48 @@ export default {
     '@nuxtjs/auth',
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-
+    '@nuxtjs/sitemap'
   ],
+
+  sitemap: {
+    // hostname: 'https://example.com',
+    gzip: true,
+    exclude: [
+      '/admin/**'
+    ],
+    routes: async ()=>{
+     let staticRoutes = [
+        '/',
+        '/faq',
+        '/tos',
+        '/privacy',
+        '/contact',
+        '/login',
+        '/register',
+        '/anecdotes/maps',
+        // '/anecdotes/search',
+        // '/anecdotes/messanger',
+        '/anecdotes/rated',
+        '/anecdotes/trending',
+        '/anecdotes/viewed',
+        '/anecdotes/recent',
+        '/anecdotes/closest',
+        '/anecdotes/video',
+      ];
+
+      let {data}  = await axios.get(`${process.env.API_URL}/threads`);
+      const threadRoutes = data.data.map(item=> `/anecdotes/${item.slug}`)
+
+      let tags  = await axios.get(`${process.env.API_URL}/tags`);
+      const tagsRoutes = tags.data.map(item=> `/tags/${item}`)
+
+      console.log(tagsRoutes)
+
+      // console.log(data.data)
+      // return response.data
+      return [...staticRoutes, ...threadRoutes, ...tagsRoutes];
+    }
+  },
 
   auth: {
     strategies: {

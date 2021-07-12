@@ -2,23 +2,14 @@
   <nav>
     <ul class="pagination" v-if="show">
       <li :class="{ disabled: !prev }" class="page-item">
-        <!-- <nuxt-link
-          :to="{
-            name: routeName,
-            params: { 'param.key': 'param.value' },
-            query: { page: 1, ...q },
-          }"
-          class="page-link"
-        >
-          <span>&laquo;</span>
-        </nuxt-link> -->
 
-        <a @click.prevent="goToPage(1)" class="page-link" href="#">
+        <a @click.prevent="goToPage(1)" class="page-link" :href="`?page=1`">
           <span>
             <span>&laquo;</span>
           </span>
         </a>
       </li>
+
       <li
         v-for="(link, index) in links"
         :key="index"
@@ -27,42 +18,25 @@
           disabled: isNaN(link),
         }"
         class="page-item"
-      >
-        <!-- <nuxt-link
-          :to="{
-            name: routeName,
-            params: { 'param.key': 'param.value' },
-            query: { page: link, ...q },
-          }"
-          class="page-link"
-        >
-          <span>
-            <span>{{ link }}</span>
-          </span>
-        </nuxt-link> -->
 
-        <a @click.prevent="goToPage(link)" class="page-link" href="#">
+
+      >
+        <a
+          @click.prevent="goToPage(link)"
+          class="page-link"
+          :rel="getRelation(link)"
+          :href="`?page=${link}`"
+        >
           <span>
             <span>{{ link }}</span>
           </span>
         </a>
       </li>
       <li :class="{ disabled: !next }" class="page-item">
-        <!-- <nuxt-link
-          :to="{
-            name: routeName,
-            params: { 'param.key': 'param.value' },
-            query: { page: next, ...q },
-          }"
-          class="page-link"
-        >
-          <span aria-hidden="true">&raquo;</span>
-        </nuxt-link> -->
-
         <a
           @click.prevent="goToPage(pagination.last_page)"
           class="page-link"
-          href="#"
+          :href="`?page=${pagination.last_page}`"
         >
           <span>
             <span>&raquo;</span>
@@ -156,6 +130,19 @@ export default {
     },
   },
   methods: {
+    getRelation(link){
+      if((this.pagination.current_page - 1) == link){
+        return 'next'
+      }
+      else if((this.pagination.current_page  + 1 ) == link){
+        return 'prev'
+      }
+      else if(this.pagination.current_page == link){
+        return 'canonical'
+      }else {
+        return false;
+      }
+    },
     range(start, end) {
       let pages = [];
 
