@@ -98,8 +98,11 @@ export default {
       // Your options
       defaultImage: '/lazy.gif'
     }],
+    '@nuxtjs/google-analytics',
     '@nuxtjs/sitemap',
   ],
+
+
 
   sitemap: {
     // hostname: 'https://example.com',
@@ -138,6 +141,12 @@ export default {
       // console.log(data.data)
       // return response.data
       return [...staticRoutes, ...threadRoutes, ...tagsRoutes];
+    }
+  },
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
+    autoTracking: {
+      screenview: true
     }
   },
 
