@@ -36,6 +36,16 @@ export default {
 
   loading: { color: '#007bff', height:'5px' },
   css: ['@/assets/scss/main.scss'],
+  serverMiddleware:[
+    '~/serverMiddleware/headers.js'
+  ],
+  render: {
+    // Setting up cache for 'static' directory - a year in milliseconds
+    // https://web.dev/uses-long-cache-ttl
+    static: {
+      maxAge: 60 * 60 * 24 * 365 * 1000,
+    },
+  },
 
   plugins: [
     '~plugins/vform',

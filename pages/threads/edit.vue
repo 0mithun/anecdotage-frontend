@@ -413,10 +413,11 @@ import { mapGetters } from 'vuex';
 import {serialize} from 'object-to-formdata'
 import scrollToTop from '@/mixins/scrollToTop'
 import userStatus from '@/mixins/userStatus'
+import createEditThread from '@/mixins/createEditThread'
 
 export default {
   components: { VueCkeditor },
-   mixins: [scrollToTop,userStatus],
+   mixins: [scrollToTop,userStatus,createEditThread],
   computed: {
      ...mapGetters({
       settings: 'settings',
