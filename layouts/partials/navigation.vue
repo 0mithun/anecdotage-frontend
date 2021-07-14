@@ -139,9 +139,9 @@
                 src="~assets/images/map_marker.png"
                 alt=""
                 class="navbar-icon marker"
-                width="100%"
+                width="17%"
                 height="24"
-                style="width:auto; height:24px"
+                style="width:17px; height:24px"
               />
             </nuxt-link>
             <nuxt-link
@@ -153,9 +153,9 @@
                 src="~assets/images/pen_with.png"
                 alt=""
                 class="navbar-icon pen"
-               width="100%"
+                 width="17%"
                 height="24"
-                style="width:auto; height:24px"
+                style="width:17px; height:24px"
               />
             </nuxt-link>
           </div>

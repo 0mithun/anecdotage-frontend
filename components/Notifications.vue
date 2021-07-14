@@ -154,11 +154,8 @@ export default {
       notifications: [],
     };
   },
-
-  created() {
-    this.fetchNotifications();
-  },
   mounted() {
+    this.fetchNotifications();
     this.$echo
       .private(`App.Models.User.${this.$auth.user.id}`)
       .notification((notification) => {

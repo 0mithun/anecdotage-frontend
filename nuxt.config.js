@@ -22,12 +22,12 @@ export default {
     script: [
       {
         src:
-          'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js',
+          'https://code.jquery.com/jquery-3.5.1.slim.min.js',
           defer: true
       },
       {
         src:
-          'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js',
+          'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js',
           defer: true
       },
     ]
@@ -88,6 +88,17 @@ export default {
       defaultImage: '/lazy.gif',
       directiveOnly: true
     }],
+    [
+      'nuxt-compress',
+      {
+        gzip: {
+          threshold: 8192,
+        },
+        brotli: {
+          threshold: 8192,
+        },
+      },
+    ],
     '@nuxtjs/google-analytics',
     '@nuxtjs/sitemap',
   ],
