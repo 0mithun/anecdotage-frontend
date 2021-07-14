@@ -1,9 +1,5 @@
 <template>
   <ul style="margin: 0px; padding: 0px">
-    <!-- <li  v-if="friendMessages.messages">
-                                        <div class="alert alert-danger" role="alert" >No Message...</div>
-                                    </li> -->
-
     <li
       class="clearfix message-list"
       v-for="(friendMessage, index) in friendMessages"
@@ -18,9 +14,6 @@
           <span class="message-data-time">{{ friendMessage.created_at  | fromNow}}</span>
           &nbsp; &nbsp;
           <span class="message-data-name">{{ $auth.user.name }}</span>
-
-          <!-- <i class="fa fa-circle me"></i> -->
-
           <img
             :src="$auth.user.photo_url"
             alt=""
@@ -58,7 +51,7 @@
             v-if="friendMessage.parent != null"
           >
             <span class="reply-message-user">
-              <i class="fa fa-share"></i>
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="share" class="svg-inline--fa fa-share fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M503.691 189.836L327.687 37.851C312.281 24.546 288 35.347 288 56.015v80.053C127.371 137.907 0 170.1 0 322.326c0 61.441 39.581 122.309 83.333 154.132 13.653 9.931 33.111-2.533 28.077-18.631C66.066 312.814 132.917 274.316 288 272.085V360c0 20.7 24.3 31.453 39.687 18.164l176.004-152c11.071-9.562 11.086-26.753 0-36.328z"></path></svg>
               You replied to
               <strong>{{ selectedUser.name }}</strong> <br />
             </span>
@@ -83,7 +76,6 @@
               style="width: 40px; border-radius: 50%; height: 40px; margin-right:5px"
             />
             <span class="message-data-name">
-              <!-- <i class="fa fa-circle online"></i> -->
               <!-- <user-online
                 :user="selectedUser"
                 type="message"
@@ -105,7 +97,7 @@
               v-if="friendMessage.parent !=null"
             >
               <span class="reply-message-user">
-                <i class="fa fa-share"></i>
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="share" class="svg-inline--fa fa-share fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M503.691 189.836L327.687 37.851C312.281 24.546 288 35.347 288 56.015v80.053C127.371 137.907 0 170.1 0 322.326c0 61.441 39.581 122.309 83.333 154.132 13.653 9.931 33.111-2.533 28.077-18.631C66.066 312.814 132.917 274.316 288 272.085V360c0 20.7 24.3 31.453 39.687 18.164l176.004-152c11.071-9.562 11.086-26.753 0-36.328z"></path></svg>
                 <strong>{{ selectedUser.name }}</strong>
                 replied to you <br />
               </span>
