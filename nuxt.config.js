@@ -35,12 +35,6 @@ export default {
           'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js',
           defer: true
       },
-      {
-        src:
-          'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
-          defer: true
-      }
-
     ]
   },
 
@@ -96,7 +90,8 @@ export default {
     '@nuxtjs/dotenv',
     ['nuxt-lazy-load', {
       // Your options
-      defaultImage: '/lazy.gif'
+      defaultImage: '/lazy.gif',
+      directiveOnly: true
     }],
     '@nuxtjs/google-analytics',
     '@nuxtjs/sitemap',
@@ -135,8 +130,6 @@ export default {
 
       let tags  = await axios.get(`${process.env.API_URL}/tags`);
       const tagsRoutes = tags.data.map(item=> `/tags/${item}`)
-
-      console.log(tagsRoutes)
 
       // console.log(data.data)
       // return response.data
@@ -195,6 +188,7 @@ export default {
         collapseWhitespace: true,
         removeComments: true
       }
-    }
+    },
+
   }
 };

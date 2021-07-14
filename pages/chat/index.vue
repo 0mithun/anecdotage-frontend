@@ -134,8 +134,9 @@
 import { mapGetters, mapActions } from 'vuex';
 import UserOnline from '@/components/chat/UserOnline';
 import Message from '@/components/chat/Message';
-
+import scrollToTop from '@/mixins/scrollToTop'
 export default {
+  mixins: [scrollToTop],
   components: {
     UserOnline,
     Message,

@@ -91,6 +91,7 @@
               class="thread-image thread_thumb_image"
               heigh="240"
               width="auto"
+              style="width:auto;height:240px"
             >
 
           </nuxt-link>

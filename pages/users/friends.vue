@@ -262,6 +262,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import isOwnProfile from '@/mixins/isOwnProfile'
+import userStatus from '@/mixins/userStatus'
 
 export default {
   data() {
@@ -269,6 +271,7 @@ export default {
       searchItem: '',
     };
   },
+    mixins: [isOwnProfile, userStatus],
   head() {
     return {
       title: this.settings.site_title,
@@ -289,28 +292,6 @@ export default {
       followings: 'friends/followings',
     }),
 
-    is_owner() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.id == this.profile_user.id;
-      }
-
-      return false;
-    },
-    isBan() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_banned;
-      }
-      return false;
-    },
-    signedIn() {
-      return this.$auth.loggedIn;
-    },
-    isAdmin() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_admin;
-      }
-      return false;
-    },
     isShowProfile() {
       return true;
     },

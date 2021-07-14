@@ -25,8 +25,10 @@ import SingleThread from '@/components/threads/SingeThread';
 import Sidebar from '@/layouts/partials/Sidebar';
 import Pagination from '@/components/Pagination';
 import { mapGetters } from 'vuex';
+import scrollToTop from '@/mixins/scrollToTop'
 export default {
   name: 'thread-viewed',
+  mixins:[scrollToTop],
   components: {
     SingleThread,
     Sidebar,

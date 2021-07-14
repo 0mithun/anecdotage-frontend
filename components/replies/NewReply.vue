@@ -71,9 +71,6 @@ export default {
     };
   },
   computed: {
-    redirectToLogin() {
-      return '/redirect-to?page=' + location.pathname;
-    },
     thread() {
       return this.$store.state.threads.thread;
     },

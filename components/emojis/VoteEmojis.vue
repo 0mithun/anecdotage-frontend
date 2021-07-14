@@ -19,9 +19,6 @@ export default {
     };
   },
   computed: {
-    signedIn() {
-      // return window.App.user ? true : false;
-    },
     emojiStyle() {
       return {
         backgroundImage:

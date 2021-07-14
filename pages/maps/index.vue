@@ -15,20 +15,18 @@ import ThreadMap from '@/components/gmap/ThreadMap';
 import MapResults from '@/components/gmap/MapResults';
 import PlaceSearch from '@/components/gmap/PlaceSearch';
 import { mapGetters } from 'vuex';
+import scrollToTop from '@/mixins/scrollToTop'
 export default {
   components: {
     ThreadMap,
     MapResults,
     PlaceSearch,
   },
+  mixins: [scrollToTop],
   head() {
     return {
       title: this.settings.site_title,
     };
-  },
-  mounted() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
   },
   computed: {
     ...mapGetters({

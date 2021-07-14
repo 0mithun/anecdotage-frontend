@@ -77,8 +77,10 @@
 <script>
 import Slim from '@/components/slim/slim.vue';
 import { mapGetters } from 'vuex';
+import scrollToTop from '@/mixins/scrollToTop'
 export default {
   middleware: ['auth'],
+  mixins:[scrollToTop],
   components: {
     'slim-cropper': Slim,
   },

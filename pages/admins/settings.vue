@@ -213,7 +213,9 @@
 </template>
 
 <script>
+import updateSettings from '@/mixins/admin/updateSettings'
 export default {
+  mixins: [updateSettings],
   data() {
     return {
       form: this.$vform({
@@ -232,39 +234,9 @@ export default {
         google_analytics: '',
         facebook_pixels: '',
       }),
+      message: 'Settings Update Successfully',
+      ckEditor: true
     };
-  },
-  head() {
-    return {
-      title: this.settings.site_title,
-    };
-  },
-  computed: {
-    settings() {
-      return this.$store.getters.settings;
-    },
-  },
-  methods: {
-    async updateInfo() {
-      try {
-        const settings = await this.form.put(`admin/settings`, this.form);
-
-        this.$store.commit('SET_SETTINGS', settings.data)
-        this.$toast.open({
-          type: 'success',
-          position: 'top-right',
-          message: 'Settings Update Successfully',
-        });
-        console.log(settings);
-      } catch (e) {}
-    },
-  },
-  mounted() {
-    Object.keys(this.form).forEach((k) => {
-      if (this.settings.hasOwnProperty(k)) {
-        this.form[k] = this.settings[k];
-      }
-    });
   },
 };
 </script>

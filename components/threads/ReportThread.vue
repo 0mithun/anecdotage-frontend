@@ -165,17 +165,6 @@ export default {
             message: res.message,
           });
         });
-      // axios
-      //   .post("/report/thread", {
-      //     id: this.thread.id,
-      //     reason: this.reason,
-      //     report_type: this.report_type,
-      //   })
-      //   .then((res) => {
-      //      this.showModal = false;
-      //     this.showPopup = true;
-
-      //   });
     },
     review() {
       if (!this.signedIn) {

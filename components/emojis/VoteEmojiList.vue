@@ -30,9 +30,6 @@ export default {
   },
 
   computed: {
-    signedIn() {
-      // return window.App.user ? true : false;
-    },
     btnClass() {
       return this.size == "small" ? "small-emoji" : "big-emoji";
     },

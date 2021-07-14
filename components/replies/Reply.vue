@@ -42,12 +42,6 @@
           >
             Reply
           </button>
-          <!-- <a
-            :href="redirectToLogin"
-            class="btn btn-link add-nested-reply-btn"
-
-            >Reply</a
-          > -->
 
           <div class="edit-reply" v-if="editing">
             <div>
@@ -142,11 +136,12 @@
 // import "at.js";
 
 import moment from 'moment';
+import userStatus from '@/mixins/userStatus'
 
 export default {
   props: ["reply"],
   name: 'reply',
-
+  mixins: [userStatus],
   components: {
     NestedReplies: () => import("./NestedReplies"),
   },
@@ -185,28 +180,13 @@ export default {
         // '2018-11-20'
       );
     },
-     owns () {
+    owns () {
       if(this.signedIn){
           return this.$store.state.auth.user.id == this.reply.owner.id;
       }
 
       return false;
     },
-    isBan(){
-      if(this.signedIn){
-        return this.$store.state.auth.user.is_banned;
-      }
-      return false;
-    },
-    signedIn(){
-      return this.$auth.loggedIn;
-    },
-    isAdmin () {
-        if(this.signedIn){
-          return this.$store.state.auth.user.is_admin;
-        }
-        return false;
-    }
   },
 
 

@@ -18,44 +18,17 @@
 </template>
 
 <script>
-import VueCkeditor from 'vue-ckeditor2';
+import updateSettings from '@/mixins/admin/updateSettings'
 export default {
+  mixins: [updateSettings],
   data() {
     return {
-      config: {
-        height: 300,
-      },
       form: this.$vform({
         privacypolicy: '',
       }),
+      message: 'Privacy Policy Update Successfully',
+      ckEditor: true
     };
-  },
-  components: { VueCkeditor },
-  head() {
-    return {
-      title: this.settings.site_title,
-    };
-  },
-  computed: {
-    settings() {
-      return this.$store.getters.settings;
-    },
-  },
-  methods: {
-    async updateInfo() {
-      try {
-        const settings = await this.form.put(`admin/settings`, this.form);
-        this.$store.commit('SET_SETTINGS', settings.data)
-        this.$toast.open({
-          type: 'success',
-          position: 'top-right',
-          message: 'Privacy Policy Update Successfully',
-        });
-      } catch (e) {}
-    },
-  },
-  mounted() {
-    this.form.privacypolicy = this.settings.privacypolicy;
   },
 };
 </script>

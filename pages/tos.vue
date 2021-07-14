@@ -15,7 +15,7 @@
 
 <script>
 import Sidebar from '@/layouts/partials/Sidebar';
-
+import scrollToTop from '@/mixins/scrollToTop'
 import { mapGetters } from 'vuex';
 
 export default {
@@ -23,15 +23,13 @@ export default {
   components: {
     Sidebar,
   },
+  mixins: [scrollToTop],
   head() {
     return {
       title: this.settings.site_title,
     };
   },
-  mounted() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
-  },
+
   computed: {
     ...mapGetters({
       settings: 'settings',

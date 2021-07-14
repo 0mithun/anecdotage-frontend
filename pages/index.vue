@@ -26,6 +26,8 @@ import SingleThread from '@/components/threads/SingeThread';
 import Sidebar from '@/layouts/partials/Sidebar';
 import Pagination from '@/components/Pagination';
 import { mapGetters } from 'vuex';
+import scrollToTop from '@/mixins/scrollToTop'
+import getSettings from '@/mixins/getSettings'
 export default {
   name: 'index',
   components: {
@@ -33,6 +35,7 @@ export default {
     Sidebar,
     Pagination,
   },
+   mixins: [scrollToTop,getSettings],
   head() {
     return {
       title: this.settings.site_title,
@@ -57,7 +60,7 @@ export default {
             src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
             ssr: false ,
             'data-ad-client':"ca-pub-4366805194029390",
-            async: true
+            defer: true
            }
       ],
       link: this.generateLink
@@ -65,14 +68,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      settings: 'settings',
+      // settings: 'settings',
+      pageinateData: 'threads/pageinateData',
+      threads: 'threads/threads',
     }),
-    threads() {
-      return this.$store.state.threads.threads;
-    },
-    pageinateData() {
-      return this.$store.state.threads.pageinateData;
-    },
+
+    // pageinateData() {
+    //   // return this.$store.state.threads.pageinateData;
+
+    // },
     generateLink(){
       const links = [];
       if(this.pageinateData.last_page > this.pageinateData.current_page){

@@ -7,6 +7,15 @@ export const state = () => ({
 })
 
 export const getters = {
+  pageinateData(state){
+    return state.pageinateData
+  },
+  threads(state){
+    return state.threads;
+  },
+  thread(state){
+    return state.thread;
+  },
 }
 
 export const mutations = {

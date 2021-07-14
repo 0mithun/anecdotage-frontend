@@ -70,6 +70,8 @@
 import { mapGetters } from 'vuex';
 
 import ProfileMap from '@/components/gmap/ProfileMap';
+import isOwnProfile from '@/mixins/isOwnProfile'
+import userStatus from '@/mixins/userStatus'
 export default {
   data() {
     return {
@@ -77,6 +79,7 @@ export default {
       showModal: false,
     };
   },
+    mixins: [isOwnProfile, userStatus],
   head() {
     return {
       title: this.settings.site_title,
@@ -92,28 +95,6 @@ export default {
       profile_user_privacy: 'user/profileUserPrivacy',
     }),
 
-    is_owner() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.id == this.profile_user.id;
-      }
-
-      return false;
-    },
-    isBan() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_banned;
-      }
-      return false;
-    },
-    signedIn() {
-      return this.$auth.loggedIn;
-    },
-    isAdmin() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_admin;
-      }
-      return false;
-    },
     isShowProfile() {
       return true;
     },

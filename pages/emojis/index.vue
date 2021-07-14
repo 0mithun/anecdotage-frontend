@@ -51,10 +51,11 @@ import SingleThread from '@/components/threads/SingeThread';
 import Sidebar from '@/layouts/partials/Sidebar';
 import Pagination from '@/components/Pagination';
 import FilterSearch from '@/components/search/FilterSearch';
-
+import scrollToTop from '@/mixins/scrollToTop'
 import { mapGetters } from 'vuex';
 export default {
   name: 'index',
+  mixins: [scrollToTop],
   components: {
     SingleThread,
     Sidebar,
@@ -65,10 +66,6 @@ export default {
     return {
       title: this.settings.site_title,
     };
-  },
-  mounted() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
   },
   computed: {
     ...mapGetters({

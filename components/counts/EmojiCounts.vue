@@ -24,12 +24,6 @@ export default {
       userEmoji: null,
     };
   },
-  computed: {
-    signedIn() {
-      return window.App.user ? true : false;
-    },
-  },
-
   created() {
     // this.getUserEmojiType();
     this.getEmojiCount();

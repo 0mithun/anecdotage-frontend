@@ -70,8 +70,10 @@
 import Sidebar from '@/layouts/partials/Sidebar';
 import VueCkeditor from 'vue-ckeditor2';
 import { mapGetters } from 'vuex';
+import scrollToTop from '@/mixins/scrollToTop'
 export default {
   name: 'contact',
+   mixins: [scrollToTop],
   data() {
     return {
       config: {
@@ -87,6 +89,12 @@ export default {
   head() {
     return {
       title: this.settings.site_title,
+       script:[
+        {
+          src:'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
+          defer: true
+        }
+      ]
     };
   },
   computed: {
@@ -98,10 +106,7 @@ export default {
     Sidebar,
     VueCkeditor,
   },
-  mounted() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
-  },
+
   methods: {
     async submit() {
       try {

@@ -5,7 +5,7 @@
     >
       <div class="container">
         <nuxt-link :to="{ name: 'index' }" class="navbar-brand">
-          <img :src="settings.logo_path" height="32" alt="Logo" width="auto" />
+          <img :src="settings.logo_path" height="32" alt="Logo" width="100%" style="width:auto; height:32px" />
         </nuxt-link>
         <button
           class="navbar-toggler"
@@ -134,6 +134,9 @@
                 src="~assets/images/map_marker.png"
                 alt=""
                 class="navbar-icon marker"
+                width="100%"
+                height="24"
+                style="width:auto; height:24px"
               />
             </nuxt-link>
             <nuxt-link
@@ -144,6 +147,9 @@
                 src="~assets/images/pen_with.png"
                 alt=""
                 class="navbar-icon pen"
+               width="100%"
+                height="24"
+                style="width:auto; height:24px"
               />
             </nuxt-link>
           </div>
@@ -189,8 +195,16 @@
                   aria-haspopup="true"
                   aria-expanded="false"
                   style="color: #515365; font-size: 14px"
+
                 >
-                  <img class="user-thumb" :src="$auth.user.photo_url" />
+                  <img
+                    class="user-thumb"
+                    :src="$auth.user.photo_url"
+                    width="36"
+                    height="36"
+                    style="width:36px; height:36px"
+                    :alt="$auth.user.name"
+                />
                   <!-- {{$auth.user.name}} -->
                   Me
                   <span class="down-chevron" style="margin-left: 5px">
@@ -313,16 +327,6 @@ export default {
       this.$nuxt.$emit('logout');
       // this.$router.push('/').catch(()=>{});
       this.$router.push({ name: 'index' });
-      // this.$router.push(
-      //   // this.$store.state.auth.user.home,
-      //   '/redirect-to-home',
-      //   () => {
-      //     window.alert('success')
-      //   },
-      //   () => {
-      //     window.alert('fail')
-      //   }
-      // )
     },
     backgroundEmoji(emoji) {
       return `background-image: url(${process.env.APP_URL}images/emojis/${emoji}.png)`;

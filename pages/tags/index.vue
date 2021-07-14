@@ -53,13 +53,7 @@
                     :to="{ name: 'tag.edit', params: { slug: tag.slug } }"
                     >Edit Tag</nuxt-link
                   >
-                  <!-- <button
-                    class="btn btn-sm btn-primary"
-                    @click.prevent="editTag = true"
-                    v-if="isAdmin"
-                  >
-                    Edit Tag
-                  </button> -->
+
                 </div>
               </div>
             </div>
@@ -113,8 +107,10 @@ import FollowingCounts from '@/components/counts/FollowingCounts';
 
 import Pagination from '@/components/Pagination';
 import { mapGetters } from 'vuex';
+import scrollToTop from '@/mixins/scrollToTop'
 export default {
   name: 'index',
+  mixins:[scrollToTop],
   components: {
     SingleThread,
     Sidebar,
@@ -128,9 +124,6 @@ export default {
       showDescription: false,
 
       tagPhoto: null,
-      // posts: this.threads,
-      // followings: [],
-      // isFollow: null,
       editTag: false,
     };
   },
@@ -170,14 +163,10 @@ export default {
             src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
             ssr: false ,
             'data-ad-client':"ca-pub-4366805194029390",
-            async: true
+            defer: true
            }
       ]
     };
-  },
-  mounted() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
   },
   computed: {
     ...mapGetters({

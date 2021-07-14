@@ -406,44 +406,22 @@
 import VueCkeditor from 'vue-ckeditor2';
 import { mapGetters } from 'vuex';
 import {serialize} from 'object-to-formdata'
+import scrollToTop from '@/mixins/scrollToTop'
+import userStatus from '@/mixins/userStatus'
 
 export default {
   components: { VueCkeditor },
-  head() {
-    return {
-      title: this.settings.site_title,
-    };
-  },
+   mixins: [scrollToTop,userStatus],
   computed: {
-    ...mapGetters({
+     ...mapGetters({
       settings: 'settings',
+      thread: 'threads/thread',
     }),
-    allchannels() {
-      return this.$store.state.channels;
-    },
-    thread() {
-      return this.$store.state.threads.thread;
-    },
     owns() {
       if (this.signedIn) {
         return this.$store.state.auth.user.id == this.thread.user_id;
       }
 
-      return false;
-    },
-    isBan() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_banned;
-      }
-      return false;
-    },
-    signedIn() {
-      return this.$auth.loggedIn;
-    },
-    isAdmin() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_admin;
-      }
       return false;
     },
   },
@@ -454,41 +432,7 @@ export default {
         id: '',
         slug: '',
       },
-
-      config: {
-        height: 300,
-        extraAllowedContent: 'iframe[*]',
-        contentsCss: ['body {font-size: 22px;}'],
-      },
-      alltags: [],
-      errors: [],
-      show_more_fields: true,
-      // show_more_fields: false,
-      form: this.$vform({
-        channel: '',
-        tags: [],
-        title: '',
-        title_case: true,
-        body: '',
-        source: '',
-        location: '',
-        cno: {
-          famous: false,
-          celebrity: false,
-        },
-        main_subject: '',
-        scrape_image: false,
-        age_restriction: 0,
-        anonymous: 0,
-        slide_body: '',
-        // slide_image_path: null,
-        slide_image_pos: '',
-        slide_color_bg: '',
-        slide_color_0: '',
-        slide_color_1: '',
-        slide_color_2: '',
-      }),
-    };
+     };
   },
   created() {
     if (!this.isAdmin && !this.owns) {
@@ -542,8 +486,7 @@ export default {
       iframe[i].width = position.width;
       iframe[i].height = position.height;
     }
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
+
 
     document.getElementById('title').focus;
   },
@@ -564,29 +507,6 @@ export default {
     }
   },
   methods: {
-    selecetdTag() {
-      let tags = this.form.tags.map((val) => {
-        return val.toLowerCase();
-      });
-      this.form.tags = tags;
-    },
-    searchTag(search, loading) {
-      loading(true);
-      this.$axios.$get(`tag/search?q=${search}`).then((res) => {
-        this.alltags = res;
-        loading(false);
-      });
-    },
-    searchChannel(query, done) {
-      this.$axios
-        .$get(`channel/search?name=${query}`)
-        .then((res) => {
-          done(res);
-        })
-        .catch((err) => {
-          // any error handler
-        });
-    },
     updateThread() {
       this.errors = [];
       if (this.form.channel == '') {

@@ -6,41 +6,61 @@
         social_instagram:"social instagram here"
         social_linkedin:"social linkedin here"
         social_twitter: -->
-        <a :href="settings.social_facebook" class="follow-item" target="_blank">
+        <a
+          :href="settings.social_facebook"
+          class="follow-item"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img
             class="follow-item-icon"
             src="~assets/images/social/facebook.png"
             alt="Anecdotage.com facebook page"
+            width="48"
+            height="48"
           />
         </a>
-        <a :href="settings.social_twitter" class="follow-item" target="_blank">
+        <a
+          :href="settings.social_twitter"
+          class="follow-item"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img
             class="follow-item-icon"
             src="~assets/images/social/twitter.png"
             alt="Anecdotage.com twitter page"
+            width="48"
+            height="48"
           />
         </a>
         <a
           :href="settings.social_instagram"
           class="follow-item"
           target="_blank"
+          rel="noreferrer"
 
         >
           <img
             class="follow-item-icon"
             src="~assets/images/social/instagram.png"
             alt="Anecdotage.com instagram page"
+            width="48"
+            height="48"
           />
         </a>
         <a
           :href="settings.social_patreon"
           class="follow-item"
           target="_blank"
+          rel="noreferrer"
         >
           <img
             class="follow-item-icon"
             src="~assets/images/social/patreon.png"
             alt="Anecdotage.com patreon page"
+            width="48"
+            height="48"
           />
         </a>
       </div>

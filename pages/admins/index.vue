@@ -100,8 +100,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import scrollToTop from '@/mixins/scrollToTop'
 export default {
   middleware: ['admin'],
+  mixins: [scrollToTop],
   head() {
     return {
       title: this.settings.site_title,

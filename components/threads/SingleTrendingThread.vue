@@ -21,6 +21,7 @@
               class="thread-image thread_thumb_image"
               heigh="120"
               width="auto"
+              style="width:auto;height:120px"
             >
         </div>
       </div>

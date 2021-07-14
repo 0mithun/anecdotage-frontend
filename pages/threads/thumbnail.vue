@@ -190,11 +190,14 @@
 <script>
 import Slim from '@/components/slim/slim.vue';
 import { mapGetters } from 'vuex';
+import scrollToTop from '@/mixins/scrollToTop'
+import userStatus from '@/mixins/userStatus'
 export default {
   middleware: ['auth'],
   components: {
     'slim-cropper': Slim,
   },
+   mixins: [scrollToTop,userStatus],
   head() {
     return {
       title: this.settings.site_title,
@@ -225,9 +228,6 @@ export default {
     };
   },
   mounted() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
-
     this.form.temp_image_url = this.thread.remote_image_url;
     this.form.temp_image_description = this.thread.image_description;
     this.form.amazon_product_url = this.thread.amazon_product_url;
@@ -239,16 +239,12 @@ export default {
   computed: {
     ...mapGetters({
       settings: 'settings',
+      thread: 'threads/thread',
     }),
-    thread() {
-      return this.$store.state.threads.thread;
-    },
     src() {
       return this.$store.state.threads.thread.thread_image_path;
     },
     isDisabled() {
-      // return false;
-      // return form.temp_image_url && !form.image_copyright_free;
       if (
         this.form.temp_image_url != null &&
         !this.form.image_copyright_free &&
@@ -259,13 +255,6 @@ export default {
       return false;
     },
     showCopyrightFree() {
-      // if (this.form.temp_image_url == null) {
-      //   return false;
-      // } else if (this.form.temp_image_url == '') {
-      //   return false;
-      // }
-      // return true;
-
       if (this.clickOnCopyright == true) {
         return true;
       }
@@ -295,15 +284,7 @@ export default {
       }
       return false;
     },
-    signedIn() {
-      return this.$auth.loggedIn;
-    },
-    isAdmin() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_admin;
-      }
-      return false;
-    },
+
   },
   methods: {
     slimService(formdata, progress, success, failure, slim) {

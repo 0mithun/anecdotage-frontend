@@ -227,6 +227,8 @@ import LikeCounts from '@/components/counts/LikeCounts';
 import ProfileFavoriteCounts from '@/components/counts/ProfileFavoriteCounts';
 import AddFriend from '@/components/AddFriend';
 import Sidebar from '@/layouts/partials/Sidebar';
+import isOwnProfile from '@/mixins/isOwnProfile'
+import userStatus from '@/mixins/userStatus'
 
 import { mapGetters, mapActions } from 'vuex';
 
@@ -238,6 +240,7 @@ export default {
     AddFriend,
     Sidebar,
   },
+  mixins: [isOwnProfile, userStatus],
   head() {
     return {
       title: this.settings.site_title,
@@ -267,29 +270,6 @@ export default {
       profile_user: 'user/profileUser',
       profile_user_privacy: 'user/profileUserPrivacy',
     }),
-
-    is_owner() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.id == this.profile_user.id;
-      }
-
-      return false;
-    },
-    isBan() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_banned;
-      }
-      return false;
-    },
-    signedIn() {
-      return this.$auth.loggedIn;
-    },
-    isAdmin() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_admin;
-      }
-      return false;
-    },
 
     isSendMessage() {
       if (this.is_owner == true) {

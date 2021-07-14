@@ -41,8 +41,10 @@ import Pagination from '@/components/Pagination';
 
 import FilterSearch from '@/components/search/FilterSearch';
 import { mapGetters } from 'vuex';
+import scrollToTop from '@/mixins/scrollToTop'
 
 export default {
+  mixins: [scrollToTop],
   data() {
     return {
       q: '',
@@ -69,10 +71,7 @@ export default {
       threadsCount: 'search/threadsCount',
     }),
   },
-  mounted() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
-  },
+
   created() {
     if (this.$route.query.q) {
       this.q = this.$route.query.q;

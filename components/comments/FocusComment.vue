@@ -20,9 +20,6 @@ export default {
     },
   },
   computed: {
-    signedIn() {
-      // return window.App.user ? true : false;
-    },
     style() {
       return {
         borderWidth: this.size == "small" ? "1px" : "2px",

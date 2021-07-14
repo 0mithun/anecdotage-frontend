@@ -389,105 +389,20 @@
 import VueCkeditor from 'vue-ckeditor2';
 import { mapGetters } from 'vuex';
 import {serialize} from 'object-to-formdata'
+import scrollToTop from '@/mixins/scrollToTop'
+import userStatus from '@/mixins/userStatus'
+import createEditThread from '@/mixins/createEditThread'
 export default {
   components: { VueCkeditor },
-  computed: {
-    ...mapGetters({
-      settings: 'settings',
-    }),
-    allchannels() {
-      return this.$store.state.channels;
-    },
-    signedIn() {
-      return this.$auth.loggedIn;
-    },
-    isAdmin() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_admin;
-      }
-      return false;
-    },
-  },
-  head() {
-    return {
-      title: this.settings.site_title,
-    };
-  },
+  mixins: [scrollToTop,userStatus,createEditThread],
+
   data() {
     return {
-      config: {
-        height: 300,
-        extraAllowedContent: 'iframe[*]',
-        contentsCss: ['body {font-size: 22px;}'],
-      },
-      alltags: [],
-      errors: [],
-      show_more_fields: false,
-      form: this.$vform({
-        channel: '',
-        tags: '',
-        title: '',
-        title_case: true,
-        body: '',
-        source: '',
-        location: '',
-        cno: {
-          famous: false,
-          celebrity: false,
-        },
-        main_subject: '',
-        // scrape_image: false,
-        age_restriction: 0,
-        anonymous: 0,
-
-        slide_body: '',
-        // slide_image_path: null,
-        slide_image_pos: '',
-        slide_color_bg: '',
-        slide_color_0: '',
-        slide_color_1: '',
-        slide_color_2: '',
-      }),
     };
   },
   methods: {
-    selecetdTag() {
-      let tags = this.form.tags.map((val) => {
-        return val.toLowerCase();
-      });
-      this.form.tags = tags;
-    },
-    searchTag(search, loading) {
-      loading(true);
-      this.$axios.$get(`tag/search?q=${search}`).then((res) => {
-        this.alltags = res;
-        loading(false);
-      });
-    },
-    searchChannel(query, done) {
-      this.$axios
-        .$get(`channel/search?name=${query}`)
-        .then((res) => {
-          done(res);
-        })
-        .catch((err) => {
-          // any error handler
-        });
-    },
     addNewThread() {
       this.errors = [];
-      // this.form
-      //   .post('threads', this.form)
-      //   .then((res) => {
-      //     // this.$router.push({
-      //     //   name: 'threads.thumbnail',
-      //     //   params: { slug: res.data.slug },
-      //     // });
-      //     console.log(res)
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
       this.form
         .submit('post',`threads`, {
               transformRequest: [ function (data, headers) {

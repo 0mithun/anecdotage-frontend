@@ -143,11 +143,11 @@
 // import "at.js";
 
 import moment from 'moment';
-
+import userStatus from '@/mixins/userStatus'
 export default {
   props: ["reply"],
   name: 'nestedReplies',
-
+  mixins: [userStatus],
   components: {
     NestedReplies: () => import("./NestedReplies.vue"),
   },
@@ -185,12 +185,6 @@ export default {
         // '2018-11-20'
       );
     },
-    // signedIn() {
-    //   return window.App.user ? true : false;
-    // },
-    redirectToLogin() {
-      // return "/redirect-to?page=" + location.pathname;
-    },
     thread(){
       return this.$store.state.threads.thread;
     },
@@ -201,21 +195,6 @@ export default {
 
       return false;
     },
-    isBan(){
-      if(this.signedIn){
-        return this.$store.state.auth.user.is_banned;
-      }
-      return false;
-    },
-    signedIn(){
-      return this.$auth.loggedIn;
-    },
-    isAdmin () {
-        if(this.signedIn){
-          return this.$store.state.auth.user.is_admin;
-        }
-        return false;
-    }
   },
 
   methods: {

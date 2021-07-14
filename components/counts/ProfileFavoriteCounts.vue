@@ -8,13 +8,6 @@
 <script>
 export default {
   props: ["favoriteCounts"],
-
-  // computed: {
-  //   favoriteCounts() {
-  //     return this.thread.length;
-  //   },
-  // },
-
 };
 </script>
 

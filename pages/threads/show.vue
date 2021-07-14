@@ -335,7 +335,10 @@ import Sidebar from '@/layouts/partials/Sidebar';
 import Replies from '@/components/replies/Replies';
 import UserOnline from '@/components/chat/UserOnline';
 import SimpleMap from '@/components/gmap/SimpleMap';
+import scrollToTop from '@/mixins/scrollToTop';
+import userStatus from '@/mixins/userStatus'
 
+import { mapGetters } from 'vuex';
 //image_path_pixel_color
 export default {
   components: {
@@ -360,6 +363,7 @@ export default {
     UserOnline,
     SimpleMap,
   },
+  mixins: [scrollToTop,userStatus],
   head() {
     return {
       title: `${this.settings.site_title}: ${this.stripTagTitle}`,
@@ -439,21 +443,6 @@ export default {
           name: 'keywords',
         },
       ],
-
-      //       <meta property="og:image" content="{{ $thread->threadImagePath }}"/>
-      // <meta property="og:site_name" content="{{ config('app.name') }}">
-      // <meta property="og:title" content="{{ $thread->title }}">
-      // <meta property="og:url" content="{{ url($thread->path) }}">
-      // <meta property="og:type" content="article">
-      // <meta property="og:description" content="{{ $thread->excerpt }}">
-
-      // <meta name=twitter:card content=summary_large_image />
-      // <meta name=twitter:site content="@anecdotage" />
-      // <meta name=twitter:creator content="@anecdotage" />
-      // <meta name=twitter:url content="{{ url($thread->path) }}" />
-      // <meta name=twitter:title content="{{ $thread->title }}" />
-      // <meta name=twitter:description content="{{ $thread->excerpt }}" />
-      // <meta name=twitter:image content="{{ $thread->threadImagePath }}" />
        script: [
           {
             src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
@@ -474,6 +463,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      settings: 'settings',
+      thread: 'threads/thread',
+    }),
     threadThumbStyle() {
       return `background: rgba(${this.thread.image_path_pixel_color});`;
     },
@@ -496,15 +489,8 @@ export default {
         .splice(0, this.imageDescriptionLengthLimit)
         .join(' ');
     },
-
-    thread() {
-      return this.$store.state.threads.thread;
-    },
     stripTagTitle() {
       return this.thread.title.replace(/(<([^>]+)>)/gi, '');
-    },
-    settings() {
-      return this.$store.state.settings;
     },
     owns(thread) {
       if (this.signedIn) {
@@ -513,18 +499,7 @@ export default {
 
       return false;
     },
-    isBan() {
-      return this.$store.state.auth.user.is_ban;
-    },
-    signedIn() {
-      return this.$auth.loggedIn;
-    },
-    isAdmin() {
-      if (this.signedIn) {
-        return this.$store.state.auth.user.is_admin;
-      }
-      return false;
-    },
+
   },
   async fetch({ params, query, error, $axios, store }) {
     try {
@@ -613,14 +588,11 @@ export default {
       p[i].style.marginBottom = '1rem';
     }
 
-    const threadBody = document.querySelector('.thread-body');
-    const position = threadBody.getBoundingClientRect();
     for (let i = 0; i < iframe.length; i++) {
-      // iframe[i].width = position.width;
-      // iframe[i].height = position.height;
       iframe[i].width = 560;
       iframe[i].height = 315;
     }
+
 
     if (process.client) {
       if ('threads.show' === this.$route.name) {
