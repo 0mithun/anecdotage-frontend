@@ -53,7 +53,7 @@ export default {
       return [this.isDesliked ? "active-icon" : "inactive-icon"];
     },
     signedIn() {
-      // return window.App.user ? true : false;
+      return this.$auth.loggedIn;
     },
     style() {
       return {
@@ -68,7 +68,7 @@ export default {
   methods: {
     toggleDislike() {
       if (!this.signedIn) {
-        this.redirectToLogin();
+        return;
       }
       this.$axios.$delete(`threads/${this.thread.slug}/likes`).then((res) => {
         if(this.isDesliked){
@@ -87,9 +87,6 @@ export default {
         }
       });
 
-    },
-    redirectToLogin() {
-      // window.location = "/redirect-to?page=" + location.pathname;
     },
   },
 };

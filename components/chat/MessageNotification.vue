@@ -172,4 +172,8 @@ button.btn.btn-secondary.dropdown-toggle.notification-status {
       border:none;
     }
 }
+
+.svg-inline--fa path {
+  fill: #000000;
+}
 </style>

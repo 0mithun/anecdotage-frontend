@@ -52,8 +52,8 @@ export default {
     activeClass() {
       return [this.isLiked ? "active-icon" : "inactive-icon"];
     },
-    signedIn() {
-      // return window.App.user ? true : false;
+     signedIn() {
+      return this.$auth.loggedIn;
     },
     style() {
       return {
@@ -68,7 +68,7 @@ export default {
   methods: {
     toggleLike() {
       if (!this.signedIn) {
-        this.redirectToLogin();
+        return;
       }
       this.$axios.$post(`threads/${this.thread.slug}/likes`).then((res) => {
         if(this.isLiked){
@@ -86,9 +86,6 @@ export default {
           this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
         }
       });
-    },
-    redirectToLogin() {
-      // window.location = "/redirect-to?page=" + location.pathname;
     },
   },
 };

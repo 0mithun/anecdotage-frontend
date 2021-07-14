@@ -397,8 +397,6 @@ export default {
   color: #000;
   font-weight: normal;
   overflow-wrap: anywhere;
-  font-size: 30px;
-  line-height: 48px;
   font-family: Raleway, sans-serif;
 }
 .count-items-row,
@@ -450,4 +448,56 @@ export default {
 .thread-body img {
   max-width: 100%;
 }
+
+ @media only screen and (max-width:600px) {
+    .thread-title {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  } // less 600px
+
+
+ @media only screen and (min-width:600px) {
+    .thread-title {
+      font-size: 20px;
+      line-height: 25px;
+    }
+  } //600px
+
+  @media only screen and (min-width: 900px) {
+     .thread-title {
+      font-size: 22px;
+      line-height: 30px;
+    }
+  } //900px
+
+  @media only screen and (min-width: 1200px) {
+     .thread-title {
+      font-size: 25px;
+      line-height: 35px;
+    }
+  } //1200px
+  @media only screen and (min-width: 1400px) {
+     .thread-title {
+      font-size: 28px;
+      line-height: 40px;
+    }
+  } //1200px
+
+
+  @media only screen and (min-width: 1800px) {
+     .thread-title {
+      font-size: 30px;
+      line-height: 48px;
+    }
+  } //1200px
+
+  @media only screen and (min-width: 1800px) {
+    .thread-title {
+      font-size: 30px;
+      line-height: 48px;
+    }
+  } //1800px
+
+
 </style>

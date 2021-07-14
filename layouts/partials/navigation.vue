@@ -31,8 +31,8 @@
                 aria-expanded="false"
               >
                 {{ routeName }}
+                <svg class="svg-inline--fa fa-caret-down" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
 
-                <span class="fas fa-caret-down"></span>
               </a>
               <div class="dropdown-menu" aria-labelledby="menuLink">
                 <nuxt-link class="dropdown-item" :to="{ name: 'threads.rated' }"
@@ -67,6 +67,7 @@
                   v-if="isAdmin"
                   >Sort By Title Length</nuxt-link
                 >
+
               </div>
             </li>
 
@@ -80,7 +81,9 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Categories <span class="fas fa-caret-down"></span>
+                Categories
+                <svg class="svg-inline--fa fa-caret-down" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
+
               </a>
               <div class="dropdown-menu" aria-labelledby="channelLink">
                 <nuxt-link
@@ -100,6 +103,7 @@
                 role="button"
                 aria-haspopup="true"
                 aria-expanded="true"
+                aria-label="browse by emoji"
                 class="dropdown-toggle emoji-dropdown"
                 style="
                   width: 24px;
@@ -110,7 +114,8 @@
                 "
                 :style="{ 'background-image': `url(${defaultEmojiUrl})` }"
               >
-                <span class="fas fa-caret-down emoji-caret"></span>
+                <svg class="svg-inline--fa fa-caret-down emoji-caret" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
+
               </a>
 
               <div class="dropdown-menu">
@@ -129,7 +134,7 @@
           <div
             class="upload-shot white-path font-14 fw-500 text-uppercase d-flex"
           >
-            <nuxt-link :to="{ name: 'maps' }" href="#" class="navbar-menu-icon">
+            <nuxt-link :to="{ name: 'maps' }" href="#" class="navbar-menu-icon" aria-label="Maps">
               <img
                 src="~assets/images/map_marker.png"
                 alt=""
@@ -142,6 +147,7 @@
             <nuxt-link
               :to="{ name: 'threads.create' }"
               class="navbar-menu-icon"
+              aria-label="Create New Thread"
             >
               <img
                 src="~assets/images/pen_with.png"

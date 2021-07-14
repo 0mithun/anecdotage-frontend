@@ -4,11 +4,13 @@
     <form @submit.prevent="search">
       <div class="form-group navbar-search  ">
         <input
+          id="search-box"
           class="form-control font-14 fw-300 search-box"
           type="text"
           :class="activeSearch"
           name="query"
           v-model="q"
+          title="search fields"
           placeholder="Search"
         />
       </div>

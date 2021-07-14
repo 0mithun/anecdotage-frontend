@@ -38,6 +38,9 @@ export default {
         ? "small-emoji-list-btn"
         : "big-emoji-list-btn";
     },
+    signedIn() {
+      return this.$auth.loggedIn;
+    },
   },
 
   created() {
@@ -54,7 +57,7 @@ export default {
     },
     voteEmoji(emoji) {
       if (!this.signedIn) {
-        this.redirectToLogin();
+        return;
       }
       this.$axios
         .$post(`threads/${this.thread.slug}/emojis`, {
@@ -69,9 +72,6 @@ export default {
       this.$axios.$get(`emojis`).then((res) => {
         this.emojis = res.data;
       });
-    },
-    redirectToLogin() {
-      // window.location = "/redirect-to?page=" + location.pathname;
     },
     hideEmojiList() {
       this.show = false;
