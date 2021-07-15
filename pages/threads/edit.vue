@@ -617,4 +617,8 @@ dropdown-menu {
 body.cke_editable.cke_editable_themed.cke_contents_ltr.cke_show_borders {
   font-size: 20px !important;
 }
+
+.svg-inline--fa path{
+  fill: currentColor;
+}
 </style>

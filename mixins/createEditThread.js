@@ -6,7 +6,7 @@ export default {
       script:[
         {
           src:'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
-          defer: true
+          async: true
         }
       ]
     };
@@ -20,7 +20,7 @@ export default {
       },
       alltags: [],
       errors: [],
-      show_more_fields: false,
+      show_more_fields: true,
       form: this.$vform({
         channel: '',
         tags: '',
