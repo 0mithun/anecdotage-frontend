@@ -3,12 +3,12 @@ export default {
   head() {
     return {
       title: this.settings.site_title,
-      script:[
-        {
-          src:'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
-          async: true
-        }
-      ]
+      // script:[
+      //   {
+      //     src:'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
+      //     async: true
+      //   }
+      // ]
     };
   },
   data() {

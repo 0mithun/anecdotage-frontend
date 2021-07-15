@@ -1988,6 +1988,11 @@
     consola "^2.11.3"
     http-proxy-middleware "^1.0.4"
 
+"@nuxtjs/robots@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/robots/-/robots-2.5.0.tgz#a42b25e3bc58181cb2a8fbd30d6b0fee6c36bc60"
+  integrity sha512-z1F3HXb05NiZga8Cuq6k5bbowfJOScPtbSOakip0nege+1aI9pGoajzap8eR5s1qwLXAk9Ts+NcgetoUn5lwrQ==
+
 "@nuxtjs/router@^1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@nuxtjs/router/-/router-1.5.0.tgz#bed68f841b7a3457908c9ed36148172d75aa976f"
@@ -7190,6 +7195,11 @@ nuxt-lazy-load@^1.2.6:
   dependencies:
     intersection-observer "^0.7.0"
     string-replace-loader "^2.1.1"
+
+nuxt-robots-module@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/nuxt-robots-module/-/nuxt-robots-module-1.5.1.tgz#110bc068bc971ca44a2d85d94095ac9152d52364"
+  integrity sha512-A12tQkAfhGOCMhadqJqZcMFmFB4QWHKdNO75vZU9Lteh5bp8CyPCuzYgXVHG4LC5aHs5defBjsX9ja4FQCYA+w==
 
 nuxt@^2.0.0:
   version "2.14.11"

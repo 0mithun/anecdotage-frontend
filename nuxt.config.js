@@ -30,6 +30,11 @@ export default {
           'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js',
           defer: true
       },
+      {
+        src:
+          'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
+          defer: true
+      },
     ]
   },
 
@@ -93,6 +98,7 @@ export default {
     '@nuxtjs/auth',
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
+    '@nuxtjs/robots',
     ['nuxt-lazy-load', {
       // Your options
       defaultImage: '/lazy.gif',
@@ -178,6 +184,24 @@ export default {
     baseURL: process.env.API_URL,
     // debug: true
   },
+  robots: [
+    {
+      UserAgent: 'PetalBot',
+      Disallow: '/',
+    },
+    {
+      UserAgent: 'MJ12bot',
+      Disallow: '/',
+    },
+    {
+      UserAgent: 'Bytespider',
+      Disallow: '/',
+    },
+    {
+      UserAgent: '*',
+      Disallow: ['/admin','/profile'],
+    },
+  ],
 
   build: {
     // babel: {
