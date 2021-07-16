@@ -199,7 +199,7 @@ export default {
     },
     {
       UserAgent: '*',
-      Disallow: ['/admin','/profile'],
+      Disallow: ['/admin','/profile','/api'],
     },
   ],
 
