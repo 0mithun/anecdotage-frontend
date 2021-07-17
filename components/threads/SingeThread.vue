@@ -445,13 +445,12 @@ export default {
 .thread-body p {
   margin-top: 1rem;
 }
+
 .thread-body img {
-  max-width: 100%;
+  max-width: 100% !important;
 }
-.thread-body img {
-    max-width: !important;
-    height: auto;
-}
+
+
 
  @media only screen and (max-width:600px) {
     .thread-title {
