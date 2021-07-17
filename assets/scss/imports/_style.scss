@@ -2041,3 +2041,8 @@ footer {
     line-height: 25px;
   }
 }
+
+.thread-body img {
+  max-width: !important;
+  height: auto;
+}

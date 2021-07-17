@@ -714,4 +714,9 @@ p {
     max-width: 100%;
   }
 }
+
+.thread-body img {
+    max-width: 100% !important;
+    height: auto;
+}
 </style>

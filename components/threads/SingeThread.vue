@@ -448,6 +448,10 @@ export default {
 .thread-body img {
   max-width: 100%;
 }
+.thread-body img {
+    max-width: !important;
+    height: auto;
+}
 
  @media only screen and (max-width:600px) {
     .thread-title {

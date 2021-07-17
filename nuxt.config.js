@@ -137,8 +137,6 @@ export default {
         '/login',
         '/register',
         '/anecdotes/maps',
-        // '/anecdotes/search',
-        // '/anecdotes/messanger',
         '/anecdotes/rated',
         '/anecdotes/trending',
         '/anecdotes/viewed',
@@ -147,15 +145,18 @@ export default {
         '/anecdotes/video',
       ];
 
-      let {data}  = await axios.get(`${process.env.API_URL}/threads`);
-      const threadRoutes = data.data.map(item=> `/anecdotes/${item.slug}`)
+      // let {data}  = await axios.get(`${process.env.API_URL}/threads`);
+      // const threadRoutes = data.data.map(item=> `/anecdotes/${item.slug}`)
 
-      let tags  = await axios.get(`${process.env.API_URL}/tags`);
-      const tagsRoutes = tags.data.map(item=> `/tags/${item}`)
+      // let tags  = await axios.get(`${process.env.API_URL}/tags`);
+      // const tagsRoutes = tags.data.map(item=> `/tags/${item}`)
+      // return [...staticRoutes, ...threadRoutes, ...tagsRoutes];
 
-      // console.log(data.data)
-      // return response.data
-      return [...staticRoutes, ...threadRoutes, ...tagsRoutes];
+      let threads  = await axios.get(`${process.env.API_URL}/sitemap/threads`);
+      const threadRoutes = threads.data.map(item=> `/anecdotes/${item}`)
+      return threadRoutes;
+
+
     }
   },
   googleAnalytics: {
