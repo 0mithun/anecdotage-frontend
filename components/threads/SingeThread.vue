@@ -10,35 +10,7 @@
             #{{ thread.channel.name }}
           </nuxt-link>
 
-          <div class="admin-buttons">
-            <nuxt-link
-              class="btn btn-sm btn-primary"
-              v-if="isAdmin"
-              :to="{ name: 'threads.edit', params: { slug: thread.slug } }"
-            >
-              Edit
-            </nuxt-link>
-            <button
-              class="btn btn-sm btn-secondary"
-              @click.prevent="duplicateItem"
-              v-if="isAdmin"
-            >
-              <span v-if="duplicateForm.busy">
-                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path>
-                </svg>
-              </span>
-              Dup
-            </button>
-
-            <button
-              class="btn btn-sm btn-primary"
-              data-toggle="modal"
-              :data-target="`#edit-title-${thread.id}`"
-              v-if="isAdmin"
-            >
-              Edit Title
-            </button>
-          </div>
+          <AdminButtons :thread="thread" />
         </div>
       </div>
       <div class="row">
@@ -197,6 +169,7 @@ import UpVotes from '@/components/votes/UpVotes';
 import DownVotes from '@/components/votes/DownVotes';
 
 import GoToComment from '@/components/comments/GoToComment';
+import AdminButtons from '@/components/threads/AdminButtons';
 
 export default {
   props: {
@@ -276,6 +249,7 @@ export default {
     DownVotes,
     FavoriteThread,
     GoToComment,
+    AdminButtons
   },
   methods: {
     openThreadUrl() {
@@ -370,6 +344,36 @@ export default {
         .then((res) => {
           this.submitDuplicate();
         });
+    },
+    deleteThread() {
+      this.$swal({
+        title: 'Are you sure?',
+        // text: "Are you sure delete this reply",
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          this.$axios
+            .$delete(`threads/${this.thread.slug}`)
+            .then((res) => {
+              this.$toast.open({
+                type: 'success',
+                position: 'top-right',
+                message: 'Thread Delete Successfully.',
+              });
+              setTimeout(() => {
+                this.loadTrending();
+                this.$router.push({ name: 'index' });
+              }, 2000);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          // console.log('no Delete')
+        }
+      });
     },
   },
 };

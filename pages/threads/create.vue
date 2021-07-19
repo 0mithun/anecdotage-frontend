@@ -30,7 +30,7 @@
                     type="checkbox"
                     class="form-check-input"
                     id="title_case"
-                    v-model="form.title_case"
+                    v-model="title_case"
                   />
                   <label class="form-check-label" for="title_case"
                     >Apply Title Case</label
@@ -401,6 +401,7 @@ export default {
 
   data() {
     return {
+      title_case: true,
     };
   },
   methods: {

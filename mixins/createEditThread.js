@@ -11,6 +11,11 @@ export default {
       // ]
     };
   },
+  watch: {
+    title_case(oldValue, newValue){
+      this.form.title_case = newValue
+    }
+  },
   data() {
     return {
       config: {
@@ -56,6 +61,9 @@ export default {
       return this.$store.state.channels;
     },
 
+  },
+  mounted() {
+    this.form.title_case = this.title_case;
   },
   methods: {
     selecetdTag() {

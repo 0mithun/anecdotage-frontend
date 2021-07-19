@@ -19,31 +19,7 @@
                         #{{ thread.channel.name }}
                       </nuxt-link>
                     </div>
-                    <div class="admin-buttons" v-if="isAdmin">
-                      <button
-                        class="btn btn-sm btn-primary"
-                        data-toggle="modal"
-                        :data-target="`#edit-title-${thread.id}`"
-                      >
-                        Edit Title
-                      </button>
-                    </div>
-                    <div class="action-menu" v-if="isAdmin || owns">
-                      <nuxt-link
-                        class="btn btn-primary btn-sm"
-                        :to="{
-                          name: 'threads.edit',
-                          params: { slug: thread.slug },
-                        }"
-                        >Edit</nuxt-link
-                      >
-                      <button
-                        class="btn btn-danger btn-sm"
-                        @click="deleteThread"
-                      >
-                        Delete
-                      </button>
-                    </div>
+                    <AdminButtons :thread="thread" />
                   </div>
                 </div>
 
@@ -78,24 +54,43 @@
 
                 <div class="row author">
                   <div class="col-md-12">
-                    <nuxt-link
-                      :to="{
-                        name: 'profile.show',
-                        params: { username: thread.creator.username },
-                      }"
-                      class="creator_name"
-                    >
-                      <img
-                        :src="thread.creator.photo_url"
-                        :alt="thread.creator.name"
-                        width="40"
-                        height="40"
-                        class="avatar-photo"
-                      />
-                      <!-- <user-online :user="reply.owner"></user-online> -->
-                      <UserOnline :user="thread.creator" />
-                      <span>{{ thread.creator.name }}</span>
-                    </nuxt-link>
+                    <template v-if="thread.anonymous">
+                      <nuxt-link
+                        :to="{
+                        }"
+                        class="creator_name"
+                      >
+                        <img
+                          :src="thread.creator.photo_url"
+                          :alt="thread.creator.name"
+                          width="40"
+                          height="40"
+                          class="avatar-photo"
+                        />
+                        <span>Anonymous</span>
+                      </nuxt-link>
+                    </template>
+                    <template v-else>
+                        <nuxt-link
+                        :to="{
+                          name: 'profile.show',
+                          params: { username: thread.creator.username },
+                        }"
+                        class="creator_name"
+                      >
+                        <img
+                          :src="thread.creator.photo_url"
+                          :alt="thread.creator.name"
+                          width="40"
+                          height="40"
+                          class="avatar-photo"
+                        />
+                        <!-- <user-online :user="reply.owner"></user-online> -->
+                        <UserOnline :user="thread.creator" />
+                        <span>{{ thread.creator.name }}</span>
+                      </nuxt-link>
+                    </template>
+
                   </div>
                 </div>
 
@@ -337,7 +332,7 @@ import UserOnline from '@/components/chat/UserOnline';
 import SimpleMap from '@/components/gmap/SimpleMap';
 import scrollToTop from '@/mixins/scrollToTop';
 import userStatus from '@/mixins/userStatus'
-
+import AdminButtons from '@/components/threads/AdminButtons';
 import { mapGetters } from 'vuex';
 //image_path_pixel_color
 export default {
@@ -362,6 +357,7 @@ export default {
     Replies,
     UserOnline,
     SimpleMap,
+    AdminButtons
   },
   mixins: [scrollToTop,userStatus],
   head() {
@@ -549,10 +545,7 @@ export default {
         }
       });
     },
-    async loadTrending(){
-      const trendingResponse = await this.$axios.$get('trending/threads')
-      return this.$store.commit('setTrendings', trendingResponse.data)
-    },
+
     editTitleSubmit() {
       this.form
         .put(`admin/threads/${this.thread.slug}`, this.form)
