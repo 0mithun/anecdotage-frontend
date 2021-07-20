@@ -133,6 +133,7 @@ const routes = [
   // { path: '/anecdotes/messanger', name: 'chat', component: page('chat/test.vue') },
 
   { path: '/anecdotes/tags/:slug', name: 'tags', component: page('tags/index.vue') },
+  { path: '/tags/:slug', redirect: { name: 'tags' } },
   {
     path: '/anecdotes/tags/:slug/edit',
     name: 'tag.edit',

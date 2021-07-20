@@ -13,7 +13,7 @@ export default {
   },
   watch: {
     title_case(oldValue, newValue){
-      this.form.title_case = newValue
+      this.form.title_case = oldValue
     }
   },
   data() {
@@ -22,6 +22,8 @@ export default {
         height: 300,
         extraAllowedContent: 'iframe[*]',
         contentsCss: ['body {font-size: 22px;}'],
+        scayt_autoStartup: true
+
       },
       alltags: [],
       errors: [],
