@@ -57,7 +57,7 @@
                   >Who or what is this story about? This will be added as a tag.
                 </span>
               </div>
-              <!-- <div class="form-group" v-if="isAdmin">
+              <div class="form-group" v-if="isAdmin">
                 <div class="checkbox">
                   <label
                     ><input
@@ -68,7 +68,7 @@
                     Scrape Image</label
                   >
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
 

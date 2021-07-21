@@ -41,7 +41,7 @@ export default {
           celebrity: false,
         },
         main_subject: '',
-        // scrape_image: false,
+        scrape_image: false,
         age_restriction: 0,
         anonymous: 0,
 
