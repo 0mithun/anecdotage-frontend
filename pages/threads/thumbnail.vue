@@ -50,6 +50,17 @@
             <form action="" @submit.prevent="imageDescriptionSubmit">
               <div class="col-md-12">
                 <div class="form-group" v-if="isAdmin">
+                  <label for="hex_code" class="control-label">
+                    Image Hex Color</label
+                  >
+                  <input
+                    type="text"
+                    id="hex_code"
+                    class="form-control"
+                    v-model="form.hex_code"
+                  />
+                </div>
+                <div class="form-group" v-if="isAdmin">
                   <label for="amazon_product_url" class="control-label">
                     Amazon Product URL</label
                   >
@@ -210,7 +221,7 @@ export default {
         service: this.slimService,
         post: 'output',
         defaultInputName: 'image',
-        minSize: '200,300',
+        // minSize: '200,300',
         label: 'Select image...',
         // maxFileSize: 2,
         autoCrop: true,
@@ -222,6 +233,7 @@ export default {
         image_copyright_free: false,
         temp_image_description: null,
         amazon_product_url: null,
+        hex_code: null
       },
       clickOnCopyright: false,
       share_on_facebook: false,
@@ -232,6 +244,8 @@ export default {
     this.form.temp_image_url = this.thread.remote_image_url;
     this.form.temp_image_description = this.thread.image_description;
     this.form.amazon_product_url = this.thread.amazon_product_url;
+    this.form.amazon_product_url = this.thread.amazon_product_url;
+    this.form.hex_code = this.rgbToHex(this.thread.image_path_pixel_color);
 
     if (this.form.temp_image_url == '' || this.form.temp_image_url == null) {
       this.form.image_copyright_free = false;
@@ -344,6 +358,10 @@ export default {
           $('#shareThreadModal').modal('show');
         });
     },
+
+    rgbToHex(rgb) {
+      return  rgb.match(/[0-9|.]+/g).map((x,i) => i === 3 ? parseInt(255 * parseFloat(x)).toString(16) : parseInt(x).toString(16)).join('')
+    }
   },
   async fetch({ params, query, error, $axios, store }) {
     try {

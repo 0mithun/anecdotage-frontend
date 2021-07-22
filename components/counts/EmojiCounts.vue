@@ -86,4 +86,8 @@ export default {
   margin-right: 5px;
   width: 32px;
 }
+
+.svg-inline--fa{
+  /* margin-right: 3px; */
+}
 </style>

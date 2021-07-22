@@ -252,9 +252,9 @@ export default {
 .profile-name {
   padding: 0;
   margin: 0;
-  font-size: 30px;
+  font-size: 36px;
   font-weight: 500;
-  line-height: 33px;
+  line-height: 40px;
 }
 .profile-name span {
   color: rgb(255, 67, 1);

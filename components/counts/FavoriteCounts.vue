@@ -38,4 +38,8 @@ export default {
 .svg-inline--fa path {
       fill: #f6d743;
 }
+
+.svg-inline--fa{
+  /* margin-right: 3px; */
+}
 </style>

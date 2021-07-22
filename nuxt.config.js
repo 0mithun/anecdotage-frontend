@@ -33,7 +33,7 @@ export default {
       {
         src:
           'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
-          defer: true
+          async: true
       },
     ]
   },

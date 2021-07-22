@@ -171,6 +171,12 @@ const routes = [
   },
 
   {
+    path: '/anecdotes/sort-by-title-length',
+    name: 'admin.sortbytitle.length',
+    component: page('admins/sortByTitleLength.vue')
+  },
+
+  {
     path: '/threads/create',
     name: 'threads.create',
     component: page('threads/create.vue')
@@ -240,11 +246,7 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/anecdotes/sort-by-title-length',
-    name: 'admin.sortbytitle.length',
-    component: page('admins/sortByTitleLength.vue')
-  }
+
 ];
 
 export function createRouter() {

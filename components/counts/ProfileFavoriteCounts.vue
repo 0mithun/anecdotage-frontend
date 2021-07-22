@@ -16,4 +16,8 @@ export default {
 .fa-star {
   color: #f6d743;
 }
+
+.svg-inline--fa{
+  /* margin-right: 3px; */
+}
 </style>

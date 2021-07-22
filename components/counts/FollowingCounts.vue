@@ -18,4 +18,8 @@ export default {
 <style  scoped>
 .counts-item {
 }
+
+.svg-inline--fa{
+  /* margin-right: 3px; */
+}
 </style>

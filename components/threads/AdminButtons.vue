@@ -252,7 +252,11 @@
                 // this.$router.push({ name: 'index' }).catch(err => {
                 //   // console.log(this.$nuxt.context)
                 // });
-                this.$router.go(this.$router.currentRoute)
+                if (this.$nuxt.$route.name == 'threads.show') {
+                  this.$router.push({ name: 'index' });
+                }else{
+                  this.$router.go(this.$router.currentRoute)
+                }
 
               }, 2000);
             })
