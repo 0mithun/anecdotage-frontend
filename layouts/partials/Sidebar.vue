@@ -2,9 +2,10 @@
   <div>
      <SocialLink />
       <SingleTrendingThread
-        v-for="trending in trendings"
+        v-for="(trending, index) in trendings"
         :key="trending.id"
         :thread="trending"
+        :sticky="index == 0? true: false"
       />
   </div>
 </template>

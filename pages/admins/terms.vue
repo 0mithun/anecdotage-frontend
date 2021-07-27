@@ -27,7 +27,6 @@ export default {
         tos: '',
       }),
       message: 'Terms Update Successfully',
-      ckEditor: true
     };
   },
 };

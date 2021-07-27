@@ -12,24 +12,12 @@ export default {
   head() {
     return {
       title: this.settings.site_title,
-       script: this.scripts
     };
   },
   computed: {
     settings() {
       return this.$store.getters.settings;
     },
-    scripts(){
-      if(this.ckEditor){
-        return [
-           {
-             src:'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
-             defer: true
-           }
-         ]
-      }
-      return []
-    }
   },
   mounted() {
     Object.keys(this.form).forEach((k) => {

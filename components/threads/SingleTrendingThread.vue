@@ -47,6 +47,10 @@
       thread:{
         type: Object,
         required: true
+      },
+      sticky: {
+        type: Boolean,
+        default:false
       }
     },
     components:{
@@ -64,7 +68,12 @@
     },
     methods:{
       openThreadUrl(){
-        this.$router.push({name:'threads.show',params:{slug:this.thread.slug}})
+        if(this.sticky){
+          window.open('https://anecdotage.com/stories', '_blank');
+        }else{
+          this.$router.push({name:'threads.show',params:{slug:this.thread.slug}})
+        }
+
       }
     }
 

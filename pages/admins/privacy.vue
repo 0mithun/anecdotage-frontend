@@ -27,7 +27,6 @@ export default {
         privacypolicy: '',
       }),
       message: 'Privacy Policy Update Successfully',
-      ckEditor: true
     };
   },
 };

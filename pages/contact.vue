@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card card-m-5">
           <div class="card-body">
-            <form @submit.prevent="submit">
+            <form @submit.prevent="submit" v-show="ckeditorLoad">
               <div class="form-group row">
                 <label for="name" class="col-sm-3 col-form-label"
                   >Name <span class="required">*</span>
@@ -76,6 +76,7 @@ export default {
    mixins: [scrollToTop],
   data() {
     return {
+      ckeditorLoad: false,
       config: {
         height: 150,
       },
@@ -91,8 +92,10 @@ export default {
       title: this.settings.site_title,
        script:[
         {
+          hid:'ckeditor',
           src:'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
-          defer: true
+          defer: true,
+          callback: () => { this.ckeditorLoad = true }
         }
       ]
     };

@@ -31,9 +31,10 @@ export default {
           defer: true
       },
       {
-        src:
-          'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
-          async: true
+        hid:'ckeditor',
+        src:'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
+          // async: true,
+        defer:true
       },
     ]
   },
