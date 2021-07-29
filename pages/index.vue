@@ -60,7 +60,7 @@ export default {
             src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
             ssr: false ,
             'data-ad-client':"ca-pub-4366805194029390",
-            defer: true
+            preconnect: true,
            }
       ],
       link: this.generateLink

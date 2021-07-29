@@ -85,8 +85,9 @@ export default {
         disableStats: true,
         forceTLS: false,
         enabledTransports: ["ws", "wss"],
-      }
-    ]
+      },
+    ],
+    'nuxt-compress'
   ],
   echo: {
     authModule: true,
@@ -233,5 +234,5 @@ export default {
     },
 
 
-  }
+  },
 };
