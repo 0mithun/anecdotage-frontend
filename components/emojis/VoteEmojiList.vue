@@ -20,16 +20,22 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   props: ["thread", "size", "position"],
   data() {
     return {
-      emojis: [],
+      // emojis: [],
       show: false,
     };
   },
 
   computed: {
+     ...mapGetters({
+      channels: 'channels',
+      emojis: 'emojis',
+      settings: 'settings',
+    }),
     btnClass() {
       return this.size == "small" ? "small-emoji" : "big-emoji";
     },
@@ -69,9 +75,9 @@ export default {
         });
     },
     getAllEmojis() {
-      this.$axios.$get(`emojis`).then((res) => {
-        this.emojis = res.data;
-      });
+      // this.$axios.$get(`emojis`).then((res) => {
+      //   this.emojis = res.data;
+      // });
     },
     hideEmojiList() {
       this.show = false;

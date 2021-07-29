@@ -111,7 +111,7 @@
                       <div
                         class="thread-show-tools d-flex justify-content-between align-items-center"
                       >
-                        <focusComment></focusComment>
+                        <focusComment size="small"></focusComment>
                         <vote-emojis
                           :thread="thread"
                           size="small"

@@ -50,7 +50,7 @@
           @click="openThreadUrl"
         >
           <nuxt-link
-            :to="{ name: 'threads.show', params: { slug: thread.slug } }"
+            :to="{}"
           >
             <!-- <img
               :src="thread.thread_image_path"
