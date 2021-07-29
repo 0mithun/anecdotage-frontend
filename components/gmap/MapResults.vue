@@ -33,9 +33,9 @@
     </div>
     <div class="card" v-if="results.length == 0">
      <div class="card-body">
-        <div class="alert alert-danger text-center">
+        <!-- <div class="alert alert-danger text-center">
           <strong>  No Results </strong>
-        </div>
+        </div> -->
        </div>
     </div>
   </div>

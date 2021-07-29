@@ -81,10 +81,14 @@ export default {
 <style scoped>
 .facebook-share-btn {
   color: white;
-  background-color: #1b6ca8;
+  background-color: #007bff;
   padding: 2px 5px;
   font-size: 12px;
   line-height: 18px;
   font-weight: 400;
+}
+
+.svg-inline--fa.fa-facebook-square path{
+  fill: currentColor;
 }
 </style>

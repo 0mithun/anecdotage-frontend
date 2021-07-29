@@ -83,11 +83,14 @@ export default {
 .twitter-share-btn {
   /* padding: 5px; */
   color: white;
-  background-color: #12cad6;
-  background-color: #55acee;
+  background-color: #00acee;
   padding: 2px 5px;
   font-size: 12px;
   line-height: 18px;
   font-weight: 400;
+}
+
+.svg-inline--fa.fa-twitter-square path{
+  fill: currentColor;
 }
 </style>
