@@ -96,7 +96,7 @@ export default {
       //     defer: true,
       //     callback: () => { this.ckeditorLoad = true }
       //   }
-      ]
+      // ]
     };
   },
   computed: {
