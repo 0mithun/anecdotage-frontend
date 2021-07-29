@@ -100,52 +100,57 @@ export default {
     };
   },
   methods: {
-    getUserLocation() {
+     getUserLocation() {
       if (this.query == '') {
         if (this.$auth.loggedIn) {
-          const lat = this.$auth.user.location.coordinates[1];
-          const lng = this.$auth.user.location.coordinates[0];
-
-          if (lat == null || lng == null) {
-            const location = this.getLocationFromBrowser();
-            this.center = location;
-            this.mapCenter = {
-              lat: location.lat,
-              lng: location.lng,
-            };
-
-            this.$axios
-              .$put(`settings/location`, location)
-              .then((res) => {
-                this.$auth.fetchUser();
-              })
-              .catch((err) => {});
-          } else {
+          if(this.$auth.user.location !=null){
+            const lat = this.$auth.user.location.coordinates[1];
+            const lng = this.$auth.user.location.coordinates[0];
             this.center = { lat: lat, lng: lng };
             this.mapCenter = { lat: lat, lng: lng };
+          }else{
+            this.getLocationFromBrowser()
+              .then(location=>{
+                this.center = location;
+                this.mapCenter = location;
+
+                 this.$axios
+                  .$put(`settings/location`, location)
+                  .then((res) => {
+                    this.$auth.fetchUser();
+                  })
+
+              })
+              .catch(err=>{
+                alert('You must provide your location first.')
+              });
           }
         } else {
-          const location = this.getLocationFromBrowser();
-          this.center = location;
-          this.mapCenter = location;
+            this.getLocationFromBrowser()
+              .then(location=>{
+                this.center = location;
+                this.mapCenter = location;
+              })
+              .catch(err=>{
+                alert('You must provide your location first.')
+              });
         }
       }
     },
     getLocationFromBrowser() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const lat = position.coords.latitude;
-          const long = position.coords.longitude;
+      return new Promise(function (resolve, reject) {
+          if (navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(function (position) {
+              resolve( {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              });
+            });
+          }else{
+            reject('You must provide your location first')
+          }
+      });
 
-          return {
-            lat: lat,
-            lng: lng,
-          };
-        });
-      } else {
-        alert('You must provide your location first');
-        return;
-      }
     },
     centerChanged(event) {
       const center = {
@@ -211,14 +216,16 @@ export default {
       this.fetchLocations();
     },
   },
+  mounted() {
+    this.getUserLocation();
+    this.fetchLocations();
+  },
 
   created() {
-    this.getUserLocation();
     if (this.$route.query.q) {
       this.query = this.$route.query.q;
     }
 
-    this.fetchLocations();
 
     this.$nuxt.$on('markers_fetched', (data) => {
       this.markers = data.markers;
