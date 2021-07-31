@@ -129,7 +129,7 @@
 
         <div class="form-group row">
           <div class="col-sm-6 offset-sm-6">
-            <base-button :loading="form.busy"> Update </base-button>
+            <BaseButton :loading="form.busy"> Update </BaseButton>
           </div>
         </div>
       </form>
@@ -139,7 +139,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components:{
+    BaseButton
+  },
   data() {
     return {
       form: this.$vform({

@@ -309,7 +309,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import StrPlural from '@/mixins/strPlural'
+import formatCount from '@/mixins/formatCount'
 export default {
+  mixins: [StrPlural, formatCount],
   props: {
     routeName: {
       type: String,

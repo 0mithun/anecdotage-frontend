@@ -94,7 +94,9 @@
 </template>
 
 <script>
+import swal from '@/mixins/swal'
 export default {
+  mixins: [swal],
   props: {
     thread: {
       type: Object,

@@ -12,16 +12,16 @@
           We have resent the verification email
         </alert-success>
         <div class="form-group">
-          <base-input
+          <BaseInput
             :form="form"
             field="email"
             v-model="form.email"
             placeholder="Email"
-          ></base-input>
+          ></BaseInput>
         </div>
 
         <div class="text-right">
-          <base-button :loading="form.busy"> Resend </base-button>
+          <BaseButton :loading="form.busy"> Resend </BaseButton>
         </div>
       </form>
     </div>
@@ -30,7 +30,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseButton, BaseInput},
   middleware: ['guest'],
   data() {
     return {

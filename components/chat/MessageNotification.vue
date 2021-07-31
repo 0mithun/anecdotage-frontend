@@ -31,7 +31,9 @@
 
 <script>
 import _ from 'lodash'
+import fromNow from '@/mixins/fromNow'
 export default {
+  mixins: [fromNow],
   data() {
     return {
       notifications: [],

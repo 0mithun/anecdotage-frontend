@@ -12,37 +12,37 @@
           </p>
         </alert-success>
         <!-- <div class="form-group">
-          <base-input
+          <BaseInput
             :form="form"
             :readonly="true"
             field="email"
             v-model="form.email"
             placeholder="Email"
-          ></base-input>
+          ></BaseInput>
         </div> -->
 
         <div class="form-group">
-          <base-input
+          <BaseInput
             :form="form"
             inputType="password"
             field="password"
             v-model="form.password"
             placeholder="New Password"
-          ></base-input>
+          ></BaseInput>
         </div>
 
         <div class="form-group">
-          <base-input
+          <BaseInput
             :form="form"
             inputType="password"
             field="password_confirmation"
             v-model="form.password_confirmation"
             placeholder="Confirm New Password"
-          ></base-input>
+          ></BaseInput>
         </div>
 
         <div class="text-right">
-          <base-button :loading="form.busy"> Reset Password </base-button>
+          <BaseButton :loading="form.busy"> Reset Password </BaseButton>
         </div>
       </form>
     </div>
@@ -51,8 +51,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
   middleware: ['guest'],
+  components:{BaseInput, BaseButton},
   data() {
     return {
       status: '',

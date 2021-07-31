@@ -19,6 +19,7 @@ export default {
       // }
     ],
     // link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'stylesheet', type: 'text/css', href: 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', async: true }],
     script: [
       {
         src:
@@ -42,9 +43,6 @@ export default {
 
   loading: { color: '#007bff', height:'5px' },
   css: ['@/assets/scss/main.scss'],
-  serverMiddleware:[
-    '~/serverMiddleware/headers.js'
-  ],
   render: {
     // Setting up cache for 'static' directory - a year in milliseconds
     // https://web.dev/uses-long-cache-ttl
@@ -55,18 +53,22 @@ export default {
 
   plugins: [
     '~plugins/vform',
-    '~components/_global',
-    '~/plugins/strPlural',
-    '~/plugins/formatCounts',
-    '~/plugins/fromNow',
     '~/plugins/toastNotification',
-    '~/plugins/swal',
-    '~/plugins/vselect',
-    '~/plugins/uiv',
     '~/plugins/echo',
-    '~/plugins/chatscroll',
-    // '~/plugins/loading',//not using
-    { src: '~/plugins/gmaps', ssr: false },
+
+    // '~components/_global',
+    // '~/plugins/strPlural',
+    // '~/plugins/formatCounts',
+    // '~/plugins/fromNow',
+    // '~/plugins/chatscroll',
+    // '~/plugins/vselect',
+    // '~/plugins/uiv',
+    // { src: '~/plugins/gmaps', ssr: false },
+    // '~/plugins/swal',
+
+
+
+
     // { src: '~/plugins/vueat', ssr: false },
   ],
 
@@ -96,7 +98,6 @@ export default {
   },
 
   modules: [
-    'bootstrap-vue/nuxt',
     '@nuxtjs/auth',
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
@@ -198,6 +199,10 @@ export default {
     },
     {
       UserAgent: 'Bytespider',
+      Disallow: '/',
+    },
+    {
+      UserAgent: 'SemrushBot',
       Disallow: '/',
     },
     {

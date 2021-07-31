@@ -6,7 +6,7 @@
           >Set age 18 : if thread title contains</label
         >
         <div class="col-sm-4">
-          <base-input
+          <BaseInput
             :form="age_18_title"
             size="form-control-sm"
             field="title_18"
@@ -14,12 +14,12 @@
             v-model="age_18_title.title_18"
             id="title_18"
             placeholder="Enter Title Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="age_18_title.busy" size="sm" type="dark">
+          <BaseButton :loading="age_18_title.busy" size="sm" type="dark">
             set age 18+
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -30,7 +30,7 @@
           >Set age 18 : if thread body contains</label
         >
         <div class="col-sm-4">
-          <base-input
+          <BaseInput
             :form="age_18_body"
             size="form-control-sm"
             field="body_18"
@@ -38,12 +38,12 @@
             v-model="age_18_body.body_18"
             id="body_18"
             placeholder="Enter Title Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="age_18_body.busy" size="sm">
+          <BaseButton :loading="age_18_body.busy" size="sm">
             set age 18+
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -55,7 +55,7 @@
           >Set age 18 : if thread has tag</label
         >
         <div class="col-sm-4">
-          <base-input
+          <BaseInput
             :form="age_18_tag"
             size="form-control-sm"
             field="tag_18"
@@ -63,12 +63,12 @@
             v-model="age_18_tag.tag_18"
             id="tag_18"
             placeholder="Enter tag name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="age_18_tag.busy" size="sm" type="success">
+          <BaseButton :loading="age_18_tag.busy" size="sm" type="success">
             set age 18+
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -76,7 +76,10 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       age_18_title: this.$vform({

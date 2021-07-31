@@ -7,16 +7,16 @@
       <form class="auth-form" @submit.prevent="submit">
         <alert-success :form="form">{{ status }}</alert-success>
         <div class="form-group">
-          <base-input
+          <BaseInput
             :form="form"
             field="email"
             v-model="form.email"
             placeholder="Email"
-          ></base-input>
+          ></BaseInput>
         </div>
 
         <div class="text-right">
-          <base-button :loading="form.busy"> Send Reset Link </base-button>
+          <BaseButton :loading="form.busy"> Send Reset Link </BaseButton>
         </div>
         <p class="font-14 fw-400 text-center mt-4">
           <nuxt-link :to="{ name: 'login' }" class="color-blue">
@@ -30,7 +30,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseButton, BaseInput},
   middleware: ['guest'],
   data() {
     return {

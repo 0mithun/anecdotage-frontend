@@ -10,14 +10,14 @@
                   >Name <span class="required">*</span>
                 </label>
                 <div class="col-sm-9">
-                  <base-input
+                  <BaseInput
                     :form="form"
                     field="name"
                     inputType="text"
                     v-model="form.name"
                     id="name"
                     placeholder="Enter Your Name"
-                  ></base-input>
+                  ></BaseInput>
                 </div>
               </div>
               <div class="form-group row">
@@ -25,14 +25,14 @@
                   >Subject <span class="required">*</span>
                 </label>
                 <div class="col-sm-9">
-                  <base-input
+                  <BaseInput
                     :form="form"
                     field="subject"
                     inputType="text"
                     v-model="form.subject"
                     id="subject"
                     placeholder="Enter Your Subject"
-                  ></base-input>
+                  ></BaseInput>
                 </div>
               </div>
               <div class="form-group row">
@@ -52,7 +52,7 @@
               </div>
               <div class="form-group row">
                 <div class="col-sm-9 offset-sm-3">
-                  <base-button :loading="form.busy"> Submit </base-button>
+                  <BaseButton :loading="form.busy"> Submit </BaseButton>
                 </div>
               </div>
             </form>
@@ -71,7 +71,10 @@ import Sidebar from '@/layouts/partials/Sidebar';
 import VueCkeditor from 'vue-ckeditor2';
 import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+
   name: 'contact',
    mixins: [scrollToTop],
   data() {
@@ -107,6 +110,7 @@ export default {
   components: {
     Sidebar,
     VueCkeditor,
+    BaseInput, BaseButton
   },
 
   methods: {

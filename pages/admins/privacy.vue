@@ -9,7 +9,7 @@
         </div>
         <div class="form-group row">
           <div class="col-sm-12">
-            <base-button :loading="form.busy"> Update Privacy </base-button>
+            <BaseButton :loading="form.busy"> Update Privacy </BaseButton>
           </div>
         </div>
       </form>
@@ -19,7 +19,11 @@
 
 <script>
 import updateSettings from '@/mixins/admin/updateSettings'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components:{
+    BaseButton
+  },
   mixins: [updateSettings],
   data() {
     return {

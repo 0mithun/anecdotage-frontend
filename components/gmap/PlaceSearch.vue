@@ -7,6 +7,7 @@
         class="form-control"
         placeholder="Type location for search thread"
         @place_changed="setRelatedThread"
+        :select-first-on-enter="true"
       ></gmap-autocomplete>
       </div>
     </div>
@@ -67,15 +68,18 @@ export default {
         });
     },
     setRelatedThread(place) {
-      this.query = '';
-      this.$nuxt.$emit("query_removed");
-      this.radius = 500;
-      let center = {
-        lat: Number.parseFloat( place.geometry.location.lat()),
-        lng: Number.parseFloat( place.geometry.location.lng()),
-      };
-      this.center = center;
-      this.fetchNearestLocations();
+      if(place.geometry){
+        this.query = '';
+
+        this.$nuxt.$emit("query_removed");
+        this.radius = 500;
+        let center = {
+          lat: Number.parseFloat( place.geometry.location.lat()),
+          lng: Number.parseFloat( place.geometry.location.lng()),
+        };
+        this.center = center;
+        this.fetchNearestLocations();
+      }
     },
   },
 };

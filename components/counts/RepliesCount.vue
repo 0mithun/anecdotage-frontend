@@ -7,7 +7,10 @@
 </template>
 
 <script>
+import StrPlural from '@/mixins/strPlural'
+import formatCount from '@/mixins/formatCount'
 export default {
+  mixins: [StrPlural, formatCount],
   props: ["replies_count", "color"],
 
   computed: {

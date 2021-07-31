@@ -170,8 +170,9 @@ import DownVotes from '@/components/votes/DownVotes';
 
 import GoToComment from '@/components/comments/GoToComment';
 import AdminButtons from '@/components/threads/AdminButtons';
-
+import swal from '@/mixins/swal'
 export default {
+  mixins: [swal],
   props: {
     thread: {
       type: Object,

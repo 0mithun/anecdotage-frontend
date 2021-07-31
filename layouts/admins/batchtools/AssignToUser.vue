@@ -6,7 +6,7 @@
           >Assign items to specific user every thread, if body contains</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="assign_title"
             size="form-control-sm"
             field="assign_user_title"
@@ -14,10 +14,10 @@
             v-model="assign_title.assign_user_title"
             id="assign_user_title"
             placeholder="Enter title text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="assign_title"
             size="form-control-sm"
             field="assign_user_title_username"
@@ -25,12 +25,12 @@
             v-model="assign_title.assign_user_title_username"
             id="assign_user_title_username"
             placeholder="Enter username"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="assign_title.busy" size="sm" type="dark">
+          <BaseButton :loading="assign_title.busy" size="sm" type="dark">
             Assign User
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -40,7 +40,7 @@
           >Assign items to specific user every thread, if body contains</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="assign_body"
             size="form-control-sm"
             field="assign_user_body"
@@ -48,10 +48,10 @@
             v-model="assign_body.assign_user_body"
             id="assign_user_body"
             placeholder="Enter body text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="assign_body"
             size="form-control-sm"
             field="assign_user_body_username"
@@ -59,12 +59,12 @@
             v-model="assign_body.assign_user_body_username"
             id="assign_user_body_username"
             placeholder="Enter username"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="assign_body.busy" size="sm" type="primary">
+          <BaseButton :loading="assign_body.busy" size="sm" type="primary">
             Assign User
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -74,7 +74,7 @@
           >Assign items to specific user every thread, if tag contains</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="assign_tag"
             size="form-control-sm"
             field="assign_user_tag"
@@ -82,10 +82,10 @@
             v-model="assign_tag.assign_user_tag"
             id="assign_user_tag"
             placeholder="Enter tag text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="assign_tag"
             size="form-control-sm"
             field="assign_user_tag_username"
@@ -93,12 +93,12 @@
             v-model="assign_tag.assign_user_tag_username"
             id="assign_user_tag_username"
             placeholder="Enter username"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="assign_tag.busy" size="sm" type="success">
+          <BaseButton :loading="assign_tag.busy" size="sm" type="success">
             Assign User
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -106,7 +106,10 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       assign_title: this.$vform({

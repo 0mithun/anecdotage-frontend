@@ -17,14 +17,14 @@
                   >Title (required)</label
                 >
 
-                <base-input
+                <BaseInput
                   :form="form"
                   field="title"
                   v-model="form.title"
                   placeholder="Enter Thread Title"
                   inputType="text"
                   :autofocus="true"
-                ></base-input>
+                ></BaseInput>
                 <div class="form-check">
                   <input
                     type="checkbox"
@@ -378,7 +378,7 @@
               <div class="form-group">
                 <!-- <button class="btn btn-primary" type="submit" :disabled="form.wiki_info_page_url !='' && form.wiki_image_copyright_free != true">Add Thread</button> -->
 
-                <base-button :loading="form.busy">Add Thread</base-button>
+                <BaseButton :loading="form.busy">Add Thread</BaseButton>
               </div>
             </div>
           </div>

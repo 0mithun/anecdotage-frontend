@@ -5,14 +5,14 @@
         <div class="form-group row">
           <label for="name" class="col-sm-4 col-form-label">Full name</label>
           <div class="col-sm-8">
-            <base-input
+            <BaseInput
               :form="form"
               field="name"
               inputType="text"
               v-model="form.name"
               id="name"
               placeholder="Enter Full Name"
-            ></base-input>
+            ></BaseInput>
           </div>
         </div>
         <div class="form-group row">
@@ -20,14 +20,14 @@
             >Date of Birth</label
           >
           <div class="col-sm-8">
-            <base-input
+            <BaseInput
               :form="form"
               field="date_of_birth"
               inputType="date"
               v-model="form.date_of_birth"
               id="date_of_birth"
               placeholder="Date of Birth"
-            ></base-input>
+            ></BaseInput>
           </div>
         </div>
         <div class="form-group row">
@@ -35,14 +35,14 @@
             >Address</label
           >
           <div class="col-sm-8">
-            <base-input
+            <BaseInput
               :form="form"
               field="formatted_address"
               inputType="text"
               v-model="form.formatted_address"
               id="formatted_address"
               placeholder="Enter your address"
-            ></base-input>
+            ></BaseInput>
           </div>
         </div>
         <div class="form-group row">
@@ -59,7 +59,7 @@
 
         <div class="form-group row">
           <div class="col-sm-8 offset-sm-4">
-            <base-button :loading="form.busy"> Update </base-button>
+            <BaseButton :loading="form.busy"> Update </BaseButton>
           </div>
         </div>
       </form>
@@ -69,7 +69,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseButton, BaseInput},
   data() {
     return {
       form: this.$vform({

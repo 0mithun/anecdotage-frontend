@@ -17,14 +17,14 @@
                   >Title (required)</label
                 >
 
-                <base-input
+                <BaseInput
                   :form="form"
                   field="title"
                   id="title"
                   v-model="form.title"
                   placeholder="Enter Thread Title"
                   inputType="text"
-                ></base-input>
+                ></BaseInput>
                 <!-- <input type="text" id="title" class="form-control" v-model="form.title"> -->
 
                 <!-- <span class="help-block error" v-if="errors.title">{{ errors.title[0] }}</span> -->
@@ -83,7 +83,7 @@
                   class="form-control"
                   type="text"
                   placeholder="Choose a category"
-                  v-model="defaultChannel.name"
+                  :value="defaultChannel.name"
                   autocomplete="off"
                 />
                 <typeahead
@@ -382,7 +382,7 @@
               <div class="form-group">
                 <!-- <button class="btn btn-primary" type="submit" :disabled="form.wiki_info_page_url !='' && form.wiki_image_copyright_free != true">Add Thread</button> -->
 
-                <base-button :loading="form.busy">Update Thread</base-button>
+                <BaseButton :loading="form.busy">Update Thread</BaseButton>
               </div>
             </div>
           </div>

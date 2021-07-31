@@ -6,7 +6,7 @@
           >Add tag: every thread, if body contains</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="add_tag_title"
             size="form-control-sm"
             field="add_tag_title"
@@ -14,10 +14,10 @@
             v-model="add_tag_title.add_tag_title"
             id="add_tag_title"
             placeholder="Enter title Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="add_tag_title"
             size="form-control-sm"
             field="add_tag_title_tag_name"
@@ -25,12 +25,12 @@
             v-model="add_tag_title.add_tag_title_tag_name"
             id="add_tag_title_tag_name"
             placeholder="Enter Tag Name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="add_tag_title.busy" size="sm" type="dark">
+          <BaseButton :loading="add_tag_title.busy" size="sm" type="dark">
             Add Tag
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -40,7 +40,7 @@
           >Add tag: every thread, if body contains</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="add_tag_body"
             size="form-control-sm"
             field="add_tag_body"
@@ -48,10 +48,10 @@
             v-model="add_tag_body.add_tag_body"
             id="add_tag_body"
             placeholder="Enter body Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="add_tag_body"
             size="form-control-sm"
             field="add_tag_body_tag_name"
@@ -59,12 +59,12 @@
             v-model="add_tag_body.add_tag_body_tag_name"
             id="add_tag_body_tag_name"
             placeholder="Enter Tag Name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="add_tag_body.busy" size="sm" type="primary">
+          <BaseButton :loading="add_tag_body.busy" size="sm" type="primary">
             Add Tag
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -74,7 +74,7 @@
           >Add tag: every thread, if tag contains</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="add_tag_tag"
             size="form-control-sm"
             field="add_tag_with_tag"
@@ -82,10 +82,10 @@
             v-model="add_tag_tag.add_tag_with_tag"
             id="add_tag_with_tag"
             placeholder="Enter Old Tag Name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="add_tag_tag"
             size="form-control-sm"
             field="add_tag_with_tag_tag_name"
@@ -93,12 +93,12 @@
             v-model="add_tag_tag.add_tag_with_tag_tag_name"
             id="add_tag_with_tag_tag_name"
             placeholder="Enter Tag Name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="add_tag_tag.busy" size="sm" type="success">
+          <BaseButton :loading="add_tag_tag.busy" size="sm" type="success">
             Add Tag
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -108,7 +108,10 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       add_tag_title: this.$vform({

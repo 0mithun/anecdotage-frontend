@@ -109,9 +109,11 @@ import FollowingCounts from '@/components/counts/FollowingCounts';
 import Pagination from '@/components/Pagination';
 import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
+import StrPlural from '@/mixins/strPlural'
+import formatCount from '@/mixins/formatCount'
 export default {
   name: 'index',
-  mixins:[scrollToTop],
+  mixins:[scrollToTop, StrPlural, formatCount],
   components: {
     SingleThread,
     Sidebar,

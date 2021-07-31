@@ -6,7 +6,7 @@
           >Add emoji: if thread has tag</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="add_emoji_tag"
             size="form-control-sm"
             field="add_emoji_tag_name"
@@ -14,7 +14,7 @@
             v-model="add_emoji_tag.add_emoji_tag_name"
             id="add_emoji_tag_name"
             placeholder="Enter tag name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
           <select name="" id="" class="form-control form-control-sm" v-model="add_emoji_tag.emoji_name"  :class="[{ 'is-invalid': add_emoji_tag.errors.has('emoji_name') }]">
@@ -24,9 +24,9 @@
           <has-error :form="add_emoji_tag" field="emoji_name"></has-error>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="add_emoji_tag.busy" size="sm" type="info">
+          <BaseButton :loading="add_emoji_tag.busy" size="sm" type="info">
             Add Emoji
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -35,7 +35,11 @@
 </template>
 
 <script>
+
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       add_emoji_tag: this.$vform({

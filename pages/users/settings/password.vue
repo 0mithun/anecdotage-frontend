@@ -7,14 +7,14 @@
             >Current Password</label
           >
           <div class="col-sm-8">
-            <base-input
+            <BaseInput
               :form="form"
               field="current_password"
               inputType="password"
               v-model="form.current_password"
               id="current_password"
               placeholder="Enter Current Password"
-            ></base-input>
+            ></BaseInput>
           </div>
         </div>
         <div class="form-group row">
@@ -22,14 +22,14 @@
             >New Password</label
           >
           <div class="col-sm-8">
-            <base-input
+            <BaseInput
               :form="form"
               field="password"
               inputType="password"
               v-model="form.password"
               id="password"
               placeholder="Enter New Password"
-            ></base-input>
+            ></BaseInput>
           </div>
         </div>
         <div class="form-group row">
@@ -37,19 +37,19 @@
             >Confirm Password</label
           >
           <div class="col-sm-8">
-            <base-input
+            <BaseInput
               :form="form"
               field="password_confirmation"
               inputType="password"
               v-model="form.password_confirmation"
               id="password_confirmation"
               placeholder="Confirm Password"
-            ></base-input>
+            ></BaseInput>
           </div>
         </div>
         <div class="form-group row">
           <div class="col-sm-8 offset-sm-4">
-            <base-button :loading="form.busy"> Update </base-button>
+            <BaseButton :loading="form.busy"> Update </BaseButton>
           </div>
         </div>
       </form>
@@ -59,7 +59,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseButton, BaseInput},
   data() {
     return {
       form: this.$vform({

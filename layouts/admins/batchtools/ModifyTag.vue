@@ -6,7 +6,7 @@
           >Rename tag: for tag</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="rename_tag"
             size="form-control-sm"
             field="old_tag_name"
@@ -14,10 +14,10 @@
             v-model="rename_tag.old_tag_name"
             id="old_tag_name"
             placeholder="Enter Old Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="rename_tag"
             size="form-control-sm"
             field="new_tag_name"
@@ -25,12 +25,12 @@
             v-model="rename_tag.new_tag_name"
             id="new_tag_name"
             placeholder="Enter New Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="rename_tag.busy" size="sm" type="dark">
+          <BaseButton :loading="rename_tag.busy" size="sm" type="dark">
             Rename Tag
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -40,7 +40,7 @@
           >Delete tag: for tag</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="delete_tag"
             size="form-control-sm"
             field="delete_tag_name"
@@ -48,12 +48,12 @@
             v-model="delete_tag.delete_tag_name"
             id="delete_tag_name"
             placeholder="Enter Tag Name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="delete_tag.busy" size="sm" type="danger">
+          <BaseButton :loading="delete_tag.busy" size="sm" type="danger">
             Delete Tag
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -64,7 +64,7 @@
           >Remove tag: If body has string</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="remove_tag_body"
             size="form-control-sm"
             field="body"
@@ -72,10 +72,10 @@
             v-model="remove_tag_body.body"
             id="body"
             placeholder="Enter body text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="remove_tag_body"
             size="form-control-sm"
             field="tag"
@@ -83,12 +83,12 @@
             v-model="remove_tag_body.tag"
             id="tag"
             placeholder="Enter remove tag text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="remove_tag_body.busy" size="sm" type="danger">
+          <BaseButton :loading="remove_tag_body.busy" size="sm" type="danger">
             Remove Tag
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -98,7 +98,7 @@
           >Remove tag: If thread has tag</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="remove_tag_tag"
             size="form-control-sm"
             field="find_tag"
@@ -106,10 +106,10 @@
             v-model="remove_tag_tag.find_tag"
             id="find_tag"
             placeholder="Enter find tag text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="remove_tag_tag"
             size="form-control-sm"
             field="remove_tag"
@@ -117,12 +117,12 @@
             v-model="remove_tag_tag.remove_tag"
             id="remove_tag"
             placeholder="Enter remove tag text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="remove_tag_tag.busy" size="sm" type="danger">
+          <BaseButton :loading="remove_tag_tag.busy" size="sm" type="danger">
             Remove Tag
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -134,7 +134,7 @@
           >Change Channel ID</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="change_channel"
             size="form-control-sm"
             field="tag"
@@ -142,10 +142,10 @@
             v-model="change_channel.tag"
             id="tag"
             placeholder="Enter tag name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="change_channel"
             size="form-control-sm"
             field="channel"
@@ -153,12 +153,12 @@
             v-model="change_channel.channel"
             id="channel"
             placeholder="Enter channel name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="change_channel.busy" size="sm" type="dark">
+          <BaseButton :loading="change_channel.busy" size="sm" type="dark">
             Change Channel
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -167,7 +167,11 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
+
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       rename_tag: this.$vform({

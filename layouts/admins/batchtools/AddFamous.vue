@@ -6,7 +6,7 @@
           >Set famous: every thread, if title contains</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="title_famous"
             size="form-control-sm"
             field="set_famous_title"
@@ -14,7 +14,7 @@
             v-model="title_famous.set_famous_title"
             id="set_famous_title"
             placeholder="Enter Title Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
           <select name="" id="" class="form-control form-control-sm" v-model="title_famous.set_famous_title_category"  :class="[{ 'is-invalid': title_famous.errors.has('set_famous_title_category') }]">
@@ -26,9 +26,9 @@
           <has-error :form="title_famous" field="set_famous_title_category"></has-error>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="title_famous.busy" size="sm" type="dark">
+          <BaseButton :loading="title_famous.busy" size="sm" type="dark">
             Set Famous
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -38,7 +38,7 @@
           >Set famous: every thread, if body contains</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="body_famous"
             size="form-control-sm"
             field="set_famous_body"
@@ -46,7 +46,7 @@
             v-model="body_famous.set_famous_body"
             id="set_famous_body"
             placeholder="Enter body Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
           <select name="" id="" class="form-control form-control-sm" v-model="body_famous.set_famous_body_category"  :class="[{ 'is-invalid': body_famous.errors.has('set_famous_body_category') }]">
@@ -58,9 +58,9 @@
           <has-error :form="body_famous" field="set_famous_body_category"></has-error>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="body_famous.busy" size="sm" type="primary">
+          <BaseButton :loading="body_famous.busy" size="sm" type="primary">
             Set Famous
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -71,7 +71,7 @@
           >Set famous: every thread, if tag contains</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="tag_famous"
             size="form-control-sm"
             field="set_famous_tag"
@@ -79,7 +79,7 @@
             v-model="tag_famous.set_famous_tag"
             id="set_famous_tag"
             placeholder="Enter tag Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
           <select name="" id="" class="form-control form-control-sm" v-model="tag_famous.set_famous_tag_category"  :class="[{ 'is-invalid': tag_famous.errors.has('set_famous_tag_category') }]">
@@ -91,9 +91,9 @@
           <has-error :form="tag_famous" field="set_famous_tag_category"></has-error>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="tag_famous.busy" size="sm" type="success">
+          <BaseButton :loading="tag_famous.busy" size="sm" type="success">
              Set Famous
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -102,7 +102,10 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       title_famous: this.$vform({

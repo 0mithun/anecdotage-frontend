@@ -126,8 +126,14 @@ import { mapGetters, mapActions } from 'vuex';
 import UserOnline from '@/components/chat/UserOnline';
 import Message from '@/components/chat/Message';
 import scrollToTop from '@/mixins/scrollToTop'
+import fromNow from '@/mixins/fromNow'
+
+import Vue from 'vue'
+
+import VueChatScroll from 'vue-chat-scroll'
+
 export default {
-  mixins: [scrollToTop],
+  mixins: [scrollToTop, fromNow],
   components: {
     UserOnline,
     Message,
@@ -204,6 +210,8 @@ export default {
     });
   },
   created() {
+    Vue.use(VueChatScroll);
+
     this.getChatUserLists();
     this.$nuxt.$on('REPLY_TO_MESSAGE', (messageId) => {
       this.replyToMessage(messageId);

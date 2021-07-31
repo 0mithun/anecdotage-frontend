@@ -6,7 +6,7 @@
           >Ban single user	</label
         >
         <div class="col-sm-2">
-          <base-input
+          <BaseInput
             :form="ban_single_user"
             size="form-control-sm"
             field="ban_user_username"
@@ -14,7 +14,7 @@
             v-model="ban_single_user.ban_user_username"
             id="ban_user_username"
             placeholder="Enter username"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
           <select name="" id="" class="form-control form-control-sm" v-model="ban_single_user.ban_user_type" :class="[{ 'is-invalid':ban_single_user.errors.has('ban_user_type') }]">
@@ -25,7 +25,7 @@
           <has-error :form="ban_single_user" field="ban_user_type"></has-error>
         </div>
         <div class="col-sm-2">
-          <base-input
+          <BaseInput
             :form="ban_single_user"
             size="form-control-sm"
             field="ban_user_days"
@@ -34,13 +34,13 @@
             id="ban_user_days"
             placeholder="Enter Day"
             :disabled="isTitleDayDisabled"
-          ></base-input>
+          ></BaseInput>
         </div>
 
         <div class="col-sm-2">
-          <base-button :loading="ban_single_user.busy" size="sm" type="danger">
+          <BaseButton :loading="ban_single_user.busy" size="sm" type="danger">
             Ban User
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -51,7 +51,7 @@
           >Un-Ban single user	</label
         >
         <div class="col-sm-3">
-           <base-input
+           <BaseInput
             :form="un_banned_single_user"
             size="form-control-sm"
             field="unban_user_username"
@@ -59,12 +59,12 @@
             v-model="un_banned_single_user.unban_user_username"
             id="unban_user_username"
             placeholder="Enter username"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-button :loading="un_banned_single_user.busy" size="sm" type="warning">
+          <BaseButton :loading="un_banned_single_user.busy" size="sm" type="warning">
             Unbanned user
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -72,7 +72,10 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       ban_single_user: this.$vform({

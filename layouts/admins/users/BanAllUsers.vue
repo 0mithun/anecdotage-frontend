@@ -6,7 +6,7 @@
           >Banned all users: if thread title contains	</label
         >
         <div class="col-sm-2">
-          <base-input
+          <BaseInput
             :form="ban_users_title"
             size="form-control-sm"
             field="ban_users_title"
@@ -14,7 +14,7 @@
             v-model="ban_users_title.ban_users_title"
             id="ban_users_title"
             placeholder="Enter title text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
           <select name="" id="" class="form-control form-control-sm" v-model="ban_users_title.ban_users_title_type" :class="[{ 'is-invalid': ban_users_title.errors.has('ban_users_title_type') }]">
@@ -25,7 +25,7 @@
           <has-error :form="ban_users_title" field="ban_users_title_type"></has-error>
         </div>
         <div class="col-sm-2">
-          <base-input
+          <BaseInput
             :form="ban_users_title"
             size="form-control-sm"
             field="ban_users_title_days"
@@ -34,13 +34,13 @@
             id="ban_users_title_days"
             placeholder="Enter Day"
             :disabled="isTitleDayDisabled"
-          ></base-input>
+          ></BaseInput>
         </div>
 
         <div class="col-sm-2">
-          <base-button :loading="ban_users_title.busy" size="sm" type="danger">
+          <BaseButton :loading="ban_users_title.busy" size="sm" type="danger">
             Ban User
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -50,7 +50,7 @@
           >Banned all users: if thread body contains	</label
         >
         <div class="col-sm-2">
-          <base-input
+          <BaseInput
             :form="ban_users_body"
             size="form-control-sm"
             field="ban_users_body"
@@ -58,7 +58,7 @@
             v-model="ban_users_body.ban_users_body"
             id="ban_users_body"
             placeholder="Enter body text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
           <select name="" id="" class="form-control form-control-sm" v-model="ban_users_body.ban_users_body_type" :class="[{ 'is-invalid': ban_users_body.errors.has('ban_users_body_type') }]">
@@ -69,7 +69,7 @@
           <has-error :form="ban_users_body" field="ban_users_body_type"></has-error>
         </div>
         <div class="col-sm-2">
-          <base-input
+          <BaseInput
             :form="ban_users_body"
             size="form-control-sm"
             field="ban_users_body_days"
@@ -78,13 +78,13 @@
             id="ban_users_body_days"
             placeholder="Enter Day"
             :disabled="isbodyDayDisabled"
-          ></base-input>
+          ></BaseInput>
         </div>
 
         <div class="col-sm-2">
-          <base-button :loading="ban_users_body.busy" size="sm" type="danger">
+          <BaseButton :loading="ban_users_body.busy" size="sm" type="danger">
             Ban User
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -94,7 +94,7 @@
           >Banned all users: if thread tag contains	</label
         >
         <div class="col-sm-2">
-          <base-input
+          <BaseInput
             :form="ban_users_tag"
             size="form-control-sm"
             field="ban_users_tag"
@@ -102,7 +102,7 @@
             v-model="ban_users_tag.ban_users_tag"
             id="ban_users_tag"
             placeholder="Enter tag name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
           <select name="" id="" class="form-control form-control-sm" v-model="ban_users_tag.ban_users_tag_type" :class="[{ 'is-invalid': ban_users_tag.errors.has('ban_users_tag_type') }]">
@@ -113,7 +113,7 @@
           <has-error :form="ban_users_tag" field="ban_users_tag_type"></has-error>
         </div>
         <div class="col-sm-2">
-          <base-input
+          <BaseInput
             :form="ban_users_tag"
             size="form-control-sm"
             field="ban_users_tag_days"
@@ -122,13 +122,13 @@
             id="ban_users_tag_days"
             placeholder="Enter Day"
             :disabled="istagDayDisabled"
-          ></base-input>
+          ></BaseInput>
         </div>
 
         <div class="col-sm-2">
-          <base-button :loading="ban_users_tag.busy" size="sm" type="danger">
+          <BaseButton :loading="ban_users_tag.busy" size="sm" type="danger">
             Ban User
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -138,9 +138,9 @@
           >Un banned all users	</label
         >
         <div class="col-sm-3">
-          <base-button :loading="un_banned_all_users.busy" size="sm" type="warning">
+          <BaseButton :loading="un_banned_all_users.busy" size="sm" type="warning">
             Unbanned all users
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -148,7 +148,10 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       ban_users_title: this.$vform({

@@ -171,6 +171,7 @@ export default {
       this.fetchLocations();
     },
     fetchLocations() {
+      this.loading = true;
       const location =
         this.fetchRunningCenter != null ? this.fetchRunningCenter : this.center;
 
@@ -186,6 +187,7 @@ export default {
               // this.center = this.fetchRunningCenter;
             }
           }
+          this.loading = false;
         });
     },
     toggleInfoWindow(marker, idx) {

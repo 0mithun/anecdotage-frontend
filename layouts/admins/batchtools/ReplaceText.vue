@@ -6,7 +6,7 @@
           >Thread title search & replace: every thread, in body replace</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="replace_title"
             size="form-control-sm"
             field="replace_title_old"
@@ -14,10 +14,10 @@
             v-model="replace_title.replace_title_old"
             id="replace_title_old"
             placeholder="Enter Old Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="replace_title"
             size="form-control-sm"
             field="replace_title_new"
@@ -25,12 +25,12 @@
             v-model="replace_title.replace_title_new"
             id="replace_title_new"
             placeholder="Enter New Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="replace_title.busy" size="sm" type="dark">
+          <BaseButton :loading="replace_title.busy" size="sm" type="dark">
             Replace
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -40,7 +40,7 @@
           >Thread body search & replace: every thread, in body replace</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="replace_body"
             size="form-control-sm"
             field="replace_body_old"
@@ -48,10 +48,10 @@
             v-model="replace_body.replace_body_old"
             id="replace_body_old"
             placeholder="Enter Old Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="replace_body"
             size="form-control-sm"
             field="replace_body_new"
@@ -59,12 +59,12 @@
             v-model="replace_body.replace_body_new"
             id="replace_body_new"
             placeholder="Enter New Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="replace_body.busy" size="sm" type="dark">
+          <BaseButton :loading="replace_body.busy" size="sm" type="dark">
             Replace
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -74,7 +74,10 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       replace_title: this.$vform({

@@ -231,7 +231,7 @@ import AddFriend from '@/components/AddFriend';
 import Sidebar from '@/layouts/partials/Sidebar';
 import isOwnProfile from '@/mixins/isOwnProfile'
 import userStatus from '@/mixins/userStatus'
-
+import formatCount from '@/mixins/formatCount'
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -242,7 +242,7 @@ export default {
     AddFriend,
     Sidebar,
   },
-  mixins: [isOwnProfile, userStatus],
+  mixins: [isOwnProfile, userStatus, formatCount],
   head() {
     return {
       title: this.settings.site_title,

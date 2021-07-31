@@ -10,21 +10,21 @@
           >
         </alert-error>
         <div class="form-group">
-          <base-input
+          <BaseInput
             :form="form"
             field="email"
             v-model="form.email"
             placeholder="Email"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="form-group">
-          <base-input
+          <BaseInput
             :form="form"
             field="password"
             inputType="password"
             v-model="form.password"
             placeholder="Password"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="mt-4 mb-4 clearfix">
           <nuxt-link
@@ -35,7 +35,7 @@
           </nuxt-link>
         </div>
         <div class="text-right">
-          <base-button :loading="form.busy"> Login </base-button>
+          <BaseButton :loading="form.busy"> Login </BaseButton>
         </div>
         <div class="mt-4 mb-4 clearfix">
           <p class="font-16 fw-500 mt-2 mb-2">Login with</p>
@@ -55,10 +55,12 @@
 <script>
 import SocialLogin from '@/components/SocialLogin';
 import { mapGetters } from 'vuex';
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
 export default {
   middleware: ['guest'],
   name: 'login',
-  components: { SocialLogin },
+  components: { SocialLogin, BaseButton, BaseInput },
   data() {
     return {
       form: this.$vform({

@@ -6,7 +6,7 @@
           >Delete thread: if thread title contains	</label
         >
         <div class="col-sm-4">
-          <base-input
+          <BaseInput
             :form="title_delete"
             size="form-control-sm"
             field="delete_thread_title"
@@ -14,12 +14,12 @@
             v-model="title_delete.delete_thread_title"
             id="delete_thread_title"
             placeholder="Enter Title Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-button :loading="title_delete.busy" size="sm" type="dark">
+          <BaseButton :loading="title_delete.busy" size="sm" type="dark">
              Delete Threads
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -29,7 +29,7 @@
           >Delete thread: if thread body contains	</label
         >
         <div class="col-sm-4">
-          <base-input
+          <BaseInput
             :form="body_delete"
             size="form-control-sm"
             field="delete_thread_body"
@@ -37,12 +37,12 @@
             v-model="body_delete.delete_thread_body"
             id="delete_thread_body"
             placeholder="Enter Body Text"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-button :loading="body_delete.busy" size="sm" type="primary">
+          <BaseButton :loading="body_delete.busy" size="sm" type="primary">
              Delete Threads
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -52,7 +52,7 @@
           >Delete thread: if thread tag contains	</label
         >
         <div class="col-sm-4">
-          <base-input
+          <BaseInput
             :form="tag_delete"
             size="form-control-sm"
             field="delete_thread_tag"
@@ -60,12 +60,12 @@
             v-model="tag_delete.delete_thread_tag"
             id="delete_thread_tag"
             placeholder="Enter Tag Name"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-button :loading="tag_delete.busy" size="sm" type="success">
+          <BaseButton :loading="tag_delete.busy" size="sm" type="success">
             Delete Threads
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -74,7 +74,11 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
+
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       title_delete: this.$vform({

@@ -1,5 +1,14 @@
 import { mapGetters } from 'vuex';
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
+import {Typeahead} from 'uiv'
+
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
+
+
 export default {
+  components: {vSelect, Typeahead, BaseButton, BaseInput },
   head() {
     return {
       title: this.settings.site_title,

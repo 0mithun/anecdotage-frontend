@@ -141,7 +141,10 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
+import fromNow from '@/mixins/fromNow'
+
 export default {
+  mixins: [fromNow],
   computed:{
     ...mapGetters({
       friendMessages: 'chat/friendMessages',

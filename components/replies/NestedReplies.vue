@@ -144,10 +144,11 @@
 
 import moment from 'moment';
 import userStatus from '@/mixins/userStatus'
+import swal from '@/mixins/swal'
 export default {
   props: ["reply"],
   name: 'nestedReplies',
-  mixins: [userStatus],
+  mixins: [userStatus, swal],
   components: {
     NestedReplies: () => import("./NestedReplies.vue"),
   },

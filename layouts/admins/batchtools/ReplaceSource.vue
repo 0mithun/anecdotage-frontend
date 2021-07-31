@@ -6,7 +6,7 @@
           >Source search & replace every thread, in source replace</label
         >
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="replace_source"
             size="form-control-sm"
             field="old_source"
@@ -14,10 +14,10 @@
             v-model="replace_source.old_source"
             id="old_source"
             placeholder="Enter Old Source"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-3">
-          <base-input
+          <BaseInput
             :form="replace_source"
             size="form-control-sm"
             field="new_source"
@@ -25,12 +25,12 @@
             v-model="replace_source.new_source"
             id="new_source"
             placeholder="Enter New Source"
-          ></base-input>
+          ></BaseInput>
         </div>
         <div class="col-sm-2">
-          <base-button :loading="replace_source.busy" size="sm" type="info">
+          <BaseButton :loading="replace_source.busy" size="sm" type="info">
             Replace
-          </base-button>
+          </BaseButton>
         </div>
       </div>
     </form>
@@ -38,7 +38,11 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/inputs/BaseInput'
+import BaseButton from '@/components/form/buttons/BaseButton'
+
 export default {
+  components: {BaseInput, BaseButton},
   data() {
     return {
       replace_source: this.$vform({
