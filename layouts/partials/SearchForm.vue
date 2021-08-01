@@ -23,13 +23,22 @@ export default {
   name: 'search-form',
   data() {
     return {
-      q: '',
+      q: null,
     };
   },
   computed: {
     activeSearch() {
-      return this.query != '' ? 'active-search' : '';
+      return this.q == null ? "" : 'active-search';
     },
+  },
+  watch:{
+      $route (to, from){
+          if(to.name == 'search'){
+
+          }else{
+            this.q= null;
+          }
+      }
   },
   created() {
     if(this.$route.query.q){
@@ -74,7 +83,7 @@ export default {
     border: none;
 }
 
-.header-search .form-control.active-search {
+.header-search .form-control {
     // border: #494c62 1px solid;
     line-height: 1.6;
     padding-right: 40px;
@@ -82,6 +91,12 @@ export default {
 }
 
 .navbar-search .form-control.search-box:focus {
+    width: 100%;
+    border: 2px solid #98cbe8;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+.header-search .form-control.active-search {
     width: 100%;
     border: 2px solid #98cbe8;
     border-radius: 4px;

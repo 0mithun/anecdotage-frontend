@@ -183,7 +183,7 @@ import swal from '@/mixins/swal'
         .then((res) => {
           this.$router.push({
             name: 'threads.edit',
-            params: { slug: res.slug },
+            params: { slug: newThread },
           });
         })
         .catch((err) => {
@@ -263,7 +263,7 @@ import swal from '@/mixins/swal'
               }, 2000);
             })
             .catch((err) => {
-              console.log(err);
+              // console.log(err);
             });
         } else {
           // console.log('no Delete')

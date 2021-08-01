@@ -307,8 +307,8 @@ export default {
       this.$axios
         .post(`threads/${this.thread.slug}/thumbnail`, formdata)
         .then((res) => {
-          console.log(res);
-          // this.$router.push({name:'designs.edit',params:{id:res.data.id}})
+          // console.log(res);
+
         })
         .catch((err) => {
           const message = err.response.data.errors;

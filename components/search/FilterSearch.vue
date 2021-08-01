@@ -33,7 +33,7 @@
                   <strong class="dark">Most Visits</strong>
                 </template>
 
-                <span class="fas fa-caret-down"></span>
+                 <svg class="svg-inline--fa fa-caret-down" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
               </button>
               <ul class="dropdown-menu">
                 <li>
@@ -66,7 +66,7 @@
               aria-expanded="false"
             >
               All Tags
-              <span class="fas fa-caret-down"></span>
+               <svg class="svg-inline--fa fa-caret-down" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
             </button>
             <ul class="dropdown-menu search-dropdown">
               <li v-for="tag in tags" :key="tag.id">
@@ -95,7 +95,7 @@
               aria-expanded="false"
             >
               All People
-              <span class="fas fa-caret-down"></span>
+               <svg class="svg-inline--fa fa-caret-down" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
             </button>
             <ul class="dropdown-menu search-dropdown">
               <li>
@@ -152,7 +152,7 @@
               aria-expanded="false"
             >
               All Moods
-              <span class="fas fa-caret-down"></span>
+               <svg class="svg-inline--fa fa-caret-down" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
             </button>
             <ul class="dropdown-menu search-dropdown">
               <li v-for="emoji in emojis" :key="emoji.id">
@@ -190,7 +190,7 @@
               aria-expanded="false"
             >
               All Lengths
-              <span class="fas fa-caret-down"></span>
+               <svg class="svg-inline--fa fa-caret-down" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
             </button>
             <ul class="dropdown-menu search-dropdown">
               <li>
@@ -247,7 +247,7 @@
               aria-expanded="false"
             >
               G/PG
-              <span class="fas fa-caret-down"></span>
+               <svg class="svg-inline--fa fa-caret-down" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
             </button>
             <ul class="dropdown-menu search-dropdown">
               <li>
@@ -348,7 +348,30 @@ export default {
       return this.$store.getters[`${this.routeName}/threadsCount`];
     },
   },
+  mounted() {
+    if(this.q.sort_by){
+      this.sort_by = this.q.sort_by;
+    }
+    if(this.q.emojis){
+      this.filter_emojis = this.q.emojis.split(/,/);
+    }
+    if(this.q.ages){
+      this.filter_rated = this.q.ages.split(/,/);
+    }
 
+    if(this.q.cno){
+      this.category = this.q.cno.split(/,/);
+    }
+    if(this.q.tags){
+      this.filter_tags = this.q.tags.split(/,/);
+    }
+
+    if(this.q.length){
+      this.filter_length = this.q.length.split(/,/);
+    }
+
+
+  },
   methods: {
     sortBy(sort) {
       this.sort_by = sort;
@@ -398,7 +421,7 @@ export default {
       this.$router.push({
         name: this.$route.name,
         query: { ...this.queryString },
-      });
+      }).catch(err=>{});
     },
   },
   watch: {
@@ -557,5 +580,10 @@ ul.dropdown-menu li a {
   span {
     margin-left: 5px;
   }
+}
+
+input[type="checkbox"] {
+    height: 12px;
+    width: 12px;
 }
 </style>
