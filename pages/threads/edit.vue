@@ -499,7 +499,7 @@ export default {
   },
   async fetch({ params, query, error, $axios, store }) {
     try {
-      const threadRresponse = await $axios.$get(`threads/${params.slug}`);
+      const threadRresponse = await $axios.$get(`threads/${params.slug}/edit`);
       store.commit('threads/setCurrentThread', threadRresponse.data);
     } catch (err) {
       if (err.response.status === 404) {
