@@ -191,12 +191,6 @@ export default {
         });
     },
     toggleInfoWindow(marker, idx) {
-      const center = {
-        lat: Number.parseFloat(this.results[idx].lat),
-        lng: Number.parseFloat(this.results[idx].lng),
-      };
-      // this.center = center;
-      this.mapCenter = center;
       if (this.zoom < 10) {
         this.zoom = this.zoom + 1;
       }
@@ -243,8 +237,12 @@ export default {
     });
     this.$nuxt.$on('markers_result_clicked', (index) => {
       let targetMarkers = this.markers[index];
-      this.mapCenter.lat = Number.parseFloat(targetMarkers.position.lat);
-      this.mapCenter.lng = Number.parseFloat(targetMarkers.position.lng);
+
+      const center = {
+        lat: parseFloat(targetMarkers.position.lat),
+        lng:  parseFloat(targetMarkers.position.lng)
+      }
+      this.mapCenter = center;
       this.toggleInfoWindow(targetMarkers, index);
     });
 

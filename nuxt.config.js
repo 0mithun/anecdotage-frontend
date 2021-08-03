@@ -55,6 +55,7 @@ export default {
     '~plugins/vform',
     '~/plugins/toastNotification',
     '~/plugins/echo',
+    { src: '~/plugins/gmaps', ssr: false },
 
     // '~components/_global',
     // '~/plugins/strPlural',
@@ -63,7 +64,6 @@ export default {
     // '~/plugins/chatscroll',
     // '~/plugins/vselect',
     // '~/plugins/uiv',
-    // { src: '~/plugins/gmaps', ssr: false },
     // '~/plugins/swal',
 
 

@@ -71,8 +71,9 @@
 import { mapGetters } from 'vuex';
 import BaseInput from '@/components/form/inputs/BaseInput'
 import BaseButton from '@/components/form/buttons/BaseButton'
+import BaseTextarea from '@/components/form/inputs/BaseTextarea'
 export default {
-  components: {BaseButton, BaseInput},
+  components: {BaseButton, BaseInput, BaseTextarea},
   data() {
     return {
       form: this.$vform({

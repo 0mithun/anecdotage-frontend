@@ -18,7 +18,7 @@ import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
 
 if(process.client){
-  require('~/plugins/gmaps')
+  // require('~/plugins/gmaps')
 }
 export default {
   components: {
