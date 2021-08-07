@@ -134,5 +134,9 @@
     height: 120px;
 }
 
+.thread-body {
+  color:black;
+}
+
 
 </style>

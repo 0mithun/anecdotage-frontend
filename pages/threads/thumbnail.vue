@@ -365,7 +365,10 @@ export default {
     },
 
     rgbToHex(rgb) {
-      return  rgb.match(/[0-9|.]+/g).map((x,i) => i === 3 ? parseInt(255 * parseFloat(x)).toString(16) : parseInt(x).toString(16)).join('')
+      let rgbVal = rgb.split(',');
+      rgbVal.pop();
+
+      return  rgbVal.join(',').match(/[0-9|.]+/g).map((x,i) => i === 3 ? parseInt(255 * parseFloat(x)).toString(16) : parseInt(x).toString(16)).join('')
     }
   },
   async fetch({ params, query, error, $axios, store }) {

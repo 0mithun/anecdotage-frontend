@@ -447,6 +447,10 @@ export default {
   font-weight: 700;
 }
 
+.thread-body {
+  color:black;
+}
+
 .thread-body p {
   margin-top: 1rem;
 }
