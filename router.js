@@ -214,6 +214,11 @@ const routes = [
         component: page('admins/logo.vue')
       },
       {
+        path: 'logo',
+        name: 'admin.show.create.post',
+        component: page('admins/createpost.vue')
+      },
+      {
         path: 'batch-tools',
         name: 'admin.show.batch.tools',
         component: page('admins/batchTools.vue')

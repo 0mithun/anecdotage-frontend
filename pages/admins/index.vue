@@ -29,6 +29,16 @@
                   </li>
                   <li class="nav-item">
                     <nuxt-link
+                      :to="{ name: 'admin.show.create.post' }"
+                      class="nav-link"
+                      :class="{
+                        active: $nuxt.$route.name == 'admin.show.create.post',
+                      }"
+                      >Create Posts</nuxt-link
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <nuxt-link
                       :to="{ name: 'admin.show.batch.tools' }"
                       class="nav-link"
                       :class="{
