@@ -41,8 +41,16 @@ export default {
     };
   },
   methods: {
-    createPost(){
-      //
+    async createPost(){
+      try {
+       await this.form.post(`admin/batch-tool/threads/create-post-medium`);
+         this.form.tag_name = '';
+        this.$toast.open({
+          type: 'success',
+          position: 'top-right',
+          message: 'Post to medium.com Successfully',
+        });
+      } catch (e) {}
     }
   },
 };
