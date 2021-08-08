@@ -214,7 +214,7 @@ const routes = [
         component: page('admins/logo.vue')
       },
       {
-        path: 'logo',
+        path: 'create-post',
         name: 'admin.show.create.post',
         component: page('admins/createpost.vue')
       },
