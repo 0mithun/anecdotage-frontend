@@ -8,6 +8,7 @@
               <div class="card-body">
                 <ul class="nav nav-pills flex-column">
                   <li class="nav-item">
+
                     <nuxt-link
                       :to="{ name: 'profile.settings.info' }"
                       class="nav-link"
@@ -16,6 +17,8 @@
                       }"
                       >Profile</nuxt-link
                     >
+                  </li>
+                  <li class="nav-item">
                     <nuxt-link
                       :to="{ name: 'profile.settings.avatar' }"
                       class="nav-link"
@@ -24,6 +27,8 @@
                       }"
                       >Avatar</nuxt-link
                     >
+                  </li>
+                  <li class="nav-item">
                     <nuxt-link
                       :to="{ name: 'profile.settings.password' }"
                       class="nav-link"
@@ -33,6 +38,8 @@
                       }"
                       >Password</nuxt-link
                     >
+                  </li>
+                  <li class="nav-item">
                     <nuxt-link
                       :to="{ name: 'profile.settings.privacy' }"
                       class="nav-link"
@@ -41,6 +48,8 @@
                       }"
                       >Privacy</nuxt-link
                     >
+                  </li>
+                  <li class="nav-item">
                     <nuxt-link
                       :to="{ name: 'profile.settings.notifications' }"
                       class="nav-link"
@@ -49,6 +58,17 @@
                           $nuxt.$route.name == 'profile.settings.notifications',
                       }"
                       >Notifications</nuxt-link
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <nuxt-link
+                      :to="{ name: 'profile.settings.delete.account' }"
+                      class="nav-link"
+                      :class="{
+                        active:
+                          $nuxt.$route.name == 'profile.settings.delete.account',
+                      }"
+                      >Delete Account</nuxt-link
                     >
                   </li>
                 </ul>

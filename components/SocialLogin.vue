@@ -12,12 +12,12 @@
       @click.prevent="socialLogin('twitter')"
       >Twitter</a
     >
-    <a
+    <!-- <a
       href="#"
       class="btn btn-link social-icon instagram"
       @click.prevent="socialLogin('instaagram')"
       >Instagram</a
-    >
+    > -->
   </div>
 </template>
 

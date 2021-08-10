@@ -40,6 +40,10 @@ export default {
       //   .splice(0, this.addressWordLimit)
       //   .join(' ');
 
+      if(this.address == null){
+        return '';
+      }
+
       const splitAddress = this.address.split(/\s/);
 
       if (splitAddress.length > this.addressWordLimit) {

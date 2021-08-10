@@ -130,7 +130,7 @@ export default {
       store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
     } catch (err) {
       if (err.response.status === 404) {
-        error({ statusCode: 404, message: 'Thread Not Found' });
+        error({ statusCode: 404, message: 'User Not Found' });
       } else if (err.response.status === 403) {
         redirect('/');
       } else if (err.response.status === 429) {

@@ -36,7 +36,10 @@
         <div class="tab-pane active" id="friend-friends">
           <div class="row">
             <div class="col-md-12" v-if="filterFriendLists.length < 1">
-              <alert class="alert-danger">No Records found</alert>
+              <!-- <alert class="alert-danger">No Records found</alert> -->
+              <div class="alert alert-danger" role="alert">
+                No Records found
+              </div>
             </div>
             <div
               class="col-md-6"
@@ -80,7 +83,9 @@
         <div class="tab-pane" id="friend-request" v-if="is_owner">
           <div class="row">
             <div class="col-md-12" v-if="filterFriendRequests.length < 1">
-              <alert class="alert-danger">No Records found</alert>
+              <div class="alert alert-danger" role="alert">
+                No Records found
+              </div>
             </div>
             <div
               class="col-md-6"
@@ -123,7 +128,9 @@
         <div class="tab-pane" id="friend-blocking" v-if="is_owner">
           <div class="row">
             <div class="col-md-12" v-if="filterBlockLists.length < 1">
-              <alert class="alert-danger">No Records found</alert>
+              <div class="alert alert-danger" role="alert">
+                No Records found
+              </div>
             </div>
             <div
               class="col-md-6"
@@ -166,7 +173,9 @@
         <div class="tab-pane" id="friend-following">
           <div class="row">
             <div class="col-md-12" v-if="filterFollowings.length < 1">
-              <alert class="alert-danger">No Records found</alert>
+              <div class="alert alert-danger" role="alert">
+                No Records found
+              </div>
             </div>
             <div
               class="col-md-6"
@@ -227,7 +236,9 @@
         <div class="tab-pane" id="friend-followers">
           <div class="row">
             <div class="col-md-12" v-if="filterFollowers.length < 1">
-              <alert class="alert-danger">No Records found</alert>
+              <div class="alert alert-danger" role="alert">
+                No Records found
+              </div>
             </div>
             <div
               class="col-md-6"

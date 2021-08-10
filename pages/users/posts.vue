@@ -39,6 +39,7 @@ export default {
   async fetch({ params, query, error, $axios, store, redirect }) {
     try {
       const userRresponse = await $axios.$get(`profile/${params.username}`);
+
       if (userRresponse.data.is_blocked) {
         redirect('/');
       }
@@ -49,6 +50,7 @@ export default {
       const threadRresponse = await $axios.$get(
         `profile/${params.username}/threads?${q}`
       );
+
       store.commit('user/SET_USER', userRresponse.data);
       store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
 

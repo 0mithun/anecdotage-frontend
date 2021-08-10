@@ -109,6 +109,11 @@ const routes = [
         path: 'notifications',
         name: 'profile.settings.notifications',
         component: page('users/settings/notifications.vue')
+      },
+      {
+        path: 'delete-account',
+        name: 'profile.settings.delete.account',
+        component: page('users/settings/delete.vue')
       }
     ]
   },

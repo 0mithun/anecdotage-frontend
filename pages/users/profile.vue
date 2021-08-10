@@ -445,12 +445,9 @@ export default {
         redirect('/');
       }
 
-      const threadRresponse = await $axios.$get(
-        `profile/${params.username}/threads`
-      );
-      const favoriteRresponse = await $axios.$get(
-        `profile/${params.username}/favorites`
-      );
+
+
+
       if (userRresponse.data.is_owner) {
         const likeRresponse = await $axios.$get(
           `profile/${params.username}/likes`
@@ -462,15 +459,20 @@ export default {
       store.commit('user/SET_USER', userRresponse.data);
       store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
 
-      store.commit('user/SET_THREADS', threadRresponse.data);
-      store.commit('user/SET_THREADS_COUNT', threadRresponse.meta.total);
+      const threadCount = await $axios.$get(
+        `profile/${params.username}/threads-counts`
+      );
+      const favoriteCount = await $axios.$get(
+        `profile/${params.username}/favorites-counts`
+      );
 
-      store.commit('user/SET_FAVORITES', favoriteRresponse.data);
-      store.commit('user/SET_FAVORITES_COUNT', favoriteRresponse.meta.total);
+     store.commit('user/SET_THREADS_COUNT', threadCount.count);
+     store.commit('user/SET_FAVORITES_COUNT', favoriteCount.count);
 
       store.commit('user/SET_IS_FRIEND', userRresponse.data.is_friend);
       store.commit('user/SET_IS_FOLLOW', userRresponse.data.is_follow);
     } catch (err) {
+      console.log(err)
       if (err.response.status === 404) {
         error({ statusCode: 404, message: 'user Not Found' });
       } else if (err.response.status === 403) {

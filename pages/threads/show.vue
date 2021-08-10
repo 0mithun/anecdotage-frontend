@@ -221,7 +221,7 @@
                       <div
                         class="thread-show-tools d-flex justify-content-between align-items-center"
                       >
-                        <focusComment></focusComment>
+                        <focusComment size="small"></focusComment>
                         <vote-emojis
                           :thread="thread"
                           size="small"
@@ -597,6 +597,10 @@ export default {
   img.buy-btn {
     height: 22px;
     display: unset;
+  }
+  p{
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 
