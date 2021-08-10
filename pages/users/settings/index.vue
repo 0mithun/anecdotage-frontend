@@ -60,7 +60,7 @@
                       >Notifications</nuxt-link
                     >
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" v-if="!isAdmin">
                     <nuxt-link
                       :to="{ name: 'profile.settings.delete.account' }"
                       class="nav-link"
@@ -87,9 +87,10 @@
 <script>
 import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
+import userStatus from '@/mixins/userStatus'
 export default {
   middleware: ['auth'],
-  mixins:[scrollToTop],
+  mixins:[scrollToTop, userStatus],
   head() {
     return {
       title: this.settings.site_title,
