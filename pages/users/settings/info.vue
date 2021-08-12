@@ -64,7 +64,7 @@
         </div>
       </form>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" v-if="!user.is_admin">
       <hr>
       <div class="form-group row">
           <label for="name" class="col-sm-4 col-form-label">Delete My Account</label>
