@@ -207,7 +207,9 @@ export default {
     },
     {
       UserAgent: '*',
-      Disallow: ['/admin','/profile','/api/*'],
+      Disallow: ['/admin','/profile','/api/*','/tags/*',
+      '/anecdotes/viewed','/anecdotes/rated','/anecdotes/videos','/anecdotes/closest','/anecdotes/trending','/anecdotes/recent',
+      '/anecdotes/emoji/*'],
     },
   ],
 
