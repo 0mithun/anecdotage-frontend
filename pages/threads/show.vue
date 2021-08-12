@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row"  v-if="!needPrivacyUpdate">
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-12">
@@ -258,6 +258,66 @@
         <Sidebar />
       </div>
 
+
+    </div>
+     <!-- Modal -->
+    <div
+      class="modal fade"
+      :id="`edit-privacy`"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ needPrivacyUpdateMessage }}</h5>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              @click.prevent="declineUpdatePrivacy"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-check">
+              <input
+                type="checkbox"
+                id="restricted_13"
+                value="1"
+                v-model="form.restricted_13"
+              />
+              &nbsp;
+              <label for="restricted_13"
+                >I confirm that I am 13+ and wish to view PG-13 content</label
+              >
+            </div>
+            <div class="form-check">
+              <input
+                type="checkbox"
+                id="restricted_18"
+                value="1"
+                v-model="form.restricted_18"
+              />
+              &nbsp;
+              <label for="restricted_18"
+                >I confirm that I am 18+ and wish to view adult content</label
+              >
+            </div>
+        </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="updatePrivacy"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -414,12 +474,20 @@ export default {
     return {
       imageDescriptionLengthLimit: 20,
       showFullImageDescription: false,
+      needPrivacyUpdate: false,
+      needPrivacyUpdateMessage: null,
+
+      form: this.$vform({
+        restricted_13: 1,
+        restricted_18: 1,
+      }),
     };
   },
   computed: {
     ...mapGetters({
       settings: 'settings',
       thread: 'threads/thread',
+       profile_user_privacy: 'user/profileUserPrivacy',
     }),
     threadThumbStyle() {
       return `background: rgba(${this.thread.image_path_pixel_color});`;
@@ -460,6 +528,11 @@ export default {
       const threadRresponse = await $axios.$get(`threads/${params.slug}`);
       // return { thread: threadRresponse.data};
       store.commit('threads/setCurrentThread', threadRresponse.data);
+       if(store.state.auth.loggedIn){
+         const userRresponse = await $axios.$get(`profile/${store.state.auth.user.username}`);
+         store.commit('user/SET_USER_PRIVACY', userRresponse.data.privacy);
+      }
+
     } catch (err) {
       if (err.response.status === 404) {
         error({ statusCode: 404, message: 'Thread Not Found' });
@@ -482,6 +555,53 @@ export default {
         await navigator.clipboard.writeText(text);
       }
     },
+    async updatePrivacy(){
+      try {
+        const user = await this.form.put(
+          `user/${this.$auth.user.username}/privacy`,
+          this.form
+        );
+        await this.$auth.fetchUser();
+        $('#edit-privacy').modal('hide')
+        location.reload()
+      } catch (error) {
+
+      }
+    },
+    declineUpdatePrivacy(){
+      location.href = '/'
+    },
+    checkPrivacy(){
+      if(this.thread.age_restriction == 0){
+        return true;
+      }else if(this.thread.age_restriction == 13){
+        if(!this.signedIn){
+          this.needPrivacyUpdate = true;
+          this.needPrivacyUpdateMessage = 'This content is 13+. If you want to show please update your privacy.'
+          return;
+        }
+        if(this.profile_user_privacy.restricted_18 == 1 ){
+          return true;
+        }
+        if(this.profile_user_privacy.restricted_13 == 1 ){
+          return true;
+        }
+        this.needPrivacyUpdate = true;
+        this.needPrivacyUpdateMessage = 'This content is 13+. If you want to show please update your privacy.'
+      }
+      else if(this.thread.age_restriction == 18){
+        if(!this.signedIn){
+          this.needPrivacyUpdate = true;
+          this.needPrivacyUpdateMessage = 'This content is 18+. If you want to show please update your privacy.'
+          return;
+        }
+        if(this.profile_user_privacy.restricted_18 == 1 ){
+          return true;
+        }
+        this.needPrivacyUpdate = true;
+        this.needPrivacyUpdateMessage = 'This content is 18+. If you want to show please update your privacy.'
+      }
+    }
   },
   mounted() {
     let p = document.querySelectorAll('p');
@@ -505,6 +625,14 @@ export default {
         threadCard.addEventListener('cut', this.copyCut);
       }
     }
+
+    this.checkPrivacy();
+
+    if(this.needPrivacyUpdate){
+
+      $('#edit-privacy').modal('show')
+    }
+
   },
 };
 </script>
