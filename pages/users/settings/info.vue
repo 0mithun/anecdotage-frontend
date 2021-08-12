@@ -64,6 +64,19 @@
         </div>
       </form>
     </div>
+    <div class="col-md-12">
+      <hr>
+      <div class="form-group row">
+          <label for="name" class="col-sm-4 col-form-label">Delete My Account</label>
+          <div class="col-sm-8">
+            <form @submit.prevent="deleteInfo">
+              <p>This will delete your account and everything in it with the exception of any anecdotes you have posted. Your anecdotes can be deleted from their individual pages. Otherwise, they will be attributed to "Anonymous." </p>
+              <br>
+              <BaseButton :loading="delete_form.busy" type="danger">Delete My Account</BaseButton>
+            </form>
+          </div>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -72,7 +85,9 @@ import { mapGetters } from 'vuex';
 import BaseInput from '@/components/form/inputs/BaseInput'
 import BaseButton from '@/components/form/buttons/BaseButton'
 import BaseTextarea from '@/components/form/inputs/BaseTextarea'
+import swal from '@/mixins/swal'
 export default {
+  mixins: [swal],
   components: {BaseButton, BaseInput, BaseTextarea},
   data() {
     return {
@@ -81,6 +96,8 @@ export default {
         date_of_birth: '',
         formatted_address: '',
         about: '',
+      }),
+      delete_form: this.$vform({
       }),
     };
   },
@@ -109,6 +126,36 @@ export default {
         });
       } catch (e) {}
     },
+
+    deleteInfo() {
+        this.$swal({
+          title: 'Are you sure?',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if(willDelete){
+            this.delete();
+          }
+          return;
+        });
+    },
+    async delete(){
+      try {
+        const user = await this.form.post(`user/${this.$auth.user.username}/delete-info`);
+        this.$toast.open({
+            type: 'success',
+            position: 'top-right',
+            message: 'Your account delete successfully.',
+          });
+        setTimeout(() => {
+           this.$router.push({ name: 'index' });
+        }, 2000);
+      } catch (error) {
+
+      }
+    }
   },
   mounted() {
     Object.keys(this.form).forEach((k) => {

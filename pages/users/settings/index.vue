@@ -60,7 +60,7 @@
                       >Notifications</nuxt-link
                     >
                   </li>
-                  <li class="nav-item" v-if="!isAdmin">
+                  <!-- <li class="nav-item" v-if="!isAdmin">
                     <nuxt-link
                       :to="{ name: 'profile.settings.delete.account' }"
                       class="nav-link"
@@ -70,7 +70,7 @@
                       }"
                       >Delete Account</nuxt-link
                     >
-                  </li>
+                  </li> -->
                 </ul>
               </div>
             </div>
@@ -100,6 +100,11 @@ export default {
     ...mapGetters({
       settings: 'settings',
     }),
+  },
+  fetch({params, $auth, redirect}) {
+    if(params.username !== $auth.user.username){
+      redirect({name:'index'})
+    }
   },
 };
 </script>

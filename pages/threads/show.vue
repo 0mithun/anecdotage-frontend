@@ -572,6 +572,9 @@ export default {
       location.href = '/'
     },
     checkPrivacy(){
+      if(this.isAdmin){
+        return true;
+      }
       if(this.thread.age_restriction == 0){
         return true;
       }else if(this.thread.age_restriction == 13){

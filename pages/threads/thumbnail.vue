@@ -308,12 +308,12 @@ export default {
         .post(`threads/${this.thread.slug}/thumbnail`, formdata)
         .then((res) => {
           // console.log(res);
-          this.$axios
-            .$put(`threads/${this.thread.slug}/imageDescription`, this.form)
-            .then((res) => {
+          // this.$axios
+          //   .$put(`threads/${this.thread.slug}/imageDescription`, this.form)
+          //   .then((res) => {
 
-            })
-             .catch((err) => {});
+          //   })
+          //    .catch((err) => {});
         })
         .catch((err) => {
           const message = err.response.data.errors;
