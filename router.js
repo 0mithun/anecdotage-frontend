@@ -9,6 +9,7 @@ const routes = [
   { path: '/faq', name: 'faq', component: page('faq.vue') },
   { path: '/tos', name: 'tos', component: page('tos.vue') },
   { path: '/privacy', name: 'privacy', component: page('privacy.vue') },
+  { path: '/delete-account', name: 'delete', component: page('delete.vue') },
   { path: '/contact', name: 'contact', component: page('contact.vue') },
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },
@@ -253,7 +254,12 @@ const routes = [
         path: 'privacy',
         name: 'admin.show.privacy',
         component: page('admins/privacy.vue')
-      }
+      },
+      {
+        path: 'delete-account',
+        name: 'admin.show.delete',
+        component: page('admins/delete.vue')
+      },
     ]
   },
 

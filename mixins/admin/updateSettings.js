@@ -35,7 +35,7 @@ export default {
         this.$toast.open({
           type: 'success',
           position: 'top-right',
-          message: 'Terms Update Successfully',
+          message: this.message
         });
       } catch (e) {}
     },

@@ -95,6 +95,16 @@
                       >Privacy</nuxt-link
                     >
                   </li>
+                  <li class="nav-item">
+                    <nuxt-link
+                      :to="{ name: 'admin.show.delete' }"
+                      class="nav-link"
+                      :class="{
+                        active: $nuxt.$route.name == 'admin.show.delete',
+                      }"
+                      >Delete Account</nuxt-link
+                    >
+                  </li>
                 </ul>
               </div>
             </div>
