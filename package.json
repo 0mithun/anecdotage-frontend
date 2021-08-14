@@ -38,6 +38,7 @@
     "vform": "^1.0.1",
     "vue-chat-scroll": "^1.4.0",
     "vue-ckeditor2": "^2.1.5",
+    "vue-cool-lightbox": "^2.7.4",
     "vue-select": "^3.10.8",
     "vue-swal": "^1.0.0",
     "vue-toast-notification": "^0.6.0",

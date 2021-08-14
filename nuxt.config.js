@@ -132,20 +132,7 @@ export default {
     ],
     routes: async ()=>{
      let staticRoutes = [
-        '/',
-        '/faq',
-        '/tos',
-        '/privacy',
-        '/contact',
-        '/login',
-        '/register',
-        '/anecdotes/maps',
-        '/anecdotes/rated',
-        '/anecdotes/trending',
-        '/anecdotes/viewed',
-        '/anecdotes/recent',
-        '/anecdotes/closest',
-        '/anecdotes/video',
+        '/','/faq','/tos','/privacy','/contact','/login','/register','/anecdotes/maps','/anecdotes/rated','/anecdotes/trending','/anecdotes/viewed','/anecdotes/recent','/anecdotes/closest','/anecdotes/video',
       ];
 
       // let {data}  = await axios.get(`${process.env.API_URL}/threads`);
@@ -207,7 +194,7 @@ export default {
     },
     {
       UserAgent: '*',
-      Disallow: ['/admin','/profile','/api/*','/tags/*',
+      Disallow: ['/admin','/profile','/api/*',
       '/anecdotes/viewed','/anecdotes/rated','/anecdotes/videos','/anecdotes/closest','/anecdotes/trending','/anecdotes/recent',
       '/anecdotes/emoji/*'],
     },

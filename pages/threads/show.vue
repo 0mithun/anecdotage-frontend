@@ -138,13 +138,31 @@
                       :alt="thread.title"
                       class="thread-image thread_thumb_image"
                     /> -->
-                      <img  title="" v-lazy-load
+                      <!-- <img  title="" v-lazy-load
                         :data-src="thread.thread_image_path"
                         :alt="thread.title"
                         class="thread-image thread_thumb_image"
                         heigh="240"
                         width="auto"
-                      >
+                      > -->
+                    <client-only>
+                      <CoolLightBox
+                        :items="lightBoxItems"
+                        :index="index"
+                        @close="index = null">
+                      </CoolLightBox>
+                     </client-only>
+                      <div class="images-wrapper">
+                        <div
+                          class="image"
+                          v-for="(image, imageIndex) in lightBoxItems"
+                          :key="imageIndex"
+                          @click="index = imageIndex"
+                          :style="{ backgroundImage: 'url(' + image + ')' }"
+                        ></div>
+                      </div>
+
+
 
                   </div>
                   <template
@@ -355,6 +373,11 @@ import scrollToTop from '@/mixins/scrollToTop';
 import userStatus from '@/mixins/userStatus'
 import AdminButtons from '@/components/threads/AdminButtons';
 import { mapGetters } from 'vuex';
+
+import CoolLightBox from 'vue-cool-lightbox'
+import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
+
+
 //image_path_pixel_color
 export default {
   components: {
@@ -378,7 +401,8 @@ export default {
     Replies,
     UserOnline,
     SimpleMap,
-    AdminButtons
+    AdminButtons,
+    CoolLightBox
   },
   mixins: [scrollToTop,userStatus],
   head() {
@@ -481,6 +505,7 @@ export default {
         restricted_13: 1,
         restricted_18: 1,
       }),
+      index: null
     };
   },
   computed: {
@@ -489,7 +514,15 @@ export default {
       thread: 'threads/thread',
        profile_user_privacy: 'user/profileUserPrivacy',
     }),
-    threadThumbStyle() {
+  lightBoxItems(){
+    if( this.thread.thread_image_path){
+      const lists = []
+      lists.push(this.thread.thread_image_path)
+      return lists;
+    }
+    return []
+  },
+  threadThumbStyle() {
       return `background: rgba(${this.thread.image_path_pixel_color});`;
     },
     threadImageDescriptionLength() {
@@ -688,7 +721,7 @@ export default {
 }
 
 .thread-thumbnail {
-  display: flex;
+  // display: flex;
   width: 100%;
   text-align: center;
   overflow: hidden;
@@ -758,5 +791,19 @@ p {
 .thread-body img {
     max-width: 100% !important;
     height: auto;
+}
+.images-wrapper{
+  height:240px;
+}
+
+
+.images-wrapper .image {
+    cursor: pointer;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* padding-top: 100%; */
+    width: 100%;
+    height: 100%;
 }
 </style>
