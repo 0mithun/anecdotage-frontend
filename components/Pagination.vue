@@ -3,7 +3,12 @@
     <ul class="pagination" v-if="show">
       <li :class="{ disabled: !prev }" class="page-item">
 
-        <a @click.prevent="goToPage(1)" class="page-link" :href="`?page=1`">
+        <!-- <a @click.prevent="goToPage(1)" class="page-link" :href="`?page=1`">
+          <span>
+            <span>&laquo;</span>
+          </span>
+        </a> -->
+        <a @click.prevent="goToFirstPage" class="page-link" href="">
           <span>
             <span>&laquo;</span>
           </span>
@@ -22,10 +27,22 @@
 
       >
         <a
+          @click.prevent="goToFirstPage"
+          class="page-link"
+          :rel="getRelation(link)"
+          href=""
+          v-if="link == 1"
+        >
+          <span>
+            <span>{{ link }}</span>
+          </span>
+        </a>
+        <a
           @click.prevent="goToPage(link)"
           class="page-link"
           :rel="getRelation(link)"
           :href="`?page=${link}`"
+          v-else
         >
           <span>
             <span>{{ link }}</span>
@@ -157,6 +174,15 @@ export default {
       if (isNaN(page)) {
         return;
       }
+    },
+    goToFirstPage(){
+      let params = {};
+      params[this.param.key] = this.param.value;
+       this.$router.push({
+        name: this.routeName,
+        params: params,
+        query: {...this.q },
+      });
     },
     goToPage(link) {
       let params = {};
