@@ -285,6 +285,7 @@
       tabindex="-1"
       role="dialog"
       aria-hidden="true"
+      v-if="signedIn"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -324,7 +325,7 @@
                 >I confirm that I am 18+ and wish to view adult content</label
               >
             </div>
-        </div>
+          </div>
           <div class="modal-footer">
             <button
               type="button"
@@ -337,6 +338,47 @@
         </div>
       </div>
     </div>
+    <div
+      class="modal fade"
+      :id="`edit-privacy`"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+      v-if="!signedIn"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">This content is 18+. If you want to show please login or signup.</h5>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              @click.prevent="declineUpdatePrivacy"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="font-14 fw-400 text-center mt-4">
+              Don't have an account yet?
+              <a href="#" class="color-blue" @click.prevent="goToRegister">
+                Create an account
+              </a>
+            </p>
+            <br>
+            <p class="font-14 fw-400 text-center mt-4">
+              Already have an account?
+              <a href="#" class="color-blue"  @click.prevent="goToLogin"
+                >Login</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
@@ -637,7 +679,29 @@ export default {
         this.needPrivacyUpdate = true;
         this.needPrivacyUpdateMessage = 'This content is 18+. If you want to show please update your privacy.'
       }
-    }
+    },
+
+    setRedirectUrl(){
+      let routeData = this.$router.resolve({
+        name: 'threads.show',
+        params: { slug: this.thread.slug },
+      }).href;
+
+      localStorage.setItem('privacy-redirect-route', 'profile.settings.privacy');
+      localStorage.setItem('thread-show-url', routeData);
+    },
+    goToLogin(){
+      this.setRedirectUrl()
+
+       $('#edit-privacy').modal('hide')
+      this.$router.push({name:'login'})
+    },
+    goToRegister(){
+      this.setRedirectUrl()
+
+       $('#edit-privacy').modal('hide')
+      this.$router.push({name:'register'})
+    },
   },
   mounted() {
     let p = document.querySelectorAll('p');

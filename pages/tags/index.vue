@@ -72,8 +72,12 @@
               <div class="col-md-12">
                 <div class="post-header">
                   <div class="post-counts">
-                    {{ postCounts | formatCount }}
-                    {{ postCounts | strPlural('post') }}
+                    Showing {{ postCounts | formatCount }} {{ postCounts | strPlural('post') }}
+                    of {{ totalThreadsCount | formatCount }} {{ totalThreadsCount | strPlural('post') }}
+                  </div>
+                  <div class="safe-fearch mt-2" v-if="postCounts !== totalThreadsCount" @mouseover="showPrivacyModal">
+                      <input type="checkbox" value="1" checked>
+                      <label for="allow_share_twitter">Safe search on </label>
                   </div>
                 </div>
               </div>
@@ -96,6 +100,57 @@
         <Sidebar />
       </div>
     </div>
+     <div
+      class="modal fade"
+      :id="`edit-privacy`"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <template v-if="signedIn">
+                To turn this off, please confirm your age
+              </template>
+              <template v-else>
+                To turn this off, please create an account and confirm your age.
+              </template>
+              </h5>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              data-dismiss="modal"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <template v-if="signedIn">
+              <p class="font-14 fw-400 text-center">
+                <a href="#" class="btn btn-success btn-sm " @click.prevent="goToUserPrivacySetting">Goto user settings page</a>
+              </p>
+            </template>
+            <template v-else>
+              <p class="font-14 fw-400 text-center">
+                Don't have an account yet?
+                <a href="#" class="color-blue" @click.prevent="goToRegister">
+                  Create an account
+                </a>
+              </p>
+              <p class="font-14 fw-400 text-center">
+                Already have an account?
+                <a href="#" class="color-blue"  @click.prevent="goToLogin"
+                  >Login</a
+                >
+              </p>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -111,9 +166,10 @@ import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
 import StrPlural from '@/mixins/strPlural'
 import formatCount from '@/mixins/formatCount'
+import userStatus from '@/mixins/userStatus'
 export default {
   name: 'index',
-  mixins:[scrollToTop, StrPlural, formatCount],
+  mixins:[scrollToTop, StrPlural, formatCount, userStatus],
   components: {
     SingleThread,
     Sidebar,
@@ -176,18 +232,16 @@ export default {
     ...mapGetters({
       settings: 'settings',
     }),
-    isAdmin() {
-      if (this.$auth.loggedIn) {
-        return this.$store.state.auth.user.is_admin;
-      }
-      return false;
-    },
+
     isUserFollow() {
       return this.isFollow ? this.isFollow : this.tag.is_follow;
     },
     postCounts() {
       // return abbreviate(this.pageinateData.total, 1);
       return this.pageinateData.total;
+    },
+    totalThreadsCount() {
+      return this.$store.state.tags.totalThreadsCount;
     },
     tag() {
       return this.$store.state.tags.tag;
@@ -212,6 +266,35 @@ export default {
         });
       }
     },
+    showPrivacyModal(){
+      $('#edit-privacy').modal('show')
+    },
+    setRedirectUrl(){
+      let routeData = this.$router.resolve({
+        name: 'tags',
+        params: { slug: this.tag.slug },
+      }).href;
+
+      localStorage.setItem('privacy-redirect-route', 'profile.settings.privacy');
+      localStorage.setItem('tag-show-url', routeData);
+    },
+    goToLogin(){
+      this.setRedirectUrl()
+       $('#edit-privacy').modal('hide')
+      this.$router.push({name:'login'})
+    },
+    goToRegister(){
+      this.setRedirectUrl()
+
+       $('#edit-privacy').modal('hide')
+      this.$router.push({name:'register'})
+    },
+    goToUserPrivacySetting(){
+      this.setRedirectUrl()
+
+       $('#edit-privacy').modal('hide')
+      this.$router.push({name:'profile.settings.privacy', params:{username: this.$auth.user.username}})
+    },
   },
   // watch: {
   //   '$route.query': '$fetch'
@@ -229,6 +312,7 @@ export default {
       store.commit('tags/setTags', tagRresponse.tag.data);
       store.commit('tags/setThreads', tagRresponse.threads.data);
       store.commit('tags/setPageinateData', tagRresponse.threads.meta);
+      store.commit('tags/setTotalThreadsCount', tagRresponse.total_threads_count);
     } catch (err) {
       if (err.response.status === 404) {
         error({ statusCode: 404, message: 'Tag Not Found' });

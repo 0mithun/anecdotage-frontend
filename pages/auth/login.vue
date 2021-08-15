@@ -88,6 +88,12 @@ export default {
         .then((res) => {
           // this.form.reset();
           // console.log(res)
+          const route = localStorage.getItem('privacy-redirect-route');
+
+          if(route){
+            localStorage.removeItem('privacy-redirect-route');
+            this.$router.push({name:route, params: {username:this.$auth.user.username}})
+          }
         })
         .catch((e) => {
           this.form.errors.set(e.response.data.errors);

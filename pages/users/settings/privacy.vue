@@ -349,6 +349,21 @@ export default {
           position: 'top-right',
           message: 'Privacy Update Successfully',
         });
+
+         const route = localStorage.getItem('thread-show-url');
+         const tagRoute = localStorage.getItem('tag-show-url');
+
+          if(route){
+            localStorage.removeItem('thread-show-url');
+            this.$router.push(route)
+          }
+
+          if(tagRoute){
+            localStorage.removeItem('tag-show-url');
+            this.$router.push(tagRoute)
+          }
+
+
       } catch (e) {}
     },
   },

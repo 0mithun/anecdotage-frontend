@@ -3,7 +3,8 @@
 export const state = () => ({
   tag: null,
   threads: [],
-  pageinateData: null
+  pageinateData: null,
+  totalThreadsCount: 0
 })
 
 export const getters = {
@@ -18,6 +19,9 @@ export const mutations = {
   },
   setPageinateData: (state, data)=>{
     state.pageinateData = data
+  },
+  setTotalThreadsCount: (state, data)=>{
+    state.totalThreadsCount = data
   }
 }
 
