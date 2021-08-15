@@ -404,6 +404,11 @@ export default {
       title_case: true,
     };
   },
+  head() {
+    return {
+      title: `${this.settings.site_title} | Create New Thread`,
+    };
+  },
   methods: {
     addNewThread() {
       this.errors = [];

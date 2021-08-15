@@ -10,7 +10,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" v-if="thread.thread_image_path != ''">
         <div class="thread-thumbnail card-m-5 " :style="threadThumbStyle"  @click="openThreadUrl">
             <!-- <img  :src="thread.thread_image_path" :alt="thread.title" class="thread-image thread_thumb_image"> -->
               <img

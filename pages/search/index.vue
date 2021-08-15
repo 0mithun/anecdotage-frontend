@@ -58,7 +58,7 @@ export default {
   },
   head() {
     return {
-      title: this.settings.site_title,
+      title: `${this.settings.site_title} | Search: ${this.q}`,
     };
   },
   computed: {

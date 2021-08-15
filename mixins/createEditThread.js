@@ -9,17 +9,7 @@ import BaseButton from '@/components/form/buttons/BaseButton'
 
 export default {
   components: {vSelect, Typeahead, BaseButton, BaseInput },
-  head() {
-    return {
-      title: this.settings.site_title,
-      // script:[
-      //   {
-      //     src:'https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js',
-      //     async: true
-      //   }
-      // ]
-    };
-  },
+
   watch: {
     title_case(oldValue, newValue){
       this.form.title_case = oldValue

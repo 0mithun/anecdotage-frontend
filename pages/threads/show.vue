@@ -131,7 +131,7 @@
                   </div>
                 </div>
 
-                <div class="row card-m-5">
+                <div class="row card-m-5" v-if="thread.thread_image_path != ''">
                   <div class="thread-thumbnail" :style="threadThumbStyle">
                     <!-- <img
                       :src="thread.thread_image_path"
@@ -698,7 +698,7 @@ export default {
 }
 .count-items-row,
 .thread-body-row {
-  margin: 10px 0;
+  margin: 15px 0;
 }
 
 .thread-body {

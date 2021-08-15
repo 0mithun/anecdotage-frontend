@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" v-if="thread.thread_image_path != ''">
         <div
           class="thread-thumbnail"
           :style="threadThumbStyle"

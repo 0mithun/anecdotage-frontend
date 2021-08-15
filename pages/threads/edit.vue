@@ -422,6 +422,7 @@ export default {
      ...mapGetters({
       settings: 'settings',
       thread: 'threads/thread',
+
     }),
     owns() {
       if (this.signedIn) {
@@ -430,6 +431,14 @@ export default {
 
       return false;
     },
+    stripTagTitle() {
+        return this.thread.title.replace(/(<([^>]+)>)/gi, '');
+      },
+  },
+  head() {
+    return {
+      title: `${this.settings.site_title} | Edit:  ${this.stripTagTitle} `,
+    };
   },
   data() {
     return {

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card card-m-5">
       <div class="card-header">
-        <div class="left float-left">Add an Image</div>
+        <div class="left float-left big-label">Upload an Image</div>
         <div class="right float-right">
           <button
             class="btn btn-success btn-lg"
@@ -17,7 +17,7 @@
         <div class="row justify-content-center align-items-center text-center">
           <div class="col-md-6">
             <div class="card bg-white shadow-sm">
-              <div class="d-flex flex-column justify-content-center p-1">
+              <div class="d-flex flex-column justify-content-center p-1" data-toggle="tooltip" data-placement="top" :title="imageTooltipText">
                 <div class="alert alert-danger" v-if="error">
                   <p>An error occurred during the upload process</p>
                   <p>{{ error }}</p>
@@ -72,8 +72,8 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="wiki_info_page_url" class="control-label">
-                    Enter Image link
+                  <label for="wiki_info_page_url" class="control-label big-label" data-toggle="tooltip" data-placement="top" :title="imageTooltipText">
+                    Enter Image Link
                   </label>
                   <input
                     type="text"
@@ -81,9 +81,11 @@
                     class="form-control"
                     v-model="form.temp_image_url"
                     @click="clickOnCopyright = true"
+                    :class="{'is-invalid': !isValidURL }"
                   />
+                  <span class="invalid-feedback" v-if="!isValidURL">Invalid Image URL</span>
                 </div>
-                <div class="form-group" v-if="showCopyrightFree">
+                <div class="form-group" v-if="showCopyrightFree && isValidURL">
                   <label for="" :class="{ error: copyrightButtonError }">
                     <input
                       type="checkbox"
@@ -222,7 +224,7 @@ export default {
         post: 'output',
         defaultInputName: 'image',
         // minSize: '200,300',
-        label: 'Select image...',
+        label: 'Upload an Image...',
         // maxFileSize: 2,
         autoCrop: true,
       },
@@ -256,6 +258,9 @@ export default {
       settings: 'settings',
       thread: 'threads/thread',
     }),
+    imageTooltipText(){
+      return `This (optional) image will appear like a banner at the top of your article. You can also place images within your article using the editor on the previous page.`;
+    },
     src() {
       return this.$store.state.threads.thread.thread_image_path;
     },
@@ -270,6 +275,10 @@ export default {
       return false;
     },
     showCopyrightFree() {
+      if(this.form.temp_image_url == null || this.form.temp_image_url == ''){
+        return false;
+      }
+
       if (this.clickOnCopyright == true) {
         return true;
       }
@@ -300,6 +309,14 @@ export default {
       return false;
     },
 
+    isValidURL() {
+      if(this.form.temp_image_url == null || this.form.temp_image_url == ''){
+        return true;
+      }
+
+        var res = this.form.temp_image_url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+        return (res !== null)
+    }
   },
   methods: {
     slimService(formdata, progress, success, failure, slim) {
@@ -394,5 +411,10 @@ export default {
 <style lang="scss" scoped>
 .error {
   color: red;
+}
+
+.big-label{
+  font-weight: 700;
+  font-size:20px;
 }
 </style>
