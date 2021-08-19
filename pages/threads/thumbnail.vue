@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card card-m-5">
       <div class="card-header">
-        <div class="left float-left big-label">Upload an Image</div>
+        <div class="left float-left big-label">Upload an Image (Optional)</div>
         <div class="right float-right">
           <button
             class="btn btn-success btn-lg"
@@ -15,7 +15,7 @@
       </div>
       <div class="card-body">
         <div class="row justify-content-center align-items-center text-center">
-          <div class="col-md-6">
+          <div class="col-md-8">
             <div class="card bg-white shadow-sm">
               <div class="d-flex flex-column justify-content-center p-1" data-toggle="tooltip" data-placement="top" :title="imageTooltipText">
                 <div class="alert alert-danger" v-if="error">
@@ -43,7 +43,7 @@
     </div>
 
     <div class="card card-m-5">
-      <div class="card-header">Or Enter Image link</div>
+      <div class="card-header big-label">Or Use An Online Image</div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
@@ -72,8 +72,8 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="wiki_info_page_url" class="control-label big-label" data-toggle="tooltip" data-placement="top" :title="imageTooltipText">
-                    Enter Image Link
+                  <label for="wiki_info_page_url" class="control-label " data-toggle="tooltip" data-placement="top" :title="imageTooltipText">
+                    Enter An Image URL
                   </label>
                   <input
                     type="text"
@@ -105,7 +105,7 @@
 
                 <div class="form-group">
                   <label for="temp_image_description" class="control-label">
-                    Image description</label
+                    Image Description</label
                   >
                   <textarea
                     name=""
@@ -224,7 +224,7 @@ export default {
         post: 'output',
         defaultInputName: 'image',
         // minSize: '200,300',
-        label: 'Upload an Image...',
+        label: 'Click here to upload an image...',
         // maxFileSize: 2,
         autoCrop: true,
       },
@@ -253,13 +253,25 @@ export default {
       this.form.image_copyright_free = false;
     }
   },
+  created() {
+    if (!this.isAdmin && !this.owns) {
+      this.$router.push({ name: 'index' });
+    }
+  },
   computed: {
     ...mapGetters({
       settings: 'settings',
       thread: 'threads/thread',
     }),
+    owns() {
+      if (this.signedIn) {
+        return this.$store.state.auth.user.id == this.thread.user_id;
+      }
+
+      return false;
+    },
     imageTooltipText(){
-      return `This (optional) image will appear like a banner at the top of your article. You can also place images within your article using the editor on the previous page.`;
+      return `This image will appear at the top of your article. You can also embed images with the editor on the previous page.`;
     },
     src() {
       return this.$store.state.threads.thread.thread_image_path;
@@ -382,6 +394,10 @@ export default {
     },
 
     rgbToHex(rgb) {
+      if(rgb == null || rgb == ''){
+        return '';
+      }
+
       let rgbVal = rgb.split(',');
       rgbVal.pop();
 
