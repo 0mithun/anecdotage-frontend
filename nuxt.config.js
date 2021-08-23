@@ -194,9 +194,7 @@ export default {
     },
     {
       UserAgent: '*',
-      Disallow: ['/admin','/profile','/api/*',
-      '/anecdotes/viewed','/anecdotes/rated','/anecdotes/videos','/anecdotes/closest','/anecdotes/trending','/anecdotes/recent',
-      '/anecdotes/emoji/*'],
+      Disallow: ['/admin','/profile','/api/*', '/*/?page=1', '/anecdotes/viewed/','/anecdotes/rated/','/anecdotes/videos/','/anecdotes/closest/','/anecdotes/trending/','/anecdotes/recent/','/anecdotes/emoji/*'],
     },
   ],
 

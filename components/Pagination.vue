@@ -8,7 +8,7 @@
             <span>&laquo;</span>
           </span>
         </a> -->
-        <a @click.prevent="goToFirstPage" class="page-link" href="">
+        <a @click.prevent="goToFirstPage" class="page-link" href="#">
           <span>
             <span>&laquo;</span>
           </span>
@@ -30,7 +30,7 @@
           @click.prevent="goToFirstPage"
           class="page-link"
           :rel="getRelation(link)"
-          href=""
+          href="#"
           v-if="link == 1"
         >
           <span>
