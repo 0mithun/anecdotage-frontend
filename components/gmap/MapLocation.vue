@@ -66,6 +66,8 @@ export default {
 .location {
   display: flex;
 }
+
+
 .map-location {
   color: black;
   font-weight: bold;
