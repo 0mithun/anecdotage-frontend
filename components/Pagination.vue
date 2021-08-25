@@ -8,7 +8,7 @@
             <span>&laquo;</span>
           </span>
         </a> -->
-        <a @click.prevent="goToFirstPage" class="page-link" href="#">
+        <a @click.prevent="goToPage(1)" class="page-link" href="#">
           <span>
             <span>&laquo;</span>
           </span>
@@ -27,7 +27,7 @@
 
       >
         <a
-          @click.prevent="goToFirstPage"
+          @click.prevent="goToPage(1)"
           class="page-link"
           :rel="getRelation(link)"
           href="#"
@@ -178,6 +178,7 @@ export default {
     goToFirstPage(){
       let params = {};
       params[this.param.key] = this.param.value;
+      console.log(params)
        this.$router.push({
         name: this.routeName,
         params: params,

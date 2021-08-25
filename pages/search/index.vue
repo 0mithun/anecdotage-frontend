@@ -95,6 +95,7 @@ export default {
       store.commit('search/SET_TAGS', searchResponse.tags.data);
       store.commit('search/SET_THREADS', searchResponse.threads.data);
       store.commit('search/SET_PAGINATE_DATA', searchResponse.threads.meta);
+      store.commit('search/setTotalThreadsCount', searchResponse.total_threads_count);
 
       let queryString = query;
       if (queryString.hasOwnProperty('page')) {

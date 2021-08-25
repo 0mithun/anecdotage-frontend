@@ -351,16 +351,18 @@ export default {
         });
 
          const route = localStorage.getItem('thread-show-url');
-         const tagRoute = localStorage.getItem('tag-show-url');
+
+        //  const tagRoute = localStorage.getItem('tag-show-url');
+         const afterLogin = localStorage.getItem('after-login-url');
 
           if(route){
             localStorage.removeItem('thread-show-url');
             this.$router.push(route)
           }
 
-          if(tagRoute){
-            localStorage.removeItem('tag-show-url');
-            this.$router.push(tagRoute)
+          if(afterLogin){
+            localStorage.removeItem('after-login-url');
+            this.$router.push(afterLogin)
           }
 
 

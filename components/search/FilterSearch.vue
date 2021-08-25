@@ -2,6 +2,9 @@
   <div class="card card-m-5">
     <div class="card-body">
       <div class="row">
+        <div class="col-md-12">
+          <safe-search :postCounts="threadsCount" :totalThreadsCount="totalThreadsCount"></safe-search>
+        </div>
         <div class="col-md-12 filter-search">
           <div class="count-column">
             {{ threadsCount | formatCount }}
@@ -311,7 +314,9 @@
 import { mapGetters } from 'vuex';
 import StrPlural from '@/mixins/strPlural'
 import formatCount from '@/mixins/formatCount'
+import SafeSearch from '../SafeSearch.vue';
 export default {
+  components: { SafeSearch },
   mixins: [StrPlural, formatCount],
   props: {
     routeName: {
@@ -346,6 +351,9 @@ export default {
     },
     threadsCount() {
       return this.$store.getters[`${this.routeName}/threadsCount`];
+    },
+    totalThreadsCount() {
+      return this.$store.getters[`${this.routeName}/totalThreadsCount`];
     },
   },
   mounted() {

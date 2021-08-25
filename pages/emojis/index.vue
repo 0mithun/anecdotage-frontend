@@ -93,6 +93,7 @@ export default {
       store.commit('emoji/SET_TAGS', emojiRresponse.tags.data);
       store.commit('emoji/SET_THREADS', emojiRresponse.threads.data);
       store.commit('emoji/SET_PAGINATE_DATA', emojiRresponse.threads.meta);
+      store.commit('emoji/setTotalThreadsCount', emojiRresponse.total_threads_count);
 
       let queryString = query;
       if (queryString.hasOwnProperty('page')) {
