@@ -21,35 +21,13 @@
 </template>
 
 <script>
-import SingleThread from '@/components/threads/SingeThread';
-import Sidebar from '@/layouts/partials/Sidebar';
-import Pagination from '@/components/Pagination';
-import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
+import getSettings from '@/mixins/getSettings'
+import threadLists from '@/mixins/threadLists'
 export default {
   name: 'thread-video',
-  mixins:[scrollToTop],
-  components: {
-    SingleThread,
-    Sidebar,
-    Pagination,
-  },
-  head() {
-    return {
-      title: this.settings.site_title,
-    };
-  },
-  computed: {
-    ...mapGetters({
-      settings: 'settings',
-    }),
-    threads() {
-      return this.$store.state.threads.threads;
-    },
-    pageinateData() {
-      return this.$store.state.threads.pageinateData;
-    },
-  },
+  mixins: [scrollToTop,getSettings, threadLists],
+
   watchQuery: true,
 
   async fetch({ params, query, app, $axios, store }) {

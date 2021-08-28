@@ -8,9 +8,14 @@
           :thread="thread"
         ></SingleThread>
 
-        <Pagination
+        <!-- <Pagination
           :pagination="pageinateData"
           routeName="index"
+          :param="{ key: '', value: '' }"
+        /> -->
+        <Pagination
+          :pagination="pageinateData"
+          routeName="threads.rated"
           :param="{ key: '', value: '' }"
         />
       </div>
@@ -22,79 +27,12 @@
 </template>
 
 <script>
-import SingleThread from '@/components/threads/SingeThread';
-import Sidebar from '@/layouts/partials/Sidebar';
-import Pagination from '@/components/Pagination';
-import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
 import getSettings from '@/mixins/getSettings'
+import threadLists from '@/mixins/threadLists'
 export default {
   name: 'index',
-  components: {
-    SingleThread,
-    Sidebar,
-    Pagination,
-  },
-   mixins: [scrollToTop,getSettings],
-  head() {
-    return {
-      title: this.settings.site_title,
-      meta: [
-        //Meta Information
-        {
-          content: this.settings.seo_meta_title,
-          name: 'title',
-        },
-        //Meta Information
-        {
-          content: this.settings.seo_meta_description,
-          name: 'description',
-        },
-        {
-          content: this.settings.seo_meta_keyword,
-          name: 'keywords',
-        },
-      ],
-      script: [
-          {
-            src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-            ssr: false ,
-            'data-ad-client':"ca-pub-4366805194029390",
-            preconnect: true,
-           }
-      ],
-      link: this.generateLink
-    };
-  },
-  computed: {
-    ...mapGetters({
-      // settings: 'settings',
-      pageinateData: 'threads/pageinateData',
-      threads: 'threads/threads',
-    }),
-
-    // pageinateData() {
-    //   // return this.$store.state.threads.pageinateData;
-
-    // },
-    generateLink(){
-      const links = [];
-      if(this.pageinateData.last_page > this.pageinateData.current_page){
-        links.push({
-          rel:'next',
-          href: `?page=${this.pageinateData.current_page + 1}`
-        })
-      }
-      if(this.pageinateData.current_page > 1){
-        links.push({
-          rel:'prev',
-          href: `?page=${this.pageinateData.current_page - 1}`
-        })
-      }
-
-      return links;
-    }
-  },
+  mixins: [scrollToTop,getSettings, threadLists],
 
   watchQuery: true,
 
@@ -104,7 +42,8 @@ export default {
       .join('&');
 
     try {
-      const threadRresponse = await $axios.$get(`threads?${q}`);
+      // const threadRresponse = await $axios.$get(`threads?${q}`);
+      const threadRresponse = await $axios.$get(`threads/filter/rated?${q}`);
       store.commit('threads/setThreads', threadRresponse.data);
       store.commit('threads/setPageinateData', threadRresponse.meta);
       // return { threads: threadRresponse.data, pageinateData: threadRresponse.meta};
