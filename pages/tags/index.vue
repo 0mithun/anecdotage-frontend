@@ -34,7 +34,7 @@
                     :following_count="tag.followers_count"
                   ></following-counts>
                 </div>
-                <div class="profile-buttons">
+                <div class="profile-buttons" v-if="signedIn">
                   <button
                     class="btn btn-sm unfollow-btn"
                     @click.prevent="toggleFollow"
@@ -50,6 +50,7 @@
                     Follow
                   </button>
                   <nuxt-link
+                  v-if="isAdmin"
                     class="btn btn-sm btn-primary"
                     :to="{ name: 'tag.edit', params: { slug: tag.slug } }"
                     >Edit Tag</nuxt-link

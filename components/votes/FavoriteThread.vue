@@ -63,6 +63,8 @@ export default {
   methods: {
     toggle() {
       if (!this.signedIn) {
+        this.$store.commit('unlogged/SET_FAVORITES', this.thread.id);
+        this.isFavoriteThread ?  this.isFavoriteThread = false :  this.isFavoriteThread = true;
         return;
       }
       this.isFavoriteThread ? this.destroy() : this.create();

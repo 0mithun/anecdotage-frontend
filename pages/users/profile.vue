@@ -466,6 +466,7 @@ export default {
         `profile/${params.username}/favorites-counts`
       );
 
+
      store.commit('user/SET_THREADS_COUNT', threadCount.count);
      store.commit('user/SET_FAVORITES_COUNT', favoriteCount.count);
 
