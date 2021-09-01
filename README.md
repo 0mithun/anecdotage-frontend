@@ -1,5 +1,5 @@
 # Fullstack Featured Bloggin + Social Network Website
-Live (cdotage.com)[anecdotage.com]
+Live [anecdotage.com](anecdotage.com)
 
 
 ## Build Setup
