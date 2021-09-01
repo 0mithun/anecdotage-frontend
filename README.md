@@ -1,4 +1,4 @@
-# Fullstack Featured Bloggin + Social Network Website
+# Fullstack Featured Bloging + Social Network Website
 Live [anecdotage.com](anecdotage.com)
 
 
