@@ -89,7 +89,7 @@ export default {
           // this.form.reset();
           // console.log(res)
           const route = localStorage.getItem('privacy-redirect-route');
-          this.$store.dispatch('unlogged/favorites', this.$auth.user.id )
+          this.$store.dispatch('unlogged/saveUnloggedUserInfo', this.$auth.user.id )
 
           if(route){
             localStorage.removeItem('privacy-redirect-route');

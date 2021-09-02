@@ -105,9 +105,8 @@ export default {
       this.form
         .post(`/register`)
         .then((res) => {
-          // const id = res.data.id;
-          // this.$store.dispatch('unlogged/favorites', id )
-          // console.log(res)
+          const id = res.data.id;
+          this.$store.dispatch('unlogged/saveUnloggedUserInfo', id )
         })
         .catch((error) => {
           console.log(error);

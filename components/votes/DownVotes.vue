@@ -68,24 +68,29 @@ export default {
   methods: {
     toggleDislike() {
       if (!this.signedIn) {
-        return;
+        // return;
+        this.$store.commit('unlogged/SET_DISLIKES',this.thread.id)
+        // return
+      }else{
+        this.$axios.$delete(`threads/${this.thread.slug}/likes`).then((res) => {
+
+        });
       }
-      this.$axios.$delete(`threads/${this.thread.slug}/likes`).then((res) => {
-        if(this.isDesliked){
-          this.isDesliked = false;
-          this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
-        }else if(this.isLiked){
-          this.isLiked = false;
-          this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
+
+      if(this.isDesliked){
+        this.isDesliked = false;
+        this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
+      }else if(this.isLiked){
+        this.isLiked = false;
+        this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
 
 
-          this.isDesliked = true;
-          this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
-        }else{
-          this.isDesliked = true;
-          this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
-        }
-      });
+        this.isDesliked = true;
+        this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
+      }else{
+        this.isDesliked = true;
+        this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
+      }
 
     },
   },

@@ -68,10 +68,16 @@ export default {
   methods: {
     toggleLike() {
       if (!this.signedIn) {
-        return;
+        // return;
+        this.$store.commit('unlogged/SET_LIKES',this.thread.id)
+        // return
+      }else{
+        this.$axios.$post(`threads/${this.thread.slug}/likes`).then((res) => {
+
+        });
       }
-      this.$axios.$post(`threads/${this.thread.slug}/likes`).then((res) => {
-        if(this.isLiked){
+
+      if(this.isLiked){
           this.isLiked = false;
           this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
         }else if(this.isDesliked){
@@ -85,7 +91,6 @@ export default {
           this.isLiked = true;
           this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
         }
-      });
     },
   },
 };
