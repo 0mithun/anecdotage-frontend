@@ -4,6 +4,7 @@ export const state = () => ({
   favorites: [],
   likes: [],
   dislikes: [],
+  emojis: {},
 })
 
 export const getters = {
@@ -14,6 +15,9 @@ export const getters = {
     return state.likes;
   },
   dislikes(state){
+    return state.dislikes;
+  },
+  emojis(state){
     return state.dislikes;
   },
 
@@ -49,6 +53,26 @@ export const mutations = {
       state.dislikes = [...state.dislikes, thread]
     }
   },
+  SET_EMOJIS: (state, emoji)=>{
+    console.log(emoji)
+    if(state.emojis.hasOwnProperty(emoji.thread_id)){
+      // delete  state.emojis[emoji.thread_id];
+      if(state.emojis[emoji.thread_id] == emoji.emoji_id){
+        const newEmojis = {...state.emojis};
+        delete newEmojis[emoji.thread_id];
+        state.emojis = newEmojis;
+      }else{
+        const newEmojis = {...state.emojis};
+        newEmojis[emoji.thread_id] = emoji.emoji_id
+        state.emojis  = newEmojis
+      }
+    }else{
+      const newEmojis =  {...state.emojis};
+      newEmojis[emoji.thread_id] = emoji.emoji_id
+      state.emojis  = newEmojis
+    }
+
+  },
 
 
 
@@ -62,20 +86,27 @@ export const mutations = {
   EMPTY_DISLIKES: (state)=>{
     state.dislikes = []
   },
+  EMPTY_EMOJIS: (state)=>{
+    state.emojis = {}
+  },
 }
 
 export const actions = {
   async saveUnloggedUserInfo({commit, state}, user_id){
+    const emojis = Object.keys(state.emojis).map((key) => [Number(key), state.emojis[key]]);
+
     try {
       const res =  await this.$axios.$post(`save-unlogged-user-info`,{
         favorite_ids: state.favorites,
         like_ids: state.likes,
         dislike_ids: state.dislikes,
-        user_id: user_id
+        emojis: emojis,
+        user_id: user_id,
       })
       commit('EMPTY_FAVORITES')
       commit('EMPTY_LIKES')
       commit('EMPTY_DISLIKES')
+      commit('EMPTY_EMOJIS')
       console.log(res);
     } catch (error) {
 

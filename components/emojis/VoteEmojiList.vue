@@ -63,6 +63,7 @@ export default {
     },
     voteEmoji(emoji) {
       if (!this.signedIn) {
+        this.$store.commit('unlogged/SET_EMOJIS',{thread_id: this.thread.id, emoji_id: emoji.id})
         return;
       }
       this.$axios
