@@ -5,6 +5,7 @@ export const state = () => ({
   likes: [],
   dislikes: [],
   emojis: {},
+  messageShowing: false,
 })
 
 export const getters = {
@@ -54,7 +55,6 @@ export const mutations = {
     }
   },
   SET_EMOJIS: (state, emoji)=>{
-    console.log(emoji)
     if(state.emojis.hasOwnProperty(emoji.thread_id)){
       // delete  state.emojis[emoji.thread_id];
       if(state.emojis[emoji.thread_id] == emoji.emoji_id){
@@ -89,6 +89,9 @@ export const mutations = {
   EMPTY_EMOJIS: (state)=>{
     state.emojis = {}
   },
+  MESSAGE_SHOWING: (state)=>{
+    state.messageShowing = true
+  },
 }
 
 export const actions = {
@@ -107,7 +110,6 @@ export const actions = {
       commit('EMPTY_LIKES')
       commit('EMPTY_DISLIKES')
       commit('EMPTY_EMOJIS')
-      console.log(res);
     } catch (error) {
 
     }

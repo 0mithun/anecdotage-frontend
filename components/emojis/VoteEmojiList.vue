@@ -21,7 +21,9 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import unloggedUserMessage from '@/mixins/unloggedUserMessaage'
 export default {
+  mixins: [unloggedUserMessage],
   props: ["thread", "size", "position"],
   data() {
     return {
@@ -64,6 +66,8 @@ export default {
     voteEmoji(emoji) {
       if (!this.signedIn) {
         this.$store.commit('unlogged/SET_EMOJIS',{thread_id: this.thread.id, emoji_id: emoji.id})
+        this.$nuxt.$emit("VoteUserEmojis-" + this.thread.id, emoji);
+        this.showSaveDataMessage();
         return;
       }
       this.$axios

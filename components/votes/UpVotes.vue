@@ -14,7 +14,9 @@
 </template>
 
 <script>
+import unloggedUserMessage from '@/mixins/unloggedUserMessaage'
 export default {
+  mixins: [unloggedUserMessage],
   props: {
     thread: {
       type: Object,
@@ -70,6 +72,7 @@ export default {
       if (!this.signedIn) {
         // return;
         this.$store.commit('unlogged/SET_LIKES',this.thread.id)
+        this.showSaveDataMessage();
         // return
       }else{
         this.$axios.$post(`threads/${this.thread.slug}/likes`).then((res) => {

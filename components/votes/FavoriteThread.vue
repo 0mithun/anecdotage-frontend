@@ -15,7 +15,9 @@
 </template>
 
 <script>
+import unloggedUserMessage from '@/mixins/unloggedUserMessaage'
 export default {
+  mixins: [unloggedUserMessage],
   props: {
     thread: {
       type: Object,
@@ -63,8 +65,12 @@ export default {
   methods: {
     toggle() {
       if (!this.signedIn) {
+        //Would you like an account? If you register, we'll save your ratings and offer personalized recommendations (in the top menu).
+
+
         this.$store.commit('unlogged/SET_FAVORITES', this.thread.id);
         this.isFavoriteThread ?  this.isFavoriteThread = false :  this.isFavoriteThread = true;
+        this.showSaveDataMessage();
         return;
       }
       this.isFavoriteThread ? this.destroy() : this.create();

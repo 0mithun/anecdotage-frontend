@@ -327,10 +327,10 @@ export default {
           this.$nuxt.$emit('commentAdded-'+ this.reply.thread_id)
 
           this.$toast.open({
-          type:'success',
-          position: 'top-right',
-          message: 'Reply Add Successfully'
-        });
+            type:'success',
+            position: 'top-right',
+            message: 'Reply Add Successfully'
+          });
 
         })
         .catch(err=>{
