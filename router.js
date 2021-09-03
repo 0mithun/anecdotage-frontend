@@ -166,6 +166,11 @@ const routes = [
     component: page('threads/filters/recent.vue')
   },
   {
+    path: '/anecdotes/last-modified',
+    name: 'threads.last.modified',
+    component: page('threads/filters/lastModified.vue')
+  },
+  {
     path: '/anecdotes/closest',
     name: 'threads.closest',
     component: page('threads/filters/closest.vue')

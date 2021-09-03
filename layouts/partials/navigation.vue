@@ -55,6 +55,11 @@
                 >
                 <nuxt-link
                   class="dropdown-item"
+                  :to="{ name: 'threads.last.modified' }"
+                  >Last Modified</nuxt-link
+                >
+                <nuxt-link
+                  class="dropdown-item"
                   :to="{ name: 'threads.closest' }"
                   >Closest</nuxt-link
                 >
@@ -319,9 +324,14 @@ export default {
         return 'Trending';
       } else if (this.$nuxt.$route.name == 'threads.viewed') {
         return 'Most Viewed';
-      } else if (this.$nuxt.$route.name == 'threads.recent') {
+      }
+       else if (this.$nuxt.$route.name == 'threads.recent') {
         return 'Most Recent';
-      } else if (this.$nuxt.$route.name == 'threads.closest') {
+      }
+       else if (this.$nuxt.$route.name == 'threads.last.modified') {
+        return 'Last Modified';
+      }
+      else if (this.$nuxt.$route.name == 'threads.closest') {
         return 'Closest';
       } else if (this.$nuxt.$route.name == 'threads.video') {
         return 'Video';
