@@ -2,9 +2,7 @@
   <div class="card card-m-5">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-12">
-          <safe-search :postCounts="threadsCount" :totalThreadsCount="totalThreadsCount"></safe-search>
-        </div>
+
         <div class="col-md-12 filter-search">
           <div class="count-column">
             {{ threadsCount | formatCount }}
@@ -206,7 +204,7 @@
                       value="sort"
                       v-model="filter_length"
                     />
-                    Sort
+                    Short
                   </label>
                 </div>
               </li>
@@ -304,6 +302,9 @@
               Map
             </nuxt-link>
           </div>
+        </div>
+         <div class="col-md-12">
+          <safe-search :postCounts="threadsCount" :totalThreadsCount="totalThreadsCount"></safe-search>
         </div>
       </div>
     </div>

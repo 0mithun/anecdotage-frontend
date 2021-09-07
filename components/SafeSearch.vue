@@ -1,68 +1,68 @@
 <template>
-  <div class="row">
-    <div class="col-md-12">
+  <div class="">
       <div class="post-header">
-        <div class="post-counts">
+        <!-- <div class="post-counts">
           Showing {{ postCounts | formatCount }} {{ postCounts | strPlural('post') }}
           of {{ totalThreadsCount | formatCount }} {{ totalThreadsCount | strPlural('post') }}
-        </div>
-        <div class="safe-fearch mt-2" v-if="postCounts !== totalThreadsCount" >
-            <input type="checkbox" value="1" checked @mouseover="showPrivacyModal">
-            <label for="allow_share_twitter">Safe search on </label>
-        </div>
+        </div> -->
       </div>
-    </div>
-     <div
-      class="modal fade"
-      :id="`edit-privacy`"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
+      <div class="safe-fearch" v-if="postCounts !== totalThreadsCount" >
+          <input type="checkbox" value="1" checked @mouseover="showPrivacyModal">
+          <label for="safe_search_label" class="safe_search_label">Safe search on (Showing {{ postCounts | formatCount }} on {{ totalThreadsCount | formatCount }}) </label>
+      </div>
+       <div
+        class="modal fade"
+        :id="`edit-privacy`"
+        tabindex="-1"
+        role="dialog"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">
+                <template v-if="signedIn">
+                  To turn this off, please confirm your age
+                </template>
+                <template v-else>
+                  To turn this off, please create an account and confirm your age.
+                </template>
+                </h5>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                data-dismiss="modal"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
               <template v-if="signedIn">
-                To turn this off, please confirm your age
+                <p class="font-14 fw-400 text-center">
+                  <a href="#" class="btn btn-success btn-sm " @click.prevent="goToUserPrivacySetting">Goto user settings page</a>
+                </p>
               </template>
               <template v-else>
-                To turn this off, please create an account and confirm your age.
+                <p class="font-14 fw-400 text-center">
+                  Don't have an account yet?
+                  <a href="#" class="color-blue" @click.prevent="goToRegister">
+                    Create an account
+                  </a>
+                </p>
+                <p class="font-14 fw-400 text-center">
+                  Already have an account?
+                  <a href="#" class="color-blue"  @click.prevent="goToLogin"
+                    >Login</a
+                  >
+                </p>
               </template>
-              </h5>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              data-dismiss="modal"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <template v-if="signedIn">
-              <p class="font-14 fw-400 text-center">
-                <a href="#" class="btn btn-success btn-sm " @click.prevent="goToUserPrivacySetting">Goto user settings page</a>
-              </p>
-            </template>
-            <template v-else>
-              <p class="font-14 fw-400 text-center">
-                Don't have an account yet?
-                <a href="#" class="color-blue" @click.prevent="goToRegister">
-                  Create an account
-                </a>
-              </p>
-              <p class="font-14 fw-400 text-center">
-                Already have an account?
-                <a href="#" class="color-blue"  @click.prevent="goToLogin"
-                  >Login</a
-                >
-              </p>
-            </template>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+
   </div>
 </template>
 
@@ -118,5 +118,13 @@ import userStatus from '@/mixins/userStatus'
 </script>
 
 <style lang="scss" scoped>
+  label.safe_search_label {
+    font-size: 12px;
+    margin-left: 5px;
+  }
 
+  .safe-fearch {
+      display: flex;
+      align-items: center;
+  }
 </style>

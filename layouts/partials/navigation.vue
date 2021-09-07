@@ -45,18 +45,19 @@
                 >
                 <nuxt-link
                   class="dropdown-item"
-                  :to="{ name: 'threads.viewed' }"
-                  >Most Viewed</nuxt-link
-                >
-                <nuxt-link
-                  class="dropdown-item"
                   :to="{ name: 'threads.recent' }"
                   >Most Recent</nuxt-link
                 >
                 <nuxt-link
                   class="dropdown-item"
-                  :to="{ name: 'threads.last.modified' }"
-                  >Last Modified</nuxt-link
+                  :to="{ name: 'threads.viewed' }"
+                  >Most Viewed</nuxt-link
+                >
+
+                <nuxt-link
+                  class="dropdown-item"
+                  :to="{ name: 'threads.last.viewed' }"
+                  >Last Viewed</nuxt-link
                 >
                 <nuxt-link
                   class="dropdown-item"
@@ -328,8 +329,8 @@ export default {
        else if (this.$nuxt.$route.name == 'threads.recent') {
         return 'Most Recent';
       }
-       else if (this.$nuxt.$route.name == 'threads.last.modified') {
-        return 'Last Modified';
+       else if (this.$nuxt.$route.name == 'threads.last.viewed') {
+        return 'Last Viewed';
       }
       else if (this.$nuxt.$route.name == 'threads.closest') {
         return 'Closest';
