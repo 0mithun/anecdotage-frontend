@@ -6,7 +6,7 @@
           of {{ totalThreadsCount | formatCount }} {{ totalThreadsCount | strPlural('post') }}
         </div> -->
       </div>
-      <div class="safe-fearch" v-if="postCounts !== totalThreadsCount" >
+      <div class="safe-fearch" v-if="postCounts < totalThreadsCount" >
           <input type="checkbox" value="1" checked @mouseover="showPrivacyModal">
           <label for="safe_search_label" class="safe_search_label">Safe search on (Showing {{ postCounts | formatCount }} on {{ totalThreadsCount | formatCount }}) </label>
       </div>
