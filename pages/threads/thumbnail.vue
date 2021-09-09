@@ -17,7 +17,7 @@
         <div class="row justify-content-center align-items-center text-center">
           <div class="col-md-8">
             <div class="card bg-white shadow-sm">
-              <div class="d-flex flex-column justify-content-center p-1" data-toggle="tooltip" data-placement="top" :title="imageTooltipText">
+              <div class="d-flex flex-column justify-content-center p-1">
                 <div class="alert alert-danger" v-if="error">
                   <p>An error occurred during the upload process</p>
                   <p>{{ error }}</p>
@@ -29,6 +29,7 @@
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path>
                   </svg>
                 </div>
+
               </div>
             </div>
             <div class="upload-para mt-2">
@@ -37,6 +38,34 @@
                 accordingly before you upload.
               </p> -->
             </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <form action="" @submit.prevent="UploadImageDescriptionSubmit">
+              <div class="form-group">
+                <label for="temp_image_description" class="control-label">
+                  Image Description</label
+                >
+                <textarea
+                  name=""
+                  cols="30"
+                  rows="2"
+                  class="form-control"
+                  id="upload_temp_image_description"
+                  v-model="uploadImageform.temp_image_description"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <button
+                  class="btn btn-primary btn-block"
+                  :disabled="!uploadImageform.imageUploadComplete"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -237,6 +266,10 @@ export default {
         amazon_product_url: null,
         hex_code: null
       },
+      uploadImageform: {
+        temp_image_description: null,
+        imageUploadComplete: false,
+      },
       clickOnCopyright: false,
       share_on_facebook: false,
       share_on_twitter: false,
@@ -245,6 +278,7 @@ export default {
   mounted() {
     this.form.temp_image_url = this.thread.remote_image_url;
     this.form.temp_image_description = this.thread.image_description;
+    this.uploadImageform.temp_image_description = this.thread.image_description;
     this.form.amazon_product_url = this.thread.amazon_product_url;
     this.form.amazon_product_url = this.thread.amazon_product_url;
     this.form.hex_code = this.rgbToHex(this.thread.image_path_pixel_color);
@@ -336,6 +370,8 @@ export default {
       this.$axios
         .post(`threads/${this.thread.slug}/thumbnail`, formdata)
         .then((res) => {
+          document.getElementById('upload_temp_image_description').focus();
+          this.uploadImageform.imageUploadComplete = true;
           // console.log(res);
           // this.$axios
           //   .$put(`threads/${this.thread.slug}/imageDescription`, this.form)
@@ -351,12 +387,20 @@ export default {
         })
         .finally(() => {
           this.uploading = false;
-          $('#shareThreadModal').modal('show');
+          // $('#shareThreadModal').modal('show');
         });
     },
     imageDescriptionSubmit() {
       this.$axios
         .$put(`threads/${this.thread.slug}/imageDescription`, this.form)
+        .then((res) => {
+          $('#shareThreadModal').modal('show');
+        })
+        .catch((err) => {});
+    },
+    UploadImageDescriptionSubmit() {
+      this.$axios
+        .$put(`threads/${this.thread.slug}/imageDescription`, this.uploadImageform)
         .then((res) => {
           $('#shareThreadModal').modal('show');
         })

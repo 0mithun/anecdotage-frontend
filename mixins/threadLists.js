@@ -2,12 +2,14 @@ import { mapGetters } from 'vuex';
 import SingleThread from '@/components/threads/SingeThread';
 import Sidebar from '@/layouts/partials/Sidebar';
 import Pagination from '@/components/Pagination';
+import TotalCounts from '@/components/threads/TotalCounts'
 
 export default{
   components: {
     SingleThread,
     Sidebar,
     Pagination,
+    TotalCounts
   },
 
   head() {

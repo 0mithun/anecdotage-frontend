@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
+         <total-counts></total-counts>
         <SingleThread
           v-for="thread in threads"
           :key="thread.id"

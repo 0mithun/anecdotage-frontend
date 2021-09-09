@@ -5,8 +5,8 @@
 
         <div class="col-md-12 filter-search">
           <div class="count-column">
-            {{ threadsCount | formatCount }}
-            {{ threadsCount | strPlural('Result') }}
+            {{ totalThreadsCount | formatCount }}
+            {{ totalThreadsCount | strPlural('Post') }}
           </div>
           <div class="sort-column">
             <!-- Extra small button group -->

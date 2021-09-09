@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
+        <total-counts></total-counts>
         <SingleThread
           v-for="thread in threads"
           :key="thread.id"
@@ -35,6 +36,7 @@ export default {
   mixins: [scrollToTop,getSettings, threadLists],
 
   watchQuery: true,
+
 
   async fetch({ params, query, app, $axios, store }) {
     const q = await Object.keys(query)

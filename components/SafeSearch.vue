@@ -1,14 +1,8 @@
 <template>
   <div class="">
-      <div class="post-header">
-        <!-- <div class="post-counts">
-          Showing {{ postCounts | formatCount }} {{ postCounts | strPlural('post') }}
-          of {{ totalThreadsCount | formatCount }} {{ totalThreadsCount | strPlural('post') }}
-        </div> -->
-      </div>
       <div class="safe-fearch" v-if="postCounts < totalThreadsCount" >
           <input type="checkbox" value="1" checked @mouseover="showPrivacyModal">
-          <label for="safe_search_label" class="safe_search_label">Safe search on (Showing {{ postCounts | formatCount }} on {{ totalThreadsCount | formatCount }}) </label>
+          <label for="safe_search_label" class="safe_search_label">Safe search on (Showing {{ postCounts | formatCount }} of {{ totalThreadsCount | formatCount }}) </label>
       </div>
        <div
         class="modal fade"
