@@ -107,6 +107,11 @@ const routes = [
         component: page('users/settings/privacy.vue')
       },
       {
+        path: 'search',
+        name: 'profile.settings.search',
+        component: page('users/settings/searchSettings.vue')
+      },
+      {
         path: 'notifications',
         name: 'profile.settings.notifications',
         component: page('users/settings/notifications.vue')

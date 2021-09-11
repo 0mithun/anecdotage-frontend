@@ -22,9 +22,11 @@
                   <p>An error occurred during the upload process</p>
                   <p>{{ error }}</p>
                 </div>
+                <!-- Click the arrow to upload -->
                 <slim-cropper :options="slimOptions" :src="src">
                   <input type="file" name="image" />
                 </slim-cropper>
+                <span data-toggle="tooltip" data-placement="bottom" title="Click the arrow to upload" id="imageSelectCompleteTooltip"></span>
                 <div class="text-success caption-sm mt-2" v-if="uploading">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path>
                   </svg>
@@ -256,6 +258,8 @@ export default {
         label: 'Click here to upload an image...',
         // maxFileSize: 2,
         autoCrop: true,
+        didLoad: this.selectImae,
+        labelLoading: ''
       },
       uploading: false,
       error: '',
@@ -286,7 +290,8 @@ export default {
     if (this.form.temp_image_url == '' || this.form.temp_image_url == null) {
       this.form.image_copyright_free = false;
     }
-  },
+
+   },
   created() {
     if (!this.isAdmin && !this.owns) {
       this.$router.push({ name: 'index' });
@@ -365,6 +370,10 @@ export default {
     }
   },
   methods: {
+    selectImae(){
+      $('#imageSelectCompleteTooltip').tooltip('show')
+      return true;
+    },
     slimService(formdata, progress, success, failure, slim) {
       this.uploading = true;
       this.$axios
@@ -372,7 +381,9 @@ export default {
         .then((res) => {
           document.getElementById('upload_temp_image_description').focus();
           this.uploadImageform.imageUploadComplete = true;
-          // console.log(res);
+          console.log(res);
+          // data.image_path_pixel_color
+          this.form.hex_code = this.rgbToHex(res.data.image_path_pixel_color);
           // this.$axios
           //   .$put(`threads/${this.thread.slug}/imageDescription`, this.form)
           //   .then((res) => {

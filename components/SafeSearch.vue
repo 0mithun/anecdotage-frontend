@@ -87,7 +87,7 @@ import userStatus from '@/mixins/userStatus'
         // }).href;
         let routeData = this.$nuxt.$route.fullPath;
 
-        localStorage.setItem('privacy-redirect-route', 'profile.settings.privacy');
+        localStorage.setItem('privacy-redirect-route', 'profile.settings.search');
         localStorage.setItem('after-login-url', routeData);
       },
       goToLogin(){
@@ -105,7 +105,7 @@ import userStatus from '@/mixins/userStatus'
         this.setRedirectUrl()
 
         $('#edit-privacy').modal('hide')
-        this.$router.push({name:'profile.settings.privacy', params:{username: this.$auth.user.username}})
+        this.$router.push({name:'profile.settings.search', params:{username: this.$auth.user.username}})
       },
     },
   }

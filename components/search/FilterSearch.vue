@@ -27,9 +27,9 @@
                 <template v-if="sort_by == 'like'">
                   <strong class="dark">Most Liked</strong>
                 </template>
-                <!-- <template v-if="sort_by == 'favorite'">
+                <template v-if="sort_by == 'favorite'">
                   <strong class="dark">Most Favorited</strong>
-                </template> -->
+                </template>
                 <template v-if="sort_by == 'visits'">
                   <strong class="dark">Most Visits</strong>
                 </template>

@@ -51,6 +51,16 @@
                   </li>
                   <li class="nav-item">
                     <nuxt-link
+                      :to="{ name: 'profile.settings.search' }"
+                      class="nav-link"
+                      :class="{
+                        active: $nuxt.$route.name == 'profile.settings.search',
+                      }"
+                      >Search Settings</nuxt-link
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <nuxt-link
                       :to="{ name: 'profile.settings.notifications' }"
                       class="nav-link"
                       :class="{

@@ -687,7 +687,7 @@ export default {
         params: { slug: this.thread.slug },
       }).href;
 
-      localStorage.setItem('privacy-redirect-route', 'profile.settings.privacy');
+      localStorage.setItem('privacy-redirect-route', 'profile.settings.search');
       localStorage.setItem('thread-show-url', routeData);
     },
     goToLogin(){
