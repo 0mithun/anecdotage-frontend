@@ -3,13 +3,15 @@ import SingleThread from '@/components/threads/SingeThread';
 import Sidebar from '@/layouts/partials/Sidebar';
 import Pagination from '@/components/Pagination';
 import TotalCounts from '@/components/threads/TotalCounts'
+import SafeSearch from '@/components/SafeSearch.vue';
 
 export default{
   components: {
     SingleThread,
     Sidebar,
     Pagination,
-    TotalCounts
+    TotalCounts,
+    SafeSearch
   },
 
   head() {
@@ -48,6 +50,7 @@ export default{
       // settings: 'settings',
       pageinateData: 'threads/pageinateData',
       threads: 'threads/threads',
+      totalThreadsCount: 'threads/totalThreadsCount',
     }),
 
     // pageinateData() {

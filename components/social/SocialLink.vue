@@ -1,6 +1,7 @@
 <template>
   <div class="card card-m-5">
     <div class="card-body">
+       <h3 class="follow-on-title">Follow Us On</h3>
       <div class="social-follow-btn">
         <!-- social_facebook:"social facebook here"
         social_instagram:"social instagram here"
@@ -64,7 +65,6 @@
           />
         </a>
       </div>
-      <h3 class="follow-on-title">Follow Us On</h3>
     </div>
   </div>
 </template>

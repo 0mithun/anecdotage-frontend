@@ -5,7 +5,7 @@
     >
       <div class="container">
         <nuxt-link :to="{ name: 'index' }" class="navbar-brand">
-          <img :src="settings.logo_path" height="32" alt="Logo" width="100%" style="width:auto; height:32px" />
+          <img :src="settings.logo_path" height="36" alt="Logo" width="100%" style="width:auto; height:36px" />
         </nuxt-link>
         <button
           class="navbar-toggler"
@@ -21,7 +21,7 @@
 
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="navbar-nav font-14 fw-300">
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown navbar-menu-item">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -77,7 +77,7 @@
               </div>
             </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown navbar-menu-item">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -102,7 +102,7 @@
               </div>
             </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown navbar-menu-item">
               <a
                 href="#"
                 data-toggle="dropdown"
@@ -148,6 +148,7 @@
                 width="17%"
                 height="24"
                 style="width:17px; height:24px"
+                data-toggle="tooltip" data-placement="top" title="View Map"
               />
             </nuxt-link>
             <nuxt-link
@@ -162,16 +163,17 @@
                  width="17%"
                 height="24"
                 style="width:17px; height:24px"
+                data-toggle="tooltip" data-placement="top" title="Add a Post"
               />
             </nuxt-link>
           </div>
-          <div
+          <!-- <div
             class="notification white-path font-14 fw-500 text-uppercase mr-auto d-flex"
             v-if="$auth.loggedIn"
           >
             <MessageNotification />
             <Notifications />
-          </div>
+          </div> -->
 
           <!-- Before Login -->
           <template v-if="!$auth.loggedIn">
@@ -197,6 +199,10 @@
           <!-- After Login -->
           <template v-else>
             <ul class="author-page white-path">
+
+            <MessageNotification />
+            <Notifications />
+
               <!-- Profile Dropdown -->
               <li class="dropdown">
                 <a
@@ -358,6 +364,15 @@ export default {
 
 <style lang="scss" scoped>
 @import '~assets/scss/imports/mixins';
+
+li.nav-item {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.navbar-menu-item{
+  margin:0px 5px;
+}
+
 .dropdown-item:hover,
 .dropdown-item:focus {
   color: #16181b;
@@ -368,6 +383,11 @@ export default {
   width: 24px;
   height: auto;
 }
+
+ul.author-page.white-path {
+    margin-left: auto;
+}
+
 
 .emoji-caret {
   margin-left: 28px;

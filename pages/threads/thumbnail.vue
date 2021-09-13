@@ -17,7 +17,7 @@
         <div class="row justify-content-center align-items-center text-center">
           <div class="col-md-8">
             <div class="card bg-white shadow-sm">
-              <div class="d-flex flex-column justify-content-center p-1">
+              <div class="d-flex flex-column justify-content-center p-1 image-box">
                 <div class="alert alert-danger" v-if="error">
                   <p>An error occurred during the upload process</p>
                   <p>{{ error }}</p>
@@ -487,5 +487,9 @@ export default {
 .big-label{
   font-weight: 700;
   font-size:20px;
+}
+
+.image-box{
+  height:350px;
 }
 </style>

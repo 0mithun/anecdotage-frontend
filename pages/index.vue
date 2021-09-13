@@ -2,7 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <total-counts></total-counts>
+        <!-- <total-counts></total-counts> -->
+        <div class="card card-m-5">
+          <div class="card-body" style="padding:5px 10px;">
+            <div class="count-column">
+                <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount"></safe-search>
+            </div>
+          </div>
+        </div>
+
+
         <SingleThread
           v-for="thread in threads"
           :key="thread.id"
@@ -48,6 +57,7 @@ export default {
       const threadRresponse = await $axios.$get(`threads/filter/rated?${q}`);
       store.commit('threads/setThreads', threadRresponse.data);
       store.commit('threads/setPageinateData', threadRresponse.meta);
+      store.commit('threads/setTotalThreadsCount', threadRresponse.total_threads_count);
       // return { threads: threadRresponse.data, pageinateData: threadRresponse.meta};
     } catch (e) {
       console.log(e);

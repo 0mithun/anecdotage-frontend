@@ -151,7 +151,7 @@ const routes = [
     component: page('tags/edit.vue')
   },
   {
-    path: '/anecdotes/rated',
+    path: '/anecdotes/top-rated',
     name: 'threads.rated',
     component: page('threads/filters/rated.vue')
   },
@@ -161,17 +161,17 @@ const routes = [
     component: page('threads/filters/trending.vue')
   },
   {
-    path: '/anecdotes/viewed',
+    path: '/anecdotes/most-viewed',
     name: 'threads.viewed',
     component: page('threads/filters/viewed.vue')
   },
   {
-    path: '/anecdotes/recent',
+    path: '/anecdotes/newest',
     name: 'threads.recent',
     component: page('threads/filters/recent.vue')
   },
   {
-    path: '/anecdotes/last-modified',
+    path: '/anecdotes/last-viewed',
     name: 'threads.last.viewed',
     component: page('threads/filters/lastViewed.vue')
   },

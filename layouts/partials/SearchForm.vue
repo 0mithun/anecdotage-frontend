@@ -10,8 +10,8 @@
           :class="activeSearch"
           name="query"
           v-model="q"
-          title="search fields"
           placeholder="Search"
+          data-toggle="tooltip" data-placement="top" title="Search"
         />
       </div>
     </form>
