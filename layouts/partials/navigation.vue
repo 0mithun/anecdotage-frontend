@@ -376,6 +376,8 @@ a.nav-link{
   margin:0px 5px;
 }
 
+
+
 .dropdown-item:hover,
 .dropdown-item:focus {
   color: #16181b;
