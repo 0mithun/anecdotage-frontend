@@ -48,4 +48,13 @@ export default {
 .svg-inline--fa{
   /* margin-right: 3px; */
 }
+.fa-star {
+  color: rgb(26, 115, 232);
+}
+
+.svg-inline--fa path {
+      fill: rgb(26, 115, 232);
+}
+
+
 </style>

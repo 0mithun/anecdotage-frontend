@@ -369,6 +369,9 @@ li.nav-item {
     font-weight: 700;
     text-transform: uppercase;
 }
+a.nav-link{
+  color: black !important;
+}
 .navbar-menu-item{
   margin:0px 5px;
 }

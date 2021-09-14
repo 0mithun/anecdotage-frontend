@@ -49,4 +49,12 @@ export default {
 .svg-inline--fa{
   /* margin-right: 3px; */
 }
+
+.fa-star {
+  color: #f6d743;
+}
+
+.svg-inline--fa path {
+      fill: #f6d743;
+}
 </style>
