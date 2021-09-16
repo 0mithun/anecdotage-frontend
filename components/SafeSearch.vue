@@ -2,7 +2,7 @@
   <div class="">
       <div class="safe-fearch" >
           <input type="checkbox" value="1" checked @mouseover="showPrivacyModal" v-if="postCounts < totalThreadsCount" >
-          <label for="safe_search_label" class="safe_search_label"> <span  v-if="postCounts < totalThreadsCount" >Safe search on </span> (Showing {{ postCounts | formatCount }} of {{ totalThreadsCount | formatCount }}) </label>
+          <label for="safe_search_label" class="safe_search_label"> <span  v-if="postCounts < totalThreadsCount" >Safe search on </span> (Showing {{ postCounts | formatCount }} of {{ totalThreadsCount | formatCount}} {{ totalThreadsCount | strPlural('post') }}) </label>
       </div>
        <div
         class="modal fade"

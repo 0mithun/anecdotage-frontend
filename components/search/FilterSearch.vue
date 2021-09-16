@@ -595,4 +595,5 @@ input[type="checkbox"] {
     height: 12px;
     width: 12px;
 }
+
 </style>

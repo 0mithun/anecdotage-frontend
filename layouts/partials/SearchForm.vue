@@ -112,4 +112,30 @@ input.search-box {
   //   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
   // }
 }
+
+
+@media (max-width: 991px){
+  .search-box {
+    background-position: left center;
+    float: left;
+
+  }
+  .header-search {
+      overflow: hidden;
+      margin-top: 15px;;
+  }
+
+
+}
+@media (max-width: 991px){
+  .search-box {
+    background-position: left center;
+    float: left;
+
+  }
+   .header-search {
+      overflow: hidden;
+        margin-top: 15px;;
+  }
+}
 </style>

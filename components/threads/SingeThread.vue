@@ -26,7 +26,7 @@
       <div class="row count-items-row">
         <div class="col-md-12">
           <div
-            class="count-items d-flex justify-content-between align-items-center"
+            class="count-items d-flex justify-content-between align-items-center flex-wrap"
           >
             <view-counts :thread="thread"></view-counts>
             <comment-counts :thread="thread"></comment-counts>

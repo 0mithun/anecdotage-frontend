@@ -145,9 +145,9 @@
                 src="~assets/images/map_marker.png"
                 alt=""
                 class="navbar-icon marker"
-                width="17%"
+                width="16"
                 height="24"
-                style="width:17px; height:24px"
+                style="width:16px; height:24px"
                 data-toggle="tooltip" data-placement="top" title="View Map"
               />
             </nuxt-link>
@@ -376,6 +376,12 @@ a.nav-link{
   margin:0px 5px;
 }
 
+.svg-inline--fa {
+  path{
+    fill:currentColor;
+    color: currentColor;
+  }
+}
 
 
 .dropdown-item:hover,
@@ -440,6 +446,48 @@ a.dropdown-toggle.emoji-dropdown {
   @include respond(tab-port) {
   }
   @include respond(phone) {
+  }
+}
+
+
+
+
+
+@media (max-width: 991px){
+  ul.before-login{
+      display: flex;
+      flex-direction: column;
+      li{
+        margin-left: 0;
+        margin-bottom: 10px;
+      }
+
+      a.before-login li:last-child a {
+          width: fit-content;
+      }
+  }
+
+  .upload-shot {
+    flex-direction: column;
+  }
+
+}
+@media (max-width: 991px){
+ ul.before-login{
+    display: flex;
+    flex-direction: column;
+    li{
+      margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    a.before-login li:last-child a {
+        width: fit-content;
+    }
+  }
+
+  .upload-shot {
+    flex-direction: column;
   }
 }
 </style>

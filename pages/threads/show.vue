@@ -109,7 +109,7 @@
                         <twitter-share :thread="thread"></twitter-share>
                       </div>
                       <div
-                        class="thread-show-tools d-flex justify-content-between align-items-center"
+                        class="thread-show-tools d-flex justify-content-between align-items-center flex-wrap"
                       >
                         <focusComment size="small"></focusComment>
                         <vote-emojis
