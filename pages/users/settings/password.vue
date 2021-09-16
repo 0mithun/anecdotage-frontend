@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <form @submit.prevent="updateInfo">
-        <div class="form-group row">
+        <div class="form-group row" v-if="$auth.user.auth_type == 'email'">
           <label for="current_password" class="col-sm-4 col-form-label"
             >Current Password</label
           >
