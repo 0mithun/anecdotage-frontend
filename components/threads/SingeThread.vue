@@ -29,8 +29,8 @@
             class="count-items d-flex justify-content-between align-items-center flex-wrap"
           >
             <view-counts :thread="thread"></view-counts>
-            <comment-counts :thread="thread"></comment-counts>
             <point-counts :thread="thread"></point-counts>
+            <comment-counts :thread="thread"></comment-counts>
             <favorite-counts :thread="thread"></favorite-counts>
 
             <emoji-counts :thread="thread"></emoji-counts>

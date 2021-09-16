@@ -369,6 +369,8 @@ li.nav-item {
     font-weight: 700;
     text-transform: uppercase;
 }
+
+
 a.nav-link{
   color: black !important;
 }
@@ -383,6 +385,9 @@ a.nav-link{
   }
 }
 
+.navbar-brand {
+    margin-right: .5rem;
+}
 
 .dropdown-item:hover,
 .dropdown-item:focus {
@@ -435,6 +440,18 @@ a.dropdown-toggle.emoji-dropdown {
   width: 65px;
   justify-content: space-between;
 }
+
+ @media (max-width: 990px) {
+
+    .upload-shot.white-path.font-14.fw-500.text-uppercase.d-flex {
+      margin-left:5px;
+      margin-bottom: 0;
+    }
+    a{
+      height:36px;
+    }
+
+  }
 
 .notification.white-path.font-14.fw-500.text-uppercase.mr-auto.d-flex {
   margin-left: 10px;
