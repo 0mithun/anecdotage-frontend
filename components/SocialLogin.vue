@@ -25,7 +25,7 @@
 export default {
   methods: {
     socialLogin(provider) {
-      window.location.href = `${process.env.APP_URL}/login/${provider}`;
+      window.location.href = `${process.env.APP_URL}login/${provider}`;
     },
   },
 };
