@@ -1,8 +1,8 @@
 <template>
   <div class="">
       <div class="safe-fearch" >
-          <input type="checkbox" value="1" checked @mouseover="showPrivacyModal" v-if="postCounts < totalThreadsCount" >
-          <label for="safe_search_label" class="safe_search_label"> <span  v-if="postCounts < totalThreadsCount" >Safe search on </span> (Showing {{ postCounts | formatCount }} of {{ totalThreadsCount | formatCount}} {{ totalThreadsCount | strPlural('post') }}) </label>
+          <input type="checkbox" value="1" checked @mouseover="showPrivacyModal" v-if="showSafeSearch">
+          <label for="safe_search_label" class="safe_search_label"> <span  v-if="showSafeSearch" >Safe search on </span> (Showing {{ postCounts | formatCount }} of {{ totalThreadsCount | formatCount}} {{ totalThreadsCount | strPlural('post') }}) </label>
       </div>
        <div
         class="modal fade"
@@ -75,6 +75,33 @@ import userStatus from '@/mixins/userStatus'
         type: Number,
         required: true,
       },
+    },
+    computed: {
+      showSafeSearch(){
+         return this.checkPrivacy;
+      },
+      checkPrivacy() {
+        if(!this.signedIn){
+          return true;
+        }
+
+        if(this.isAdmin){
+          return false;
+        }
+
+        const privacy = this.$auth.user.privacy;
+
+        if(privacy.restricted_18  == 1){
+          return false;
+        }
+
+        if(privacy.restricted_13  == 1 && privacy.restricted_18 == 0 ){
+          return true;
+        }
+
+        return true;
+      },
+
     },
     methods: {
       showPrivacyModal(){
