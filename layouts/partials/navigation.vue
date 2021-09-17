@@ -97,6 +97,7 @@
                   :to="{ name: 'tags', params: { slug: channel.slug } }"
                   v-for="channel in channels"
                   :key="channel.id"
+                  :class="{'active-tag': activeTag(channel)}"
                   >{{ channel.name }}</nuxt-link
                 >
               </div>
@@ -324,6 +325,7 @@ export default {
       }
       return process.env.APP_URL + 'images/emojis/default.png';
     },
+
     routeName() {
       if (this.$nuxt.$route.name == 'threads.rated') {
         return 'Top Rated';
@@ -357,6 +359,12 @@ export default {
     },
     backgroundEmoji(emoji) {
       return `background-image: url(${process.env.APP_URL}images/emojis/${emoji}.png)`;
+    },
+    activeTag(tag){
+      if (this.$nuxt.$route.name == 'tags') {
+        return this.$route.params.slug == tag.slug;
+      }
+      return false;
     },
   },
 };
@@ -404,6 +412,9 @@ ul.author-page.white-path {
     margin-left: auto;
 }
 
+.active-tag{
+    color: #ed7d30;
+}
 
 .emoji-caret {
   margin-left: 28px;
