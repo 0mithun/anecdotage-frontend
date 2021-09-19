@@ -2,14 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-         <!-- <total-counts></total-counts> -->
-         <div class="card card-m-5">
-          <div class="card-body" style="padding:5px 10px;">
-            <div class="count-column">
-                <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount"></safe-search>
-            </div>
-          </div>
-        </div>
+        <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true" ></safe-search>
         <SingleThread
           v-for="thread in threads"
           :key="thread.id"
