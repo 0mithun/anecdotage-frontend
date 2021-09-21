@@ -213,7 +213,7 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  style="color: #515365; font-size: 14px"
+                  style="color: black; font-size: 14px"
 
                 >
                   <img

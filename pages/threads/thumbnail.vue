@@ -62,7 +62,6 @@
               <div class="form-group">
                 <button
                   class="btn btn-primary btn-block"
-                  :disabled="!uploadImageform.imageUploadComplete"
                 >
                   Save
                 </button>
