@@ -37,6 +37,14 @@ export default {
   mixins: [scrollToTop,getSettings, threadLists],
 
   watchQuery: true,
+  beforeMount() {
+    const query = this.$route.query;
+    if(query.hasOwnProperty('aid') && query.aid != ''){
+      window.location = `${process.env.API_URL}/aid-url?aid=${query.aid}`
+    }else{
+      window.location = '/'
+    }
+  },
 
 
   async fetch({ params, query, app, $axios, store }) {
