@@ -71,6 +71,10 @@ export default {
     toggleDislike() {
       if (!this.signedIn) {
         // return;
+        this.$axios.$delete(`threads/${this.thread.slug}/likes`).then((res) => {
+
+        });
+
         this.$store.commit('unlogged/SET_DISLIKES',this.thread.id)
         this.showSaveDataMessage();
         // return

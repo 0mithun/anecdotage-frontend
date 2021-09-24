@@ -71,6 +71,10 @@ export default {
     toggleLike() {
       if (!this.signedIn) {
         // return;
+        this.$axios.$post(`threads/${this.thread.slug}/likes`).then((res) => {
+
+        });
+
         this.$store.commit('unlogged/SET_LIKES',this.thread.id)
         this.showSaveDataMessage();
         // return
