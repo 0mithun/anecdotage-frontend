@@ -506,7 +506,7 @@ export default {
 
     document.getElementById('title').focus;
   },
-  async fetch({ params, query, error, $axios, store }) {
+  async fetch({ params, query, error, $axios, store,redirect }) {
     try {
       const threadRresponse = await $axios.$get(`threads/${params.slug}/edit`);
       store.commit('threads/setCurrentThread', threadRresponse.data);
