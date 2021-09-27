@@ -70,6 +70,9 @@
           </nuxt-link>
         </div>
       </div>
+      <div class="row image-description-row">
+         <image-description :thread="thread"></image-description>
+      </div>
       <div class="row thread-body-row">
         <div class="col-md-12">
           <div class="thread-body" v-html="thread.excerpt"></div>
@@ -170,6 +173,7 @@ import DownVotes from '@/components/votes/DownVotes';
 
 import GoToComment from '@/components/comments/GoToComment';
 import AdminButtons from '@/components/threads/AdminButtons';
+import ImageDescription from '~/components/threads/ImageDescription';
 import swal from '@/mixins/swal'
 export default {
   mixins: [swal],
@@ -250,7 +254,8 @@ export default {
     DownVotes,
     FavoriteThread,
     GoToComment,
-    AdminButtons
+    AdminButtons,
+    ImageDescription
   },
   methods: {
     openThreadUrl() {
@@ -404,10 +409,10 @@ export default {
   overflow-wrap: anywhere;
   font-family: Raleway, sans-serif;
 }
-.count-items-row,
-.thread-body-row {
-  margin: 10px 0;
-}
+// .count-items-row,
+// .thread-body-row {
+//   margin: 10px 0;
+// }
 
 .count-items {
   width: 100%;

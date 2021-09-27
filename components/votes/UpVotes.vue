@@ -72,13 +72,22 @@ export default {
       if (!this.signedIn) {
         // return;
         this.$axios.$post(`threads/${this.thread.slug}/likes`).then((res) => {
-
+           this.isLiked = true;
+           this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
         });
 
         this.$store.commit('unlogged/SET_LIKES',this.thread.id)
         this.showSaveDataMessage();
-        // return
-      }else{
+
+        return;
+      }else if(isAdmin){
+          this.isLiked = true;
+          this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
+
+          return;
+      }
+
+      else{
         this.$axios.$post(`threads/${this.thread.slug}/likes`).then((res) => {
 
         });

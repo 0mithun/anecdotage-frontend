@@ -165,42 +165,7 @@
 
 
                   </div>
-                  <template
-                    v-if="
-                      threadImageDescriptionLength > imageDescriptionLengthLimit
-                    "
-                  >
-                    <template v-if="showFullImageDescription">
-                      <div class="image_description">
-                        <p v-html="thread.image_description"></p>
-                        <span
-                          class="btn btn-sm btn-link"
-                          @click.prevent="showFullImageDescription = false"
-                          v-if="showFullImageDescription == true"
-                        >
-                          ...(close)
-                        </span>
-                      </div>
-                    </template>
-                    <template v-else>
-                      <div class="image_description">
-                        <p v-html="showThreadImageDescriptionLimit"></p>
-                        <span
-                          class="btn btn-sm btn-link"
-                          @click.prevent="showFullImageDescription = true"
-                          v-if="!showFullImageDescription"
-                        >
-                          ...(more)
-                        </span>
-                      </div>
-                    </template>
-                  </template>
-                  <template v-else>
-                    <div
-                      class="image_description"
-                      v-html="thread.full_image_description"
-                    ></div>
-                  </template>
+                  <image-description :thread="thread"></image-description>
                 </div>
 
                 <div class="row thread-body-row">
@@ -418,6 +383,7 @@ import { mapGetters } from 'vuex';
 
 import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
+import ImageDescription from '~/components/threads/ImageDescription.vue';
 
 
 //image_path_pixel_color
@@ -444,7 +410,8 @@ export default {
     UserOnline,
     SimpleMap,
     AdminButtons,
-    CoolLightBox
+    CoolLightBox,
+    ImageDescription
   },
   mixins: [scrollToTop,userStatus],
   head() {
@@ -816,21 +783,6 @@ export default {
   }
 }
 
-.image_description {
-  margin: 5px 10px;
-  font-size: 12px;
-  text-align: center;
-  width: 100%;
-
-  img.buy-btn {
-    height: 22px;
-    display: unset;
-  }
-  p{
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-}
 
 p {
   display: inline;

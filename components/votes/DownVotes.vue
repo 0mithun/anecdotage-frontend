@@ -15,8 +15,9 @@
 
 <script>
 import unloggedUserMessage from '@/mixins/unloggedUserMessaage'
+import userStatus from '@/mixins/userStatus'
 export default {
-  mixins: [unloggedUserMessage],
+  mixins: [unloggedUserMessage, userStatus],
   props: {
     thread: {
       type: Object,
@@ -54,9 +55,6 @@ export default {
     activeClass() {
       return [this.isDesliked ? "active-icon" : "inactive-icon"];
     },
-    signedIn() {
-      return this.$auth.loggedIn;
-    },
     style() {
       return {
         borderWidth: this.size == "small" ? "1px" : "2px",
@@ -72,13 +70,22 @@ export default {
       if (!this.signedIn) {
         // return;
         this.$axios.$delete(`threads/${this.thread.slug}/likes`).then((res) => {
-
-        });
+            this.isDesliked = true;
+            this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
+        });+
 
         this.$store.commit('unlogged/SET_DISLIKES',this.thread.id)
         this.showSaveDataMessage();
-        // return
-      }else{
+
+        return
+      } else if(isAdmin){
+          this.isDesliked = true;
+          this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
+
+          return;
+      }
+
+      else{
         this.$axios.$delete(`threads/${this.thread.slug}/likes`).then((res) => {
 
         });

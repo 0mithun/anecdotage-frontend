@@ -40,7 +40,7 @@ export default {
           celebrity: false,
         },
         main_subject: '',
-        scrape_image: false,
+        scrape_image: true,
         age_restriction: 0,
         anonymous: 0,
 

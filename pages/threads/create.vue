@@ -57,7 +57,7 @@
                   >Who or what is this story about? This will be added as a tag.
                 </span>
               </div>
-              <div class="form-group" v-if="isAdmin">
+              <div class="form-group">
                 <div class="checkbox">
                   <label
                     ><input
@@ -65,7 +65,7 @@
                       value="1"
                       v-model="form.scrape_image"
                     />
-                    Scrape Image</label
+                    Try to import Wikipedia image</label
                   >
                 </div>
               </div>
