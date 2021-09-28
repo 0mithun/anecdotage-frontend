@@ -3,7 +3,7 @@
     <div class="auth-body">
       <h1 class="text-uppercase fw-500 mb-4 text-center font-22">Register</h1>
       <form class="auth-form" @submit.prevent="submit">
-        <div class="alert alert-error" v-if="errorMessage != ''">
+        <div class="alert alert-danger" v-if="errorMessage != ''">
           {{ errorMessage }}
         </div>
         <alert-success :form="form"
