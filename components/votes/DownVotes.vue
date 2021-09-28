@@ -77,7 +77,15 @@ export default {
         this.$store.commit('unlogged/SET_DISLIKES',this.thread.id)
         this.showSaveDataMessage();
 
-        // return
+        if(this.isDesliked){
+          this.isDesliked = false;
+          this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
+        }else{
+          this.isDesliked = true;
+          this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
+        }
+
+        return
       } else if(this.isAdmin){
           this.isDesliked = true;
           this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);

@@ -77,7 +77,16 @@ export default {
         this.$store.commit('unlogged/SET_LIKES',this.thread.id)
         this.showSaveDataMessage();
 
-        // return;
+         if(this.isLiked){
+              this.isLiked = false;
+              this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
+          }else{
+            this.isLiked = true;
+            this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
+          }
+
+
+        return;
       }else if(this.isAdmin){
           this.isLiked = true;
           this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
@@ -94,17 +103,17 @@ export default {
       if(this.isLiked){
           this.isLiked = false;
           this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
-        }else if(this.isAdmin){
-          this.isDesliked = false;
-          this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
+      }else if(this.isAdmin){
+        this.isDesliked = false;
+        this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
 
 
-          this.isLiked = true;
-          this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
-        }else{
-          this.isLiked = true;
-          this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
-        }
+        this.isLiked = true;
+        this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
+      }else{
+        this.isLiked = true;
+        this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
+      }
     },
   },
 };
