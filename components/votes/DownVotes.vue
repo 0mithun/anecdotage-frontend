@@ -70,20 +70,19 @@ export default {
       if (!this.signedIn) {
         // return;
         this.$axios.$delete(`threads/${this.thread.slug}/likes`).then((res) => {
+          if(this.isDesliked){
+            this.isDesliked = false;
+            this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
+          }else{
             this.isDesliked = true;
             this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
+          }
+
         });+
 
         this.$store.commit('unlogged/SET_DISLIKES',this.thread.id)
         this.showSaveDataMessage();
 
-        if(this.isDesliked){
-          this.isDesliked = false;
-          this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
-        }else{
-          this.isDesliked = true;
-          this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
-        }
 
         return
       } else if(this.isAdmin){
@@ -95,25 +94,15 @@ export default {
 
       else{
         this.$axios.$delete(`threads/${this.thread.slug}/likes`).then((res) => {
-
+          if(this.isDesliked){
+            this.isDesliked = false;
+            this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
+          }else{
+            this.isDesliked = true;
+            this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
+          }
         });
       }
-
-      if(this.isDesliked){
-        this.isDesliked = false;
-        this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
-      }else if(this.isLiked){
-        this.isLiked = false;
-        this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
-
-
-        this.isDesliked = true;
-        this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
-      }else{
-        this.isDesliked = true;
-        this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
-      }
-
     },
   },
 };

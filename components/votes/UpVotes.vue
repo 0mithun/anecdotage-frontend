@@ -70,21 +70,17 @@ export default {
       if (!this.signedIn) {
         // return;
         this.$axios.$post(`threads/${this.thread.slug}/likes`).then((res) => {
-           this.isLiked = true;
-           this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
-        });
-
-        this.$store.commit('unlogged/SET_LIKES',this.thread.id)
-        this.showSaveDataMessage();
-
-         if(this.isLiked){
+          if(this.isLiked){
               this.isLiked = false;
               this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
           }else{
             this.isLiked = true;
             this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
           }
+        });
 
+        this.$store.commit('unlogged/SET_LIKES',this.thread.id)
+        this.showSaveDataMessage();
 
         return;
       }else if(this.isAdmin){
@@ -96,23 +92,14 @@ export default {
 
       else{
         this.$axios.$post(`threads/${this.thread.slug}/likes`).then((res) => {
-
+          if(this.isLiked){
+              this.isLiked = false;
+              this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
+          }else{
+            this.isLiked = true;
+            this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
+          }
         });
-      }
-
-      if(this.isLiked){
-          this.isLiked = false;
-          this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
-      }else if(this.isAdmin){
-        this.isDesliked = false;
-        this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
-
-
-        this.isLiked = true;
-        this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
-      }else{
-        this.isLiked = true;
-        this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
       }
     },
   },
