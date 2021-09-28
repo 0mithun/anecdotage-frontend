@@ -15,8 +15,9 @@
 
 <script>
 import unloggedUserMessage from '@/mixins/unloggedUserMessaage'
+import userStatus from '@/mixins/userStatus'
 export default {
-  mixins: [unloggedUserMessage],
+  mixins: [unloggedUserMessage, userStatus],
   props: {
     thread: {
       type: Object,
@@ -53,9 +54,6 @@ export default {
   computed: {
     activeClass() {
       return [this.isLiked ? "active-icon" : "inactive-icon"];
-    },
-     signedIn() {
-      return this.$auth.loggedIn;
     },
     style() {
       return {
