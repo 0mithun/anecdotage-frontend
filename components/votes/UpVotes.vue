@@ -80,7 +80,7 @@ export default {
         this.showSaveDataMessage();
 
         return;
-      }else if(isAdmin){
+      }else if(this.isAdmin){
           this.isLiked = true;
           this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
 

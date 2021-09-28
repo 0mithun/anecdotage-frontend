@@ -78,7 +78,7 @@ export default {
         this.showSaveDataMessage();
 
         return
-      } else if(isAdmin){
+      } else if(this.isAdmin){
           this.isDesliked = true;
           this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
 
