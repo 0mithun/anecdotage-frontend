@@ -96,7 +96,7 @@ export default {
       if(this.isLiked){
           this.isLiked = false;
           this.$nuxt.$emit("threadLikeDelete-" + this.thread.id, this.thread.id);
-        }else if(this.isDesliked){
+        }else if(this.isAdmin){
           this.isDesliked = false;
           this.$nuxt.$emit("threadDislikeDelete-" + this.thread.id, this.thread.id);
 
