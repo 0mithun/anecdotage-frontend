@@ -22,7 +22,7 @@ export default {
         let route = this.$route.query.origin
           ? this.$route.query.origin
           : 'register';
-        let message = this.$route.query.error ? this.$route.query.origin : '';
+        let message = this.$route.query.error ? this.$route.query.error : '';
 
         return this.$router.push({ name: route, query: { error: 1, message: message } });
       });
