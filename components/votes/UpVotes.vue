@@ -77,7 +77,7 @@ export default {
         this.$store.commit('unlogged/SET_LIKES',this.thread.id)
         this.showSaveDataMessage();
 
-        return;
+        // return;
       }else if(this.isAdmin){
           this.isLiked = true;
           this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
