@@ -84,8 +84,11 @@ export default {
 
         return;
       }else if(this.isAdmin){
-          this.isLiked = true;
-          this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
+        this.$axios.$post(`threads/${this.thread.slug}/likes`)
+          .then(res=>{
+            this.isLiked = true;
+            this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
+          })
 
           return;
       }
