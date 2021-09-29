@@ -355,7 +355,8 @@ export default {
       this.$auth.logout();
       this.$nuxt.$emit('logout');
       // this.$router.push('/').catch(()=>{});
-      this.$router.push({ name: 'index' });
+      // this.$router.push({ name: 'index' });
+      location.href ='/'
     },
     backgroundEmoji(emoji) {
       return `background-image: url(${process.env.APP_URL}images/emojis/${emoji}.png)`;

@@ -84,6 +84,7 @@ export default {
 
         return;
       }else if(this.isAdmin){
+        console.log('is admin')
         this.$axios.$post(`threads/${this.thread.slug}/likes`)
           .then(res=>{
             this.isLiked = true;
