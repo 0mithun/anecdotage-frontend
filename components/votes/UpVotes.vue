@@ -85,11 +85,11 @@ export default {
         return;
       }else if(this.isAdmin){
         console.log('is admin')
-        this.$axios.$post(`threads/${this.thread.slug}/likes`)
+         this.$axios.$post(`threads/${this.thread.slug}/likes`)
           .then(res=>{
-            this.isLiked = true;
-            this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
-          })
+            })
+          this.isLiked = true;
+          this.$nuxt.$emit("threadLikeAdd-" + this.thread.id, this.thread.id);
 
           return;
       }
