@@ -87,7 +87,8 @@ export default {
         return
       } else if(this.isAdmin){
           this.$axios.$delete(`threads/${this.thread.slug}/likes`).then(res=>{
-            })
+
+          })
           this.isDesliked = true;
           this.$nuxt.$emit("threadDislikeAdd-" + this.thread.id, this.thread.id);
 

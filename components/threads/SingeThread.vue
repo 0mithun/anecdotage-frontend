@@ -19,7 +19,7 @@
             :to="{ name: 'threads.show', params: { slug: thread.slug } }"
             class="thread-title"
           >
-            <strong v-html="thread.title"></strong>
+            <span v-html="thread.title"></span>
           </nuxt-link>
         </div>
       </div>
@@ -407,7 +407,15 @@ export default {
   color: #000;
   font-weight: normal;
   overflow-wrap: anywhere;
-  font-family: Raleway, sans-serif;
+  // font-family: Raleway, sans-serif;
+
+  font-family: 'Merriweather Sans', sans-serif;
+
+  & > *{
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size:32px;
+    font-weight: 700;
+  }
 }
 // .count-items-row,
 // .thread-body-row {
@@ -454,6 +462,7 @@ export default {
 
 .thread-body {
   color:black;
+  line-height:22px;
 }
 
 .thread-body p {

@@ -74,7 +74,7 @@
 
 .image_description {
   // margin: 5px 10px;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
   width: 100%;
   padding:5px;
