@@ -61,7 +61,7 @@ export default {
 
 .icon-image{
   width: auto;
-  height: 20px;
+  height: 15px;
   margin-right:2px;
 }
 </style>

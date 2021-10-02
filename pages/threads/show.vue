@@ -86,7 +86,7 @@
                           class="avatar-photo"
                         />
                         <!-- <user-online :user="reply.owner"></user-online> -->
-                        <UserOnline :user="thread.creator" />
+                        <!-- <UserOnline :user="thread.creator" /> -->
                         <span>{{ thread.creator.name }}</span>
                       </nuxt-link>
                     </template>
