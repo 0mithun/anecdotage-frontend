@@ -41,4 +41,22 @@
     font-weight: 700;
     font-size: 24px;
   }
+
+
+
+@media (max-width: 1200px){
+}
+@media (max-width: 991px){
+}
+@media (max-width: 900px){
+  .trending-title {
+      font-size: 20px;
+  }
+}
+
+
+
+@media (max-width: 574px){
+
+}
 </style>

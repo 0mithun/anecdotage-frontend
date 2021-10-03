@@ -111,18 +111,19 @@
                       <div
                         class="thread-show-tools d-flex justify-content-between align-items-center flex-wrap"
                       >
+                        <up-votes :thread="thread" size="small"></up-votes>
+                        <down-votes :thread="thread" size="small"></down-votes>
                         <focusComment size="small"></focusComment>
+                        <favorite-thread
+                          :thread="thread"
+                          size="small"
+                        ></favorite-thread>
                         <vote-emojis
                           :thread="thread"
                           size="small"
                           position="top"
                         ></vote-emojis>
-                        <favorite-thread
-                          :thread="thread"
-                          size="small"
-                        ></favorite-thread>
-                        <up-votes :thread="thread" size="small"></up-votes>
-                        <down-votes :thread="thread" size="small"></down-votes>
+
 
                         <ReportThread :thread="thread" />
                         <ShowSource :source="thread.source" />
@@ -204,18 +205,18 @@
                       <div
                         class="thread-show-tools d-flex justify-content-between align-items-center"
                       >
+                        <up-votes :thread="thread" size="small"></up-votes>
+                        <down-votes :thread="thread" size="small"></down-votes>
                         <focusComment size="small"></focusComment>
+                        <favorite-thread
+                          :thread="thread"
+                          size="small"
+                        ></favorite-thread>
                         <vote-emojis
                           :thread="thread"
                           size="small"
                           position="top"
                         ></vote-emojis>
-                        <favorite-thread
-                          :thread="thread"
-                          size="small"
-                        ></favorite-thread>
-                        <up-votes :thread="thread" size="small"></up-votes>
-                        <down-votes :thread="thread" size="small"></down-votes>
                         <ReportThread :thread="thread" />
                         <ShowSource :source="thread.source" />
                       </div>

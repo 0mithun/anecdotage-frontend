@@ -209,6 +209,9 @@ header .navbar-nav {
   position: relative;
   top: -1px;
 }
+.before-login{
+  display: flex;
+}
 .before-login li {
   display: inline-block;
   vertical-align: middle;
@@ -227,7 +230,7 @@ header .navbar-nav {
   // background-color: #38a9ff;
 }
 .before-login li:last-child a {
-  width: auto;
+  // width: auto;
 }
 .author-page .user-thumb,
 .author-page .usr-info {

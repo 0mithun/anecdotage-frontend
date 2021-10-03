@@ -239,7 +239,7 @@
             </ul>
           </div>
 
-          <div class="btn-group">
+          <!-- <div class="btn-group">
             <button
               class="btn btn-link btn-xs dropdown-toggle"
               type="button"
@@ -294,7 +294,7 @@
                 </div>
               </li>
             </ul>
-          </div>
+          </div> -->
 
           <div class="map-column">
             <nuxt-link :to="{ name: 'maps' }" class="map-link">
@@ -364,9 +364,9 @@ export default {
     if(this.q.emojis){
       this.filter_emojis = this.q.emojis.split(/,/);
     }
-    if(this.q.ages){
-      this.filter_rated = this.q.ages.split(/,/);
-    }
+    // if(this.q.ages){
+    //   this.filter_rated = this.q.ages.split(/,/);
+    // }
 
     if(this.q.cno){
       this.category = this.q.cno.split(/,/);
@@ -390,10 +390,10 @@ export default {
     },
     filterThreads() {
       this.queryString = {};
-      if (this.filter_rated.length > 0) {
-        // data = this.filterByRated(this.filter_rated, data);
-        this.queryString.ages = this.filter_rated.join(',');
-      }
+      // if (this.filter_rated.length > 0) {
+      //   // data = this.filterByRated(this.filter_rated, data);
+      //   this.queryString.ages = this.filter_rated.join(',');
+      // }
 
       if (this.category.length > 0) {
         // data = this.filterByCategory(this.category, data);
@@ -443,9 +443,9 @@ export default {
     filter_emojis(filter) {
       this.filterThreads();
     },
-    filter_rated(filter) {
-      this.filterThreads();
-    },
+    // filter_rated(filter) {
+    //   this.filterThreads();
+    // },
     category(filter) {
       this.filterThreads();
     },
@@ -553,6 +553,7 @@ hr {
 }
 .filter-search {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 0px 5px;

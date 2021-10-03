@@ -29,8 +29,8 @@
       <div class="row">
           <div class="col-md-12">
             <div class="thread-footer-menu d-flex justify-content-between align-items-center">
-              <comment-counts :thread="thread"></comment-counts>
               <point-counts :thread="thread"></point-counts>
+              <comment-counts :thread="thread"></comment-counts>
             </div>
           </div>
       </div>

@@ -105,4 +105,41 @@ export default {
   font-weight: 700;
   font-size: 24px;
 }
+
+
+@media (max-width: 1200px){
+  .follow-item {
+      padding: 10px;
+  }
+  .follow-item-icon {
+      width: 40px;
+      height: 40px;
+  }
+}
+@media (max-width: 991px){
+  .follow-item-icon {
+      width: 36px;
+      height: 36px;
+  }
+}
+@media (max-width: 900px){
+  .follow-item {
+      padding: 5px;
+  }
+
+  .follow-item-icon {
+      width: 32px;
+      height: 32px;
+  }
+
+  .follow-on-title{
+      font-size: 20px;
+  }
+}
+
+
+
+@media (max-width: 574px){
+
+}
 </style>

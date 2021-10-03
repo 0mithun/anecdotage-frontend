@@ -473,6 +473,7 @@ a.dropdown-toggle.emoji-dropdown {
   }
 
   @include respond(tab-port) {
+    margin-bottom: 0px;
   }
   @include respond(phone) {
   }
@@ -488,7 +489,7 @@ a.dropdown-toggle.emoji-dropdown {
       flex-direction: column;
       li{
         margin-left: 0;
-        margin-bottom: 10px;
+        margin-bottom: 0;
       }
 
       a.before-login li:last-child a {
@@ -501,6 +502,7 @@ a.dropdown-toggle.emoji-dropdown {
   }
 
 }
+
 @media (max-width: 991px){
  ul.before-login{
     display: flex;
@@ -517,6 +519,18 @@ a.dropdown-toggle.emoji-dropdown {
 
   .upload-shot {
     flex-direction: column;
+  }
+}
+
+
+
+@media (max-width: 574px){
+  ul.before-login li {
+      margin-bottom: 0px !important;
+      a {
+        margin-bottom: 0;
+        margin-top:0;
+      }
   }
 }
 </style>

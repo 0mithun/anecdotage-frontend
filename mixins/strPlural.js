@@ -8,6 +8,7 @@ export default{
       }else if(value >1){
         return text + 's'
       }
+      return text + 's'
     }
   }
 }

@@ -95,15 +95,15 @@
             <div
               class="thread-show-tools d-flex justify-content-between align-items-center"
             >
+              <up-votes :thread="thread" size="small"></up-votes>
+              <down-votes :thread="thread" size="small"></down-votes>
+              <go-to-comment :thread="thread" size="small"></go-to-comment>
+              <favorite-thread :thread="thread" size="small"></favorite-thread>
               <vote-emojis
                 :thread="thread"
                 size="small"
                 position="top"
               ></vote-emojis>
-              <favorite-thread :thread="thread" size="small"></favorite-thread>
-              <up-votes :thread="thread" size="small"></up-votes>
-              <down-votes :thread="thread" size="small"></down-votes>
-              <go-to-comment :thread="thread" size="small"></go-to-comment>
             </div>
           </div>
         </div>

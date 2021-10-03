@@ -133,7 +133,8 @@ button.big-emoji {
 }
 
 .small-emoji-list-btn {
-  right: 90px;
+  /* right: 90px; */
+  right: 10px;
   bottom: 25px;
   padding: 5px 0px;
   padding-top: 2px;
