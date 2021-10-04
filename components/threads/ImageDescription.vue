@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%">
+  <div style="width:100%;margin-bottom:10px;">
     <template
       v-if="
         threadImageDescriptionLength > imageDescriptionLengthLimit
@@ -79,10 +79,9 @@
   width: 100%;
   padding:5px;
 
-  img.buy-btn {
-    height: 22px;
-    display: unset;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
   p{
     margin-top: 0 !important;
     margin-bottom: 0 !important;

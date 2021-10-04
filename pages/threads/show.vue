@@ -94,7 +94,7 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row thread-tools-row">
                   <div class="col-md-12">
                     <div
                       class="thread-footer-menu d-flex justify-content-between align-items-center"
@@ -188,7 +188,7 @@
                   </div>
                 </div>
 
-                <div class="row card-m-5">
+                <div class="row thread-tools-row">
                   <div class="col-md-12">
                     <div
                       class="thread-footer-menu d-flex justify-content-between align-items-center"
@@ -726,7 +726,8 @@ export default {
   overflow-wrap: anywhere;
   font-size: 30px;
   line-height: 48px;
-  font-family: Raleway, sans-serif;
+  // font-family: Raleway, sans-serif;
+  font-family: 'Merriweather Sans', sans-serif;
 }
 .count-items-row,
 .thread-body-row {

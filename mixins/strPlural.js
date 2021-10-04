@@ -7,7 +7,10 @@ export default{
         return text;
       }else if(value >1){
         return text + 's'
+      }else if(value == -1){
+        return text;
       }
+
       return text + 's'
     }
   }

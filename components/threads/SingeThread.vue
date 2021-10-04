@@ -13,7 +13,7 @@
           <AdminButtons :thread="thread" />
         </div>
       </div>
-      <div class="row">
+      <div class="row thread-title-row">
         <div class="col-md-12">
           <nuxt-link
             :to="{ name: 'threads.show', params: { slug: thread.slug } }"
@@ -78,7 +78,7 @@
           <div class="thread-body" v-html="thread.excerpt"></div>
         </div>
       </div>
-      <div class="row">
+      <div class="row thread-tools-row">
         <div class="col-md-12">
           <div
             class="thread-footer-menu d-flex justify-content-between align-items-center"
