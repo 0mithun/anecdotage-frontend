@@ -475,7 +475,8 @@ export default {
     } catch (err) {
       console.log(err)
       if (err.response.status === 404) {
-        error({ statusCode: 404, message: 'user Not Found' });
+        // error({ statusCode: 404, message: 'user Not Found' });
+        redirect('/');
       } else if (err.response.status === 403) {
         redirect('/');
       } else if (err.response.status === 429) {

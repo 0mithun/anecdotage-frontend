@@ -60,7 +60,7 @@
 
             <img  title="" v-lazy-load
               :data-src="thread.thread_image_path"
-              :alt="stripTagTitle"
+              :alt="thread.image_description"
               class="thread-image thread_thumb_image"
               heigh="240"
               width="auto"
@@ -225,9 +225,9 @@ export default {
       return `background: rgba(${this.thread.image_path_pixel_color});cursor:pointer;`;
     },
 
-    stripTagTitle() {
-      return this.thread.title.replace(/(<([^>]+)>)/gi, '');
-    },
+    // stripTagTitle() {
+    //   return this.thread.title.replace(/(<([^>]+)>)/gi, '');
+    // },
 
     signedIn() {
       return this.$auth.loggedIn;
@@ -409,10 +409,10 @@ export default {
   overflow-wrap: anywhere;
   // font-family: Raleway, sans-serif;
 
-  font-family: 'Merriweather Sans', sans-serif;
+  font-family: 'Merriweather', serif;
 
   & > *{
-    font-family: 'Merriweather Sans', sans-serif;
+    font-family: 'Merriweather', serif;
     font-size:32px;
     font-weight: 700;
   }

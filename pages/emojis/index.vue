@@ -103,7 +103,12 @@ export default {
 
       store.commit('emoji/SET_LOADING', false);
     } catch (e) {
-      console.log(e);
+      if (err.response.status === 404) {
+        // error({ statusCode: 404, message: 'Tag Not Found' });
+        redirect('/');
+      } else {
+        error({ statusCode: 500, message: 'Server Error' });
+      }
     }
   },
 };

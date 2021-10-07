@@ -227,7 +227,8 @@ export default {
       store.commit('tags/setTotalThreadsCount', tagRresponse.total_threads_count);
     } catch (err) {
       if (err.response.status === 404) {
-        error({ statusCode: 404, message: 'Tag Not Found' });
+        // error({ statusCode: 404, message: 'Tag Not Found' });
+        redirect('/');
       } else {
         error({ statusCode: 500, message: 'Server Error' });
       }

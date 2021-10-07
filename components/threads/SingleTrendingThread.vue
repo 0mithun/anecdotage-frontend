@@ -100,7 +100,12 @@
       overflow-wrap: anywhere;
       font-size: 16px;
       line-height: 22px;
-      font-family: Raleway, sans-serif;
+      // font-family: Raleway, sans-serif;
+
+        font-family: 'Merriweather', serif;
+        * {
+          font-family: 'Merriweather', serif;
+        }
   }
   .count-items-row, .thread-body-row{
     margin: 10px 0;

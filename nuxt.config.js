@@ -20,7 +20,7 @@ export default {
     ],
     // link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     link: [
-      { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap', async: true },
+      { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap', async: true },
       { rel: 'stylesheet', type: 'text/css', href: 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', async: true },
     ],
     script: [

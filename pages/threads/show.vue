@@ -86,7 +86,7 @@
                           class="avatar-photo"
                         />
                         <!-- <user-online :user="reply.owner"></user-online> -->
-                        <!-- <UserOnline :user="thread.creator" /> -->
+                        <UserOnline :user="thread.creator" />
                         <span>{{ thread.creator.name }}</span>
                       </nuxt-link>
                     </template>
@@ -566,7 +566,7 @@ export default {
     },
 
   },
-  async fetch({ params, query, error, $axios, store }) {
+  async fetch({ params, query, error, $axios, store, redirect }) {
     try {
       const threadRresponse = await $axios.$get(`threads/${params.slug}`);
       // return { thread: threadRresponse.data};
@@ -578,7 +578,10 @@ export default {
 
     } catch (err) {
       if (err.response.status === 404) {
-        error({ statusCode: 404, message: 'Thread Not Found' });
+        // error({ statusCode: 404, message: 'Thread Not Found' });
+
+        redirect('/');
+
       } else if (err.response.status === 429) {
         error({ statusCode: 429, message: 'Too Many Attempt' });
       } else if (err.response.status === 401) {
@@ -727,7 +730,11 @@ export default {
   font-size: 30px;
   line-height: 48px;
   // font-family: Raleway, sans-serif;
-  font-family: 'Merriweather Sans', sans-serif;
+      font-family: 'Merriweather', serif;
+
+  * {
+        font-family: 'Merriweather', serif;
+  }
 }
 .count-items-row,
 .thread-body-row {

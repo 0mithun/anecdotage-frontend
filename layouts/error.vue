@@ -15,7 +15,12 @@
 
 <script>
 export default {
-  props: ['error']
+  props: ['error'],
+  created() {
+    if(this.error.statusCode == 404){
+      this.$router.push({name:'index'})
+    }
+  },
 };
 </script>
 

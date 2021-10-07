@@ -37,7 +37,9 @@ export default {
       //   this.redirectToLogin();
       // }
       let comment = document.getElementById("body");
-      comment.focus();
+      if(comment){
+        comment.focus();
+      }
     },
     redirectToLogin() {
       // window.location = "/redirect-to?page=" + location.pathname;
