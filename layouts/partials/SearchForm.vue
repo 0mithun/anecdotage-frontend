@@ -91,13 +91,13 @@ export default {
 }
 
 .navbar-search .form-control.search-box:focus {
-    width: 100%;
+    width: 98%;
     border: 2px solid #98cbe8;
     border-radius: 4px;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 }
 .header-search .form-control.active-search {
-    width: 100%;
+    width: 98%;
     border: 2px solid #98cbe8;
     border-radius: 4px;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);

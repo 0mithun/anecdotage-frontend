@@ -49,19 +49,19 @@
     computed:{
       threadImageDescriptionLength() {
         if (
-          this.thread.full_image_description == null ||
-          this.thread.full_image_description == ''
+          this.thread.image_description == null ||
+          this.thread.image_description == ''
         ) {
           return 0;
         }
 
-        const description = this.thread.full_image_description;
+        const description = this.thread.image_description;
         const splitDescription = description.split(/\s/);
 
         return splitDescription.length;
       },
       showThreadImageDescriptionLimit() {
-        return this.thread.full_image_description
+        return this.thread.image_description
           .split(/\s/)
           .splice(0, this.imageDescriptionLengthLimit)
           .join(' ');

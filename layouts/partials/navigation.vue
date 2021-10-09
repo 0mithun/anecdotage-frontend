@@ -520,7 +520,27 @@ a.dropdown-toggle.emoji-dropdown {
   .upload-shot {
     flex-direction: column;
   }
+
+  .navbar-nav{
+    flex-direction: row;
+    // justify-content: space-around;
+  }
+
+  a.dropdown-toggle.emoji-dropdown{
+      margin-top: 12px;
+  }
+  .nav-item.dropdown.navbar-menu-item{
+    width:100px;
+  }
+
+  .upload-shot.white-path.font-14.fw-500.text-uppercase.d-flex{
+    flex-direction: row;
+    a {
+      width:100px;
+    }
+  }
 }
+
 
 
 

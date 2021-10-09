@@ -100,6 +100,7 @@
       overflow-wrap: anywhere;
       font-size: 16px;
       line-height: 22px;
+      font-weight: 700;
       // font-family: Raleway, sans-serif;
 
         font-family: 'Merriweather', serif;

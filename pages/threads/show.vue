@@ -729,6 +729,7 @@ export default {
   overflow-wrap: anywhere;
   font-size: 30px;
   line-height: 48px;
+  font-weight: 700;
   // font-family: Raleway, sans-serif;
       font-family: 'Merriweather', serif;
 

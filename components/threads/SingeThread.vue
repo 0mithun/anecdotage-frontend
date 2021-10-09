@@ -410,6 +410,7 @@ export default {
   // font-family: Raleway, sans-serif;
 
   font-family: 'Merriweather', serif;
+  font-weight: 700;
 
   & > *{
     font-family: 'Merriweather', serif;
