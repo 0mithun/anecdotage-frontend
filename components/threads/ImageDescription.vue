@@ -49,19 +49,19 @@
     computed:{
       threadImageDescriptionLength() {
         if (
-          this.thread.image_description == null ||
-          this.thread.image_description == ''
+          this.thread.full_image_description == null ||
+          this.thread.full_image_description == ''
         ) {
           return 0;
         }
 
-        const description = this.thread.image_description;
+        const description = this.thread.full_image_description;
         const splitDescription = description.split(/\s/);
 
         return splitDescription.length;
       },
       showThreadImageDescriptionLimit() {
-        return this.thread.image_description
+        return this.thread.full_image_description
           .split(/\s/)
           .splice(0, this.imageDescriptionLengthLimit)
           .join(' ');
@@ -85,6 +85,13 @@
   p{
     margin-top: 0 !important;
     margin-bottom: 0 !important;
+  }
+  * {
+    margin-right: 1px;
+    margin-left: 1px;
+  }
+  i {
+    margin-left:2px;
   }
 }
 
