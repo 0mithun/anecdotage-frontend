@@ -419,6 +419,9 @@ export default {
   }
   i,b,strong {
     font-family: 'Merriweather', serif !important;
+    i, b {
+       font-family: 'Merriweather', serif !important;
+     }
   }
 }
 // .count-items-row,
