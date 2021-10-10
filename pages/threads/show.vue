@@ -733,8 +733,12 @@ export default {
   // font-family: Raleway, sans-serif;
       font-family: 'Merriweather', serif;
    & > *{
-        font-family: 'Merriweather', serif;
-      }
+      font-family: 'Merriweather', serif;
+    }
+
+  i,b,strong {
+    font-family: 'Merriweather', serif !important;
+  }
 }
 .count-items-row,
 .thread-body-row {

@@ -417,6 +417,9 @@ export default {
     font-size:32px;
     font-weight: 700;
   }
+  i,b,strong {
+    font-family: 'Merriweather', serif !important;
+  }
 }
 // .count-items-row,
 // .thread-body-row {

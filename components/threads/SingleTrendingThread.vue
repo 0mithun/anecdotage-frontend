@@ -109,6 +109,9 @@
       & > *{
         font-family: 'Merriweather', serif;
       }
+      i,b,strong {
+    font-family: 'Merriweather', serif !important;
+  }
 }
   .count-items-row, .thread-body-row{
     margin: 10px 0;
