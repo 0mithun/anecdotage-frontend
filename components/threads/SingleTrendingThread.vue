@@ -102,9 +102,9 @@
       line-height: 22px;
         font-weight: 700;
       font-family: 'Merriweather', serif !important;
-      & > *{
-          font-family: 'Merriweather', serif !important;
-        }
+      // & > *{
+      //     font-family: 'Merriweather', serif !important;
+      //   }
       i {
         font-family: 'Merriweather', serif !important;
       }
