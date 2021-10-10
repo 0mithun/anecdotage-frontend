@@ -407,24 +407,20 @@ export default {
   color: #000;
   font-weight: normal;
   overflow-wrap: anywhere;
-  // font-family: Raleway, sans-serif;
-
-  font-family: 'Merriweather', serif;
   font-weight: 700;
-
-  & > *{
-    font-family: 'Merriweather', serif;
-    font-size:32px;
-    font-weight: 700;
-  }
-  i,b,strong {
+      font-family: 'Merriweather', serif !important;
+   & > *{
+      font-family: 'Merriweather', serif !important;
+    }
+  i {
     font-family: 'Merriweather', serif !important;
-    i, b {
+  }
+
+  b,strong {
+    font-family: 'Merriweather', serif !important;
+     i {
        font-family: 'Merriweather', serif !important;
      }
-  }
-  strong i {
-    font-family: 'Merriweather', serif !important;
   }
 }
 // .count-items-row,

@@ -730,22 +730,22 @@ export default {
   font-size: 30px;
   line-height: 48px;
   font-weight: 700;
-  // font-family: Raleway, sans-serif;
-      font-family: 'Merriweather', serif;
+      font-family: 'Merriweather', serif !important;
    & > *{
-      font-family: 'Merriweather', serif;
+      font-family: 'Merriweather', serif !important;
     }
-
-  i,b,strong {
+  i {
     font-family: 'Merriweather', serif !important;
-     i, b {
+  }
+
+  b,strong {
+    font-family: 'Merriweather', serif !important;
+     i {
        font-family: 'Merriweather', serif !important;
      }
   }
 
-  strong i {
-    font-family: 'Merriweather', serif !important;
-  }
+
 }
 .count-items-row,
 .thread-body-row {

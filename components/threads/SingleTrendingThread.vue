@@ -100,24 +100,21 @@
       overflow-wrap: anywhere;
       font-size: 16px;
       line-height: 22px;
-      font-weight: 700;
-      // font-family: Raleway, sans-serif;
-
-        font-family: 'Merriweather', serif;
-
-
+        font-weight: 700;
+      font-family: 'Merriweather', serif !important;
       & > *{
-        font-family: 'Merriweather', serif;
-      }
-      i,b,strong {
+          font-family: 'Merriweather', serif !important;
+        }
+      i {
         font-family: 'Merriweather', serif !important;
-          i, b {
-            font-family: 'Merriweather', serif !important;
-          }
       }
-  strong i {
-    font-family: 'Merriweather', serif !important;
-  }
+
+      b,strong {
+        font-family: 'Merriweather', serif !important;
+        i {
+          font-family: 'Merriweather', serif !important;
+        }
+      }
 }
   .count-items-row, .thread-body-row{
     margin: 10px 0;
