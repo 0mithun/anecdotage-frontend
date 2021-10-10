@@ -479,6 +479,9 @@ export default {
   max-width: 100% !important;
 }
 
+a.thread-title strong i {
+font-family: Raleway, sans-serif;
+}
 
 
  @media only screen and (max-width:600px) {

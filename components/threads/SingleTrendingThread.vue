@@ -151,6 +151,8 @@
 .thread-body {
   color:black;
 }
-
+a.thread-title strong i {
+font-family: Raleway, sans-serif;
+}
 
 </style>

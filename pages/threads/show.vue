@@ -844,4 +844,8 @@ p {
     width: 100%;
     height: 100%;
 }
+
+a.thread-title strong i {
+font-family: Raleway, sans-serif;
+}
 </style>
