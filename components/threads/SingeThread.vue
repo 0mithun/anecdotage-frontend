@@ -423,6 +423,9 @@ export default {
        font-family: 'Merriweather', serif !important;
      }
   }
+  strong i {
+    font-family: 'Merriweather', serif !important;
+  }
 }
 // .count-items-row,
 // .thread-body-row {

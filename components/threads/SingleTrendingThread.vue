@@ -115,6 +115,9 @@
             font-family: 'Merriweather', serif !important;
           }
       }
+  strong i {
+    font-family: 'Merriweather', serif !important;
+  }
 }
   .count-items-row, .thread-body-row{
     margin: 10px 0;
