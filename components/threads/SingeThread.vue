@@ -480,7 +480,13 @@ export default {
 }
 
 a.thread-title strong i {
-font-family: Raleway, sans-serif;
+  font-family: 'Merriweather', serif !important;
+}
+
+a.thread-title {
+  & > *{
+font-family: 'Merriweather', serif !important;
+  }
 }
 
 
