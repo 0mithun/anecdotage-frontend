@@ -179,10 +179,11 @@
                   <div class="col-md-12">
                     Tags:
                     <nuxt-link
-                      v-for="tag in thread.tags"
+                      v-for="(tag, index) in thread.tags"
                       :key="tag.id"
                       :to="{ name: 'tags', params: { slug: tag.slug } }"
                       class="tag-name"
+                      :class="[index % 2 == 1 ? 'even' : 'odd']"
                       >#{{ tag.name }}</nuxt-link
                     >
                   </div>
@@ -722,6 +723,14 @@ export default {
   padding-left: 5px;
   font-size: 14px;
   font-weight: normal;
+}
+
+.tag-name.odd {
+  color :#ff9900;
+}
+
+.tag-name.even{
+  color:#ff4301;
 }
 .thread-title {
   color: #000;

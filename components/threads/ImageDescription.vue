@@ -92,11 +92,16 @@
   }
   i {
     margin-left:2px;
+    margin-right:2px;
   }
 }
 
 .btn-link{
   cursor:pointer;
   font-size: 13px;
+}
+.image_description i {
+  margin-left:2px;
+  margin-right:2px;
 }
 </style>

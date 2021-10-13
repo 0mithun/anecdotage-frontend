@@ -83,7 +83,7 @@ export default {
       fetchRunningCenter: null,
       markers: [],
       results: [],
-      zoom: 3,
+      zoom: 8,
       infoContent: null,
       infoWindowPos: {
         lat: 0,
