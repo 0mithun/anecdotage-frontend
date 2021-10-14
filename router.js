@@ -6,14 +6,14 @@ const page = path => () => import(`~/pages/${path}`).then(m => m.default || m);
 
 const routes = [
   { path: '/', name: 'index', component: page('index.vue') },
-  { path: 'index.php', name: 'index', component: page('aid.vue') },
-  { path: 'faq', name: 'faq', component: page('faq.vue') },
-  { path: 'tos', name: 'tos', component: page('tos.vue') },
-  { path: 'privacy', name: 'privacy', component: page('privacy.vue') },
+  { path: '/index.php', name: 'index', component: page('aid.vue') },
+  { path: '/faq', name: 'faq', component: page('faq.vue') },
+  { path: '/tos', name: 'tos', component: page('tos.vue') },
+  { path: '/privacy', name: 'privacy', component: page('privacy.vue') },
   { path: '/delete-account', name: 'delete', component: page('delete.vue') },
-  { path: 'contact', name: 'contact', component: page('contact.vue') },
-  { path: 'login', name: 'login', component: page('auth/login.vue') },
-  { path: 'register', name: 'register', component: page('auth/register.vue') },
+  { path: '/contact', name: 'contact', component: page('contact.vue') },
+  { path: '/login', name: 'login', component: page('auth/login.vue') },
+  { path: '/register', name: 'register', component: page('auth/register.vue') },
   {
     path: '/auth/social-callback',
     name: 'social.callback',
@@ -126,90 +126,90 @@ const routes = [
   },
 
   {
-    path: 'anecdotes/emojis/:emoji',
+    path: '/anecdotes/emojis/:emoji',
     name: 'emojis',
     component: page('emojis/index.vue')
   },
-  { path: 'anecdotes/maps', name: 'maps', component: page('maps/index.vue') },
+  { path: '/anecdotes/maps', name: 'maps', component: page('maps/index.vue') },
   {
-    path: 'anecdotes/search',
+    path: '/anecdotes/search',
     name: 'search',
     component: page('search/index.vue')
   },
   {
-    path: 'anecdotes/messanger',
+    path: '/anecdotes/messanger',
     name: 'chat',
     component: page('chat/index.vue')
   },
   // { path: '/anecdotes/messanger', name: 'chat', component: page('chat/messenger.vue') },
   // { path: '/anecdotes/messanger', name: 'chat', component: page('chat/test.vue') },
 
-  { path: 'anecdotes/tags/:slug', name: 'tags', component: page('tags/index.vue') },
-  { path: 'tags/:slug', redirect: { name: 'tags' } },
+  { path: '/anecdotes/tags/:slug', name: 'tags', component: page('tags/index.vue') },
+  { path: '/tags/:slug', redirect: { name: 'tags' } },
   {
-    path: 'anecdotes/tags/:slug/edit',
+    path: '/anecdotes/tags/:slug/edit',
     name: 'tag.edit',
     component: page('tags/edit.vue')
   },
   {
-    path: 'anecdotes/top-rated',
+    path: '/anecdotes/top-rated',
     name: 'threads.rated',
     component: page('threads/filters/rated.vue')
   },
   {
-    path: 'anecdotes/trending',
+    path: '/anecdotes/trending',
     name: 'threads.trending',
     component: page('threads/filters/trending.vue')
   },
   {
-    path: 'anecdotes/most-viewed',
+    path: '/anecdotes/most-viewed',
     name: 'threads.viewed',
     component: page('threads/filters/viewed.vue')
   },
   {
-    path: 'anecdotes/newest',
+    path: '/anecdotes/newest',
     name: 'threads.recent',
     component: page('threads/filters/recent.vue')
   },
   {
-    path: 'anecdotes/last-viewed',
+    path: '/anecdotes/last-viewed',
     name: 'threads.last.viewed',
     component: page('threads/filters/lastViewed.vue')
   },
   {
-    path: 'anecdotes/closest',
+    path: '/anecdotes/closest',
     name: 'threads.closest',
     component: page('threads/filters/closest.vue')
   },
   {
-    path: 'anecdotes/video',
+    path: '/anecdotes/video',
     name: 'threads.video',
     component: page('threads/filters/video.vue')
   },
 
   {
-    path: 'anecdotes/sort-by-title-length',
+    path: '/anecdotes/sort-by-title-length',
     name: 'admin.sortbytitle.length',
     component: page('admins/sortByTitleLength.vue')
   },
 
   {
-    path: 'threads/create',
+    path: '/threads/create',
     name: 'threads.create',
     component: page('threads/create.vue')
   },
   {
-    path: 'anecdotes/:slug/edit',
+    path: '/anecdotes/:slug/edit',
     name: 'threads.edit',
     component: page('threads/edit.vue')
   },
   {
-    path: 'anecdotes/:slug',
+    path: '/anecdotes/:slug',
     name: 'threads.show',
     component: page('threads/show.vue')
   },
   {
-    path: 'anecdotes/:slug/thumbnail/',
+    path: '/anecdotes/:slug/thumbnail/',
     name: 'threads.thumbnail',
     component: page('threads/thumbnail.vue')
   },
