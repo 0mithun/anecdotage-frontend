@@ -240,4 +240,10 @@ export default {
 
 
   },
+  router: {
+    // base: '/subfolder/',
+    base: process.env.NODE_ENV === 'dev' ? '/' : '/',
+    trailingSlash: true,
+
+  },
 };
