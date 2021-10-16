@@ -9,7 +9,7 @@
         ></SingleThread>
         <Pagination
           :pagination="pageinateData"
-          routeName="threads.rated"
+          routeName="admin.sortbytitle.length"
           :param="{ key: '', value: '' }"
         />
       </div>

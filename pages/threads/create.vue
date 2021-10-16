@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="card card-m-5">
-      <div class="card-header">Post an Anecdote</div>
+      <div class="card-header">
+         <h2 class="card-title">Post an Anecdote</h2>
+        </div>
       <div class="card-body">
         <form
           class=""
@@ -60,6 +62,9 @@
               <div class="form-group">
                 <div class="checkbox">
                   <label
+                     data-toggle="tooltip" data-placement="bottom"
+                    title="If you check this box and enter a subject above, we will try to download the corresponding Wikipedia image and display it above your story. Alternatively, you will have the option to use a different primary image on the next page."
+
                     ><input
                       type="checkbox"
                       value="1"
@@ -420,10 +425,18 @@ export default {
 
         } )
           .then((res) => {
-          this.$router.push({
-            name: 'threads.thumbnail',
-            params: { slug: res.data.slug },
-          });
+            if(this.form.scrape_image){
+              this.$router.push({
+                name: 'threads.show',
+                params: { slug: res.data.slug },
+              });
+            }else{
+              this.$router.push({
+                name: 'threads.thumbnail',
+                params: { slug: res.data.slug },
+              });
+            }
+
         })
         .catch((err) => {
           // console.log(err);
@@ -487,5 +500,10 @@ dropdown-menu {
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
+}
+
+.card-title{
+  font-size:24px;
+  font-weight: bold;
 }
 </style>

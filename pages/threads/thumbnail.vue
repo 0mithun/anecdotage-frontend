@@ -162,72 +162,7 @@
       </div>
     </div>
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="shareThreadModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="myModalLabel"
-    >
-      <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">
-              Share article on social media
-            </h4>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <div class="checkbox">
-                <label
-                  ><input
-                    type="checkbox"
-                    value="1"
-                    name="share_on_facebook"
-                    v-model="share_on_facebook"
-                  />Share on Facebook</label
-                >
-              </div>
-              <div class="checkbox">
-                <label
-                  ><input
-                    type="checkbox"
-                    value="1"
-                    name="share_on_twitter"
-                    v-model="share_on_twitter"
-                  />Share on Twitter</label
-                >
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              class="btn btn-default btn-sm"
-              type="button"
-              @click.prevent="closeShareModal"
-            >
-              Skip
-            </button>
-            <button
-              class="btn btn-primary btn-sm"
-              type="button"
-              @click.prevent="shareThread"
-            >
-              Share
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ShareModal v-if="show_share_modal" :thread="thread" @share-cancel="cancelShare" @share-complete="completeShare" />
   </div>
 </template>
 
@@ -236,12 +171,14 @@ import Slim from '@/components/slim/slim.vue';
 import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
 import userStatus from '@/mixins/userStatus'
+import ThreadShare from '@/mixins/threadShare'
+
 export default {
   middleware: ['auth'],
   components: {
     'slim-cropper': Slim,
   },
-   mixins: [scrollToTop,userStatus],
+   mixins: [scrollToTop,userStatus, ThreadShare],
   head() {
     return {
       title: this.settings.site_title,
@@ -274,8 +211,7 @@ export default {
         imageUploadComplete: false,
       },
       clickOnCopyright: false,
-      share_on_facebook: false,
-      share_on_twitter: false,
+
     };
   },
   mounted() {
@@ -404,7 +340,9 @@ export default {
       this.$axios
         .$put(`threads/${this.thread.slug}/imageDescription`, this.form)
         .then((res) => {
-          $('#shareThreadModal').modal('show');
+
+          // $('#shareThreadModal').modal('show');
+          this.show_share_modal= true;
         })
         .catch((err) => {});
     },
@@ -412,40 +350,12 @@ export default {
       this.$axios
         .$put(`threads/${this.thread.slug}/imageDescription`, this.uploadImageform)
         .then((res) => {
-          $('#shareThreadModal').modal('show');
+          // $('#shareThreadModal').modal('show');
+           this.show_share_modal= true;
         })
         .catch((err) => {});
     },
-    shareThread() {
-      this.$axios
-        .post(`threads/${this.thread.slug}/share`, {
-          share_on_facebook: this.share_on_facebook,
-          share_on_twitter: this.share_on_twitter,
-        })
-        .then((res) => {
-          $('#shareThreadModal').modal('hide');
-          this.$router.push({
-            name: 'threads.show',
-            params: { slug: this.thread.slug },
-          });
-        })
-        .catch((err) => {});
-    },
-    closeShareModal() {
-      $('#shareThreadModal').modal('hide');
-      this.$router.push({
-        name: 'threads.show',
-        params: { slug: this.thread.slug },
-      });
-    },
-    skip() {
-      this.$axios
-        .$put(`threads/${this.thread.slug}/skipThumbnailEdit`)
-        .then((res) => {
-          // this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
-          $('#shareThreadModal').modal('show');
-        });
-    },
+
 
     rgbToHex(rgb) {
       if(rgb == null || rgb == ''){
@@ -456,7 +366,16 @@ export default {
       rgbVal.pop();
 
       return  rgbVal.join(',').match(/[0-9|.]+/g).map((x,i) => i === 3 ? parseInt(255 * parseFloat(x)).toString(16) : parseInt(x).toString(16)).join('')
-    }
+    },
+    skip() {
+      this.$axios
+        .$put(`threads/${this.thread.slug}/skipThumbnailEdit`)
+        .then((res) => {
+          this.show_share_modal= true;
+          // this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
+        });
+    },
+
   },
   async fetch({ params, query, error, $axios, store }) {
     try {
@@ -475,6 +394,7 @@ export default {
       }
     }
   },
+
 };
 </script>
 
