@@ -29,7 +29,7 @@
       <div class="row count-items-row">
         <div class="col-md-12">
           <div
-            class="count-items d-flex justify-content-between align-items-center flex-wrap"
+            class="count-items d-flex flex-wrap justify-content-between align-items-center flex-wrap"
           >
             <view-counts :thread="thread"></view-counts>
             <point-counts :thread="thread"></point-counts>
@@ -96,7 +96,7 @@
               <twitter-share :thread="thread"></twitter-share>
             </div>
             <div
-              class="thread-show-tools d-flex justify-content-between align-items-center"
+              class="thread-show-tools d-flex flex-wrap justify-content-between align-items-center"
             >
               <up-votes :thread="thread" size="small"></up-votes>
               <down-votes :thread="thread" size="small"></down-votes>

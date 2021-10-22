@@ -35,7 +35,7 @@
                 <div class="row count-items-row">
                   <div class="col-md-12">
                     <div
-                      class="count-items d-flex justify-content-between align-items-center"
+                      class="count-items d-flex flex-wrap justify-content-between align-items-center"
                     >
                       <view-counts :thread="thread"></view-counts>
                       <point-counts :thread="thread"></point-counts>
@@ -110,7 +110,7 @@
                         <twitter-share :thread="thread"></twitter-share>
                       </div>
                       <div
-                        class="thread-show-tools d-flex justify-content-between align-items-center flex-wrap"
+                        class="thread-show-tools d-flex flex-wrap justify-content-between align-items-center flex-wrap"
                       >
                         <up-votes :thread="thread" size="small"></up-votes>
                         <down-votes :thread="thread" size="small"></down-votes>
@@ -205,7 +205,7 @@
                         <twitter-share :thread="thread"></twitter-share>
                       </div>
                       <div
-                        class="thread-show-tools d-flex justify-content-between align-items-center"
+                        class="thread-show-tools d-flex flex-wrap justify-content-between align-items-center"
                       >
                         <up-votes :thread="thread" size="small"></up-votes>
                         <down-votes :thread="thread" size="small"></down-votes>
@@ -836,6 +836,7 @@ p {
   width: 100%;
   height: 100%;
   color:black;
+  line-height:22px !important;
 
   img {
     max-width: 100%;

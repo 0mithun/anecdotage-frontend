@@ -39,7 +39,7 @@ export default{
             ssr: false ,
             // 'data-ad-client':"ca-pub-4366805194029390",
             'data-ad-client': process.env.DATA_AD_CLIENT_ID,
-            preconnect: true,
+             preconnect: true,
            }
       ],
       link: this.generateLink

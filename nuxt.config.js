@@ -12,6 +12,8 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { 'http-equiv':'Content-Security-Policy', content:"default-src 'self' data: gap: https://cdn.ampproject.org/ 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"},
+
       // {
       //   hid: 'description',
       //   name: 'description',
