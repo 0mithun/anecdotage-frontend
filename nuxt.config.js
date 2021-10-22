@@ -60,7 +60,7 @@ export default {
   plugins: [
     '~plugins/vform',
     '~/plugins/toastNotification',
-    {src: '~/plugins/echo', ssr: false},
+    '~/plugins/echo',
     { src: '~/plugins/gmaps', ssr: false },
 
     // '~components/_global',
@@ -81,27 +81,27 @@ export default {
   buildModules: ['@nuxtjs/router',
     [
       '@nuxtjs/laravel-echo',
-      // {
-      //   broadcaster: 'pusher',
-      //   key: process.env.PUSHER_APP_KEY,
-      //   cluster: process.env.PUSHER_APP_CLUSTER,
-      //   encrypted: false,
-      //   wsHost: process.env.WEBSOCKET_BASE_URL,
-      //   authEndpoint: process.env.API_URL + '/broadcasting/auth',
-      //   wsPort: 6001,
-      //   wssPort: 6001,
-      //   disableStats: true,
-      //   forceTLS: false,
-      //   enabledTransports: ["ws", "wss"],
-      // },
+      {
+        broadcaster: 'pusher',
+        key: process.env.PUSHER_APP_KEY,
+        cluster: process.env.PUSHER_APP_CLUSTER,
+        encrypted: false,
+        wsHost: process.env.WEBSOCKET_BASE_URL,
+        authEndpoint: process.env.API_URL + '/broadcasting/auth',
+        wsPort: 6001,
+        wssPort: 6001,
+        disableStats: true,
+        forceTLS: false,
+        enabledTransports: ["ws", "wss"],
+      },
     ],
     'nuxt-compress'
   ],
-  // echo: {
-  //   authModule: true,
-  //   connectOnLogin: true,
-  //   disconnectOnLogout: true
-  // },
+  echo: {
+    authModule: true,
+    connectOnLogin: true,
+    disconnectOnLogout: true
+  },
 
   modules: [
     '@nuxtjs/auth',
