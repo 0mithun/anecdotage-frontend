@@ -60,7 +60,7 @@ export default {
   plugins: [
     '~plugins/vform',
     '~/plugins/toastNotification',
-    '~/plugins/echo',
+    {src: '~/plugins/echo', ssr: false},
     { src: '~/plugins/gmaps', ssr: false },
 
     // '~components/_global',
