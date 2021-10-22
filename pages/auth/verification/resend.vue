@@ -1,6 +1,8 @@
 <template>
   <section class="authentication">
+    <div></div>
     <div class="auth-body">
+      <div></div>
       <h1 class="text-uppercase fw-500 mb-4 text-center font-22">
         Resend Verification Email
       </h1>
@@ -25,6 +27,7 @@
         </div>
       </form>
     </div>
+    <div></div>
   </section>
 </template>
 

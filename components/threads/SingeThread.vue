@@ -1,7 +1,9 @@
 <template>
   <div class="card">
+    <div></div>
     <div class="card-body">
       <div class="row">
+        <div></div>
         <div class="col-md-12 tags">
           <nuxt-link
             class="tag-name"
@@ -12,6 +14,7 @@
 
           <AdminButtons :thread="thread" />
         </div>
+        <div></div>
       </div>
       <div class="row thread-title-row">
         <div class="col-md-12">
@@ -109,7 +112,7 @@
         </div>
       </div>
     </div>
-
+  <div></div>
     <!-- Modal -->
     <div
       class="modal fade"

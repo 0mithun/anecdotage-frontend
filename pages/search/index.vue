@@ -1,9 +1,11 @@
 <template>
   <div class="container">
+    <div></div>
     <div class="row">
       <div class="col-md-8">
+        <div></div>
         <FilterSearch routeName="search" />
-
+        <div></div>
         <template v-if="loading">
           <div class="loading-box">
             <img src="~assets/images/loading.gif" alt="" />

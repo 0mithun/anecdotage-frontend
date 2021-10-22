@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div></div>
     <div class="card card-m-5">
       <div class="card-header">
         <div class="left float-left big-label">Upload an Image (Optional)</div>
@@ -72,7 +73,7 @@
         </div>
       </div>
     </div>
-
+    <div></div>
     <div class="card card-m-5">
       <div class="card-header big-label">Or Use An Online Image</div>
       <div class="card-body">
@@ -162,7 +163,7 @@
         </div>
       </div>
     </div>
-
+    <div></div>
     <ShareModal v-if="show_share_modal" :thread="thread" @share-cancel="cancelShare" @share-complete="completeShare" />
   </div>
 </template>

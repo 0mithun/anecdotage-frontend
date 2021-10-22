@@ -1,7 +1,7 @@
 <template>
   <div class="card card-m-5">
     <div class="card-body">
-
+      <div></div>
       <div class="row">
         <div class="col-md-12">
           <nuxt-link :to="{name:'threads.show', params:{slug:thread.slug}}" class="thread-title">

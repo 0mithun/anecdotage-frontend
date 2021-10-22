@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div></div>
     <div class="row"  v-if="!needPrivacyUpdate">
       <div class="col-md-8">
         <div class="row">
@@ -228,21 +229,27 @@
             </div>
           </div>
         </div>
+        <div></div>
         <div class="row card-m-5" v-if="thread.location != null">
           <div class="col-md-12">
             <SimpleMap :thread="thread" />
           </div>
         </div>
+        <div></div>
         <div class="row card-m-5">
           <div class="col-md-12">
+            <div></div>
             <Replies />
           </div>
         </div>
+        <div></div>
       </div>
       <div class="col-md-4">
+        <div></div>
         <Sidebar />
+        <div></div>
       </div>
-
+    <div></div>
 
     </div>
      <!-- Modal -->

@@ -1,7 +1,9 @@
 <template>
   <div class="container">
+    <div></div>
     <div class="row">
       <div class="col-md-8">
+        <div></div>
         <div class="card card-m-5">
           <div class="card-body">
             <div class="row profile-header">
@@ -73,18 +75,20 @@
 
           </div>
         </div>
-
+        <div></div>
         <SingleThread
           v-for="thread in threads"
           :key="thread.id"
           :thread="thread"
         ></SingleThread>
+        <div></div>
         <Pagination
           :pagination="pageinateData"
           routeName="tags"
           :param="{ key: 'slug', value: this.tag.slug }"
         />
       </div>
+      <div></div>
       <div class="col-md-4">
         <Sidebar />
       </div>

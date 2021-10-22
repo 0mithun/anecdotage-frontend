@@ -1,5 +1,6 @@
 <template>
   <section class="authentication">
+    <div></div>
     <div class="auth-body">
       <h1 class="text-uppercase fw-500 mb-4 text-center font-22">
         Reset Password
@@ -25,6 +26,7 @@
         </p>
       </form>
     </div>
+    <div></div>
   </section>
 </template>
 

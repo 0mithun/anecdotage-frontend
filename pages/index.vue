@@ -2,8 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
+        <div></div>
         <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true"></safe-search>
-
+        <div></div>
         <SingleThread
           v-for="thread in threads"
           :key="thread.id"
@@ -20,6 +21,7 @@
           routeName="threads.rated"
           :param="{ key: '', value: '' }"
         />
+        <div></div>
       </div>
       <div class="col-md-4">
         <Sidebar />

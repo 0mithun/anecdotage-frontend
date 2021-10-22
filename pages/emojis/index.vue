@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div></div>
     <div class="row">
       <!-- <div class="col-md-8">
         <SingleThread
@@ -13,6 +14,7 @@
           :param="{ key: 'emoji', value: emoji.name }"
         />
       </div> -->
+      <div></div>
       <div class="col-md-8">
         <FilterSearch routeName="emoji" />
 

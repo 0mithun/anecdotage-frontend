@@ -1,11 +1,13 @@
 <template>
   <div>
+    <div class="top-add"></div>
      <SocialLink />
      <div class="card mt-4">
       <div class="card-body">
         <h3 class="trending-title">Trending</h3>
       </div>
     </div>
+
       <SingleTrendingThread
         v-for="(trending, index) in trendings"
         :key="trending.id"
@@ -41,6 +43,9 @@
     font-weight: 700;
     font-size: 24px;
   }
+  // .top-add{
+  //   height:300px;
+  // }
 
 
 

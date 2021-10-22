@@ -1,6 +1,8 @@
 <template>
   <section class="authentication">
+    <div></div>
     <div class="auth-body">
+      <div></div>
       <h1 class="text-uppercase fw-500 mb-4 text-center font-22">Login</h1>
       <form class="auth-form" @submit.prevent="submit">
         <div class="alert alert-danger" v-if="errorMessage != ''">
@@ -51,7 +53,9 @@
           </nuxt-link>
         </p>
       </form>
+      <div></div>
     </div>
+    <div></div>
   </section>
 </template>
 

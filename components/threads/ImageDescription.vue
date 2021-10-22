@@ -1,10 +1,6 @@
 <template>
-  <div style="width:100%;margin-bottom:10px;">
-    <template
-      v-if="
-        threadImageDescriptionLength > imageDescriptionLengthLimit
-      "
-    >
+  <div style="width:100%;margin-bottom:10px;display:flex;align-items:center;justify-content:center;text-align:center;">
+    <template v-if="threadImageDescriptionLength > imageDescriptionLengthLimit">
       <template v-if="showFullImageDescription">
         <div class="image_description">
           <p style="margin-bottom:0">
@@ -79,9 +75,15 @@
   width: 100%;
   padding:5px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  @media (max-width: 574px){
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+
   p{
     margin-top: 0 !important;
     margin-bottom: 0 !important;
