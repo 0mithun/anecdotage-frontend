@@ -297,9 +297,9 @@
           </div> -->
 
           <div class="map-column">
-            <nuxt-link :to="{ name: 'maps' }" class="map-link">
+            <nuxt-link :to="{ name: 'maps', query:{q:searchString} }" class="map-link">
               <img src="~assets/images/map-icon-red.png" class="map-icon" alt />
-              Map
+              Map afdsf
             </nuxt-link>
           </div>
         </div>
@@ -343,6 +343,9 @@ export default {
       emojis: 'emojis',
       q: 'pagination/q',
     }),
+    searchString(){
+      return this.q.q;
+    },
 
     threads() {
       return this.$store.getters[`${this.routeName}/threads`];
