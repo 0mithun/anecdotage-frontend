@@ -114,7 +114,7 @@
                       >
                         <up-votes :thread="thread" size="small"></up-votes>
                         <down-votes :thread="thread" size="small"></down-votes>
-                        <focusComment size="small"></focusComment>
+                        <focusComment size="small" :thread="thread"></focusComment>
                         <favorite-thread
                           :thread="thread"
                           size="small"
@@ -209,7 +209,7 @@
                       >
                         <up-votes :thread="thread" size="small"></up-votes>
                         <down-votes :thread="thread" size="small"></down-votes>
-                        <focusComment size="small"></focusComment>
+                        <focusComment size="small" :thread="thread"></focusComment>
                         <favorite-thread
                           :thread="thread"
                           size="small"

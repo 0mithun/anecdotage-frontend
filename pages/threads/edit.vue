@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card card-m-5">
       <div class="card-header">
-        <h2 class="card-title">Post an Anecdote</h2>
+        <h2 class="card-title big-label">Post an Anecdote</h2>
         </div>
       <div class="card-body">
         <form
@@ -640,5 +640,11 @@ body.cke_editable.cke_editable_themed.cke_contents_ltr.cke_show_borders {
 .card-title{
   font-size:24px;
   font-weight: bold;
+}
+
+.big-label{
+  line-height:32px;
+    font-weight: 700;
+    font-size: 20px;
 }
 </style>

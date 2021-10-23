@@ -106,4 +106,14 @@
   margin-left:2px;
   margin-right:2px;
 }
+
+.image_description[data-v-4795ee3b] {
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    padding: 5px;
+    display: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+}
 </style>
