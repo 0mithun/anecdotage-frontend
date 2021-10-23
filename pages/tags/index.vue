@@ -81,15 +81,14 @@
           :key="thread.id"
           :thread="thread"
         ></SingleThread>
-        <div></div>
         <Pagination
           :pagination="pageinateData"
           routeName="tags"
           :param="{ key: 'slug', value: this.tag.slug }"
         />
       </div>
-      <div></div>
       <div class="col-md-4">
+        <div></div>
         <Sidebar />
       </div>
     </div>

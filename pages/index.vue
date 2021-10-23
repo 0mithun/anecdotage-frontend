@@ -21,9 +21,9 @@
           routeName="threads.rated"
           :param="{ key: '', value: '' }"
         />
-        <div></div>
       </div>
       <div class="col-md-4">
+        <div></div>
         <Sidebar />
       </div>
     </div>
