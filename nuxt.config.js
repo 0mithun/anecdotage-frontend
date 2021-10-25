@@ -56,9 +56,13 @@ export default {
       maxAge: 60 * 60 * 24 * 365 * 1000,
     },
     csp: {
+      addMeta: true,
       hashArgorism: 'sha256',
       policies: {
+        'default-src': ["'self'"],
         'script-src': [
+          "'self'",
+          "'unsafe-inline'",
           "'sha256-bav3DhTTktu5WW6mXc6L9ri8ZwCrRtn2bG3Etd0xzZQ='" // this line resolves the violation
         ]
       }
