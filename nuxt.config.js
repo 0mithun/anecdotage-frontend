@@ -13,7 +13,7 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // { 'http-equiv':'Content-Security-Policy', content:"default-src *; style-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"},
-      // { 'http-equiv':'Content-Security-Policy', content:"script-src 'unsafe-inline' https: 'nonce-abcdefg' 'strict-dynamic';"},
+      { 'http-equiv':'Content-Security-Policy', content:"script-src 'strict-dynamic' 'sha256-bav3DhTTktu5WW6mXc6L9ri8ZwCrRtn2bG3Etd0xzZQ=';"},
 
       // {
       //   hid: 'description',
