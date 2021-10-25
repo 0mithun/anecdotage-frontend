@@ -56,33 +56,33 @@ export default {
     static: {
       maxAge: 60 * 60 * 24 * 365 * 1000,
     },
-    csp: {
-      addMeta: true,
-      hashArgorism: 'sha256',
-      policies: {
-        'default-src': ["'self'"],
-        'img-src': ['https:', '*.google-analytics.com'],
-        'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS, '*.logrocket.io', '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com'],
-        'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net'],
-        'script-src': [
-          "'self'",
-          "'unsafe-inline'",
-          PRIMARY_HOSTS,
-          // 'sentry.io',
-          // '*.sentry-cdn.com',
-          '*.google-analytics.com',
-          // '*.logrocket.io'
-        ],
-        'connect-src': [PRIMARY_HOSTS,  '*.google-analytics.com'],
-        // 'form-action': ["'self'"],
-        // 'frame-ancestors': ["'none'"],
-        // 'object-src': ["'none'"],
-        'base-uri': [PRIMARY_HOSTS],
-        // 'report-uri': [
-        //   `https://sentry.io/api/<project>/security/?sentry_key=<key>`
-        // ]
-      }
-    }
+    // csp: {
+    //   addMeta: true,
+    //   hashArgorism: 'sha256',
+    //   policies: {
+    //     'default-src': ["'self'"],
+    //     'img-src': ['https:', '*.google-analytics.com'],
+    //     'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS, '*.logrocket.io', '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com'],
+    //     'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net'],
+    //     'script-src': [
+    //       "'self'",
+    //       "'unsafe-inline'",
+    //       PRIMARY_HOSTS,
+    //       // 'sentry.io',
+    //       // '*.sentry-cdn.com',
+    //       '*.google-analytics.com',
+    //       // '*.logrocket.io'
+    //     ],
+    //     'connect-src': [PRIMARY_HOSTS,  '*.google-analytics.com'],
+    //     // 'form-action': ["'self'"],
+    //     // 'frame-ancestors': ["'none'"],
+    //     // 'object-src': ["'none'"],
+    //     'base-uri': [PRIMARY_HOSTS],
+    //     // 'report-uri': [
+    //     //   `https://sentry.io/api/<project>/security/?sentry_key=<key>`
+    //     // ]
+    //   }
+    // }
   },
 
   plugins: [
