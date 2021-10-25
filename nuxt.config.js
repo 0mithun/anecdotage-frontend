@@ -62,8 +62,8 @@ export default {
       policies: {
         'default-src': ["'self'"],
         'img-src': ['https:', '*.google-analytics.com'],
-        'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS, '*.logrocket.io'],
-        'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS],
+        'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS, '*.logrocket.io', '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com'],
+        'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net'],
         'script-src': [
           "'self'",
           "'unsafe-inline'",
