@@ -13,7 +13,7 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // { 'http-equiv':'Content-Security-Policy', content:"default-src *; style-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"},
-      { 'http-equiv':'Content-Security-Policy', content:"script-src self 'sha256-bav3DhTTktu5WW6mXc6L9ri8ZwCrRtn2bG3Etd0xzZQ=' 'unsafe-inline';"},
+      // { 'http-equiv':'Content-Security-Policy', content:"script-src self 'sha256-bav3DhTTktu5WW6mXc6L9ri8ZwCrRtn2bG3Etd0xzZQ=' 'unsafe-inline';"},
 
       // {
       //   hid: 'description',
@@ -55,6 +55,14 @@ export default {
     static: {
       maxAge: 60 * 60 * 24 * 365 * 1000,
     },
+    csp: {
+      hashArgorism: 'sha256',
+      policies: {
+        'script-src': [
+          "'sha256-bav3DhTTktu5WW6mXc6L9ri8ZwCrRtn2bG3Etd0xzZQ='" // this line resolves the violation
+        ]
+      }
+    }
   },
 
   plugins: [
