@@ -1,4 +1,5 @@
 require('dotenv').config();
+const PRIMARY_HOSTS = `anecdotage.com`
 
 const axios =  require('axios')
 
@@ -60,11 +61,26 @@ export default {
       hashArgorism: 'sha256',
       policies: {
         'default-src': ["'self'"],
+        'img-src': ['https:', '*.google-analytics.com'],
+        'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS, '*.logrocket.io'],
+        'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS],
         'script-src': [
           "'self'",
           "'unsafe-inline'",
-          "'sha256-bav3DhTTktu5WW6mXc6L9ri8ZwCrRtn2bG3Etd0xzZQ='" // this line resolves the violation
-        ]
+          PRIMARY_HOSTS,
+          // 'sentry.io',
+          // '*.sentry-cdn.com',
+          '*.google-analytics.com',
+          // '*.logrocket.io'
+        ],
+        'connect-src': [PRIMARY_HOSTS,  '*.google-analytics.com'],
+        // 'form-action': ["'self'"],
+        // 'frame-ancestors': ["'none'"],
+        // 'object-src': ["'none'"],
+        'base-uri': [PRIMARY_HOSTS],
+        // 'report-uri': [
+        //   `https://sentry.io/api/<project>/security/?sentry_key=<key>`
+        // ]
       }
     }
   },
