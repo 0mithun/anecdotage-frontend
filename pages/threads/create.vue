@@ -513,4 +513,12 @@ dropdown-menu {
     font-weight: 700;
     font-size: 20px;
 }
+
+span.import_wikipedia_image_checkbox{
+  display: inline-flex;
+  align-items: center;
+  img {
+    margin-left:5px;
+  }
+}
 </style>

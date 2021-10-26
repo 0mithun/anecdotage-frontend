@@ -652,7 +652,7 @@ body.cke_editable.cke_editable_themed.cke_contents_ltr.cke_show_borders {
 }
 
 span.import_wikipedia_image_checkbox{
-  display: flex;
+  display: inline-flex;
   align-items: center;
   img {
     margin-left:5px;
