@@ -59,19 +59,21 @@
                   >Who or what is this story about? This will be added as a tag.
                 </span>
               </div>
-              <div class="form-group">
+              <div class="form-group" v-show="form.main_subject">
                 <div class="checkbox">
-                  <label
-                     data-toggle="tooltip" data-placement="bottom"
-                    title="If you check this box and enter a subject above, we will try to download the corresponding Wikipedia image and display it above your story. Alternatively, you will have the option to use a different primary image on the next page."
-
-                    ><input
+                  <label>
+                    <input
                       type="checkbox"
                       value="1"
                       v-model="form.scrape_image"
                     />
-                    Try to import Wikipedia image</label
-                  >
+                      <span v-if="showImportWikipediaTooltip" data-toggle="tooltip" data-placement="bottom" :title="tooltipText" :data-original-title="tooltipText">Try to import Wikipedia image
+                        <img width="20px" height="20px" src="~assets/images/icons/info.png" alt="Try to import image from wikipedia">
+                      </span>
+                      <span v-else  title="test" data-original-title="">Try to import Wikipedia image
+                        <img width="20px" height="20px" src="~assets/images/icons/info.png" alt="Try to import image from wikipedia">
+                      </span>
+                    </label>
                 </div>
               </div>
             </div>

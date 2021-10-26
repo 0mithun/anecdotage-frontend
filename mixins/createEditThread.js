@@ -61,6 +61,12 @@ export default {
     allchannels() {
       return this.$store.state.channels;
     },
+    showImportWikipediaTooltip(){
+      return !this.form.scrape_image
+    },
+    tooltipText(){
+        return 'If you check this box and enter a subject above, we will try to download the corresponding Wikipedia image and display it above your story. Alternatively, you will have the option to use a different primary image on the next page.'
+    }
 
   },
   mounted() {
