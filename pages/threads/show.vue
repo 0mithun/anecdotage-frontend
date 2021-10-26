@@ -871,4 +871,10 @@ a.thread-title {
 font-family: 'Merriweather', serif !important;
   }
 }
+.thread-title{
+      font-size: 30px;
+      line-height: 48px;
+      font-weight: 700;
+      font-family: 'Merriweather', serif !important;
+}
 </style>

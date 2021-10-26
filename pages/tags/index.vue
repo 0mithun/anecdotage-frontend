@@ -154,7 +154,7 @@ export default {
         },
         //Meta Information
         {
-          content: 'Funny facts, jokes, stories, and anecdotes about TAG' + ' ' + this.tag.name,
+          content: 'Funny facts, jokes, stories, and anecdotes about' + ' ' + this.tag.name,
           name: 'description',
         },
         {

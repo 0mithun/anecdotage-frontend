@@ -135,6 +135,15 @@ a.thread-title strong i {
   font-family: 'Merriweather', serif !important;
 }
 
+
+.thread-title{
+  font-size: 30px;
+  line-height: 48px;
+  font-weight: 700;
+  font-family: 'Merriweather', serif !important;
+}
+
+
 .image_description i {
   margin-left:2px;
   margin-right:2px;
@@ -144,6 +153,9 @@ a.thread-title strong i {
   display: inherit;
   align-items: inherit;
   justify-content: inherit;
+  a {
+    display: contents !important;
+  }
 }
 
 small {

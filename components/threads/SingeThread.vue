@@ -492,6 +492,13 @@ font-family: 'Merriweather', serif !important;
   }
 }
 
+.thread-title{
+  font-size: 30px;
+  line-height: 48px;
+  font-weight: 700;
+  font-family: 'Merriweather', serif !important;
+}
+
 
  @media only screen and (max-width:600px) {
     .thread-title {
@@ -542,6 +549,8 @@ font-family: 'Merriweather', serif !important;
       line-height: 48px;
     }
   } //1800px
+
+
 
 
 </style>
