@@ -59,7 +59,7 @@
                   >Who or what is this story about? This will be added as a tag.
                 </span>
               </div>
-              <div class="form-group" v-show="form.main_subject">
+              <div class="form-group" >
                 <div class="checkbox">
                   <label>
                     <input
