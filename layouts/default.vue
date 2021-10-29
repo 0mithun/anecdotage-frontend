@@ -1,7 +1,7 @@
 <template>
   <div>
     <client-only>
-      <!-- <SiteNavigation /> -->
+      <SiteNavigation />
       <div class="wrapper">
         <nuxt />
       </div>
