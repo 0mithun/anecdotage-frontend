@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-8">
         <div></div>
-        <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true"></safe-search>
+        <!-- <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true"></safe-search> -->
         <div></div>
         <SingleThread
           v-for="thread in threads"
