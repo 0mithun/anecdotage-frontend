@@ -277,7 +277,8 @@ export default {
         trimCustomFragments: true,
         useShortDoctype: true,
           collapseWhitespace: true,
-        removeComments: true
+        removeComments: true,
+        collapseWhitespace: false
       }
     },
 
