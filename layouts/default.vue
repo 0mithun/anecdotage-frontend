@@ -1,10 +1,13 @@
 <template>
   <div>
-    <!-- <SiteNavigation /> -->
-    <div class="wrapper">
-      <nuxt />
-    </div>
-    <SiteFooter />
+    <client-only>
+      <!-- <SiteNavigation /> -->
+      <div class="wrapper">
+        <nuxt />
+      </div>
+      <SiteFooter />
+
+    </client-only>
   </div>
 </template>
 
