@@ -31,7 +31,7 @@
           <div
             class="count-items d-flex flex-wrap justify-content-between align-items-center flex-wrap"
           >
-            <view-counts :thread="thread"></view-counts>
+            <!-- <view-counts :thread="thread"></view-counts>
             <point-counts :thread="thread"></point-counts>
             <comment-counts :thread="thread"></comment-counts>
             <favorite-counts :thread="thread"></favorite-counts>
@@ -42,7 +42,7 @@
                 :location="thread.location"
                 :address="thread.formatted_address"
               ></map-location>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@
         </div>
       </div>
       <div class="row image-description-row">
-         <image-description :thread="thread"></image-description>
+         <!-- <image-description :thread="thread"></image-description> -->
       </div>
       <div class="row thread-body-row">
         <div class="col-md-12">
@@ -86,12 +86,12 @@
           <div
             class="thread-footer-menu d-flex justify-content-between align-items-center"
           >
-            <vote-emoji-list
+            <!-- <vote-emoji-list
               :thread="thread"
               size="small"
               position="top"
-            ></vote-emoji-list>
-            <div class="social-share-btn">
+            ></vote-emoji-list> -->
+            <!-- <div class="social-share-btn">
               <fb-share :thread="thread"></fb-share>
               <twitter-share :thread="thread"></twitter-share>
             </div>
@@ -107,7 +107,7 @@
                 size="small"
                 position="top"
               ></vote-emojis>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
