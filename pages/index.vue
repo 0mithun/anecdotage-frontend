@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-8">
         <div></div>
-        <!-- <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true"></safe-search> -->
+        <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true"></safe-search>
         <div></div>
         <SingleThread
           v-for="thread in threads"
@@ -16,16 +16,15 @@
           routeName="index"
           :param="{ key: '', value: '' }"
         /> -->
-        <!-- <Pagination
+        <Pagination
           :pagination="pageinateData"
           routeName="threads.rated"
           :param="{ key: '', value: '' }"
-        /> -->
+        />
       </div>
-
       <div class="col-md-4">
         <div></div>
-        <!-- <Sidebar /> -->
+        <Sidebar />
       </div>
     </div>
   </div>
