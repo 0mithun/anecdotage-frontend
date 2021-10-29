@@ -61,15 +61,16 @@ export default {
       hashArgorism: 'sha256',
       policies: {
         'default-src': ["'self'"],
-        'img-src': ['https:', '*.google-analytics.com'],
-        // 'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS, '*.logrocket.io', '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com'],
+        'img-src': ['https:', '*.google-analytics.com','*.wikimedia.org'],
+        'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS,],
         'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net'],
         'script-src': [
           "'self'",
           "'unsafe-inline'",
           PRIMARY_HOSTS,
           '*.google-analytics.com',
-          '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com'
+          '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
+          '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com',
         ],
         'connect-src': [PRIMARY_HOSTS,  '*.google-analytics.com'],
         // 'form-action': ["'self'"],
