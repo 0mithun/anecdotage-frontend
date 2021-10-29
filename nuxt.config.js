@@ -76,7 +76,8 @@ export default {
           '*.google-analytics.com',
           '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
           '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com', '*.ezojs.com',
-          '*.anecdotage.com','*.anecdotage.com/*'
+          '*.anecdotage.com','*.anecdotage.com/*',
+          'https://anecdotage.com/'
         ],
         // 'script-src-elem': [
         //   "'self'",
