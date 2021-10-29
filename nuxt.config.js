@@ -63,6 +63,7 @@ export default {
       policies: {
         'default-src': ["'self'"],
         'font-src': ["'self'",PRIMARY_HOSTS, '*.gstatic.com',  '*.googleapis.com'],
+        'media-src': ["*"],
         'img-src': [ 'self',  "'unsafe-inline'", '*.google-analytics.com','*.wikimedia.org',  PRIMARY_HOSTS, '*.anecdotage.com'],
         'worker-src': ["'self'", "'unsafe-inline'", `blob:`, PRIMARY_HOSTS,'*.anecdotage.com'],
         'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
@@ -74,6 +75,7 @@ export default {
           '*.google-analytics.com',
           '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
           '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com',
+          '*.anecdotage.com'
         ],
         'script-src-elem': [
           "'self'",
@@ -82,6 +84,7 @@ export default {
           '*.google-analytics.com',
           '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
           '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com',
+          '*.anecdotage.com'
         ],
         'connect-src': [PRIMARY_HOSTS,  '*.google-analytics.com', '*.doubleclick.net'],
         'frame-src': [PRIMARY_HOSTS,  '*.google-analytics.com', '*.doubleclick.net','*.adnxs.com'],
