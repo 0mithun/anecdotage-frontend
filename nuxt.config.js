@@ -14,7 +14,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      // { 'http-equiv':'Content-Security-Policy', content:"default-src *; style-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"},
+      { 'http-equiv':'Content-Security-Policy', content:"default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval'"},
       // { 'http-equiv':'Content-Security-Policy', content:"script-src self 'sha256-bav3DhTTktu5WW6mXc6L9ri8ZwCrRtn2bG3Etd0xzZQ=' 'unsafe-inline';"},
 
       // {
@@ -57,44 +57,44 @@ export default {
     static: {
       maxAge: 60 * 60 * 24 * 365 * 1000,
     },
-    csp: {
-      addMeta: true,
-      hashArgorism: 'sha256',
-      policies: {
-        'default-src': ["'self'"],
-        'font-src': ["'self'",PRIMARY_HOSTS, '*.gstatic.com',  '*.googleapis.com'],
-        'media-src': ["*"],
-        'img-src': [ 'self',  "'unsafe-inline'", '*.google-analytics.com', `blob:`,'data:', '*.wikimedia.org',  PRIMARY_HOSTS, '*.anecdotage.com' ,'*.ezoic.net','*.gravatar.com'],
-        'worker-src': ["'self'", "'unsafe-inline'", `blob:`, PRIMARY_HOSTS],
-        'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
-        'style-src-elem': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
-        'script-src': [
-          "'self'",
-          "'unsafe-inline'",
-          "'unsafe-hashes'",
-          PRIMARY_HOSTS,
-          '*.google-analytics.com',
-          '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
-          '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com', '*.ezojs.com',
-          "https://*",
-          "data:"
-        ],
-        'connect-src': [PRIMARY_HOSTS,'*.google-analytics.com', '*.doubleclick.net','*.criteo.com',
-        '*.adnxs.com',
-        '*.a-mo.net',
-        '*.a-mx.com',
-        '*.omnitagjs.com',
-      ],
-        'frame-src': [PRIMARY_HOSTS,'*.google-analytics.com', '*.doubleclick.net','*.adnxs.com'],
-        'form-action': ["'self'"],
-        // 'frame-ancestors': ["'none'"],
-        'object-src': ["'none'"],
-        'base-uri': [PRIMARY_HOSTS],
-        // 'report-uri': [
-        //   `https://sentry.io/api/<project>/security/?sentry_key=<key>`
-        // ]
-      }
-    }
+    // csp: {
+    //   addMeta: true,
+    //   hashArgorism: 'sha256',
+    //   policies: {
+    //     'default-src': ["'self'"],
+    //     'font-src': ["'self'",PRIMARY_HOSTS, '*.gstatic.com',  '*.googleapis.com'],
+    //     'media-src': ["*"],
+    //     'img-src': [ 'self',  "'unsafe-inline'", '*.google-analytics.com', `blob:`,'data:', '*.wikimedia.org',  PRIMARY_HOSTS, '*.anecdotage.com' ,'*.ezoic.net','*.gravatar.com'],
+    //     'worker-src': ["'self'", "'unsafe-inline'", `blob:`, PRIMARY_HOSTS],
+    //     'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
+    //     'style-src-elem': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
+    //     'script-src': [
+    //       "'self'",
+    //       "'unsafe-inline'",
+    //       "'unsafe-hashes'",
+    //       PRIMARY_HOSTS,
+    //       '*.google-analytics.com',
+    //       '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
+    //       '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com', '*.ezojs.com',
+    //       "https://*",
+    //       "data:"
+    //     ],
+    //     'connect-src': [PRIMARY_HOSTS,'*.google-analytics.com', '*.doubleclick.net','*.criteo.com',
+    //     '*.adnxs.com',
+    //     '*.a-mo.net',
+    //     '*.a-mx.com',
+    //     '*.omnitagjs.com',
+    //   ],
+    //     'frame-src': [PRIMARY_HOSTS,'*.google-analytics.com', '*.doubleclick.net','*.adnxs.com'],
+    //     'form-action': ["'self'"],
+    //     // 'frame-ancestors': ["'none'"],
+    //     'object-src': ["'none'"],
+    //     'base-uri': [PRIMARY_HOSTS],
+    //     // 'report-uri': [
+    //     //   `https://sentry.io/api/<project>/security/?sentry_key=<key>`
+    //     // ]
+    //   }
+    // }
   },
 
   plugins: [
