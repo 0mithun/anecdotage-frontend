@@ -13,8 +13,7 @@
 
       <div  class="card-body">
         <div  class="">
-          <div  class="trending_thread_title"><strong>{{ thread.title }}</strong>
-          </div>
+          <div  class="trending_thread_title" v-html="thread.title"></div>
           <div class="card-header thread_thumb" :style="threadThumbStyle(thread)">
               <img
                 :src="thread.thread_image_path"
