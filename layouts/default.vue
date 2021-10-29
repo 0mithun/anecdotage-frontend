@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SiteNavigation />
+    <!-- <SiteNavigation /> -->
     <div class="wrapper">
       <nuxt />
     </div>
