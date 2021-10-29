@@ -62,7 +62,8 @@ export default {
       hashArgorism: 'sha256',
       policies: {
         'default-src': ["'self'"],
-        'img-src': [ 'self',  "'unsafe-inline'", '*.google-analytics.com','*.wikimedia.org',  PRIMARY_HOSTS,],
+        'font-src': ["'self'",PRIMARY_HOSTS, '*.gstatic.com',  '*.googleapis.com'],
+        'img-src': [ 'self',  "'unsafe-inline'", '*.google-analytics.com','*.wikimedia.org',  PRIMARY_HOSTS, '*.anecdotage.com'],
         'worker-src': ["'self'", "'unsafe-inline'", `blob:`, PRIMARY_HOSTS,'*.anecdotage.com'],
         'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
         'style-src-elem': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
