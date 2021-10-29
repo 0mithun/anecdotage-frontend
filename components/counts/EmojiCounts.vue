@@ -22,11 +22,20 @@
 <script>
 import {mapGetters} from 'vuex'
 export default {
-  props: ["thread"],
+  props: {
+    thread:{
+      type: Object,
+      required: true,
+    },
+    emoji_counts: {
+      type: Array | Object,
+      required: true,
+    }
+  },
   data() {
     return {
       userEmoji: null,
-      emoji_counts: {}
+      // emoji_counts: {}
     };
   },
   computed:{
@@ -35,10 +44,9 @@ export default {
       }),
   },
   created() {
-    // this.getUserEmojiType();
-    this.getEmojiCounts();
     this.$nuxt.$on("VoteUserEmojis-" + this.thread.id, (emoji) => {
-      this.getEmojiCounts();
+      console.log(emoji)
+      // this.getEmojiCounts();
     });
   },
   methods: {
@@ -46,21 +54,13 @@ export default {
       return abbreviate(value, 1);
     },
     getEmojiCount(emoji){
-      if(this.emoji_counts.hasOwnProperty(emoji.id)){
-        console.log(this.emoji_counts[emoji.id]['total'])
-        return this.emoji_counts[emoji.id]['total'];
+      if(this.emoji_counts.hasOwnProperty(emoji.name)){
+        return this.emoji_counts[emoji.name];
       }
       return false;
     },
     backgroundEmoji(emoji) {
       return `background-image: url(${process.env.APP_URL}images/emojis/${emoji}.png)`;
-    },
-    getEmojiCounts() {
-      this.$axios.get(`/threads/${this.thread.id}/emoji-counts`).then((res) => {
-        // this.emojis = res.data;
-        this.emoji_counts = res.data;
-        // console.log(res.data)
-      });
     },
     getUserEmojiType() {
       if (!this.signedIn) {

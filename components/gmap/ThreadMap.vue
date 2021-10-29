@@ -218,6 +218,7 @@ export default {
   },
 
   created() {
+    console.log('putki')
     if (this.$route.query.search) {
       this.query = this.$route.query.search;
       console.log(this.query)

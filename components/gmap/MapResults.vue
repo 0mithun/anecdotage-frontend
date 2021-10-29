@@ -25,7 +25,7 @@
           </div>
           <div class="trending_footer">
              <view-counts :thread="thread"></view-counts>
-              <emoji-counts :thread="thread"></emoji-counts>
+              <emoji-counts :thread="thread" :emoji_counts="thread.emoji_counts"></emoji-counts>
               <point-counts :thread="thread"></point-counts>
           </div>
         </div>
