@@ -14,7 +14,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { 'http-equiv':'Content-Security-Policy', content:"default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval'"},
+      // { 'http-equiv':'Content-Security-Policy', content:"default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval'"},
       // { 'http-equiv':'Content-Security-Policy', content:"script-src self 'sha256-bav3DhTTktu5WW6mXc6L9ri8ZwCrRtn2bG3Etd0xzZQ=' 'unsafe-inline';"},
 
       // {
