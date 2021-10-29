@@ -61,10 +61,19 @@ export default {
       hashArgorism: 'sha256',
       policies: {
         'default-src': ["'self'"],
-        'img-src': [ 'self', 'https:', '*.google-analytics.com','*.wikimedia.org',  PRIMARY_HOSTS,],
-        'worker-src': ["'self'", `blob:`, PRIMARY_HOSTS,],
-        'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*googleapis.com'],
+        'img-src': [ 'self',  "'unsafe-inline'", '*.google-analytics.com','*.wikimedia.org',  PRIMARY_HOSTS,],
+        'worker-src': ["'self'", "'unsafe-inline'", `blob:`, PRIMARY_HOSTS,],
+        'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
+        'style-src-elem': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
         'script-src': [
+          "'self'",
+          "'unsafe-inline'",
+          PRIMARY_HOSTS,
+          '*.google-analytics.com',
+          '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
+          '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com',
+        ],
+        'script-src-elem': [
           "'self'",
           "'unsafe-inline'",
           PRIMARY_HOSTS,
