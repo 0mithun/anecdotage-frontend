@@ -76,7 +76,7 @@ export default {
           '*.google-analytics.com',
           '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
           '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com', '*.ezojs.com',
-          "https://localhost",
+          "https://*",
           "data:"
         ],
         'connect-src': [PRIMARY_HOSTS,'*.google-analytics.com', '*.doubleclick.net','*.criteo.com',
