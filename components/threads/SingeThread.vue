@@ -46,7 +46,7 @@
           </div>
         </div>
       </div>
-      <div class="row" v-if="thread.thread_image_path != ''">
+      <div class="row" v-show="thread.thread_image_path != ''">
         <div
           class="thread-thumbnail"
           :style="threadThumbStyle"
@@ -120,7 +120,7 @@
       tabindex="-1"
       role="dialog"
       aria-hidden="true"
-      v-if="isAdmin"
+      v-show="isAdmin"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
