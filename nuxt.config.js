@@ -63,7 +63,7 @@ export default {
       policies: {
         'default-src': ["'self'"],
         'img-src': [ 'self',  "'unsafe-inline'", '*.google-analytics.com','*.wikimedia.org',  PRIMARY_HOSTS,],
-        'worker-src': ["'self'", "'unsafe-inline'", `blob:`, PRIMARY_HOSTS,],
+        'worker-src': ["'self'", "'unsafe-inline'", `blob:`, PRIMARY_HOSTS,'*.anecdotage.com'],
         'style-src': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
         'style-src-elem': ["'self'", "'unsafe-inline'", PRIMARY_HOSTS, '*.jsdelivr.net' ,'*.googleapis.com'],
         'script-src': [
@@ -72,7 +72,7 @@ export default {
           PRIMARY_HOSTS,
           '*.google-analytics.com',
           '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
-          '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com',
+          '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com',
         ],
         'script-src-elem': [
           "'self'",
@@ -80,12 +80,13 @@ export default {
           PRIMARY_HOSTS,
           '*.google-analytics.com',
           '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
-          '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com',
+          '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com',
         ],
         'connect-src': [PRIMARY_HOSTS,  '*.google-analytics.com', '*.doubleclick.net'],
-        // 'form-action': ["'self'"],
+        'frame-src': [PRIMARY_HOSTS,  '*.google-analytics.com', '*.doubleclick.net','*.adnxs.com'],
+        'form-action': ["'self'"],
         // 'frame-ancestors': ["'none'"],
-        // 'object-src': ["'none'"],
+        'object-src': ["'none'"],
         'base-uri': [PRIMARY_HOSTS],
         // 'report-uri': [
         //   `https://sentry.io/api/<project>/security/?sentry_key=<key>`
