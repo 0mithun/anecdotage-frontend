@@ -218,8 +218,8 @@ export default {
   },
 
   created() {
-    if (this.$route.query.q) {
-      this.query = this.$route.query.q;
+    if (this.$route.query.search) {
+      this.query = this.$route.query.search;
       console.log(this.query)
     }
 

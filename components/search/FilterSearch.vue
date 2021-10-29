@@ -297,9 +297,9 @@
           </div> -->
 
           <div class="map-column">
-            <nuxt-link :to="{ name: 'maps', query:{q:searchString} }" class="map-link">
+            <nuxt-link :to="{ name: 'maps', query:{search:searchString} }" class="map-link">
               <img src="~assets/images/map-icon-red.png" class="map-icon" alt />
-              Map afdsf
+              Map
             </nuxt-link>
           </div>
         </div>
@@ -600,4 +600,9 @@ input[type="checkbox"] {
     width: 12px;
 }
 
+.map-column{
+  img {
+    height:fit-content;
+  }
+}
 </style>
