@@ -12,7 +12,7 @@
             #{{ thread.channel.name }}
           </nuxt-link>
 
-          <AdminButtons :thread="thread" />
+          <!-- <AdminButtons :thread="thread" /> -->
         </div>
         <div></div>
       </div>
