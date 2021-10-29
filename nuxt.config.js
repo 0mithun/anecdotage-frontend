@@ -1,6 +1,7 @@
 require('dotenv').config();
 const PRIMARY_HOSTS = `anecdotage.com`
 
+
 const axios =  require('axios')
 
 export default {
