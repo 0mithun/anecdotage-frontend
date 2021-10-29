@@ -77,6 +77,11 @@ export default {
           '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
           '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com', '*.ezojs.com',
         ],
+        'script-src-elem': [
+          "'self'",
+          "'unsafe-inline'",
+          PRIMARY_HOSTS
+      ],
         'connect-src': [PRIMARY_HOSTS,'*.google-analytics.com', '*.doubleclick.net','*.criteo.com',
         '*.adnxs.com',
         '*.a-mo.net',
