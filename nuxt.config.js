@@ -71,21 +71,22 @@ export default {
         'script-src': [
           "'self'",
           "'unsafe-inline'",
+          "'unsafe-hashes'",
           PRIMARY_HOSTS,
           '*.google-analytics.com',
           '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
           '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com', '*.ezojs.com',
-          '*.anecdotage.com','https://anecdotage.com/*'
+          '*.anecdotage.com','*.anecdotage.com/*'
         ],
-        'script-src-elem': [
-          "'self'",
-          "'unsafe-inline'",
-          PRIMARY_HOSTS,
-          '*.google-analytics.com',
-          '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
-          '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com', '*.ezojs.com',
-          '*.anecdotage.com', 'https://anecdotage.com/*'
-        ],
+        // 'script-src-elem': [
+        //   "'self'",
+        //   "'unsafe-inline'",
+        //   PRIMARY_HOSTS,
+        //   '*.google-analytics.com',
+        //   '*.jquery.com', '*.jsdelivr.net','*.googlesyndication.com',
+        //   '*.doubleclick.net', '*.ezodn.com','*.ckeditor.com','*.google.com', '*.ezojs.com',
+        //   '*.anecdotage.com', 'https://anecdotage.com/*'
+        // ],
         'connect-src': [PRIMARY_HOSTS,  '*.google-analytics.com', '*.doubleclick.net','*.criteo.com',
         '*.adnxs.com',
         '*.a-mo.net',
