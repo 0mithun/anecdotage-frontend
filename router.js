@@ -7,6 +7,8 @@ const page = path => () => import(`~/pages/${path}`).then(m => m.default || m);
 const routes = [
   { path: '/', name: 'index', component: page('index.vue') },
   { path: '/index.php', name: 'index', component: page('aid.vue') },
+  { path: '/browse.php', name: 'index', component: page('aid.vue') },
+  { path: '/articles/:attribute/:value', name: 'index', component: page('aid.vue') },
   { path: '/faq', name: 'faq', component: page('faq.vue') },
   { path: '/tos', name: 'tos', component: page('tos.vue') },
   { path: '/privacy', name: 'privacy', component: page('privacy.vue') },
