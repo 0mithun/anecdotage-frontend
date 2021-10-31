@@ -12,7 +12,7 @@
           :style="backgroundEmoji(emoji.name)"
           v-if="getEmojiCount(emoji)"
           >
-          <p>{{ getEmojiCount(emoji) }}</p>
+          <span>{{ getEmojiCount(emoji) }}</span>
         </span>
         <!-- {{ formateEmojiCounts(emoji.count) }} -->
     </div>
@@ -54,8 +54,11 @@ export default {
       return abbreviate(value, 1);
     },
     getEmojiCount(emoji){
-      if(this.emoji_counts.hasOwnProperty(emoji.name)){
-        return this.emoji_counts[emoji.name];
+      if( typeof this.emoji_counts === 'object'){
+
+        if(this.emoji_counts.hasOwnProperty(emoji.name)){
+          return this.emoji_counts[emoji.name];
+        }
       }
       return false;
     },

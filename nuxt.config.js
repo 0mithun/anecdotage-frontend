@@ -100,8 +100,9 @@ export default {
   plugins: [
     '~plugins/vform',
     '~/plugins/toastNotification',
-    '~/plugins/echo',
+    // '~/plugins/echo',
     { src: '~/plugins/gmaps', ssr: false },
+    { src: '~/plugins/echo', ssr: false },
 
     // '~components/_global',
     // '~/plugins/strPlural',

@@ -42,7 +42,7 @@
                       <comment-counts :thread="thread"></comment-counts>
                       <favorite-counts :thread="thread"></favorite-counts>
 
-                      <emoji-counts :thread="thread"></emoji-counts>
+                      <emoji-counts :thread="thread" :emoji_counts="thread.emoji_counts"></emoji-counts>
                       <div class="thread-map-icon">
                         <map-location
                           :location="thread.location"
