@@ -1,19 +1,28 @@
 <template>
   <div>
-    <div class="top-add"></div>
+    <div class="top-add">
+            <!-- Ezoic - sidebar - sidebar -->
+      <div id="ezoic-pub-ad-placeholder-109"> </div>
+      <!-- End Ezoic - sidebar - sidebar -->
+    </div>
      <SocialLink />
      <div class="card mt-4">
       <div class="card-body">
         <h3 class="trending-title">Trending</h3>
       </div>
     </div>
-
+      <!-- Ezoic - sidebar_middle - sidebar_middle -->
+      <div id="ezoic-pub-ad-placeholder-114"> </div>
+      <!-- End Ezoic - sidebar_middle - sidebar_middle -->
       <SingleTrendingThread
         v-for="(trending, index) in trendings"
         :key="trending.id"
         :thread="trending"
         :sticky="index == 0? true: false"
       />
+      <!-- Ezoic - sidebar_bottom - sidebar_bottom -->
+      <div id="ezoic-pub-ad-placeholder-113"> </div>
+      <!-- End Ezoic - sidebar_bottom - sidebar_bottom -->
   </div>
 </template>
 

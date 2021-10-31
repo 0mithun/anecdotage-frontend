@@ -2,9 +2,17 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <div></div>
+        <div>
+          <!-- Ezoic - TEST - top_of_page -->
+          <div id="ezoic-pub-ad-placeholder-125"> </div>
+          <!-- End Ezoic - TEST - top_of_page -->
+        </div>
         <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true"></safe-search>
-        <div></div>
+        <div>
+          <!-- Ezoic - mid_content - mid_content -->
+          <div id="ezoic-pub-ad-placeholder-105"> </div>
+          <!-- End Ezoic - mid_content - mid_content -->
+        </div>
         <SingleThread
           v-for="thread in threads"
           :key="thread.id"
@@ -21,6 +29,9 @@
           routeName="threads.rated"
           :param="{ key: '', value: '' }"
         />
+        <!-- Ezoic - bottom_of_page - bottom_of_page -->
+          <div id="ezoic-pub-ad-placeholder-120"> </div>
+          <!-- End Ezoic - bottom_of_page - bottom_of_page -->
       </div>
       <div class="col-md-4">
         <div></div>
