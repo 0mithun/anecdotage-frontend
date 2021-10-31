@@ -67,11 +67,9 @@
                       value="1"
                       v-model="form.scrape_image"
                     />
-                      <span v-if="showImportWikipediaTooltip" data-toggle="tooltip" data-placement="bottom" :title="tooltipText" :data-original-title="tooltipText">Try to import Wikipedia image
-                        <img width="20px" height="20px" src="~assets/images/icons/info.png" alt="Try to import image from wikipedia">
-                      </span>
-                      <span v-else  title="test" data-original-title="">Try to import Wikipedia image
-                        <img width="20px" height="20px" src="~assets/images/icons/info.png" alt="Try to import image from wikipedia">
+                      <span class="import_wikipedia_image_checkbox" >Try to import Wikipedia image
+                        <img  v-if="showImportWikipediaTooltip" width="20px" height="20px" src="~assets/images/icons/info.png" alt="Try to import image from wikipedia" data-toggle="tooltip" data-placement="bottom" :title="tooltipText" :data-original-title="tooltipText">
+                        <img v-else  width="20px" height="20px" src="~assets/images/icons/info.png" alt="Try to import image from wikipedia"  title="" data-original-title="">
                       </span>
                     </label>
                 </div>
@@ -512,6 +510,14 @@ dropdown-menu {
    line-height:32px;
     font-weight: 700;
     font-size: 20px;
+}
+
+span.import_wikipedia_image_checkbox{
+  display: inline-flex;
+  align-items: center;
+  img {
+    margin-left:5px;
+  }
 }
 
 span.import_wikipedia_image_checkbox{
