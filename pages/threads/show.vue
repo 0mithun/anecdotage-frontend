@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <div></div>
+    <div>
+      <!-- Ezoic - TEST - top_of_page -->
+      <div id="ezoic-pub-ad-placeholder-125"> </div>
+      <!-- End Ezoic - TEST - top_of_page -->
+    </div>
     <div class="row"  v-if="!needPrivacyUpdate">
       <div class="col-md-8">
         <div class="row">
