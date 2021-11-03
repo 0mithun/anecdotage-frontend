@@ -3,6 +3,7 @@
     <client-only>
       <SiteNavigation />
       <div class="wrapper">
+         <div id="ezoic-pub-ad-placeholder-105"> </div>
         <nuxt />
       </div>
       <SiteFooter />
