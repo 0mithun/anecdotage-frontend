@@ -2,7 +2,9 @@
   <div class="container">
     <div>
       <!-- Ezoic - TEST - top_of_page -->
-      <div id="ezoic-pub-ad-placeholder-125"> </div>
+      <div id="ezoic-pub-ad-placeholder-125">
+        test
+        </div>
       <!-- End Ezoic - TEST - top_of_page -->
     </div>
     <div class="row"  v-if="!needPrivacyUpdate">
