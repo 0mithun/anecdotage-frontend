@@ -767,7 +767,8 @@ export default {
 }
 .count-items-row,
 .thread-body-row {
-  margin: 15px 0;
+  // margin: 15px 0;
+  margin-bottom: 15px;
 }
 
 .thread-body {

@@ -36,17 +36,22 @@ export default {
     return {
       userEmoji: null,
       // emoji_counts: {}
+      counts: this.emoji_counts
     };
   },
   computed:{
       ...mapGetters({
         emojis: 'emojis',
       }),
+      totalEmojiCounts(){
+        return this.counts;
+      }
   },
   created() {
     this.$nuxt.$on("VoteUserEmojis-" + this.thread.id, (emoji) => {
-      console.log(emoji)
+      // console.log(emoji)
       // this.getEmojiCounts();
+      this.loadEmojiCounts();
     });
   },
   methods: {
@@ -54,10 +59,10 @@ export default {
       return abbreviate(value, 1);
     },
     getEmojiCount(emoji){
-      if( typeof this.emoji_counts === 'object'){
+      if( typeof this.totalEmojiCounts === 'object'){
 
-        if(this.emoji_counts.hasOwnProperty(emoji.name)){
-          return this.emoji_counts[emoji.name];
+        if(this.totalEmojiCounts.hasOwnProperty(emoji.name)){
+          return this.totalEmojiCounts[emoji.name];
         }
       }
       return false;
@@ -76,6 +81,16 @@ export default {
       //   })
       //   .catch((err) => {});
     },
+    async loadEmojiCounts(){
+      //threads/{thread}/emoji-counts
+      try {
+        const res = await this.$axios.$get(`threads/${this.thread.id}/emoji-counts`)
+        // console.log(res);
+        this.counts = res;
+      } catch (error) {
+
+      }
+    }
   },
 };
 </script>
