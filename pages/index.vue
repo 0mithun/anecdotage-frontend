@@ -11,7 +11,7 @@
         <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true"></safe-search>
         <div>
           <!-- Ezoic - mid_content - mid_content -->
-          <div id="ezoic-pub-ad-placeholder-105"> </div>
+          <!-- <div id="ezoic-pub-ad-placeholder-105"> </div> -->
           <!-- End Ezoic - mid_content - mid_content -->
         </div>
         <SingleThread
