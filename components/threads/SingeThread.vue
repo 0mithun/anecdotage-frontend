@@ -22,7 +22,7 @@
             :to="{ name: 'threads.show', params: { slug: thread.slug } }"
             class="thread-title"
           >
-            <span v-html="thread.title"></span>
+            <strong v-html="thread.title"></strong>
           </nuxt-link>
         </div>
       </div>
