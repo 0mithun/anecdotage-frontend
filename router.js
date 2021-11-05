@@ -183,11 +183,11 @@ const routes = [
     name: 'threads.closest',
     component: page('threads/filters/closest.vue')
   },
-  {
-    path: '/anecdotes/video',
-    name: 'threads.video',
-    component: page('threads/filters/video.vue')
-  },
+  // {
+  //   path: '/anecdotes/video',
+  //   name: 'threads.video',
+  //   component: page('threads/filters/video.vue')
+  // },
 
   {
     path: '/anecdotes/sort-by-title-length',

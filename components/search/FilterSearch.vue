@@ -18,6 +18,9 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
+                <template v-if="sort_by == 'most_relevant'">
+                  <strong class="dark">Most Relevant</strong>
+                </template>
                 <template v-if="sort_by == 'top'">
                   <strong class="dark">Top Rated</strong>
                 </template>
@@ -27,9 +30,9 @@
                 <template v-if="sort_by == 'like'">
                   <strong class="dark">Most Liked</strong>
                 </template>
-                <template v-if="sort_by == 'favorite'">
+                <!-- <template v-if="sort_by == 'favorite'">
                   <strong class="dark">Most Favorited</strong>
-                </template>
+                </template> -->
                 <template v-if="sort_by == 'visits'">
                   <strong class="dark">Most Visits</strong>
                 </template>
@@ -37,6 +40,9 @@
                  <svg class="svg-inline--fa fa-caret-down" data-v-6ea372ba="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
               </button>
               <ul class="dropdown-menu">
+                <li v-if="showMostRelavent">
+                  <a href="#" @click.prevent="sortBy('most_relevant')">Most Relevant</a>
+                </li>
                 <li>
                   <a href="#" @click.prevent="sortBy('top')">Top Rated</a>
                 </li>
@@ -46,11 +52,11 @@
                 <li>
                   <a href="#" @click.prevent="sortBy('like')">Most Liked</a>
                 </li>
-                <li>
+                <!-- <li>
                   <a href="#" @click.prevent="sortBy('favorite')"
                     >Most Favorited</a
                   >
-                </li>
+                </li> -->
                 <li>
                   <a href="#" @click.prevent="sortBy('visits')">Most Visits</a>
                 </li>
@@ -359,8 +365,16 @@ export default {
     totalThreadsCount() {
       return this.$store.getters[`${this.routeName}/totalThreadsCount`];
     },
+    showMostRelavent(){
+      return this.$route.name === 'search';
+    }
   },
   mounted() {
+    //most_relevant
+    // $nuxt.$route.name
+    if(this.$route.name === 'search'){
+      this.sort_by = 'most_relevant'
+    }
     if(this.q.sort_by){
       this.sort_by = this.q.sort_by;
     }

@@ -64,9 +64,9 @@
                   :to="{ name: 'threads.closest' }"
                   >Closest</nuxt-link
                 >
-                <nuxt-link class="dropdown-item" :to="{ name: 'threads.video' }"
+                <!-- <nuxt-link class="dropdown-item" :to="{ name: 'threads.video' }"
                   >Video</nuxt-link
-                >
+                > -->
                 <nuxt-link
                   class="dropdown-item"
                   :to="{ name: 'admin.sortbytitle.length' }"

@@ -32,6 +32,11 @@ import threadLists from '@/mixins/threadLists'
 export default {
   name: 'thread-rated',
   mixins:[scrollToTop, getSettings, threadLists],
+  head() {
+    return {
+      title: `${this.settings.site_title} | Top Rated`,
+    };
+  },
   watchQuery: true,
 
   async fetch({ params, query, app, $axios, store }) {

@@ -31,6 +31,11 @@ import threadLists from '@/mixins/threadLists'
 export default {
   name: 'thread-trending',
   mixins: [scrollToTop,getSettings, threadLists],
+  head() {
+    return {
+      title: `${this.settings.site_title} | Trending`,
+    };
+  },
   watchQuery: true,
 
   async fetch({ params, query, app, $axios, store }) {

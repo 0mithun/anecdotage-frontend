@@ -30,6 +30,11 @@ import threadLists from '@/mixins/threadLists'
 export default {
   name: 'thread-viewed',
   mixins: [scrollToTop,getSettings, threadLists],
+  head() {
+    return {
+      title: `${this.settings.site_title} | Most Viewed`,
+    };
+  },
 
   watchQuery: true,
 

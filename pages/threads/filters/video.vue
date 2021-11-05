@@ -30,6 +30,11 @@ import threadLists from '@/mixins/threadLists'
 export default {
   name: 'thread-video',
   mixins: [scrollToTop,getSettings, threadLists],
+  head() {
+    return {
+      title: `${this.settings.site_title} | Video`,
+    };
+  },
 
   watchQuery: true,
 

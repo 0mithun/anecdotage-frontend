@@ -30,6 +30,11 @@ import threadLists from '@/mixins/threadLists'
 export default {
   name: 'thread-recent',
   mixins: [scrollToTop,getSettings, threadLists],
+  head() {
+    return {
+      title: `${this.settings.site_title} | Last Viewed`,
+    };
+  },
   watchQuery: true,
 
   async fetch({ params, query, app, $axios, store }) {
