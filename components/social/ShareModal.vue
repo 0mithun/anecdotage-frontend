@@ -18,7 +18,7 @@
               type="button"
               class="close"
               aria-label="Close"
-              @click.prevent="closeShareModal"
+              @click.prevent="hideShareModal"
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -96,6 +96,9 @@
       },
       closeShareModal() {
         this.$emit('share-cancel')
+      },
+      hideShareModal() {
+        this.$emit('hide-share-modal')
       },
       skip() {
         this.$axios
