@@ -4,11 +4,13 @@
     <div class="card card-m-5">
       <div class="card-header">
         <div class="left float-left big-label">Upload an Image (Optional)</div>
-        <div class="right float-right">
+        <div class="right float-right" style="display:flex;">
+        <AdminButtons :thread="thread" />
           <button
             class="btn btn-success btn-lg"
             type="button"
             @click.prevent="skip"
+            style="margin-left:40px;"
           >
             Skip
           </button>
@@ -174,11 +176,13 @@ import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
 import userStatus from '@/mixins/userStatus'
 import ThreadShare from '@/mixins/threadShare'
+import AdminButtons from '@/components/threads/AdminButtons';
 
 export default {
   middleware: ['auth'],
   components: {
     'slim-cropper': Slim,
+    AdminButtons
   },
    mixins: [scrollToTop,userStatus, ThreadShare],
   head() {
