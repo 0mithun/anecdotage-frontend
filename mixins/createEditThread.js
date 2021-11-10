@@ -51,6 +51,8 @@ export default {
         slide_color_0: '',
         slide_color_1: '',
         slide_color_2: '',
+
+        copy_cno: false
       }),
     };
   },

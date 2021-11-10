@@ -234,7 +234,7 @@
                         type="checkbox"
                         value="1"
                         v-model="form.cno.famous"
-                      />This story involves a famous person or thing</label
+                      /> This story involves a famous person or thing</label
                     >
                   </div>
 
@@ -248,7 +248,21 @@
                         type="checkbox"
                         value="1"
                         v-model="form.cno.celebrity"
-                      />Is it a celebrity?</label
+                      /> Is it a celebrity?</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" v-if="isAdmin">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label
+                      ><input
+                        type="checkbox"
+                        v-model="form.copy_cno"
+                      /> Copy CNO to items with Main Subject in Title</label
                     >
                   </div>
                 </div>
@@ -265,7 +279,7 @@
                         v-bind:value="1"
                         name="anonymous"
                         v-model="form.anonymous"
-                      />Post Anonymously</label
+                      /> Post Anonymously</label
                     >
                   </div>
                 </div>
