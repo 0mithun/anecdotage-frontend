@@ -67,9 +67,15 @@
                 <!-- <nuxt-link class="dropdown-item" :to="{ name: 'threads.video' }"
                   >Video</nuxt-link
                 > -->
-                <nuxt-link
+                <!-- <nuxt-link
                   class="dropdown-item"
                   :to="{ name: 'admin.sortbytitle.length' }"
+                  v-show="isAdmin"
+                  >Sort By Title Length</nuxt-link
+                > -->
+                <nuxt-link
+                  class="dropdown-item"
+                  :to="{ name: 'threads.sortbytitle.length' }"
                   v-show="isAdmin"
                   >Sort By Title Length</nuxt-link
                 >

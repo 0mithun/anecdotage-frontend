@@ -189,10 +189,15 @@ const routes = [
   //   component: page('threads/filters/video.vue')
   // },
 
+  // {
+  //   path: '/anecdotes/sort-by-title-length',
+  //   name: 'admin.sortbytitle.length',
+  //   component: page('admins/sortByTitleLength.vue')
+  // },
   {
     path: '/anecdotes/sort-by-title-length',
-    name: 'admin.sortbytitle.length',
-    component: page('admins/sortByTitleLength.vue')
+    name: 'threads.sortbytitle.length',
+    component: page('threads/filters/sortByTitleLength.vue')
   },
 
   {
