@@ -46,11 +46,11 @@ export default {
           // async: true,
         defer:true
       },
-      // {
-      //   src:'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4366805194029390',
-      //     // async: true,
-      //     crossorigin:"anonymous"
-      // },
+      {
+        src:'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4366805194029390',
+          // async: true,
+          crossorigin:"anonymous"
+      },
     ]
   },
 
