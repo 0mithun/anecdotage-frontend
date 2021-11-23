@@ -18,7 +18,7 @@
         v-for="(trending, index) in trendings"
         :key="trending.id"
         :thread="trending"
-        :sticky="index == 0? true: false"
+        :sticky="index == 0 ? true: false"
       />
       <!-- Ezoic - sidebar_bottom - sidebar_bottom -->
       <div id="ezoic-pub-ad-placeholder-113"> </div>

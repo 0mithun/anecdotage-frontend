@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <div class="card card-m-5">
-      <div class="card-header">
+      <div class="card-header d-flex justify-content-between">
         <h2 class="card-title big-label">Post an Anecdote</h2>
+        <AdminButtons :thread="thread" />
         </div>
       <div class="card-body">
         <form
@@ -10,7 +11,7 @@
           action=""
           method="post"
           enctype="multipart/form-data"
-          @submit.prevent="updateThread"
+
         >
           <div class="row">
             <div class="col-md-6">
@@ -400,10 +401,35 @@
 
           <div class="row">
             <div class="col-md-12">
-              <div class="form-group">
+              <div class="form-group" >
                 <!-- <button class="btn btn-primary" type="submit" :disabled="form.wiki_info_page_url !='' && form.wiki_image_copyright_free != true">Add Thread</button> -->
 
-                <BaseButton :loading="form.busy">Update Thread</BaseButton>
+                <!-- <BaseButton :loading="form.busy"  nativeType="button" type="success">Update Your Story</BaseButton> -->
+                <!-- <BaseButton :loading="form.busy" nativeType="button" @click="updateThread">Add An Image</BaseButton> -->
+                <button
+                  :disabled="form.busy"
+                  type="button"
+                  class="btn btn-success"
+                  @click="updateAndGoThread"
+                >
+                  <span v-if="form.busy">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path>
+                    </svg>
+                  </span>
+                  Update Your Story
+                </button>
+                <button
+                  :disabled="form.busy"
+                  type="button"
+                  class="btn btn-primary"
+                  @click="updateAndGoThumb"
+                >
+                  <span v-if="form.busy">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path>
+                    </svg>
+                  </span>
+                  Add An Iage
+                </button>
               </div>
             </div>
           </div>
@@ -425,7 +451,8 @@
         </form>
       </div>
     </div>
-  </div>
+     <ShareModal v-if="show_share_modal" :thread="thread" @share-cancel="cancelShare(updatedThread)" @hide-share-modal="show_share_modal = false"  @share-complete="completeShare(updatedThread)" />
+   </div>
 </template>
 
 <script>
@@ -435,10 +462,12 @@ import {serialize} from 'object-to-formdata'
 import scrollToTop from '@/mixins/scrollToTop'
 import userStatus from '@/mixins/userStatus'
 import createEditThread from '@/mixins/createEditThread'
+import AdminButtons from '@/components/threads/AdminButtons';
+import ThreadShare from '@/mixins/threadShare'
 
 export default {
-  components: { VueCkeditor },
-   mixins: [scrollToTop,userStatus,createEditThread],
+  components: { VueCkeditor, AdminButtons },
+   mixins: [scrollToTop,userStatus,createEditThread, ThreadShare],
   computed: {
      ...mapGetters({
       settings: 'settings',
@@ -469,6 +498,7 @@ export default {
         slug: '',
       },
       title_case: false,
+      updatedThread: null
      };
   },
   created() {
@@ -515,6 +545,8 @@ export default {
           celebrity: false,
         };
       }
+
+      this.updatedThread = this.thread;
     }
     const iframe = document.querySelectorAll('iframe');
     const threadBody = document.querySelector('.thread-body');
@@ -544,12 +576,40 @@ export default {
     }
   },
   methods: {
+    updateAndGoThumb(){
+     this.updateThread().then(res=>{
+       if (this.form.scrape_image) {
+        setTimeout(() => {
+          this.$router.push({
+            name: 'threads.show',
+            params: { slug: res.data.slug },
+          });
+        }, 1500);
+      } else {
+        this.$router.push({
+          name: 'threads.thumbnail',
+          params: { slug: res.data.slug },
+        });
+      }
+     })
+    },
+    updateAndGoThread(){
+      this.updateThread().then(res=>{
+        this.show_share_modal = true;
+
+        // this.$router.push({
+        //   name: 'threads.show',
+        //   params: { slug: res.data.slug },
+        // });
+      });
+    },
     updateThread() {
       this.errors = [];
       if (this.form.channel == '') {
         this.form.channel = this.defaultChannel;
       }
-      this.form
+
+     return this.form
         .submit('post',`threads/${this.thread.slug}`, {
               transformRequest: [ function (data, headers) {
                 return serialize(data)
@@ -557,25 +617,14 @@ export default {
 
         } )
         .then((res) => {
-          if (this.form.scrape_image) {
-            this.$toast.open({
-              type: 'success',
-              position: 'top-right',
-              message: 'Thread Update Successfully',
-            });
-            setTimeout(() => {
-              this.$router.push({
-                name: 'threads.show',
-                params: { slug: res.data.slug },
-              });
-            }, 1500);
-          } else {
-            this.$router.push({
-              name: 'threads.thumbnail',
-              params: { slug: res.data.slug },
-            });
-          }
+          this.updatedThread = res.data;
 
+          this.$toast.open({
+            type: 'success',
+            position: 'top-right',
+            message: 'Thread Update Successfully',
+          });
+          return res;
         })
         .catch((err) => {
           // console.log(err);

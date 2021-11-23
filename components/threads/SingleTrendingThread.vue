@@ -4,9 +4,9 @@
       <div></div>
       <div class="row">
         <div class="col-md-12">
-          <nuxt-link :to="{name:'threads.show', params:{slug:thread.slug}}" class="thread-title">
+          <a :href="thread.slug" @click.prevent="openThreadUrl" class="thread-title">
           <strong v-html="thread.title"></strong>
-        </nuxt-link>
+        </a>
         </div>
       </div>
 
