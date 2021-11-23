@@ -166,7 +166,7 @@
       </div>
     </div>
     <div></div>
-    <ShareModal v-if="show_share_modal" :thread="thread" @share-cancel="cancelShare" @hide-share-modal="show_share_modal = false"  @share-complete="completeShare" />
+    <ShareModal v-if="show_share_modal" :thread="thread" @share-cancel="cancelShare(thread)" @hide-share-modal="show_share_modal = false"  @share-complete="completeShare(thread)" />
   </div>
 </template>
 

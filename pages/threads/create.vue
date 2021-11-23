@@ -10,7 +10,6 @@
           action=""
           method="post"
           enctype="multipart/form-data"
-          @submit.prevent="addNewThread"
         >
           <div class="row">
             <div class="col-md-6">
@@ -397,13 +396,39 @@
               <div class="form-group">
                 <!-- <button class="btn btn-primary" type="submit" :disabled="form.wiki_info_page_url !='' && form.wiki_image_copyright_free != true">Add Thread</button> -->
 
-                <BaseButton :loading="form.busy">Add Thread</BaseButton>
+                <!-- <BaseButton :loading="form.busy" type="success">Post Your Story</BaseButton>
+                <BaseButton :loading="form.busy">Add An Image</BaseButton> -->
+                <button
+                  :disabled="form.busy"
+                  type="button"
+                  class="btn btn-success"
+                  @click="createAndGoThread"
+                >
+                  <span v-if="form.busy">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path>
+                    </svg>
+                  </span>
+                  Post Your Story
+                </button>
+                <button
+                  :disabled="form.busy"
+                  type="button"
+                  class="btn btn-primary"
+                  @click="createAndGoThumb"
+                >
+                  <span v-if="form.busy">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path>
+                    </svg>
+                  </span>
+                  Add An Iage
+                </button>
               </div>
             </div>
           </div>
         </form>
       </div>
     </div>
+     <ShareModal v-if="show_share_modal" :thread="createdThread" @share-cancel="cancelShare(createdThread)" @hide-share-modal="show_share_modal = false"  @share-complete="completeShare(createdThread)" />
   </div>
 </template>
 
@@ -414,13 +439,15 @@ import {serialize} from 'object-to-formdata'
 import scrollToTop from '@/mixins/scrollToTop'
 import userStatus from '@/mixins/userStatus'
 import createEditThread from '@/mixins/createEditThread'
+import ThreadShare from '@/mixins/threadShare'
 export default {
   components: { VueCkeditor },
-  mixins: [scrollToTop,userStatus,createEditThread],
+  mixins: [scrollToTop,userStatus,createEditThread, ThreadShare],
 
   data() {
     return {
       title_case: true,
+      createdThread: {}
     };
   },
   head() {
@@ -429,27 +456,46 @@ export default {
     };
   },
   methods: {
+    createAndGoThumb(){
+     this.addNewThread().then(res=>{
+       if (this.form.scrape_image) {
+        setTimeout(() => {
+          this.$router.push({
+            name: 'threads.show',
+            params: { slug: res.data.slug },
+          });
+        }, 1500);
+      } else {
+        this.$router.push({
+          name: 'threads.thumbnail',
+          params: { slug: res.data.slug },
+        });
+      }
+     })
+    },
+    createAndGoThread(){
+      this.addNewThread().then(res=>{
+        this.show_share_modal = true;
+      });
+    },
     addNewThread() {
       this.errors = [];
-      this.form
+      return this.form
         .submit('post',`threads`, {
               transformRequest: [ function (data, headers) {
                 return serialize(data)
               }],
 
         } )
-          .then((res) => {
-            if(this.form.scrape_image){
-              this.$router.push({
-                name: 'threads.show',
-                params: { slug: res.data.slug },
-              });
-            }else{
-              this.$router.push({
-                name: 'threads.thumbnail',
-                params: { slug: res.data.slug },
-              });
-            }
+        .then((res) => {
+          this.createdThread = res.data;
+
+          this.$toast.open({
+            type: 'success',
+            position: 'top-right',
+            message: 'Thread create Successfully',
+          });
+          return res;
 
         })
         .catch((err) => {

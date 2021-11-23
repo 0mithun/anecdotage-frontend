@@ -10,13 +10,13 @@ export default {
     }
   },
   methods: {
-    cancelShare(){
+    cancelShare(thread){
       this.show_share_modal= false;
-      this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
+      this.$router.push({name:'threads.show', params:{slug: thread.slug}});
     },
-    completeShare(){
+    completeShare(thread){
       this.show_share_modal= false;
-      this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
+      this.$router.push({name:'threads.show', params:{slug: thread.slug}});
     },
 
   },
