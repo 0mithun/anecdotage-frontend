@@ -26,7 +26,7 @@
             :to="{ name: 'threads.show', params: { slug: thread.slug } }"
             class="thread-title"
           >
-            <strong v-html="thread.title"></strong>
+            <strong v-html="$options.filters.highlightText(thread.title, queries)"></strong>
           </nuxt-link>
         </div>
       </div>
@@ -82,7 +82,8 @@
       </div>
       <div class="row thread-body-row">
         <div class="col-md-12">
-          <div class="thread-body" v-html="thread.excerpt"></div>
+              <div class="thread-body" v-html="$options.filters.highlightText(thread.excerpt, queries)">
+              </div>
         </div>
       </div>
       <div class="row thread-tools-row">
@@ -181,6 +182,7 @@ import DownVotes from '@/components/votes/DownVotes';
 import GoToComment from '@/components/comments/GoToComment';
 import AdminButtons from '@/components/threads/AdminButtons';
 import ImageDescription from '~/components/threads/ImageDescription';
+
 import swal from '@/mixins/swal'
 export default {
   mixins: [swal],
@@ -190,12 +192,21 @@ export default {
       required: true,
     },
   },
+  filters: {
+    highlightText: function (str, queries) {
+      const query = queries[0];
+      const check = new RegExp(query, 'ig');
+      return str.toString().replace(check, function (matchedText, a, b){
+        return (`<mark class="text__highlight">${ matchedText }</mark>`);
+      });
+      return str;
+    }
+  },
   data() {
     return {
       form: this.$vform({
         title: '',
       }),
-
       duplicateForm: this.$vform({
         channel: '',
         tags: [],
@@ -231,6 +242,14 @@ export default {
     threadThumbStyle() {
       return `background: rgba(${this.thread.image_path_pixel_color});cursor:pointer;`;
     },
+    queries(){
+      if(this.$route.name === 'search' && this.$route.query.hasOwnProperty('q')){
+      //  console.log(this.$route.query)
+        return [this.$route.query.q]
+      }
+
+      return []
+    },
 
     // stripTagTitle() {
     //   return this.thread.title.replace(/(<([^>]+)>)/gi, '');
@@ -262,7 +281,7 @@ export default {
     FavoriteThread,
     GoToComment,
     AdminButtons,
-    ImageDescription
+    ImageDescription,
   },
   methods: {
     openThreadUrl() {
@@ -396,6 +415,9 @@ export default {
 .card {
   margin: 5px 0;
   // padding:5px;
+}
+mark.text__highlight {
+    background-color: yellow !important;
 }
 
 .tag-name {
