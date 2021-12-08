@@ -688,11 +688,19 @@ export default {
   },
   mounted() {
     let p = document.querySelectorAll('p');
+    let blockquote =document.querySelectorAll('blockquote')
     let iframe = document.querySelectorAll('iframe');
 
     for (let i = 0; i < p.length; i++) {
       // x[i].style.backgroundColor = "red";
       p[i].style.marginBottom = '1rem';
+    }
+
+    for (let i = 0; i < blockquote.length; i++) {
+      // x[i].style.backgroundColor = "red";
+      blockquote[i].style.marginInlineStart = '40px';
+      blockquote[i].style.marginInlineEnd = '40px';
+      blockquote[i].style.marginBottom = '40px';
     }
 
     for (let i = 0; i < iframe.length; i++) {
@@ -882,4 +890,21 @@ font-family: 'Merriweather', serif !important;
       font-weight: 700;
       font-family: 'Merriweather', serif !important;
 }
+
+blockquote, q {
+  display: block !important;
+  margin-block-start: 1em !important;
+  margin-block-end: 1em !important;
+  margin-inline-start: 40px !important;
+  margin-inline-end: 40px !important;
+
+  &::before {
+    content: open-quote !important;
+  }
+  &::after {
+    content: close-quote !important;
+  }
+  quotes: "“" "”" "‘" "’" !important;
+}
+
 </style>

@@ -167,11 +167,19 @@ mark.text__highlight {
 }
 
 
+
 blockquote, q {
-  quotes: auto;
-  display: block;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 40px;
-  margin-inline-end: 40px;
+  display: block !important;
+  margin-block-start: 1em !important;
+  margin-block-end: 1em !important;
+  margin-inline-start: 40px !important;
+  margin-inline-end: 40px !important;
+  &::before {
+    content: open-quote !important;
+  }
+  &::after {
+    content: close-quote !important;
+  }
+  quotes: "“" "”" "‘" "’" !important;
+
 }
