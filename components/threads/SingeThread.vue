@@ -82,7 +82,11 @@
       </div>
       <div class="row thread-body-row">
         <div class="col-md-12">
-              <div class="thread-body" v-html="$options.filters.highlightText(thread.excerpt, queries)">
+
+              <!-- <div class="thread-body" v-html="$options.filters.highlightText(thread.excerpt, queries)">
+              </div> -->
+
+              <div class="thread-body" v-html="thread.excerpt">
               </div>
         </div>
       </div>
