@@ -108,12 +108,50 @@
 }
 
 .image_description{
-    font-size: 14px;
+    // font-size: 14px;
     text-align: center;
     width: 100%;
     padding: 5px;
     display: inherit;
     justify-content: inherit;
     align-items: inherit;
+
+
 }
+
+
+ @media only screen and (min-width:600px) {
+    .thread-image_description {
+      font-size: 10px;
+      line-height: 12px;
+    }
+  } //600px
+
+  @media only screen and (min-width: 900px) {
+      .thread-image_description {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  } //900px
+
+  @media only screen and (min-width: 1200px) {
+       .thread-image_description {
+      font-size: 14px;
+      line-height: 18px;
+    }
+  } //1200px
+  @media only screen and (min-width: 1400px) {
+      .thread-image_description {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  } //1200px
+
+
+  @media only screen and (min-width: 1800px) {
+      .thread-image_description {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  } //1200px
 </style>
