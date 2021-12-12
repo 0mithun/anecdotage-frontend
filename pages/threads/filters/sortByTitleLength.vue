@@ -7,9 +7,14 @@
           :key="thread.id"
           :thread="thread"
         ></SingleThread>
-        <Pagination
+        <!-- <Pagination
           :pagination="pageinateData"
           routeName="admin.sortbytitle.length"
+          :param="{ key: '', value: '' }"
+        /> -->
+        <Pagination
+          :pagination="pageinateData"
+          routeName="threads.sortbytitle.length"
           :param="{ key: '', value: '' }"
         />
       </div>
