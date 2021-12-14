@@ -26,7 +26,7 @@
             :to="{ name: 'threads.show', params: { slug: thread.slug } }"
             class="thread-title"
           >
-            <strong v-html="$options.filters.highlightText(thread.title, queries)"></strong>
+            <strong v-html="thread.title"></strong>
           </nuxt-link>
         </div>
       </div>
