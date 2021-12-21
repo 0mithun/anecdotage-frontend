@@ -22,13 +22,13 @@
                 </div>
               </div>
             </div>
-            <div class="upload-para mt-2">
+            <!-- <div class="upload-para mt-2">
               <p class="font-14 fw-400">
                 Your image dimensions must be at least 800px x 600px in size.
                 Also the image size should be a maximum of 2MB. Please resize
                 your file accordingly before you upload.
               </p>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@ export default {
         service: this.slimService,
         post: 'output',
         defaultInputName: 'photo',
-        minSize: '200,300',
+        // minSize: '200,300',
         label: 'Select image...',
         maxFileSize: 2,
       },
