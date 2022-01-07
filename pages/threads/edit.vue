@@ -559,6 +559,7 @@ export default {
 
 
     document.getElementById('title').focus;
+
   },
   async fetch({ params, query, error, $axios, store,redirect }) {
     try {
@@ -722,4 +723,15 @@ span.import_wikipedia_image_checkbox{
     margin-left:5px;
   }
 }
+
+blockquote, q {
+  quotes: auto !important;
+  display: block !important;
+  margin-block-start: 1em !important;
+  margin-block-end: 1em !important;
+  margin-inline-start: 41px !important;
+  margin-inline-end: 41px !important;
+}
+
+
 </style>
