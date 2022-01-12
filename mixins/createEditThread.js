@@ -27,9 +27,9 @@ export default {
           'blockquote { margin-block-end: 1em !important;}',
           'blockquote { margin-inline-start: 40px !important;}',
           'blockquote { margin-inline-end: 40px !important;}',
-          'blockquote { quotes: "“" "”" "‘" "’" !important;}',
-          'blockquote::before { content:  "“";}',
-          'blockquote::after { content:  "”";}',
+          // 'blockquote { quotes: "“" "”" "‘" "’" !important;}',
+          // 'blockquote::before { content:  "“";}',
+          // 'blockquote::after { content:  "”";}',
         ],
         scayt_autoStartup: true
       },

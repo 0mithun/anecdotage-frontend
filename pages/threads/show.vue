@@ -898,13 +898,13 @@ blockquote, q {
   margin-inline-start: 40px !important;
   margin-inline-end: 40px !important;
 
-  &::before {
-    content: open-quote !important;
-  }
-  &::after {
-    content: close-quote !important;
-  }
-  quotes: "“" "”" "‘" "’" !important;
+  // &::before {
+  //   content: open-quote !important;
+  // }
+  // &::after {
+  //   content: close-quote !important;
+  // }
+  // quotes: "“" "”" "‘" "’" !important;
 }
 
 </style>
