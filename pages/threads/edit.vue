@@ -724,14 +724,14 @@ span.import_wikipedia_image_checkbox{
   }
 }
 
-blockquote, q {
-  quotes: auto !important;
-  display: block !important;
-  margin-block-start: 1em !important;
-  margin-block-end: 1em !important;
-  margin-inline-start: 41px !important;
-  margin-inline-end: 41px !important;
-}
+// blockquote, q {
+//   quotes: auto !important;
+//   display: block !important;
+//   margin-block-start: 1em !important;
+//   margin-block-end: 1em !important;
+//   margin-inline-start: 41px !important;
+//   margin-inline-end: 41px !important;
+// }
 
 
 </style>

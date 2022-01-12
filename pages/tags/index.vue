@@ -133,7 +133,8 @@ export default {
   head() {
     return {
       // title: this.settings.site_title,
-      title: `${this.tag.name.charAt(0).toUpperCase() + this.tag.name.slice(1)} | Anecdotage | Funny stories & anecdotes about ${this.tag.name}.`,
+      // title: `${this.tag.name.charAt(0).toUpperCase() + this.tag.name.slice(1)} | Anecdotage | Funny stories about ${this.tag.name}.`,
+      title: `Anecdotage | Funny stories about ${this.tag.name}`,
       // title: 'Funny facts, jokes, stories, and anecdotes about TAG',
       meta: [
 
