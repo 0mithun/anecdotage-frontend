@@ -49,16 +49,16 @@ export default {
         this.$axios.$get(`maps?q=${this.query}&lat=${ location.lat}&lng=${ location.lng}`)
         .then((res) => {
           let data = res;
-          let zoom = 6;
+          let zoom = 8;
 
           this.$nuxt.$emit("markers_fetched", data);
           this.$nuxt.$emit("change_center", this.center);
           if (this.radius == 0) {
             zoom = 2;
           } else if (this.radius == 500) {
-            zoom = 6;
+            zoom = 8;
           } else if (this.radius == 1000) {
-            zoom = 5;
+            zoom = 6;
           } else if (this.radius == 2000) {
             zoom = 4;
           } else if (this.radius == 5000) {
