@@ -83,7 +83,7 @@ export default {
       fetchRunningCenter: null,
       markers: [],
       results: [],
-      zoom: 8,
+      zoom: 6,
       infoContent: null,
       infoWindowPos: {
         lat: 0,
@@ -239,6 +239,8 @@ export default {
     });
     this.$nuxt.$on('markers_result_clicked', (index) => {
       let targetMarkers = this.markers[index];
+
+      console.log(targetMarkers)
 
       const center = {
         lat: parseFloat(targetMarkers.position.lat),

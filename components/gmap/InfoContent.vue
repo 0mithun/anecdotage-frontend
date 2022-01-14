@@ -8,7 +8,7 @@
       <div class="thread-counts">
         <view-counts :thread="thread"></view-counts>
         <point-counts :thread="thread"></point-counts>
-        <emoji-counts :thread="thread"></emoji-counts>
+        <emoji-counts :thread="thread" :emoji_counts="thread.emoji_counts"></emoji-counts>
       </div>
     </div>
   </div>
