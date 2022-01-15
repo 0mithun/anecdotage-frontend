@@ -182,6 +182,7 @@ export default {
             alert('You must provide your location first');
           } else {
             this.$nuxt.$emit('markers_fetched', res);
+            this.$nuxt.$emit("zoom_decreased", 8);
             if (this.fetchRunningCenter != null) {
               // this.mapCenter = this.fetchRunningCenter;
               // this.center = this.fetchRunningCenter;
