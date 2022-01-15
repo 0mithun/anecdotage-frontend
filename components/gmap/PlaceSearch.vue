@@ -64,7 +64,7 @@ export default {
           } else if (this.radius == 5000) {
             zoom = 3;
           }
-          this.$nuxt.$emit("zoom_decreased", zoom);
+          // this.$nuxt.$emit("zoom_decreased", zoom);
         });
     },
     setRelatedThread(place) {
