@@ -67,7 +67,7 @@
 
             <img  title="" v-lazy-load
               :data-src="thread.thread_image_path"
-              :alt="thread.image_description"
+              :alt="stripImageDescription"
               class="thread-image thread_thumb_image"
               heigh="240"
               width="auto"
@@ -255,9 +255,9 @@ export default {
       return []
     },
 
-    // stripTagTitle() {
-    //   return this.thread.title.replace(/(<([^>]+)>)/gi, '');
-    // },
+    stripImageDescription() {
+      return this.thread.image_description.replace(/(<([^>]+)>)/gi, '');
+    },
 
     signedIn() {
       return this.$auth.loggedIn;
