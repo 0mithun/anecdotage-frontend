@@ -153,9 +153,11 @@ a.thread-title strong i {
   display: inherit;
   align-items: inherit;
   justify-content: inherit;
+  flex-wrap: wrap;
   a {
     display: contents !important;
   }
+  flex-wrap: wrap;
 }
 
 small {

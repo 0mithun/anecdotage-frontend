@@ -69,7 +69,7 @@ export default {
     focusMarker(index) {
       this.activeIndex = index;
       this.$nuxt.$emit("markers_result_clicked", index);
-      this.$nuxt.$emit("zoom_decreased", 7);
+      // this.$nuxt.$emit("zoom_decreased", 7);
     },
   },
   created() {

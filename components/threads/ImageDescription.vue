@@ -74,6 +74,7 @@
   text-align: center;
   width: 100%;
   padding:5px;
+  flex-wrap: wrap;
 
   @media (max-width: 574px){
     font-size: 10px;
@@ -115,6 +116,7 @@
     display: inherit;
     justify-content: inherit;
     align-items: inherit;
+    flex-wrap: wrap;
 
 
 }

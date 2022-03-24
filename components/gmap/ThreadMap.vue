@@ -15,6 +15,8 @@
         map-type-id="terrain"
         style="width: 100%; height: 85vh"
         :options="{ zoomControl: true }"
+                ref="mmm"
+
       >
         <GmapMarker
           :key="index"
@@ -83,7 +85,7 @@ export default {
       fetchRunningCenter: null,
       markers: [],
       results: [],
-      zoom: 6,
+      zoom: 8,
       infoContent: null,
       infoWindowPos: {
         lat: 0,
@@ -182,7 +184,7 @@ export default {
             alert('You must provide your location first');
           } else {
             this.$nuxt.$emit('markers_fetched', res);
-            this.$nuxt.$emit("zoom_decreased", 8);
+            // this.$nuxt.$emit("zoom_decreased", 8);
             if (this.fetchRunningCenter != null) {
               // this.mapCenter = this.fetchRunningCenter;
               // this.center = this.fetchRunningCenter;
@@ -212,14 +214,36 @@ export default {
 
       this.fetchLocations();
     },
+    fitBounds(){
+      var b = new google.maps.LatLngBounds();
+
+      this.markers.map(item=>{
+        // console.log(item.position)
+        b.extend(item.position)
+        // b.extend(item.position.lng, item.position.lat)
+      })
+      // console.log(b.getCenter().lat(),b.getCenter().lng())
+
+      // b.extend(this.mapCenter);
+      // b.extend(this.mapCenter);
+      // console.log(this.markers)
+      this.center = { lat: b.getCenter().lat(), lng: b.getCenter().lng() };
+      this.mapCenter = { lat: b.getCenter().lat(), lng: b.getCenter().lng() };
+
+      this.$refs.mmm.fitBounds(b);
+    }
   },
   mounted() {
     this.getUserLocation();
     this.fetchLocations();
+
+     this.$refs.mmm.$mapPromise.then(() => {
+      this.fitBounds()
+    })
   },
 
   created() {
-    console.log('putki')
+
     if (this.$route.query.search) {
       this.query = this.$route.query.search;
       console.log(this.query)
