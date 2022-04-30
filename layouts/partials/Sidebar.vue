@@ -15,10 +15,14 @@
       <div id="ezoic-pub-ad-placeholder-114"> </div>
       <!-- End Ezoic - sidebar_middle - sidebar_middle -->
       <SingleTrendingThread
-        v-for="(trending, index) in trendings"
+        :thread="sticky"
+        :sticky="true"
+      />
+      <SingleTrendingThread
+        v-for="(trending) in trendings"
         :key="trending.id"
         :thread="trending"
-        :sticky="index == 0 ? true: false"
+        :sticky="false"
       />
       <!-- Ezoic - sidebar_bottom - sidebar_bottom -->
       <div id="ezoic-pub-ad-placeholder-113"> </div>
@@ -38,6 +42,9 @@
     computed:{
       trendings(){
         return this.$store.state.trendings;
+      },
+      sticky() {
+        return this.$store.state.sticky;
       }
     }
   }

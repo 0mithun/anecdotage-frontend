@@ -5,6 +5,7 @@ export const state = () => ({
   emojis: [],
   trendings: [],
   settings:null,
+  sticky: null
 })
 
 export const getters = {
@@ -24,6 +25,9 @@ export const mutations = {
   setTrendings: (state, data)=>{
     state.trendings = data;
   },
+  setSticky: (state, data)=>{
+    state.sticky = data;
+  },
   SET_SETTINGS: (state, data)=> {
     state.settings = {...data};
   }
@@ -39,6 +43,7 @@ export const actions = {
     commit('setChannels', channelResponse);
     commit('setEmojis', emojiResponse.data);
     commit('setTrendings', trendingResponse.data)
+    commit('setSticky', trendingResponse.sticky)
     commit('SET_SETTINGS', settings)
   }
 }
