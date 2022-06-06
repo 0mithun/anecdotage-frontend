@@ -9,13 +9,6 @@
       <div class="row">
         <div></div>
         <div class="col-md-12 tags">
-          <nuxt-link
-            class="tag-name"
-            :to="{ name: 'tags', params: { slug: thread.channel.slug } }"
-          >
-            #{{ thread.channel.name }}
-          </nuxt-link>
-
           <AdminButtons :thread="thread" />
         </div>
         <div></div>
@@ -28,26 +21,6 @@
           >
             <strong v-html="thread.title"></strong>
           </nuxt-link>
-        </div>
-      </div>
-      <div class="row count-items-row">
-        <div class="col-md-12">
-          <div
-            class="count-items d-flex flex-wrap justify-content-between align-items-center flex-wrap"
-          >
-            <view-counts :thread="thread"></view-counts>
-            <point-counts :thread="thread"></point-counts>
-            <comment-counts :thread="thread"></comment-counts>
-            <favorite-counts :thread="thread"></favorite-counts>
-
-            <emoji-counts :thread="thread" :emoji_counts="thread.emoji_counts"></emoji-counts>
-            <div class="thread-map-icon">
-              <map-location
-                :location="thread.location"
-                :address="thread.formatted_address"
-              ></map-location>
-            </div>
-          </div>
         </div>
       </div>
       <div class="row" v-show="thread.thread_image_path != ''">
@@ -88,36 +61,6 @@
 
               <div class="thread-body" v-html="thread.excerpt">
               </div>
-        </div>
-      </div>
-      <div class="row thread-tools-row">
-        <div class="col-md-12">
-          <div
-            class="thread-footer-menu d-flex justify-content-between align-items-center"
-          >
-            <vote-emoji-list
-              :thread="thread"
-              size="small"
-              position="top"
-            ></vote-emoji-list>
-            <div class="social-share-btn">
-              <fb-share :thread="thread"></fb-share>
-              <twitter-share :thread="thread"></twitter-share>
-            </div>
-            <div
-              class="thread-show-tools d-flex flex-wrap justify-content-between align-items-center"
-            >
-              <up-votes :thread="thread" size="small"></up-votes>
-              <down-votes :thread="thread" size="small"></down-votes>
-              <go-to-comment :thread="thread" size="small"></go-to-comment>
-              <favorite-thread :thread="thread" size="small"></favorite-thread>
-              <vote-emojis
-                :thread="thread"
-                size="small"
-                position="top"
-              ></vote-emojis>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -256,7 +199,8 @@ export default {
     },
 
     stripImageDescription() {
-      if(this.thread.image_description) {
+      // return this.thread.image_description.replace(/(<([^>]+)>)/gi, '');
+       if(this.thread.image_description) {
         return this.thread.image_description.replace(/(<([^>]+)>)/gi, '');
       }
 

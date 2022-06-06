@@ -4,11 +4,20 @@
       <div class="col-md-8">
         <div></div>
         <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true"></safe-search>
-        <SingleThread
-          v-for="thread in threads"
-          :key="thread.id"
-          :thread="thread"
-        ></SingleThread>
+        <template v-if="$route.query.show && $route.query.show == 'all' ">
+            <ThreadSimple
+            v-for="thread in threads"
+            :key="thread.id"
+            :thread="thread" />
+        </template>
+
+        <template v-else>
+          <SingleThread
+            v-for="thread in threads"
+            :key="thread.id"
+            :thread="thread"
+          ></SingleThread>
+        </template>
         <Pagination
           :pagination="pageinateData"
           routeName="threads.closest"

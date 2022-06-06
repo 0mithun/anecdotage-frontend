@@ -1,5 +1,6 @@
 import { mapGetters } from 'vuex';
 import SingleThread from '@/components/threads/SingeThread';
+import ThreadSimple from '@/components/threads/ThreadSimple';
 import Sidebar from '@/layouts/partials/Sidebar';
 import Pagination from '@/components/Pagination';
 import TotalCounts from '@/components/threads/TotalCounts'
@@ -11,7 +12,10 @@ export default{
     Sidebar,
     Pagination,
     TotalCounts,
-    SafeSearch
+    SafeSearch,
+    ThreadSimple
+     // SingleThread: () => import('@/components/threads/SingeThread.vue'),
+    // ThreadSimple: () => import('@/components/threads/ThreadSimple'),
   },
 
   head() {

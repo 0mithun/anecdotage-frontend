@@ -7,7 +7,20 @@
         <SingleThread
           v-for="thread in threads"
           :key="thread.id"
-          :thread="thread"
+          :thread="thread"<template v-if="$route.query.show && $route.query.show == 'all' ">
+            <ThreadSimple
+            v-for="thread in threads"
+            :key="thread.id"
+            :thread="thread" />
+        </template>
+
+        <template v-else>
+          <SingleThread
+            v-for="thread in threads"
+            :key="thread.id"
+            :thread="thread"
+          ></SingleThread>
+        </template>
         ></SingleThread>
         <Pagination
           :pagination="pageinateData"

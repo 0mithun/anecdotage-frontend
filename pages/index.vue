@@ -14,11 +14,20 @@
           <!-- <div id="ezoic-pub-ad-placeholder-105"> </div> -->
           <!-- End Ezoic - mid_content - mid_content -->
         </div>
-        <SingleThread
-          v-for="thread in threads"
-          :key="thread.id"
-          :thread="thread"
-        ></SingleThread>
+        <template v-if="$route.query.show && $route.query.show == 'all' ">
+            <ThreadSimple
+            v-for="thread in threads"
+            :key="thread.id"
+            :thread="thread" />
+        </template>
+
+        <template v-else>
+          <SingleThread
+            v-for="thread in threads"
+            :key="thread.id"
+            :thread="thread"
+          ></SingleThread>
+        </template>
 
         <!-- <Pagination
           :pagination="pageinateData"
