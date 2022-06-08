@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-8">
         <div></div>
-        <!-- <FilterSearch routeName="search" /> -->
+        <FilterSearch routeName="search" />
         <div></div>
         <template v-if="loading">
           <div class="loading-box">
@@ -15,10 +15,9 @@
           <template v-if="threadsCount > 0">
             <template v-if="$route.query.show && $route.query.show == 'all' ">
             <ThreadSimple
-              v-for="thread in threads"
-              :key="thread.id"
-              :thread="thread"
-            />
+            v-for="thread in threads"
+            :key="thread.id"
+            :thread="thread" />
         </template>
 
         <template v-else>
@@ -54,7 +53,6 @@ import Pagination from '@/components/Pagination';
 import FilterSearch from '@/components/search/FilterSearch';
 import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
-import ThreadSimple from '@/components/threads/ThreadSimple'
 
 export default {
   mixins: [scrollToTop],
@@ -68,7 +66,6 @@ export default {
     Sidebar,
     Pagination,
     FilterSearch,
-    ThreadSimple
   },
   head() {
     return {
@@ -89,24 +86,18 @@ export default {
   created() {
     if (this.$route.query.q) {
       this.q = this.$route.query.q;
-      // if(this.$route.query.hasOwnProperty('show') && this.$route.query.show == 'all'){
-      //   this.$router.push({query: {...this.$route.query, show: 'all'}})
-      // }
     }
   },
   watchQuery: true,
 
-  async fetch({ params, query, app, $axios, store, redirect, route }) {
+  async fetch({ params, query, app, $axios, store, redirect }) {
     if (!query.q && (query.q != '' || query.q != null)) {
       redirect('/');
     }
-    console.log('$route', route)
 
     const q = await Object.keys(query)
       .map((k) => `${k}=${query[k]}`)
       .join('&');
-
-    console.log('q', q);
 
     try {
       store.commit('search/SET_LOADING', true);
@@ -121,7 +112,6 @@ export default {
       if (queryString.hasOwnProperty('page')) {
         delete queryString.page;
       }
-      console.log('queryString', queryString)
       store.commit('pagination/SET_QUERY_STRING', queryString);
 
       store.commit('search/SET_LOADING', false);
