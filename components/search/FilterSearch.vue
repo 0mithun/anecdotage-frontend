@@ -372,6 +372,11 @@ export default {
   mounted() {
     //most_relevant
     // $nuxt.$route.name
+    if(this.$route.query.hasOwnProperty('show') && this.$route.query.show == 'all' ){
+      this.queryString['show'] = 'all';
+    }
+
+
     if(this.$route.name === 'search'){
       this.sort_by = 'most_relevant'
     }

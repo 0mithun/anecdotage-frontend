@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-8">
         <div></div>
-        <!-- <FilterSearch routeName="search" /> -->
+        <FilterSearch routeName="search" />
         <div></div>
         <template v-if="loading">
           <div class="loading-box">
