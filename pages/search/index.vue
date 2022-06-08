@@ -89,17 +89,14 @@ export default {
   created() {
     if (this.$route.query.q) {
       this.q = this.$route.query.q;
-        console.log( 'created', this.$route.query)
-
-        let queryString = this.$route.query;
-
-        this.$store.commit('pagination/SET_QUERY_STRING', queryString);
+      if(this.$route.query.hasOwnProperty('show') && this.$route.query.show == 'all'){
+        this.$router.push({query: {show: 'all'}})
+      }
     }
   },
   watchQuery: true,
 
   async fetch({ params, query, app, $axios, store, redirect }) {
-    console.log('fetch', query)
     if (!query.q && (query.q != '' || query.q != null)) {
       redirect('/');
     }
