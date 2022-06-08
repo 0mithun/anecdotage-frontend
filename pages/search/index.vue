@@ -89,9 +89,9 @@ export default {
   created() {
     if (this.$route.query.q) {
       this.q = this.$route.query.q;
-      if(this.$route.query.hasOwnProperty('show') && this.$route.query.show == 'all'){
-        this.$router.push({query: {...this.$route.query, show: 'all'}})
-      }
+      // if(this.$route.query.hasOwnProperty('show') && this.$route.query.show == 'all'){
+      //   this.$router.push({query: {...this.$route.query, show: 'all'}})
+      // }
     }
   },
   watchQuery: true,
