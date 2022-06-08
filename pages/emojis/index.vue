@@ -90,7 +90,7 @@ export default {
   },
   watchQuery: true,
 
-  async fetch({ params, query, app, $axios, store }) {
+  async fetch({ params, query, app, $axios, store, error }) {
     const q = await Object.keys(query)
       .map((k) => `${k}=${query[k]}`)
       .join('&');
@@ -113,7 +113,7 @@ export default {
       store.commit('pagination/SET_QUERY_STRING', queryString);
 
       store.commit('emoji/SET_LOADING', false);
-    } catch (e) {
+    } catch (err) {
       if (err.response.status === 404) {
         // error({ statusCode: 404, message: 'Tag Not Found' });
         redirect('/');

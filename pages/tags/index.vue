@@ -76,6 +76,7 @@
           </div>
         </div>
         <div></div>
+
         <template v-if="$route.query.show && $route.query.show == 'all' ">
             <ThreadSimple
             v-for="thread in threads"
@@ -119,6 +120,7 @@ import StrPlural from '@/mixins/strPlural'
 import formatCount from '@/mixins/formatCount'
 import userStatus from '@/mixins/userStatus'
 import SafeSearch from '@/components/SafeSearch.vue';
+import ThreadSimple from '@/components/threads/ThreadSimple.vue'
 export default {
   name: 'index',
   mixins:[scrollToTop, StrPlural, formatCount, userStatus],
@@ -129,6 +131,7 @@ export default {
     FollowingCounts,
     Pagination,
     SafeSearch,
+    ThreadSimple
   },
   data() {
     return {
