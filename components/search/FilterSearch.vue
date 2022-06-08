@@ -361,9 +361,11 @@ export default {
     },
     threadsCount() {
       return this.$store.getters[`${this.routeName}/threadsCount`];
+      return 0
     },
     totalThreadsCount() {
       return this.$store.getters[`${this.routeName}/totalThreadsCount`];
+      return 0
     },
     showMostRelavent(){
       return this.$route.name === 'search';
@@ -372,11 +374,6 @@ export default {
   mounted() {
     //most_relevant
     // $nuxt.$route.name
-    if(this.$route.query.hasOwnProperty('show') && this.$route.query.show == 'all' ){
-      this.queryString['show'] = 'all';
-    }
-
-
     if(this.$route.name === 'search'){
       this.sort_by = 'most_relevant'
     }
@@ -411,6 +408,7 @@ export default {
       // this.paginate(this.perPage, this.page);
     },
     filterThreads() {
+      console.log(this.$route.query)
       this.queryString = {};
       // if (this.filter_rated.length > 0) {
       //   // data = this.filterByRated(this.filter_rated, data);
@@ -447,6 +445,12 @@ export default {
       }
 
       this.queryString.sort_by = this.sort_by;
+      if(this.$route.query.show){
+        this.queryString.show = 'all'
+      }
+      if(this.$route.query.per_page){
+        this.queryString.per_page = this.$route.query.per_page
+      }
 
       this.$store.commit('pagination/SET_QUERY_STRING', this.queryString);
       this.$router.push({
