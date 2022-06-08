@@ -25,20 +25,21 @@
         </template>
         <template v-else>
           <template v-if="threadsCount > 0">
-            <template v-if="$route.query.show && $route.query.show == 'all' ">
-            <ThreadSimple
-            v-for="thread in threads"
-            :key="thread.id"
-            :thread="thread" />
-        </template>
 
-        <template v-else>
-          <SingleThread
-            v-for="thread in threads"
-            :key="thread.id"
-            :thread="thread"
-          ></SingleThread>
-        </template>
+            <template v-if="$route.query.show && $route.query.show == 'all' ">
+                <ThreadSimple
+                v-for="thread in threads"
+                :key="thread.id"
+                :thread="thread" />
+            </template>
+
+            <template v-else>
+              <SingleThread
+                v-for="thread in threads"
+                :key="thread.id"
+                :thread="thread"
+              ></SingleThread>
+            </template>
             <Pagination
               :pagination="pageinateData"
               routeName="emojis"
@@ -63,6 +64,7 @@ import Sidebar from '@/layouts/partials/Sidebar';
 import Pagination from '@/components/Pagination';
 import FilterSearch from '@/components/search/FilterSearch';
 import scrollToTop from '@/mixins/scrollToTop'
+import ThreadSimple from '@/components/threads/ThreadSimple';
 import { mapGetters } from 'vuex';
 export default {
   name: 'index',
@@ -72,6 +74,7 @@ export default {
     Sidebar,
     Pagination,
     FilterSearch,
+    ThreadSimple
   },
   head() {
     return {

@@ -99,6 +99,8 @@ export default {
       .map((k) => `${k}=${query[k]}`)
       .join('&');
 
+    console.log('q', q);
+
     try {
       store.commit('search/SET_LOADING', true);
       const searchResponse = await $axios.$get(`search?${q}`);
@@ -112,6 +114,7 @@ export default {
       if (queryString.hasOwnProperty('page')) {
         delete queryString.page;
       }
+      console.log('queryString', queryString)
       store.commit('pagination/SET_QUERY_STRING', queryString);
 
       store.commit('search/SET_LOADING', false);
