@@ -89,7 +89,11 @@ export default {
   created() {
     if (this.$route.query.q) {
       this.q = this.$route.query.q;
-      console.log( 'created', this.$route.query)
+        console.log( 'created', this.$route.query)
+
+        let queryString = this.$route.query;
+
+        store.commit('pagination/SET_QUERY_STRING', queryString);
     }
   },
   watchQuery: true,
