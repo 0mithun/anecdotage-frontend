@@ -15,9 +15,10 @@
           <template v-if="threadsCount > 0">
             <template v-if="$route.query.show && $route.query.show == 'all' ">
             <ThreadSimple
-            v-for="thread in threads"
-            :key="thread.id"
-            :thread="thread" />
+              v-for="thread in threads"
+              :key="thread.id"
+              :thread="thread"
+            />
         </template>
 
         <template v-else>
@@ -53,6 +54,7 @@ import Pagination from '@/components/Pagination';
 import FilterSearch from '@/components/search/FilterSearch';
 import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
+import ThreadSimple from '@/components/threads/ThreadSimple'
 
 export default {
   mixins: [scrollToTop],
@@ -66,6 +68,7 @@ export default {
     Sidebar,
     Pagination,
     FilterSearch,
+    ThreadSimple
   },
   head() {
     return {
@@ -86,11 +89,13 @@ export default {
   created() {
     if (this.$route.query.q) {
       this.q = this.$route.query.q;
+      console.log( 'created', this.$route.query)
     }
   },
   watchQuery: true,
 
   async fetch({ params, query, app, $axios, store, redirect }) {
+    console.log('fetch', query)
     if (!query.q && (query.q != '' || query.q != null)) {
       redirect('/');
     }
