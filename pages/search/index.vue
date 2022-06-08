@@ -93,7 +93,7 @@ export default {
 
         let queryString = this.$route.query;
 
-        store.commit('pagination/SET_QUERY_STRING', queryString);
+        this.$store.commit('pagination/SET_QUERY_STRING', queryString);
     }
   },
   watchQuery: true,
