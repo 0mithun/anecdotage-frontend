@@ -53,6 +53,7 @@ import Pagination from '@/components/Pagination';
 import FilterSearch from '@/components/search/FilterSearch';
 import { mapGetters } from 'vuex';
 import scrollToTop from '@/mixins/scrollToTop'
+import ThreadSimple from '@/components/threads/ThreadSimple'
 
 export default {
   mixins: [scrollToTop],
@@ -66,6 +67,7 @@ export default {
     Sidebar,
     Pagination,
     FilterSearch,
+    ThreadSimple
   },
   head() {
     return {
