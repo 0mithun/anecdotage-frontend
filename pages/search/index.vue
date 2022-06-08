@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-8">
         <div></div>
-        <FilterSearch routeName="search" />
+        <!-- <FilterSearch routeName="search" /> -->
         <div></div>
         <template v-if="loading">
           <div class="loading-box">
@@ -96,11 +96,11 @@ export default {
   },
   watchQuery: true,
 
-  async fetch({ params, query, app, $axios, store, redirect, $route }) {
+  async fetch({ params, query, app, $axios, store, redirect, route }) {
     if (!query.q && (query.q != '' || query.q != null)) {
       redirect('/');
     }
-    console.log('$route', $route)
+    console.log('$route', route)
 
     const q = await Object.keys(query)
       .map((k) => `${k}=${query[k]}`)
