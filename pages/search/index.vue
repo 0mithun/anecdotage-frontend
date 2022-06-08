@@ -90,16 +90,17 @@ export default {
     if (this.$route.query.q) {
       this.q = this.$route.query.q;
       if(this.$route.query.hasOwnProperty('show') && this.$route.query.show == 'all'){
-        this.$router.push({query: {show: 'all'}})
+        this.$router.push({query: {...this.$route.query, show: 'all'}})
       }
     }
   },
   watchQuery: true,
 
-  async fetch({ params, query, app, $axios, store, redirect }) {
+  async fetch({ params, query, app, $axios, store, redirect, $route }) {
     if (!query.q && (query.q != '' || query.q != null)) {
       redirect('/');
     }
+    console.log('$route', $route)
 
     const q = await Object.keys(query)
       .map((k) => `${k}=${query[k]}`)
