@@ -14,24 +14,24 @@
         <template v-else>
           <template v-if="threadsCount > 0">
             <template v-if="$route.query.show && $route.query.show == 'all' ">
-            <ThreadSimple
-            v-for="thread in threads"
-            :key="thread.id"
-            :thread="thread" />
-        </template>
+              <ThreadSimple
+              v-for="thread in threads"
+              :key="thread.id"
+              :thread="thread" />
+            </template>
 
-        <template v-else>
-          <SingleThread
-            v-for="thread in threads"
-            :key="thread.id"
-            :thread="thread"
-          ></SingleThread>
-        </template>
-            <Pagination
-              :pagination="pageinateData"
-              routeName="search"
-              :param="{ key: '', value: '' }"
-            />
+            <template v-else>
+              <SingleThread
+                v-for="thread in threads"
+                :key="thread.id"
+                :thread="thread"
+              ></SingleThread>
+              <Pagination
+                :pagination="pageinateData"
+                routeName="search"
+                :param="{ key: '', value: '' }"
+              />
+            </template>
           </template>
           <template v-else>
             <div class="alert alert-danger">No Results Found</div>

@@ -17,13 +17,13 @@
             :key="thread.id"
             :thread="thread"
           ></SingleThread>
+          <Pagination
+            :pagination="pageinateData"
+            routeName="threads.trending"
+            :param="{ key: '', value: '' }"
+          />
         </template>
 
-        <Pagination
-          :pagination="pageinateData"
-          routeName="threads.trending"
-          :param="{ key: '', value: '' }"
-        />
       </div>
       <div class="col-md-4">
         <div></div>

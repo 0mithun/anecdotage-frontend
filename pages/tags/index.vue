@@ -90,12 +90,12 @@
             :key="thread.id"
             :thread="thread"
           ></SingleThread>
+          <Pagination
+            :pagination="pageinateData"
+            routeName="tags"
+            :param="{ key: 'slug', value: this.tag.slug }"
+          />
         </template>
-        <Pagination
-          :pagination="pageinateData"
-          routeName="tags"
-          :param="{ key: 'slug', value: this.tag.slug }"
-        />
       </div>
       <div class="col-md-4">
         <div></div>

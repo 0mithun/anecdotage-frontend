@@ -6,13 +6,13 @@
       <!-- End Ezoic - TEST - top_of_page -->
     </div>
     <div class="card-body">
-      <div class="row">
+      <!-- <div class="row">
         <div></div>
         <div class="col-md-12 tags">
           <AdminButtons :thread="thread" />
         </div>
         <div></div>
-      </div>
+      </div> -->
       <div class="row thread-title-row">
         <div class="col-md-12">
           <nuxt-link
@@ -59,7 +59,7 @@
               <!-- <div class="thread-body" v-html="$options.filters.highlightText(thread.excerpt, queries)">
               </div> -->
 
-              <div class="thread-body" v-html="thread.excerpt">
+              <div class="thread-body" v-html="thread.body">
               </div>
         </div>
       </div>

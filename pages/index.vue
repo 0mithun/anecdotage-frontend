@@ -27,6 +27,11 @@
             :key="thread.id"
             :thread="thread"
           ></SingleThread>
+           <Pagination
+          :pagination="pageinateData"
+          routeName="threads.rated"
+          :param="{ key: '', value: '' }"
+        />
         </template>
 
         <!-- <Pagination
@@ -34,11 +39,7 @@
           routeName="index"
           :param="{ key: '', value: '' }"
         /> -->
-        <Pagination
-          :pagination="pageinateData"
-          routeName="threads.rated"
-          :param="{ key: '', value: '' }"
-        />
+
         <!-- Ezoic - bottom_of_page - bottom_of_page -->
           <div id="ezoic-pub-ad-placeholder-120"> </div>
           <!-- End Ezoic - bottom_of_page - bottom_of_page -->

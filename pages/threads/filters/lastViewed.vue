@@ -17,12 +17,12 @@
             :key="thread.id"
             :thread="thread"
           ></SingleThread>
-        </template>
         <Pagination
           :pagination="pageinateData"
           routeName="threads.last.viewed"
           :param="{ key: '', value: '' }"
         />
+        </template>
       </div>
       <div class="col-md-4">
         <div></div>

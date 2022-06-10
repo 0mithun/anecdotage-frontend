@@ -39,12 +39,12 @@
                 :key="thread.id"
                 :thread="thread"
               ></SingleThread>
+              <Pagination
+                :pagination="pageinateData"
+                routeName="emojis"
+                :param="{ key: 'emoji', value: emoji.name }"
+              />
             </template>
-            <Pagination
-              :pagination="pageinateData"
-              routeName="emojis"
-              :param="{ key: 'emoji', value: emoji.name }"
-            />
           </template>
           <template v-else>
             <div class="alert alert-danger">No Results Found</div>

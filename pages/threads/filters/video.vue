@@ -4,10 +4,7 @@
       <div class="col-md-8">
         <div></div>
         <safe-search :postCounts="pageinateData.total" :totalThreadsCount="totalThreadsCount" :card="true"></safe-search>
-        <SingleThread
-          v-for="thread in threads"
-          :key="thread.id"
-          :thread="thread"<template v-if="$route.query.show && $route.query.show == 'all' ">
+        <template v-if="$route.query.show && $route.query.show == 'all' ">
             <ThreadSimple
             v-for="thread in threads"
             :key="thread.id"
@@ -20,13 +17,12 @@
             :key="thread.id"
             :thread="thread"
           ></SingleThread>
-        </template>
-        ></SingleThread>
-        <Pagination
+         <Pagination
           :pagination="pageinateData"
           routeName="threads.video"
           :param="{ key: '', value: '' }"
         />
+        </template>
       </div>
       <div class="col-md-4">
       <div></div>
