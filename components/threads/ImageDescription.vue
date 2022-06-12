@@ -13,7 +13,7 @@
         <div class="image_description">
           <p style="margin-bottom:0 !important">
             <span v-html="showThreadImageDescriptionLimit"></span>
-            <span class="btn-link" @click.prevent="showFullImageDescription = true" v-if="!showFullImageDescription">...(more)</span>
+            <span class="btn-link" @click.prevent="showFullImageDescription = true" v-if="!showFullImageDescription && !full ">...(more)</span>
           </p>
         </div>
       </template>
@@ -34,6 +34,10 @@
       thread: {
         type: Object,
         required: true
+      },
+      full: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -57,6 +61,8 @@
         return splitDescription.length;
       },
       showThreadImageDescriptionLimit() {
+        if(this.full) return this.thread.image_description;
+
         return this.thread.image_description
           .split(/\s/)
           .splice(0, this.imageDescriptionLengthLimit)

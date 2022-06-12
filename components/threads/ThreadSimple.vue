@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="row image-description-row">
-         <image-description :thread="thread"></image-description>
+         <image-description :thread="thread" :full="true"></image-description>
       </div>
       <div class="row thread-body-row">
         <div class="col-md-12">
