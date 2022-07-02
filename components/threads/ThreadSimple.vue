@@ -59,7 +59,7 @@
               <!-- <div class="thread-body" v-html="$options.filters.highlightText(thread.excerpt, queries)">
               </div> -->
 
-              <div class="thread-body" v-html="thread.body">
+              <div class="thread-body" v-html="thread.stripe_body">
               </div>
         </div>
       </div>
