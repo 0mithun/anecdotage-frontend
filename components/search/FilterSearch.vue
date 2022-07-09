@@ -451,6 +451,9 @@ export default {
       if(this.$route.query.per_page){
         this.queryString.per_page = this.$route.query.per_page
       }
+      if(this.$route.query.page){
+        this.queryString.page = this.$route.query.page
+      }
 
       this.$store.commit('pagination/SET_QUERY_STRING', this.queryString);
       this.$router.push({
