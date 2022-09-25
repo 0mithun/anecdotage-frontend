@@ -19,6 +19,9 @@
                   :src="pix.image_url"
               />
             </div>
+            <div class="image_description">
+              {{ pix.description}}
+            </div>
           </div>
         </div>
         <Pagination
@@ -70,5 +73,19 @@ export default {
 .thread-thumbnail {
   display: flex;
   justify-content: center;
+}
+
+.image_description {
+    text-align: center;
+    width: 100%;
+    padding: 5px;
+    display: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    flex-wrap: wrap;
+}
+<style>
+.image_description {
+    font-size: 14px;
 }
 </style>
