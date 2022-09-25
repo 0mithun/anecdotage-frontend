@@ -220,6 +220,16 @@ const routes = [
     name: 'threads.thumbnail',
     component: page('threads/thumbnail.vue')
   },
+  {
+    path: '/books/mexico/pix',
+    name: 'pix.index',
+    component: page('pix/index.vue')
+  },
+  {
+    path: '/books/mexico/pix/upload',
+    name: 'pix.upload',
+    component: page('pix/upload.vue')
+  },
 
   {
     path: '/admin',
