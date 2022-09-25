@@ -84,7 +84,6 @@ export default {
     align-items: inherit;
     flex-wrap: wrap;
 }
-<style>
 .image_description {
     font-size: 14px;
 }
