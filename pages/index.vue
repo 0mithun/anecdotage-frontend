@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <div>
+        <div v-if="!isAdmin">
 
           <!-- Ezoic - TEST - top_of_page -->
           <div id="ezoic-pub-ad-placeholder-125"> </div>
@@ -41,7 +41,7 @@
         /> -->
 
         <!-- Ezoic - bottom_of_page - bottom_of_page -->
-          <div id="ezoic-pub-ad-placeholder-120"> </div>
+          <div id="ezoic-pub-ad-placeholder-120" v-if="!isAdmin"> </div>
           <!-- End Ezoic - bottom_of_page - bottom_of_page -->
       </div>
       <div class="col-md-4">

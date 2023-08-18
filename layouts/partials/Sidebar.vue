@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top-add">
+    <div class="top-add" v-if="!isAdmin">
             <!-- Ezoic - sidebar - sidebar -->
       <div id="ezoic-pub-ad-placeholder-109"> </div>
       <!-- End Ezoic - sidebar - sidebar -->
@@ -12,7 +12,7 @@
       </div>
     </div>
       <!-- Ezoic - sidebar_middle - sidebar_middle -->
-      <div id="ezoic-pub-ad-placeholder-114"> </div>
+      <div id="ezoic-pub-ad-placeholder-114" v-if="!isAdmin"> </div>
       <!-- End Ezoic - sidebar_middle - sidebar_middle -->
       <SingleTrendingThread
         :thread="sticky"
@@ -25,7 +25,7 @@
         :sticky="false"
       />
       <!-- Ezoic - sidebar_bottom - sidebar_bottom -->
-      <div id="ezoic-pub-ad-placeholder-113"> </div>
+      <div id="ezoic-pub-ad-placeholder-113" v-if="!isAdmin"> </div>
       <!-- End Ezoic - sidebar_bottom - sidebar_bottom -->
   </div>
 </template>
