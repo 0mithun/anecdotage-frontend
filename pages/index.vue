@@ -56,9 +56,10 @@
 import scrollToTop from '@/mixins/scrollToTop'
 import getSettings from '@/mixins/getSettings'
 import threadLists from '@/mixins/threadLists'
+import userStatus from '@/mixins/userStatus'
 export default {
   name: 'index',
-  mixins: [scrollToTop,getSettings, threadLists],
+  mixins: [scrollToTop,getSettings, threadLists, userStatus],
 
   watchQuery: true,
 

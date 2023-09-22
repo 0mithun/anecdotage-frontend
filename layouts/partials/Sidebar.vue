@@ -33,12 +33,14 @@
 <script>
   import SingleTrendingThread from '@/components/threads/SingleTrendingThread'
   import SocialLink from '~/components/social/SocialLink';
+  import userStatus from '@/mixins/userStatus'
   export default {
     name:'sidebar',
     components:{
       SocialLink,
       SingleTrendingThread
     },
+    mixins: [userStatus],
     computed:{
       trendings(){
         return this.$store.state.trendings;
