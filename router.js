@@ -232,7 +232,7 @@ const routes = [
   },
 
   {
-    path: '/bookbuilder',
+    path: '/bookbuilder/:term',
     name: 'bookbuilder.index',
     component: page('bookbuilder/index.vue')
   },

@@ -12,11 +12,11 @@
           <div class="card-body">
             <div class="row mb-3">
               <div class="col-md-6">
-                <button class="btn btn-danger">Reset</button>
+                <button class="btn btn-danger" @click.prevent="reset">RESET</button>
               </div>
               <div class="col-md-6 d-flex justify-content-end">
-                <button class="btn btn-primary ml-auto"  @click.prevent="skip">Skip</button>
-                <button class="btn btn-success ml-auto">Add</button>
+                <button class="btn btn-primary ml-auto"  @click.prevent="skip" v-if="pageinateData.next_page_url">SKIP</button>
+                <button class="btn btn-success ml-auto" @click.prevent="add">ADD</button>
               </div>
             </div>
             <div class="row">
@@ -62,7 +62,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
                   <label for="source" class="control-label">Source</label>
                   <input
@@ -84,8 +84,9 @@
             </div>
           </div>
         </div>
-        <div  class="mt-3">
-          <button class="btn btn-success ml-auto" @click.prevent="update">Update</button>
+        <div  class="mt-3 d-flex justify-content-between">
+          <button class="btn btn-success" @click.prevent="update">SAVE</button>
+          <button class="btn btn-primary ml-auto" @click.prevent="getFile">GETFILE</button>
         </div>
       </div>
     </div>
@@ -94,7 +95,7 @@
 
 <script>
 import Pagination from '@/components/Pagination';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import VueCkeditor from 'vue-ckeditor2';
 import BaseButton from '@/components/form/buttons/BaseButton'
 import BaseInput from '@/components/form/inputs/BaseInput'
@@ -149,34 +150,11 @@ export default {
       }),
     };
   },
-  async fetch({ params, query, app, $axios, store, redirect }) {
-
-    if (!query.q && (query.q != '' || query.q != null)) {
-      redirect('/');
-    }
-
-
-    const q = await Object.keys(query)
-    .map((k) => `${k}=${query[k]}`)
-    .join('&');
+  async fetch({ params, query, app, $axios, store, redirect, }) {
     try {
-      store.commit('bookbuilder/SET_LOADING', true);
 
-
-      const response = await $axios.$get(`admin/bookbuilder?${q}`);
-
-      store.commit('bookbuilder/setThreads', response.threads.data);
-      store.commit('bookbuilder/setPageinateData', response.threads.meta);
-
-
-      let queryString = query;
-      if (queryString.hasOwnProperty('page')) {
-        delete queryString.page;
-      }
-      store.commit('pagination/SET_QUERY_STRING', queryString);
-
-      store.commit('bookbuilder/SET_LOADING', false);
-
+      const term = params.term
+      await store.dispatch('bookbuilder/getThreads', {term, query})
 
     } catch (e) {
       console.log(e);
@@ -186,26 +164,85 @@ export default {
     this.form.title = this.thread.title
     this.form.body = this.thread.body
     this.form.source = this.thread.source
+
    },
 
   methods: {
-    skip() {
+    ...mapActions({}),
+    setFormData(){
+      this.form.title = this.thread.title
+      this.form.body = this.thread.body
+      this.form.source = this.thread.source
+    },
+    async skip() {
+      if(!this.pageinateData.next_page_url) return
       const page = this.pageinateData.current_page + 1;
+      const term = this.$route.params.term
 
-      this.$router.push({
-        name: this.$route.name,
-        // params: params,
-        query: { ...this.$route.query, page: page},
-      });
+
+      await this.$store.dispatch('bookbuilder/getThreads', {term: term,  query: { ...this.$route.query, page: page},})
+      this.setFormData()
     },
     update(){
       this.$axios
         .$put(`admin/bookbuilder/${this.thread.slug}`, this.form)
         .then((res) => {
           console.log(res)
-          // this.show_share_modal= true;
-          // this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
         });
+    },
+    add(){
+      const term = this.$route.params.term
+      this.$axios
+        .$post(`admin/bookbuilder/${this.thread.slug}`, {
+          term: term
+        })
+        .then((res) => {
+            this.skip()
+        });
+    },
+    async reset(){
+      try {
+        const term = this.$route.params.term
+        await this.$axios
+          .$delete(`admin/bookbuilder/${term}/reset`, {
+            term: term,
+          })
+
+        await this.$store.dispatch('bookbuilder/getThreads', {term: term,  query: { ...this.$route.query, page: 1},})
+        this.setFormData()
+
+        this.$toast.open({
+            type: 'success',
+            position: 'top-right',
+            message: 'Bookbuilder reset Successfully',
+          });
+      } catch (error) {
+
+      }
+    },
+    async getFile() {
+      try {
+        const term = this.$route.params.term
+        const response = await this.$axios({
+              url: `admin/bookbuilder/${term}/get-file`,
+              method: 'GET',
+              responseType: 'blob', // important
+          })
+
+          let fileName = term + '.txt'
+
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', fileName); //or any other extension
+          document.body.appendChild(link);
+          link.click();
+
+      } catch (error) {
+
+      }
+
+
     }
   }
 };

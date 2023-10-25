@@ -45,6 +45,35 @@ export const mutations = {
   },
 }
 
+// export const actions = {
+
+// }
+
+
+
+
 export const actions = {
+  async getThreads({commit}, {term, query}){
+    try{
+      query.q = term
+
+      const q = await Object.keys(query)
+      .map((k) => `${k}=${query[k]}`)
+      .join('&');
+
+      const response = await this.$axios.$get(`admin/bookbuilder?${q}`);
+
+      commit('setThreads', response.threads.data);
+      commit('setPageinateData', response.threads.meta);
+
+      commit('SET_LOADING', false);
+    }catch(e){
+      console.log(e)
+    }
+  },
+
 
 }
+
+
+
