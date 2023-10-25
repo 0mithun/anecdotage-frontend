@@ -232,6 +232,12 @@ const routes = [
   },
 
   {
+    path: '/bookbuilder/:term',
+    name: 'bookbuilder.index',
+    component: page('bookbuilder/index.vue')
+  },
+
+  {
     path: '/admin',
     name: 'admin.show',
     redirect: { name: 'admin.show.settings' },

@@ -59,6 +59,8 @@ export default {
     try {
       const pixResponse = await $axios.$get(`pix/?${q}`);
 
+      console.log(pixResponse)
+
       store.commit('pix/setPixes', pixResponse.data);
       store.commit('pix/setPageinateData', pixResponse.meta);
     } catch (e) {
