@@ -8,37 +8,85 @@
               <img src="~assets/images/loading.gif" alt="" />
             </div>
           </template>
-        <div class="card card-m-5" v-for="thread in threads" :key="thread.id">
+        <div class="card card-m-5">
           <div class="card-body">
-            <div
-              class="thread-thumbnail"
-              style="background: rgb(31, 50, 90); cursor: pointer"
-            >
-              <img
-                  title=""
-                  alt="Al Franken &nbsp;(1951–)&nbsp;&nbsp;&nbsp;&nbsp; Alternative names Alan Stuart Franken Description American politician, comedian and writer Date of birth 21 May 1951&nbsp; Location of birth Manhattan Work period 1973-present Work location United States Authority control : Q319084 VIAF: 86425630 ISNI: 0000 0001 1681 9289 LCCN: no93004145 NLA: 40034595 MusicBrainz: b0a3dda1-2cc0-404e-a26d-cdb3f302eb41 WorldCat creator QS:P170,Q319084 Senator from Minnesota. Credit: Jeff McEvoy, United States Senate Photographer (Public domain)"
-                  heigh="240"
-                  width="auto"
-                  class="thread-image thread_thumb_image lazyLoad isLoading"
-                  style="width: auto; height: 240px"
-                  :src="thread.image_url"
-              />
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <button class="btn btn-danger">Reset</button>
+              </div>
+              <div class="col-md-6 d-flex justify-content-end">
+                <button class="btn btn-primary ml-auto"  @click.prevent="skip">Skip</button>
+                <button class="btn btn-success ml-auto">Add</button>
+              </div>
             </div>
-            <div class="image_description">
-              {{ thread.description}}
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group" :class="{ 'has-error': errors.title }">
+                  <label for="title" class="control-label"
+                    >Title (required)</label
+                  >
+
+                  <BaseInput
+                    :form="form"
+                    field="title"
+                    id="title"
+                    v-model="form.title"
+                    placeholder="Enter Thread Title"
+                    inputType="text"
+                  ></BaseInput>
+                </div>
+
+              </div>
+
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div
+                  class="form-group thread-body"
+                  :class="{ 'is-invalid': form.errors.errors.body }"
+                >
+                  <label for="body" class="control-label"
+                    >Your Story (required)</label
+                  >
+                  <vue-ckeditor v-model="form.body" :config="config" />
+
+                  <p class="text-danger" v-if="form.errors.errors.body">
+                    {{ form.errors.errors.body[0] }}
+                  </p>
+                </div>
+                <div class="form-group">
+                  <has-error :form="form" field="body"></has-error>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="source" class="control-label">Source</label>
+                  <input
+                    type="text"
+                    name="source"
+                    id="source"
+                    class="form-control"
+                    v-model="form.source"
+                  />
+                  <span class="help-block">
+                    Where did you hear this story? If this story was reported on
+                    a website or other publication please list it here
+                    (&lt;i&gt; &lt;a&gt; tags are allowed).</span
+                  >
+                </div>
+              </div>
+
+
             </div>
           </div>
         </div>
-        <!-- <Pagination
-          :pagination="pageinateData"
-          routeName="bookbuilder.index"
-          :param="{ key: 'term', value: $route.params.term }"
-        /> -->
-        <Pagination
-          :pagination="pageinateData"
-          routeName="bookbuilder.index"
-          :param="{ key: '', value: '' }"
-        />
+        <div  class="mt-3">
+          <button class="btn btn-success ml-auto" @click.prevent="update">Update</button>
+        </div>
       </div>
     </div>
   </div>
@@ -47,12 +95,18 @@
 <script>
 import Pagination from '@/components/Pagination';
 import { mapGetters } from 'vuex';
+import VueCkeditor from 'vue-ckeditor2';
+import BaseButton from '@/components/form/buttons/BaseButton'
+import BaseInput from '@/components/form/inputs/BaseInput'
 
 export default {
   name: 'bookbuilder.index',
   watchQuery: true,
   components: {
     Pagination,
+    VueCkeditor,
+    BaseButton,
+    BaseInput,
   },
   computed: {
     ...mapGetters({
@@ -61,12 +115,45 @@ export default {
       threads: 'bookbuilder/threads',
       loading: 'bookbuilder/loading',
     }),
-  },
-  async fetch({ params, query, app, $axios, store }) {
 
-    // if (!query.q && (query.q != '' || query.q != null)) {
-    //   redirect('/');
-    // }
+    thread() {
+      if(this.threads.length) {
+        return this.threads[0]
+      }
+      return {}
+    }
+  },
+  data() {
+    return {
+      config: {
+        height: 300,
+        extraAllowedContent: 'iframe[*]',
+        contentsCss: [
+          'body {font-size: 22px;}',
+          'blockquote { display: block !important;}',
+          'blockquote { margin-block-start: 1em !important;}',
+          'blockquote { margin-block-end: 1em !important;}',
+          'blockquote { margin-inline-start: 40px !important;}',
+          'blockquote { margin-inline-end: 40px !important;}',
+          // 'blockquote { quotes: "“" "”" "‘" "’" !important;}',
+          // 'blockquote::before { content:  "“";}',
+          // 'blockquote::after { content:  "”";}',
+        ],
+        scayt_autoStartup: true
+      },
+      errors: [],
+      form: this.$vform({
+        title: '',
+        body: '',
+        source: '',
+      }),
+    };
+  },
+  async fetch({ params, query, app, $axios, store, redirect }) {
+
+    if (!query.q && (query.q != '' || query.q != null)) {
+      redirect('/');
+    }
 
 
     const q = await Object.keys(query)
@@ -82,21 +169,6 @@ export default {
       store.commit('bookbuilder/setPageinateData', response.threads.meta);
 
 
-      // store.commit('search/SET_LOADING', true);
-      // const searchResponse = await $axios.$get(`search?${q}`);
-
-      // store.commit('search/SET_TAGS', searchResponse.tags.data);
-      // store.commit('search/SET_THREADS', searchResponse.threads.data);
-      // store.commit('search/SET_PAGINATE_DATA', searchResponse.threads.meta);
-      // store.commit('search/setTotalThreadsCount', searchResponse.total_threads_count);
-
-      // let queryString = query;
-      // if (queryString.hasOwnProperty('page')) {
-      //   delete queryString.page;
-      // }
-      // store.commit('pagination/SET_QUERY_STRING', queryString);
-
-
       let queryString = query;
       if (queryString.hasOwnProperty('page')) {
         delete queryString.page;
@@ -110,6 +182,32 @@ export default {
       console.log(e);
     }
   },
+  mounted() {
+    this.form.title = this.thread.title
+    this.form.body = this.thread.body
+    this.form.source = this.thread.source
+   },
+
+  methods: {
+    skip() {
+      const page = this.pageinateData.current_page + 1;
+
+      this.$router.push({
+        name: this.$route.name,
+        // params: params,
+        query: { ...this.$route.query, page: page},
+      });
+    },
+    update(){
+      this.$axios
+        .$put(`admin/bookbuilder/${this.thread.slug}`, this.form)
+        .then((res) => {
+          console.log(res)
+          // this.show_share_modal= true;
+          // this.$router.push({name:'threads.show', params:{slug: this.thread.slug}});
+        });
+    }
+  }
 };
 </script>
 
